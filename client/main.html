@@ -1,25 +1,61 @@
-<head>
-  <title>academic</title>
-</head>
 
-<body>
-  <h1>Welcome to Meteor!</h1>
-
-  {{> hello}}
-  {{> info}}
-</body>
-
-<template name="hello">
-  <button>Click Me</button>
-  <p>You've pressed the button {{counter}} times.</p>
+<template name="login">
+  <div  class="login-title">
+  <h2>Login</h2>
+    <form class="login">
+        
+        <p> <input class="form-control" type="email" name="email" required placeholder="Email"> </p>
+        <p> <input class="form-control" type="password" name="password" required placeholder="Senha"> </p>
+        <p><button class="loginBtn loginBtn--google" type="submit">Entrar</button> </p>
+    </form>
+    </div>
 </template>
 
-<template name="info">
-  <h2>Learn Meteor!</h2>
-  <ul>
-    <li><a href="https://www.meteor.com/try" target="_blank">Do the Tutorial</a></li>
-    <li><a href="http://guide.meteor.com" target="_blank">Follow the Guide</a></li>
-    <li><a href="https://docs.meteor.com" target="_blank">Read the Docs</a></li>
-    <li><a href="https://forums.meteor.com" target="_blank">Discussions</a></li>
-  </ul>
+<template name="home">
+    <p>Bem-vindo ao sistema acadêmico!.</p>
+    {{#if currentUser}}
+        {{> uploadacademicrecord }}
+    {{/if}}
 </template>
+
+<template name="main">
+    <h1>CUVG - Acadêmico</h1>
+    {{> navigation}}
+    
+    {{> yield}}
+    
+    <div class="footer">
+      Copyright &copy; UFMT, CUVG, Projeto e Desenvolvimento de Software, 2017s1.
+    </div>
+</template>
+
+
+<template name="navigation">
+    <ul>
+      <li><a href="{{pathFor route='home'}}">Home</a></li>
+      {{#if currentUser}}
+          <li><a href="{{pathFor route='changepass'}}">Alterar senha</a></li>
+          <li><a href="#" class="logout">Logout</a></li>
+      {{else}}
+         <li><a href="{{pathFor route='login'}}">Login</a></li>
+      {{/if}}
+   
+</ul>
+</template>
+
+<template name="changepass">
+<div  class="login-title">
+  <h2>Alterar senha</h2>
+    <form class="login">
+        
+        <p> <input class="form-control" type="password" name="password" required placeholder="Nova Senha"> </p>
+        <p><button class="loginBtn loginBtn--google" type="submit">Entrar</button> </p>
+    </form>
+    </div>
+</template>
+
+
+<template name="loading">
+    <p>Loading...</p>
+</template>
+

@@ -1,1 +1,130 @@
 /* CSS declarations go here */
+body
+	{
+	
+	background-color: white;
+	color		: #444;
+	margin		: 0;
+	padding		: 0;
+	font-family	: sans-serif;
+	overflow	: scroll;  /* Avoids dancing menu */
+	overflow-x	: auto; /* IE: horizontal bar is sooo large */
+	}
+input.error{
+    background-color:rgb(255, 231, 231);
+}
+
+.login
+{
+    max-width: 330px;
+    padding: 15px;
+    margin: 0 auto;
+}
+.login .login-heading, .login .checkbox
+{
+    margin-bottom: 10px;
+}
+
+.login .form-control
+{
+    position: relative;
+    font-size: 16px;
+    height: auto;
+    padding: 10px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+.login .form-control:focus
+{
+    z-index: 2;
+}
+.login input[type="text"]
+{
+    margin-bottom: -1px;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+}
+.login input[type="password"]
+{
+    margin-bottom: 10px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+}
+.account-wall
+{
+    margin-top: 20px;
+    padding: 40px 0px 20px 0px;
+    background-color: #f7f7f7;
+    -moz-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+    -webkit-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+    box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+}
+.login-title
+{
+    color: #555;
+    font-size: 18px;
+    font-weight: 400;
+    display: block;
+}
+
+.loginBtn {
+  box-sizing: border-box;
+  position: relative;
+  /* width: 13em;  - apply for fixed size */
+  margin: 0.2em;
+  padding: 0 15px 0 15px;
+  border: none;
+  text-align: left;
+  line-height: 34px;
+  /*white-space: nowrap;*/
+  border-radius: 0.2em;
+  font-size: 16px;
+  color: #FFF;
+}
+.loginBtn:before {
+  content: "";
+  box-sizing: border-box;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 34px;
+  height: 100%;
+}
+.loginBtn:focus {
+  outline: none;
+}
+.loginBtn:active {
+  box-shadow: inset 0 0 0 32px rgba(0,0,0,0.1);
+}
+
+/* Google */
+.loginBtn--google {
+  /*font-family: "Roboto", Roboto, arial, sans-serif;*/
+  background: #DD4B39;
+}
+.loginBtn--google:before {
+  /*border-right: #BB3F30 1px solid;
+  background: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/14082/icon_google.png') 6px 6px no-repeat;
+	*/
+}
+.loginBtn--google:hover,
+.loginBtn--google:focus {
+  background: #E74B37;
+}
+
+.footer
+	{
+		font-family	: sans-serif;
+	margin		: 3em 0 0 0;
+	padding		: .3em;
+	border-top	: 1px solid #ccc;
+	font-style	: italic;
+	_font-style	: normal; /* IE: Italic is ugly */
+	font-size	: 80%;
+	}
+.footer p
+	{
+	padding		: 0;
+	margin		: 0;
+	}
