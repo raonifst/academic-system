@@ -9,8 +9,9 @@ import './uploadacademicrecord.js'
 Meteor.startup(() => {
 
   /* 
-     Gambiarra:
-     Se não há usuarios cadastrados, entao cadastra o 'admin' do sistema
+     Solução provisória: não há registro de usuários.
+     Quando o sistema 'sobe' e não há usuarios cadastrados, 
+     o usuário a seguir é cadastrado.
   */
   if(!Meteor.users.find().count()){
     Accounts.createUser({
