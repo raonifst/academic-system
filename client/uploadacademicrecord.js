@@ -35,3 +35,13 @@ Template.uploadacademicrecord.events({
     });
   }
 });
+Template.records.helpers({
+	records: function() {
+		return Records.find();
+	}
+});
+Template.records.events({
+	"click #export": function() {
+		MyAppExporter.exportAllrecord();
+	}
+});

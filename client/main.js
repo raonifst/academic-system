@@ -9,7 +9,6 @@ import './uploadacademicrecord.html';
 import './main.html';
 import './uploadacademicrecord.js'
 
-
 Router.configure({
     layoutTemplate: 'main',
     loadingTemplate: 'loading'
@@ -48,20 +47,20 @@ Template.navigation.events({
 
 Template.login.events({
     'submit form': function(event){
-        event.preventDefault();	        
+        event.preventDefault();
     }
 });
 
 Template.changepass.events({
     'submit form': function(event){
-        event.preventDefault();	 
+        event.preventDefault();
         var newPassword = $('[name=password]').val();
         var currentUser = Meteor.userId();
         if(!currentUser)
         	throw new Meteor.Error("not-logged-in", "You're not logged-in.");
-        Meteor.call('changeUserPassword',  newPassword) ; 
+        Meteor.call('changeUserPassword',  newPassword) ;
         Bert.alert( 'Senha alterada!', 'success', 'growl-top-right' );
-        Router.go('home');      
+        Router.go('home');
     }
 });
 
@@ -97,12 +96,12 @@ Template.login.onRendered(function(){
 	            if(error){
 	                if(error.reason == "User not found"){
 				        validator.showErrors({
-				            email: 'Usuário não cadastrado.'    
+				            email: 'Usuário não cadastrado.'
 				        });
 				    }
 				    if(error.reason == "Incorrect password"){
 				        validator.showErrors({
-				            password: 'Senha incorreta.'    
+				            password: 'Senha incorreta.'
 				        });
 				    }
 	            } else {
@@ -115,6 +114,3 @@ Template.login.onRendered(function(){
 	    }
 	});
 });
-
-
-

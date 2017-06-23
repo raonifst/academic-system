@@ -3,7 +3,7 @@
   <div  class="login-title">
   <h2>Login</h2>
     <form class="login">
-        
+
         <p> <input class="form-control" type="email" name="email" required placeholder="Email"> </p>
         <p> <input class="form-control" type="password" name="password" required placeholder="Senha"> </p>
         <p><button class="loginBtn loginBtn--google" type="submit">Entrar</button> </p>
@@ -15,15 +15,16 @@
     <p>Bem-vindo ao sistema acadêmico!.</p>
     {{#if currentUser}}
         {{> uploadacademicrecord }}
+        {{> records}}
     {{/if}}
 </template>
 
 <template name="main">
     <h1>CUVG - Acadêmico</h1>
     {{> navigation}}
-    
+
     {{> yield}}
-    
+
     <div class="footer">
       Copyright &copy; UFMT, CUVG, Projeto e Desenvolvimento de Software, 2017s1.
     </div>
@@ -39,7 +40,7 @@
       {{else}}
          <li><a href="{{pathFor route='login'}}">Login</a></li>
       {{/if}}
-   
+
 </ul>
 </template>
 
@@ -47,7 +48,7 @@
 <div  class="login-title">
   <h2>Alterar senha</h2>
     <form class="login">
-        
+
         <p> <input class="form-control" type="password" name="password" required placeholder="Nova Senha"> </p>
         <p><button class="loginBtn loginBtn--google" type="submit">Entrar</button> </p>
     </form>
@@ -58,4 +59,3 @@
 <template name="loading">
     <p>Loading...</p>
 </template>
-
