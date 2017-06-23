@@ -1,5 +1,5 @@
-import { Meteor } from 'meteor/meteor';
-import { check } from 'meteor/check';
+import {Meteor} from 'meteor/meteor';
+import {check} from 'meteor/check';
 
 Records = new Meteor.Collection('record');
 /*
@@ -15,40 +15,39 @@ Formato dos dados
 */
 
 Meteor.methods({
-	updateAcademicRecordData( data ) {
-	    check( data, Array );
-	    var currentUser = Meteor.userId();
+  updateAcademicRecordData(data) {
+    check(data, Array);
+    const currentUser = Meteor.userId();
 
 
-	    for ( var i = 0; i < data.length; i++ ) {
+    for (let i = 0; i < data.length; i++) {
 
-	    	var item = data[ i ];
+      const item = data[i];
 
-	    	count = Records.find({ rga: item.rga,
-	      	  						disciplina: item.disciplina,
-	      	  						ano: item.ano,
-	      	  						semestre: item.semestre,
-	      	  						createdBy: currentUser }).count();	      	
-	    	if ( count == 0 ) {
-	      		var record = {
-	       			"rga": item.rga,
-	       			"nome": item.nome,
-	       			"disciplina": item.disciplina,
-	       			"situacao": item.situacao,
-	       			"ano": item.ano,
-	       			"semestre": item.semestre,
-	        		createdBy: currentUser
-	    		};
-	    		Records.insert(record);
-	    	} else {
+      if (!Records.findOne({
+          rga: item.rga,
+          disciplina: item.disciplina,
+          ano: item.ano,
+          semestre: item.semestre,
+          createdBy: currentUser
+        })) {
+        Records.insert({
+          "rga": item.rga,
+          "nome": item.nome,
+          "disciplina": item.disciplina,
+          "situacao": item.situacao,
+          "ano": item.ano,
+          "semestre": item.semestre,
+          createdBy: currentUser
+        });
+      } else {
+        console.warn('Rejected. This item already exists.');
+      }
+    }
 
-	    		console.warn( 'Rejected. This item already exists.' );
-	    	}
-	    }
-
-	},
-	showRecord() {
-		console.log(Records.find().count());
-		console.log(Records.find().fetch());
-	}
+  },
+  showRecord() {
+    console.log(Records.find().count());
+    console.log(Records.find().fetch());
+  }
 });

@@ -1,6 +1,6 @@
 
 Meteor.methods({
-	exportAllrecords: function() {
+	exportAllRecords: function() {
 		var fields = [
 			"rga",
 			"nome",
