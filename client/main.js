@@ -77,12 +77,12 @@ $.validator.setDefaults({
 	},
 	messages: {
 	    email: {
-	        required: "You must enter an email address.",
-	        email: "You've entered an invalid email address."
+	        required: "Você deve digitar um email.",
+	        email: "Você digitou email inválido."
 	    },
 	    password: {
-	        required: "You must enter a password.",
-	        minlength: "Your password must be at least {0} characters."
+	        required: "Você deve inserir uma Senha.",
+	        minlength: "Sua senha deve ter pelo menos {0} caracteres."
 	    }
 	}
 });
