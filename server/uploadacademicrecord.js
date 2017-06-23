@@ -19,18 +19,14 @@ Meteor.methods({
     check(data, Array);
     const currentUser = Meteor.userId();
 
-
-    for (let i = 0; i < data.length; i++) {
-
-      const item = data[i];
-
-      if (!Records.findOne({
+    data.forEach(item => {
+      if (!Records.find({
           rga: item.rga,
           disciplina: item.disciplina,
           ano: item.ano,
           semestre: item.semestre,
           createdBy: currentUser
-        })) {
+        }).count()) {
         Records.insert({
           "rga": item.rga,
           "nome": item.nome,
@@ -43,7 +39,7 @@ Meteor.methods({
       } else {
         console.warn('Rejected. This item already exists.');
       }
-    }
+    });
 
   },
   showRecord() {

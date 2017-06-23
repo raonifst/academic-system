@@ -24,10 +24,10 @@ Template.uploadacademicrecord.events({
         Meteor.call('updateAcademicRecordData', results.data, (error) => {
           if (error) {
             console.log(error.reason);
-          } else {
-            template.uploading.set(false);
-            Bert.alert('Upload completo!', 'success', 'growl-top-right');
+            return;
           }
+          template.uploading.set(false);
+          Bert.alert('Upload completo!', 'success', 'growl-top-right');
         });
       }
     });
@@ -39,7 +39,7 @@ Template.records.helpers({
   }
 });
 Template.records.events({
-  "click #export": function () {
+  "click .js-export": function () {
     Exporter.exportAllRecord();
   }
 });
