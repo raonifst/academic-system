@@ -1,16 +1,15 @@
-
 <template name="uploadacademicrecord">
-   <h4 class="page-header">Atualizar histórico acadêmico </h4>
+  <h4 class="page-header">Atualizar histórico acadêmico </h4>
 
-  {{#unless uploading}}
-    <input type="file" name="uploadCSV">
-  {{else}}
+  {{#if uploading}}
     <p><i class="fa fa-spin fa-refresh"></i> Uploading files...</p>
-  {{/unless}}
+  {{else}}
+    <input type="file" name="uploadCSV">
+  {{/if}}
 
 </template>
 <template name="records">
   <h4 class="page-header">Download </h4>
-	<button id="export">Exportar</button>
-	<br><br>
+  <button class="js-export">Exportar</button>
+  <br><br>
 </template>
