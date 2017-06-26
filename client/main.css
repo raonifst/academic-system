@@ -125,7 +125,9 @@ input.error{
 	font-style	: italic;
 	_font-style	: normal; /* IE: Italic is ugly */
 	font-size	: 80%;
-  position: bottom;
+    position: fixed;
+    width:100%;
+    bottom:0;
 	}
 .footer p
 	{
