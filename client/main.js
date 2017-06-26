@@ -35,7 +35,7 @@ Router.route('/changepass', {
 });
 
 
-Template.navigation.events({
+Template.menuItems.events({
   'click .logout': function (event) {
     event.preventDefault();
     Meteor.logout();
@@ -109,4 +109,8 @@ Template.login.onRendered(function () {
       });
     }
   });
+});
+
+Meteor.logout(function(err){
+  console.log(err);
 });

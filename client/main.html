@@ -13,6 +13,7 @@
 
 <template name="home">
     <p>Bem-vindo ao sistema acadêmico!.</p>
+      {{> slideMenu}}
     {{#if currentUser}}
         {{> uploadacademicrecord }}
         {{> records}}
@@ -20,8 +21,13 @@
 </template>
 
 <template name="main">
-    <h1>CUVG - Acadêmico</h1>
-    {{> navigation}}
+
+  <header class="header">
+    <button id="btnRespNav" type="button" class="header__icon btn-navbar navbar-toggle slideout-menu-toggle pull-left" data-toggle="collapse" data-target="#login-navbar-collapse" ></button>
+    <a href="#" class="header__logo">Logo</a>
+  </header>
+    {{> slideMenu}}
+    <!--{{> navigation}}-->
 
     {{> yield}}
 
@@ -31,20 +37,10 @@
 </template>
 
 
-<template name="navigation">
-    <ul>
-      <li><a href="{{pathFor route='home'}}">Home</a></li>
-      {{#if currentUser}}
-          <li><a href="{{pathFor route='changepass'}}">Alterar senha</a></li>
-          <li><a href="#" class="logout">Logout</a></li>
-      {{else}}
-         <li><a href="{{pathFor route='login'}}">Login</a></li>
-      {{/if}}
 
-</ul>
-</template>
 
 <template name="changepass">
+  {{> slideMenu}}
 <div  class="login-title">
   <h2>Alterar senha</h2>
     <form class="login">
@@ -58,4 +54,21 @@
 
 <template name="loading">
     <p>Loading...</p>
+</template>
+
+
+<template name="menuItems">
+  <div class="slideout-menu">
+    <h3>Menu <a href="#" class="slideout-menu-toggle">×</a></h3>
+    <ul>
+      {{#if currentUser}}
+        <li>  <a href="{{pathFor route='changepass'}}">Alterar senha</a> </li>
+        <li> <a href="#" class="logout">Logout</a></li>
+      {{else}}
+        <li><a href="{{pathFor route='login'}}">Login</a></li>
+      {{/if}}
+
+    </ul>
+  </div>
+  <!--/.slideout-menu-->
 </template>
