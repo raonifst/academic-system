@@ -5,7 +5,7 @@ CurricularStructure = new Meteor.Collection('curricularstructure');
 
 /* Formato dos dados
 {
-  codigo: 90000008,4
+  codigo: 90000008,
   nome: CÁLCULO II,
   semestre: 2,
   creditos: 4,
