@@ -5,8 +5,13 @@ CurricularStructure = new Meteor.Collection('curricularstructure');
 
 /* Formato dos dados
 {
-    disciplina: Cálculo I,
-    semestre: 1
+  codigo: 90000008,4
+  nome: CÁLCULO II,
+  semestre: 2,
+  creditos: 4,
+  prereq1: CÁLCULO I,
+  prereq2: null,
+  prereq3: null,
 }*/
 
 Meteor.methods({
