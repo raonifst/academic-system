@@ -1,18 +1,61 @@
 
 <template name="login">
+<br><br><br>
   <div  class="login-title">
-  <h2>Login</h2>
+  
     <form class="login">
-
-        <p> <input class="form-control" type="email" name="email" required placeholder="Email"> </p>
-        <p> <input class="form-control" type="password" name="password" required placeholder="Senha"> </p>
+       <h2>Login</h2>
+        <p> <!-- <input class="form-control" type="email" name="email" required placeholder="Email"> --> 
+          <div class="group">      
+            <input type="email" required name="email">
+            <span class="highlight"></span>
+            <span class="bar"></span>
+            <label>Email</label>
+          </div>
+         </p>
+        <p> <!--<input class="form-control" type="password" name="password" required placeholder="Senha"> -->
+          <div class="group">      
+            <input type="password" required name="password">
+            <span class="highlight"></span>
+            <span class="bar"></span>
+            <label>Senha</label>
+          </div>
+        </p>
         <p><button class="loginBtn loginBtn--google" type="submit">Entrar</button> </p>
     </form>
     </div>
 </template>
 
 <template name="home">
-    <p>Bem-vindo ao sistema acadêmico!.</p>
+    <br><br><br><div class="card">
+    <p>Bem-vindo ao sistema acadêmico!.</p><br>
+    <!-- ainda não funciona-->
+    {{#if currentUser}}    
+    <form>
+        <div>
+       <p> 
+          <div class="group">      
+            <input type="text" required name="search">
+            <span class="highlight"></span>
+            <span class="bar"></span>
+            <label>Pesquisa</label>
+          </div>
+        </p>
+
+
+          <div class="md-radio md-radio-inline">
+            <input id="1" type="radio" name="g2" checked>
+            <label for="1">alunos</label>
+          </div>
+          <div class="md-radio md-radio-inline">
+            <input  id="2" type="radio" name="g2">
+            <label for="2">disciplinas</label>
+          </div>
+        </div>
+      </form>
+    {{/if}}
+
+    </div>
       {{> slideMenu}}
     {{#if currentUser}}
         {{> uploadacademicrecord }}
@@ -39,16 +82,27 @@
 
 
 
-<template name="changepass">
+<template name="changepass"><br><br><br>
   {{> slideMenu}}
+  {{#if currentUser}}
 <div  class="login-title">
-  <h2>Alterar senha</h2>
+  
     <form class="login">
+<h2>Alterar senha</h2>
+        <!--<p> <input class="form-control" type="password" name="password" required placeholder="Nova Senha"> </p>-->
+        <p> 
+          <div class="group">      
+            <input type="password" required name="password">
+            <span class="highlight"></span>
+            <span class="bar"></span>
+            <label>Nova Senha</label>
+          </div>
+        </p>
 
-        <p> <input class="form-control" type="password" name="password" required placeholder="Nova Senha"> </p>
         <p><button class="loginBtn loginBtn--google" type="submit">Entrar</button> </p>
     </form>
     </div>
+    {{/if}}
 </template>
 
 
