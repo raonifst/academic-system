@@ -8,6 +8,8 @@ import {Accounts} from 'meteor/accounts-base'
 import './uploadacademicrecord.html';
 import './main.html';
 import './uploadacademicrecord.js'
+import './uploadcurricularstructure.html'
+import './uploadcurricularstructure.js'
 
 Router.configure({
   layoutTemplate: 'main',

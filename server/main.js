@@ -4,13 +4,14 @@ import {check} from 'meteor/check'
 //Records = new Meteor.Collection('record');
 
 import './uploadacademicrecord.js'
+import './uploadcurricularstructure.js'
 
 
 Meteor.startup(() => {
 
-  /* 
+  /*
      Solução provisória: não há registro de usuários.
-     Quando o sistema 'sobe' e não há usuarios cadastrados, 
+     Quando o sistema 'sobe' e não há usuarios cadastrados,
      o usuário a seguir é cadastrado.
   */
   if (!Meteor.users.find().count()) {

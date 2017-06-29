@@ -2,11 +2,11 @@
 <template name="login">
 <br><br><br>
   <div  class="login-title">
-  
+
     <form class="login">
        <h2>Login</h2>
-        <p> <!-- <input class="form-control" type="email" name="email" required placeholder="Email"> --> 
-          <div class="group">      
+        <p> <!-- <input class="form-control" type="email" name="email" required placeholder="Email"> -->
+          <div class="group">
             <input type="email" required name="email">
             <span class="highlight"></span>
             <span class="bar"></span>
@@ -14,7 +14,7 @@
           </div>
          </p>
         <p> <!--<input class="form-control" type="password" name="password" required placeholder="Senha"> -->
-          <div class="group">      
+          <div class="group">
             <input type="password" required name="password">
             <span class="highlight"></span>
             <span class="bar"></span>
@@ -30,11 +30,11 @@
     <br><br><br><div class="card">
     <p>Bem-vindo ao sistema acadêmico!.</p><br>
     <!-- ainda não funciona-->
-    {{#if currentUser}}    
+    {{#if currentUser}}
     <form>
         <div>
-       <p> 
-          <div class="group">      
+       <p>
+          <div class="group">
             <input type="text" required name="search">
             <span class="highlight"></span>
             <span class="bar"></span>
@@ -60,6 +60,8 @@
     {{#if currentUser}}
         {{> uploadacademicrecord }}
         {{> records}}
+        <br><br>
+        {{> uploadcurricularstructure}}
     {{/if}}
 </template>
 
@@ -86,12 +88,12 @@
   {{> slideMenu}}
   {{#if currentUser}}
 <div  class="login-title">
-  
+
     <form class="login">
 <h2>Alterar senha</h2>
         <!--<p> <input class="form-control" type="password" name="password" required placeholder="Nova Senha"> </p>-->
-        <p> 
-          <div class="group">      
+        <p>
+          <div class="group">
             <input type="password" required name="password">
             <span class="highlight"></span>
             <span class="bar"></span>
