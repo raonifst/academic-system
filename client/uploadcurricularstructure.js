@@ -15,7 +15,7 @@ Template.uploadcurricularstructure.helpers({
 });
 
 Template.uploadcurricularstructure.events({
-  'change [name="uploadCSV"]' ( event, template ) {
+  'change [name="uploadCSV"]': function ( event, template ) {
     template.uploading.set( true );
 
     Papa.parse( event.target.files[0], {
