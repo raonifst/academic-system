@@ -43,46 +43,51 @@ Disciplines = new Meteor.Collection('disciplines');
 Meteor.methods({
 
   uploadCurricularStruture( data ) {
+
     check( data, Array );
     const currentUser = Meteor.userId();
 
     data.forEach(item => {
+
       const existCurr = CurricularStructure.find({
         nome: item.nome,
         createdBy: currentUser
       }).count();
-      const existDisc = Disciplines.find({
-        nome: item.nome
-      }).count();
 
-      if ( existCurr === 0 && existDisc === 0) {
+      const existDisc = Disciplines.find({ nome: item.nome }).count();
 
-        const idDisciplina = Disciplines.insert({
-          codigo: item.codigo,
-          nome: item.nome,
-          creditos: parseInt(item.creditos)
-        });
-        // TODO retirar esta linha após testes concluídos.
-        console.log("Added discipline: " + idDisciplina);
-
-        const prereq1 = Disciplines.findOne({ nome: item.prereq1 });
-        const prereq2 = Disciplines.findOne({ nome: item.prereq2 });
-        const prereq3 = Disciplines.findOne({ nome: item.prereq3 });
-
-        const idCurrStr = CurricularStructure.insert({
-          idDisciplina: idDisciplina,
-          semestre: parseInt(item.semestre),
-          prereq1: (prereq1) ? prereq1._id : null,
-          prereq2: (prereq2) ? prereq1._id : null,
-          prereq3: (prereq3) ? prereq1._id : null,
-          createdBy: currentUser
-        });
-        // TODO retirar esta linha após testes concluídos.
-        console.log("Added structure: " + idCurrStr);
-
-      } else {
+      // Pré-condição: Verifica se os items já estão no banco de dados
+      if (existCurr !== 0 || existDisc !== 0) {
         console.warn('Rejected. This item already exists.');
+        return; // Equivalente ao "continue" em um laço "for" explícito
       }
+
+      const idDisciplina = Disciplines.insert({
+        codigo: item.codigo,
+        nome: item.nome,
+        creditos: parseInt(item.creditos)
+      });
+
+      // Array de pré-requisitos:
+      // Deve conter os IDs das disciplinas pré-requisitos da disciplina em questão na estrutura
+      // curricular. Caso
+      var prereqArray = item.prereq.split("; ");
+      if (prereqArray.length === 1 && prereqArray[0].localeCompare("") === 0) // Sem pré-requisitos
+        prereqArray = [];
+      else {
+        prereqArray.forEach(function (item, i) {
+          const discipline = Disciplines.findOne({ nome: item });
+          prereqArray[i] = (discipline != null) ? discipline._id : null;
+        });
+      }
+
+      CurricularStructure.insert({
+        idDisciplina: idDisciplina,
+        semestre: parseInt(item.semestre),
+        prereq: prereqArray,
+        createdBy: currentUser
+      });
+
     });
   },
 
