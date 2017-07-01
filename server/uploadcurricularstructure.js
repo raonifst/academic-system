@@ -94,6 +94,11 @@ Meteor.methods({
   showCurricularStructure() {
     console.log(CurricularStructure.find().count());
     console.log(CurricularStructure.find().fetch());
+  },
+
+  showDisciplines() {
+    console.log(Disciplines.find().count());
+    console.log(Disciplines.find().fetch());
   }
 
 });
