@@ -1,6 +1,6 @@
 import {Template} from 'meteor/templating';
 import {ReactiveVar} from 'meteor/reactive-var';
-
+//testando
 import {check} from 'meteor/check'
 import {Accounts} from 'meteor/accounts-base'
 
