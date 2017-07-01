@@ -3,7 +3,7 @@ import {ReactiveVar} from 'meteor/reactive-var';
 
 import {check} from 'meteor/check'
 import {Accounts} from 'meteor/accounts-base'
-
+//teste
 
 import './uploadacademicrecord.html';
 import './main.html';
