@@ -57,12 +57,7 @@
 
     </div>
       {{> slideMenu}}
-    {{#if currentUser}}
-        {{> uploadacademicrecord }}
-        {{> records}}
-        <br><br>
-        {{> uploadcurricularstructure}}
-    {{/if}}
+
 </template>
 
 <template name="main">
@@ -119,7 +114,9 @@
     <ul>
       {{#if currentUser}}
         <li>  <a href="{{pathFor route='changepass'}}">Alterar senha</a> </li>
+        <li> <a href="{{pathFor route='uploadcurricularstructure'}}">Estrutura Curricular</a></li>
         <li> <a href="#" class="logout">Logout</a></li>
+
       {{else}}
         <li><a href="{{pathFor route='login'}}">Login</a></li>
       {{/if}}

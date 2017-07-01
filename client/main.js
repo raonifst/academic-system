@@ -23,6 +23,7 @@ Router.route('/', {
 
 
 Router.route('/login');
+Router.route('/uploadcurricularstructure');
 
 Router.route('/changepass', {
   name: 'changepass',
