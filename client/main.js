@@ -119,6 +119,7 @@ Template.login.onRendered(function () {
     }
   });
 });
+//teste - rafael
 
 Meteor.logout(function(err){
   console.log(err);
