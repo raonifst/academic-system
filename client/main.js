@@ -104,9 +104,16 @@ Template.login.onRendered(function () {
             });
           }
         } else {
-          if (Router.current().route.getName() === "login") {
-            Router.go("home");
-          }
+            if (Router.current().route.getName() === "login") {
+
+                if (password === '123') {
+                    Bert.alert('Altere sua senha no primeiro login', 'warning', 'growl-top-right', 'fa-warning');
+                    Router.go("changepass");
+                }
+                else {
+                    Router.go("home");
+                }
+            }
         }
       });
     }
