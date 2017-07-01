@@ -1,6 +1,5 @@
 import {Template} from 'meteor/templating';
 import {ReactiveVar} from 'meteor/reactive-var';
-import {Papa} from 'meteor/harrison:papa-parse';
 
 import './uploadcurricularstructure.html'
 
