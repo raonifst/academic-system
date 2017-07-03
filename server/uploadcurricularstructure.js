@@ -1,14 +1,6 @@
 import {Meteor} from 'meteor/meteor';
 import {check} from 'meteor/check';
 
-
-// Coleção contendo a estrutura curricular de cada disciplina
-CurricularStructure = new Meteor.Collection('curricularstructure');
-
-// Coleção contendo as disciplinas registradas
-Disciplines = new Meteor.Collection('disciplines');
-
-
 /* Formato dos dados das coleções (exemplo):
 
  Disciplines:
@@ -70,16 +62,14 @@ Meteor.methods({
 
       // Array de pré-requisitos:
       // Deve conter os IDs das disciplinas pré-requisitos da disciplina em questão na estrutura
-      // curricular. Caso
-      var prereqArray = item.prereq.split("; ");
-      if (prereqArray.length === 1 && prereqArray[0].localeCompare("") === 0) // Sem pré-requisitos
-        prereqArray = [];
-      else {
-        prereqArray.forEach(function (item, i) {
-          const discipline = Disciplines.findOne({ nome: item });
-          prereqArray[i] = (discipline != null) ? discipline._id : null;
-        });
-      }
+      // curricular.
+      var prereqArray = [];
+      var tmpArray = item.prereq.split("; ");
+      tmpArray.forEach(function (item) {
+        const discipline = Disciplines.findOne({ nome: item });
+        if (discipline != null)
+          prereqArray.push(discipline._id);
+      });
 
       CurricularStructure.insert({
         idDisciplina: idDisciplina,
