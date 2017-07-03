@@ -57,7 +57,8 @@ Meteor.methods({
       const idDisciplina = Disciplines.insert({
         codigo: item.codigo,
         nome: item.nome,
-        creditos: parseInt(item.creditos)
+        creditos: parseInt(item.creditos),
+        createdBy: currentUser
       });
 
       // Array de pré-requisitos:
