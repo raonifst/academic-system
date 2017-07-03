@@ -54,13 +54,8 @@ Template.login.events({
 Template.changepass.events({
   'submit form': function (event) {
     event.preventDefault();
-    const newPassword = $('[name=password]').val();
-    if (!Meteor.userId())
-      throw new Meteor.Error("not-logged-in", "You're not logged-in.");
-    Meteor.call('changeUserPassword', newPassword);
-    Bert.alert('Senha alterada!', 'success', 'growl-top-right');
-    Router.go('home');
   }
+
 });
 
 $.validator.setDefaults({
@@ -87,6 +82,7 @@ $.validator.setDefaults({
 });
 
 Template.login.onRendered(function () {
+
   var validator = $('.login').validate({
     submitHandler: function (event) {
       var email = $('[name=email]').val();
@@ -112,6 +108,30 @@ Template.login.onRendered(function () {
     }
   });
 });
+
+Template.changepass.onRendered( function(){
+    var validator = $('.login').validate({
+        submitHandler:function(event){
+            const newPassword = $('[name=password]').val();
+                Meteor.call('changeUserPassword',newPassword,function(error){
+                    if(error){
+                      validator.showErrors({
+                        password:error.reason
+                      })
+
+                    }
+                    else{
+                        Bert.alert('Senha alterada!', 'success', 'growl-top-right');
+                        Router.go('home');
+                    }
+
+                });
+
+        }
+
+    });
+
+  });
 
 Meteor.logout(function(err){
   console.log(err);
