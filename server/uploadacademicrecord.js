@@ -1,9 +1,7 @@
 import {Meteor} from 'meteor/meteor';
 import {check} from 'meteor/check';
 
-Records = new Meteor.Collection('record');
-/*
-Formato dos dados
+/* Formato dos dados
 {
 	rga: 201501010101,
 	nome: Nome Sobrenome,

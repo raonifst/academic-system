@@ -1,6 +1,6 @@
 import {Template} from 'meteor/templating';
 import {ReactiveVar} from 'meteor/reactive-var';
-
+//testando
 import {check} from 'meteor/check'
 import {Accounts} from 'meteor/accounts-base'
 
@@ -23,6 +23,8 @@ Router.route('/', {
 
 
 Router.route('/login');
+Router.route('/uploadcurricularstructure');
+Router.route('/uploadacademicrecord');
 
 Router.route('/changepass', {
   name: 'changepass',
@@ -100,14 +102,22 @@ Template.login.onRendered(function () {
             });
           }
         } else {
-          if (Router.current().route.getName() === "login") {
-            Router.go("home");
-          }
+            if (Router.current().route.getName() === "login") {
+
+                if (password === '123') {
+                    Bert.alert('Altere sua senha no primeiro login', 'warning', 'growl-top-right', 'fa-warning');
+                    Router.go("changepass");
+                }
+                else {
+                    Router.go("home");
+                }
+            }
         }
       });
     }
   });
 });
+//teste - rafael
 
 Template.changepass.onRendered( function(){
     var validator = $('.login').validate({
