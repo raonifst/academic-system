@@ -111,12 +111,13 @@
   <div class="slideout-menu">
     <h3>Menu <a href="#" class="slideout-menu-toggle">×</a></h3>
     <ul>
+
       {{#if currentUser}}
+        <li> <a href="{{pathFor route='home'}}">Home</a></li>
         <li>  <a href="{{pathFor route='changepass'}}">Alterar senha</a> </li>
         <li> <a href="{{pathFor route='uploadcurricularstructure'}}">Estrutura Curricular</a></li>
         <li> <a href="{{pathFor route='uploadacademicrecord'}}">Histórico Acadêmico</a></li>
         <li> <a href="#" class="logout">Logout</a></li>
-
       {{else}}
         <li><a href="{{pathFor route='login'}}">Login</a></li>
       {{/if}}

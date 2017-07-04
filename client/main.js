@@ -143,6 +143,21 @@ Template.changepass.onRendered( function(){
 
   });
 
+  Template.home.onRendered(function(){
+    if(Meteor.userId()){
+        if(CurricularStructure.find().count()==0){
+          Bert.alert('Upload de matriz curricular das disciplinas requerido!', 'warning', 'growl-top-right', 'fa-warning');
+          // Router.go("uploadcurricularstructure");
+        }
+        if (Records.find().count()==0){
+          Bert.alert('Upload de matriz curricular dos alunos requerido!', 'warning', 'growl-top-right', 'fa-warning');
+          // Router.go("uploadacademicrecord");
+        }
+    }
+  });
+
+
+
 Meteor.logout(function(err){
   console.log(err);
 });

@@ -12,6 +12,11 @@ Template.uploadcurricularstructure.onCreated(() => {
 Template.uploadcurricularstructure.helpers({
   uploading() {
     return Template.instance().uploading.get();
+  },
+  'curricular': function(){
+          var currentUserId = Meteor.userId();
+          return Disciplines.find(({ createdBy: currentUserId },
+                                  { sort: {codigo: 1, nome: 1} }));
   }
 });
 

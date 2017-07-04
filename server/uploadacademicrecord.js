@@ -34,6 +34,7 @@ Meteor.methods({
           "semestre": item.semestre,
           createdBy: currentUser
         });
+        
       } else {
         console.warn('Rejected. This item already exists.');
       }

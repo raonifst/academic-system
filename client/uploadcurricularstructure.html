@@ -9,4 +9,10 @@
     <p><i class="fa fa-spin fa-refresh"></i> Uploading files...</p>
   {{/unless}}
 </div>
+<ul>
+  <p>Lista de disciplinas cadastradas: </p>
+  {{#each curricular}}
+      <li>{{nome}}: {codigo}}</li>
+  {{/each}}
+</ul>
 </template>
