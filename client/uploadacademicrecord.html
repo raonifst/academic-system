@@ -8,12 +8,9 @@
     <input type="file" name="uploadCSV">
   {{/if}}
 </div>
-</template>
-<template name="records">
-  <br><br><br><div class="card">
-  <h4 class="page-header">Download </h4>
-  <button class="js-export loginBtn loginBtn--google">Exportar</button>
-  <br><br>
-</div>
 
+<br><div class="card">
+{{> buttonremoverecords}}
+{{> exporterRecords}}
+</div>
 </template>

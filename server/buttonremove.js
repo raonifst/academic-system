@@ -1,0 +1,9 @@
+Meteor.methods({
+  clearStructure(){
+    CurricularStructure.remove({});
+    Disciplines.remove({});
+  },
+  clearRecords(){
+    Records.remove({});
+  }
+})

@@ -22,5 +22,14 @@ const Exporter = {
     document.body.removeChild(a);
   }
 }
-
+Template.exporterRecords.helpers({
+  records: function () {
+    return Records.find();
+  }
+});
+Template.exporterRecords.events({
+  "click .js-export": function () {
+    Exporter.exportAllRecord();
+  }
+});
 export default Exporter;

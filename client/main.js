@@ -12,6 +12,7 @@ import './uploadcurricularstructure.html'
 import './uploadcurricularstructure.js'
 import './exportercurricularstructure.html';
 import './exportercurricular.js'
+import './exporter.js'
 
 Router.configure({
   layoutTemplate: 'main',
@@ -27,8 +28,6 @@ Router.route('/', {
 Router.route('/login');
 Router.route('/uploadcurricularstructure');
 Router.route('/uploadacademicrecord');
-Router.route('/exportercurricularstructure');
-
 Router.route('/changepass', {
   name: 'changepass',
   template: 'changepass',
