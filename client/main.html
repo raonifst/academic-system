@@ -28,7 +28,7 @@
 
 <template name="home">
     <br><br><br><div class="card">
-    <p>Bem-vindo ao sistema acadêmico!.</p><br>
+    <p><h3>Bem-vindo ao sistema acadêmico!</h3></p><br>
     <!-- ainda não funciona-->
     {{#if currentUser}}
     <form>
@@ -114,7 +114,7 @@
 
       {{#if currentUser}}
         <li> <a href="{{pathFor route='home'}}">Home</a></li>
-        <li>  <a href="{{pathFor route='changepass'}}">Alterar senha</a> </li>
+        <li>  <a href="{{pathFor route='changepass'}}">Alterar Senha</a> </li>
         <li> <a href="{{pathFor route='uploadcurricularstructure'}}">Estrutura Curricular</a></li>
         <li> <a href="{{pathFor route='uploadacademicrecord'}}">Histórico Acadêmico</a></li>
         <li> <a href="#" class="logout">Logout</a></li>
