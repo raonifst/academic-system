@@ -5,7 +5,7 @@
 });*/
 Template.buttonremovestructure.events({
   "click .js-clearstructure": function () {
-    Meteor.call(clearStructure());
+    Meteor.call('clearStructure');
   }
 });
 
@@ -16,6 +16,6 @@ Template.buttonremovestructure.events({
 });*/
 Template.buttonremoverecords.events({
   "click .js-clearrecords": function () {
-    Meteor.call(clearRecords());
+    Meteor.call('clearRecords');
   }
 });
