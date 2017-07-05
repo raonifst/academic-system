@@ -28,6 +28,7 @@ Router.route('/login');
 Router.route('/uploadcurricularstructure');
 Router.route('/uploadacademicrecord');
 Router.route('/exportercurricularstructure');
+Router.route('/records');
 
 Router.route('/changepass', {
   name: 'changepass',
