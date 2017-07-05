@@ -1,5 +1,5 @@
 <template name="uploadcurricularstructure">
-
+{{#if currentUser}}
   <br><br><br><div class="card">
   <h3 class="page-header">Atualizar Estrutura Curricular</h3>
 
@@ -19,4 +19,5 @@
       <li>{{nome}}: </li>
   {{/each}}
 </ul>
+{{/if}}
 </template>

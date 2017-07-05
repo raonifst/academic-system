@@ -1,4 +1,5 @@
 <template name="uploadacademicrecord">
+{{#if currentUser}}
   <br><br><br><div class="card">
   <h3 class="page-header">Atualizar Histórico Acadêmico</h3>
 
@@ -13,4 +14,5 @@
 {{> buttonremoverecords}}
 {{> exporterRecords}}
 </div>
+{{/if}}
 </template>

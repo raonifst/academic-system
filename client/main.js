@@ -26,8 +26,24 @@ Router.route('/', {
 
 
 Router.route('/login');
-Router.route('/uploadcurricularstructure');
-Router.route('/uploadacademicrecord');
+Router.route('/uploadcurricularstructure', {
+  onBeforeAction() {
+    if (Meteor.userId()) {
+      this.next();
+    } else {
+      this.render("login");
+    }
+  }
+});
+Router.route('/uploadacademicrecord', {
+  onBeforeAction() {
+    if (Meteor.userId()) {
+      this.next();
+    } else {
+      this.render("login");
+    }
+  }
+});
 Router.route('/changepass', {
   name: 'changepass',
   template: 'changepass',
