@@ -32,6 +32,12 @@ import {check} from 'meteor/check';
  }
  */
 
+ Meteor.publish('disciplines', function(){
+     var currentUser = this.userId;
+     console.log(currentUser);
+     return Disciplines.find({ createdBy: currentUser });
+ });
+
 Meteor.methods({
 
   uploadCurricularStruture( data ) {

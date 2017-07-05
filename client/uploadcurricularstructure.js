@@ -3,6 +3,7 @@ import {ReactiveVar} from 'meteor/reactive-var';
 
 import './uploadcurricularstructure.html'
 
+Meteor.subscribe('disciplines');
 
 Template.uploadcurricularstructure.onCreated(() => {
   Template.instance().uploading = new ReactiveVar( false );
@@ -13,10 +14,12 @@ Template.uploadcurricularstructure.helpers({
   uploading() {
     return Template.instance().uploading.get();
   },
-  'curricular': function(){
+  'listaDisiciplinas': function(){
           var currentUserId = Meteor.userId();
-          return Disciplines.find(({ createdBy: currentUserId },
-                                  { sort: {codigo: 1, nome: 1} }));
+          return Disciplines.find();
+          //console.log(D)
+          //return Disciplines.find(({ createdBy: currentUserId },
+            //                      { sort: {codigo: 1, nome: 1} }));
   }
 });
 
