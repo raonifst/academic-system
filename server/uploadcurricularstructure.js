@@ -75,7 +75,8 @@ Meteor.methods({
       CurricularStructure.insert({
         idDisciplina: idDisciplina,
         semestre: parseInt(item.semestre),
-        prereq: prereqArray,
+        prereq: item.prereq,
+        idPrereq: prereqArray,
         createdBy: currentUser
       });
 
