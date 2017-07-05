@@ -21,7 +21,14 @@ Router.configure({
 
 Router.route('/', {
   name: 'home',
-  template: 'home'
+  template: 'home',
+  onBeforeAction() {
+    if (Meteor.userId()) {
+      this.next();
+    } else {
+      this.render("login");
+    }
+  }
 });
 
 
