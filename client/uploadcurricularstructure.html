@@ -1,23 +1,52 @@
 <template name="uploadcurricularstructure">
 {{#if currentUser}}
-  <br><br><br><div class="card">
-  <h3 class="page-header">Atualizar Estrutura Curricular</h3>
+  <br><br><br><div class="card" style="width: 500px;">
+  <h3 class="page-header">Estrutura Curricular</h3>
 
   {{#unless uploading}}
     <input type="file" name="uploadCSV">
   {{else}}
     <p><i class="fa fa-spin fa-refresh"></i> Uploading files...</p>
   {{/unless}}
-</div>
-<br><div class="card">
+
 {{> buttonremovestructure}}
 {{> exportercurricularstructure}}
 </div>
-<ul style=" width:">
-  <p>Lista de disciplinas cadastradas: </p>
-  {{#each listaDisiciplinas}}
-      <li>{{nome}}: </li>
-  {{/each}}
-</ul>
+
+
+
+<br>
+
+<div >
+<table class="mdl-data-table mdl-shadow--2dp" style="margin-left: auto; margin-right:auto;">
+  <thead>
+    <tr>
+      <th>
+          <!-- <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect mdl-data-table__select" for="table-header"> -->
+            <input type="checkbox" id="table-header" class="mdl-checkbox__input" style="width: auto;"/>
+          <!-- </label> -->
+      </th>
+      <th class="mdl-data-table__cell--non-numeric">Código</th>
+      <th class="mdl-data-table__cell--non-numeric">Nome</th>
+      <th>Créditos</th>
+    </tr>
+  </thead>
+  <tbody>
+      {{#each listaDisiciplinas}}
+    <tr>
+       <td>
+          <!-- <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect mdl-data-table__select" for="row[1]"> -->
+            <input type="checkbox" id="row[1]" class="mdl-checkbox__input" style="width: auto;"/>
+          <!-- </label> -->
+      </td>
+      <td class="mdl-data-table__cell--non-numeric">{{codigo}}</td>
+      <td class="mdl-data-table__cell--non-numeric">{{nome}}</td>
+      <td>{{creditos}}</td>
+    </tr>
+      {{/each}}
+  </tbody>
+</table>
+</div>
+
 {{/if}}
 </template>

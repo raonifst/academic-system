@@ -27,7 +27,7 @@
 </template>
 
 <template name="home">
-    <br><br><br><div class="card">
+    <br><br><br><div class="card" style="width: 600px;">
     <p><h3>Bem-vindo ao sistema acadêmico!</h3></p><br>
     <!-- ainda não funciona-->
     {{#if currentUser}}
@@ -65,6 +65,9 @@
   <header class="header">
     <button id="btnRespNav" type="button" class="header__icon btn-navbar navbar-toggle slideout-menu-toggle pull-left" data-toggle="collapse" data-target="#login-navbar-collapse" ></button>
     <a href="#" class="header__logo">Logo</a>
+    <link rel='stylesheet prefetch' href='https://storage.googleapis.com/code.getmdl.io/1.0.0/material.indigo-pink.min.css'>
+    <link rel='stylesheet prefetch' href='https://fonts.googleapis.com/icon?family=Material+Icons'>
+    <script src='https://storage.googleapis.com/code.getmdl.io/1.0.0/material.min.js'></script>
   </header>
     {{> slideMenu}}
     <!--{{> navigation}}-->

@@ -18,7 +18,7 @@ input.error{
 
 .card
 {
-    max-width: 330px;
+    /*max-width: 330px;*/
     padding: 15px;
     margin: 0 auto;
     box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
@@ -135,9 +135,11 @@ input.error{
 	font-style	: italic;
 	_font-style	: normal; /* IE: Italic is ugly */
 	font-size	: 80%;
-    position: absolute;
+    /*position: relative;*/
     width:100%;
-    bottom:0;
+    /*bottom:0;*/
+		top:0;
+		margin-bottom: auto;
 	}
 .footer p
 	{
