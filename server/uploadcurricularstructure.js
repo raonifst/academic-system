@@ -1,5 +1,4 @@
 import {Meteor} from 'meteor/meteor';
-import {check} from 'meteor/check';
 
 /* Formato dos dados das coleções (exemplo):
 
@@ -40,9 +39,8 @@ import {check} from 'meteor/check';
 
 Meteor.methods({
 
-  uploadCurricularStruture( data ) {
+  uploadCurricularStruture(data) {
 
-    check( data, Array );
     const currentUser = Meteor.userId();
 
     data.forEach(item => {
@@ -63,7 +61,7 @@ Meteor.methods({
       const idDisciplina = Disciplines.insert({
         codigo: item.codigo,
         nome: item.nome,
-        creditos: parseInt(item.creditos),
+        creditos: item.creditos,
         createdBy: currentUser
       });
 
