@@ -7,8 +7,8 @@ Meteor.methods({
     if (!currentUser) {
       throw new Meteor.Error("not-logged-in", "You're not logged-in.");
     }
-    CurricularStructure.remove({});
-    Disciplines.remove({});
+    CurricularStructure.remove({ createdBy: currentUser });
+    Disciplines.remove({ createdBy: currentUser });
   },
 
   clearRecords(){
@@ -16,6 +16,6 @@ Meteor.methods({
     if (!currentUser) {
       throw new Meteor.Error("not-logged-in", "You're not logged-in.");
     }
-    Records.remove({});
+    Records.remove({ createdBy: currentUser });
   }
 })
