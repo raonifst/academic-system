@@ -9,6 +9,7 @@ Meteor.methods({
     }
     CurricularStructure.remove({ createdBy: currentUser });
     Disciplines.remove({ createdBy: currentUser });
+    console.log("Estrutura Curricular limpa por",currentUser);
   },
 
   clearRecords(){
@@ -17,5 +18,6 @@ Meteor.methods({
       throw new Meteor.Error("not-logged-in", "You're not logged-in.");
     }
     Records.remove({ createdBy: currentUser });
+    console.log("Histórico Acadêmico limpo por",currentUser);
   }
 })
