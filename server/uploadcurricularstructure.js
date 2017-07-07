@@ -42,6 +42,7 @@ Meteor.methods({
   uploadCurricularStruture(data) {
 
     const currentUser = Meteor.userId();
+    var completeUpdate = true;
 
     data.forEach(item => {
 
@@ -54,7 +55,7 @@ Meteor.methods({
 
       // Pré-condição: Verifica se os items já estão no banco de dados
       if (existCurr !== 0 || existDisc !== 0) {
-        console.warn('Rejected. This item already exists.');
+        completeUpdate = false;
         return; // Equivalente ao "continue" em um laço "for" explícito
       }
 
@@ -85,6 +86,8 @@ Meteor.methods({
       });
 
     });
+    return (completeUpdate) ? 0 : 1;
+
   },
 
   showCurricularStructure() {

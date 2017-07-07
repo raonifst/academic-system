@@ -27,7 +27,7 @@ Template.uploadacademicrecord.events({
             return;
           }
           template.uploading.set(false);
-          Bert.alert('Upload completo!', 'success', 'growl-top-right');
+          Bert.alert('Upload completado com sucesso!', 'success', 'growl-top-right');
         });
       }
     });

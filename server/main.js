@@ -25,6 +25,7 @@ Meteor.startup(() => {
 
 
 Meteor.methods({
+
   changeUserPassword: function (newPassword) {
     const currentUser = Meteor.userId();
 
@@ -34,5 +35,16 @@ Meteor.methods({
 
     Accounts.setPassword(currentUser, newPassword, {logout: false});
     console.warn(new Date(), ': A senha do usuario', currentUser, ' foi alterada.');
+  },
+
+  countCurricularStructure() {
+    const currentUser = Meteor.userId();
+    return CurricularStructure.find({ createdBy: currentUser }).count();
+  },
+
+  countRecords() {
+    const currentUser = Meteor.userId();
+    return Records.find({ createdBy: currentUser }).count();
   }
+
 });
