@@ -38,9 +38,9 @@ Template.uploadcurricularstructure.events({
       dynamicTyping: true,
       step(row, parser) {
         try {
-          schemaCurrDisc.validate(row.data[0]);
+          SchemaCurrDisc.validate(row.data[0]);
         } catch (err) {
-          Bert.alert('This file is not a valid csv file.', 'danger', 'growl-top-right' );
+          Bert.alert('Este não é um arquivo CSV válido.', 'danger', 'growl-top-right' );
           globalError = true;
           template.uploading.set(false);
           parser.abort();
@@ -50,11 +50,14 @@ Template.uploadcurricularstructure.events({
       complete() {
         if (globalError)
           return;
-        Meteor.call('uploadCurricularStruture', data, (error) => {
+        Meteor.call('uploadCurricularStruture', data, (error, results) => {
           if (error)
             Bert.alert('Unknown internal error.', 'danger', 'growl-top-right');
+          else if (results == 1)
+            Bert.alert('Upload completado com sucesso! Alguns itens repetidos foram ignorados.',
+                        'warning', 'growl-top-right');
           else
-            Bert.alert('Upload complete.', 'success', 'growl-top-right');
+            Bert.alert('Upload completado com sucesso!', 'success', 'growl-top-right');
           template.uploading.set(false);
         });
       }

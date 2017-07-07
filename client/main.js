@@ -127,60 +127,66 @@ Template.login.onRendered(function () {
             });
           }
         } else {
-            if (Router.current().route.getName() === "login") {
+          if (Router.current().route.getName() === "login") {
 
-                if (password === '123') {
-                    Bert.alert('Altere sua senha no primeiro login', 'warning', 'growl-top-right', 'fa-warning');
-                    Router.go("changepass");
-                }
-                else {
-                    Router.go("home");
-                }
+            if (password === '123') {
+              Bert.alert('Altere sua senha no primeiro login', 'warning', 'growl-top-right', 'fa-warning');
+              Router.go("changepass");
             }
+            else {
+              Router.go("home");
+            }
+          }
         }
       });
     }
   });
 });
-//teste - rafael
+
 
 Template.changepass.onRendered( function(){
-    var validator = $('.login').validate({
-        submitHandler:function(event){
-            const newPassword = $('[name=password]').val();
-                Meteor.call('changeUserPassword',newPassword,function(error){
-                    if(error){
-                      validator.showErrors({
-                        password:error.reason
-                      })
-
-                    }
-                    else{
-                        Bert.alert('Senha alterada!', 'success', 'growl-top-right');
-                        Router.go('home');
-                    }
-
-                });
+  var validator = $('.login').validate({
+    submitHandler:function(event){
+      const newPassword = $('[name=password]').val();
+      Meteor.call('changeUserPassword',newPassword,function(error){
+        if(error){
+          validator.showErrors({
+            password:error.reason
+          })
 
         }
-
-    });
-
-  });
-
-  Template.home.onRendered(function(){
-    if(Meteor.userId()){
-        if(CurricularStructure.find().count()==0){
-          Bert.alert('Upload de matriz curricular das disciplinas requerido!', 'warning', 'growl-top-right', 'fa-warning');
-          // Router.go("uploadcurricularstructure");
+        else{
+          Bert.alert('Senha alterada!', 'success', 'growl-top-right');
+          Router.go('home');
         }
-        if (Records.find().count()==0){
-          Bert.alert('Upload de matriz curricular dos alunos requerido!', 'warning', 'growl-top-right', 'fa-warning');
-          // Router.go("uploadacademicrecord");
-        }
+
+      });
+
     }
+
   });
 
+});
+
+
+Template.home.onRendered(function(){
+  if (Meteor.user()) {
+    Meteor.call('countCurricularStructure', (error, results) => {
+      if (results == 0) {
+        Bert.alert('Upload de matriz curricular das disciplinas requerido!',
+          'warning', 'growl-top-right', 'fa-warning');
+        // Router.go("uploadcurricularstructure");
+      }
+    });
+    Meteor.call('countRecords', (error, results) => {
+      if (results == 0) {
+        Bert.alert('Upload de matriz curricular dos alunos requerido!', 'warning',
+          'growl-top-right', 'fa-warning');
+        // Router.go("uploadacademicrecord");
+      }
+    });
+  }
+});
 
 
 Meteor.logout(function(err){
