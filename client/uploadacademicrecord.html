@@ -1,6 +1,6 @@
 <template name="uploadacademicrecord">
 {{#if currentUser}}
-  <br><br><br><div class="card" style="width: 330px;">
+  <br><br><br><div class="card" style="width: 625px;">
   <h3 class="page-header">Atualizar Histórico Acadêmico</h3>
 
   {{#if uploading}}
@@ -8,9 +8,9 @@
   {{else}}
     <input type="file" name="uploadCSV">
   {{/if}}
-</div>
 
-<br><div class="card" style="width: 330px;">
+
+
 {{> buttonremoverecords}}
 {{> exporterRecords}}
 </div>
@@ -31,7 +31,7 @@
       <th class="mdl-data-table__cell--non-numeric">Disciplina</th>
       <th class="mdl-data-table__cell--non-numeric">Situação</th>
       <th class="mdl-data-table__cell--non-numeric">Ano</th>
-      <th class="mdl-data-table__cell--non-numeric">Semestre</th>      
+      <th class="mdl-data-table__cell--non-numeric">Semestre</th>
     </tr>
   </thead>
   <tbody>
@@ -48,7 +48,7 @@
       <td class="mdl-data-table__cell--non-numeric">{{situacao}}</td>
       <td class="mdl-data-table__cell--non-numeric">{{ano}}</td>
       <td class="mdl-data-table__cell--non-numeric">{{semestre}}</td>
-      <td>{{creditos}}</td>
+
     </tr>
       {{/each}}
   </tbody>
