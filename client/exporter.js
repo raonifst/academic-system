@@ -1,5 +1,5 @@
 import {Meteor} from 'meteor/meteor';
-
+import './exporter.html'
 const Exporter = {
   exportAllRecord() {
     Meteor.call("exportAllRecords", (error, data) => {

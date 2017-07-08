@@ -1,9 +1,9 @@
 import {Template} from 'meteor/templating';
 import {ReactiveVar} from 'meteor/reactive-var';
 
-import Exporter from './exporter';
-
 import './uploadacademicrecord.html';
+
+Meteor.subscribe('record');
 
 Template.uploadacademicrecord.onCreated(() => {
   Template.instance().uploading = new ReactiveVar(false);
@@ -12,6 +12,13 @@ Template.uploadacademicrecord.onCreated(() => {
 Template.uploadacademicrecord.helpers({
   uploading() {
     return Template.instance().uploading.get();
+  },
+  'listaAlunos': function(){
+    
+    return Records.find();
+    //console.log(D)
+    //return Disciplines.find(({ createdBy: currentUserId },
+    //                      { sort: {codigo: 1, nome: 1} }));
   }
 });
 
