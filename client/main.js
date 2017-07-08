@@ -10,7 +10,7 @@ import './main.html';
 import './uploadacademicrecord.js'
 import './uploadcurricularstructure.html'
 import './uploadcurricularstructure.js'
-import './exportercurricularstructure.html';
+import './exporter.html';
 import './exportercurricular.js'
 import './exporter.js'
 
