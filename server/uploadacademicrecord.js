@@ -1,5 +1,4 @@
 import {Meteor} from 'meteor/meteor';
-import {check} from 'meteor/check';
 
 /* Formato dos dados
 {
@@ -18,36 +17,46 @@ Meteor.publish('record', function(){
 });
 
 Meteor.methods({
+
   updateAcademicRecordData(data) {
-    check(data, Array);
+
     const currentUser = Meteor.userId();
+    var completeUpdate = true;
 
     data.forEach(item => {
-      if (!Records.find({
-          rga: item.rga,
-          disciplina: item.disciplina,
-          ano: item.ano,
-          semestre: item.semestre,
-          createdBy: currentUser
-        }).count()) {
-        Records.insert({
-          "rga": item.rga,
-          "nome": item.nome,
-          "disciplina": item.disciplina,
-          "situacao": item.situacao,
-          "ano": item.ano,
-          "semestre": item.semestre,
-          createdBy: currentUser
-        });
 
-      } else {
-        console.warn('Rejected. This item already exists.');
+      const existHist = Records.find({
+        rga: item.rga,
+        disciplina: item.disciplina,
+        ano: item.ano,
+        semestre: item.semestre,
+        createdBy: currentUser
+      }).count();
+
+      // Pré-condição: Verifica se os items já estão no banco de dados
+      if (existHist !== 0) {
+        completeUpdate = false;
+        return; // Equivalente ao "continue" em um laço "for" explícito
       }
+
+      Records.insert({
+        "rga": item.rga,
+        "nome": item.nome,
+        "disciplina": item.disciplina,
+        "situacao": item.situacao,
+        "ano": item.ano,
+        "semestre": item.semestre,
+        createdBy: currentUser
+      });
+
     });
+    return (completeUpdate) ? 0 : 1;
 
   },
+
   showRecord() {
     console.log(Records.find().count());
     console.log(Records.find().fetch());
   }
+
 });

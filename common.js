@@ -10,7 +10,7 @@ CurricularStructure = new Meteor.Collection('curricularstructure');
 // Coleção contendo as disciplinas registradas
 Disciplines = new Meteor.Collection('disciplines');
 
-
+// Coleção contendo flags de configuração dos usuários
 Users = new Meteor.Collection('usersreg');
 
 
@@ -37,5 +37,35 @@ SchemaCurrDisc = new SimpleSchema({
   },
   prereq: {
     type: String,
+  }
+});
+
+// Schema utilizado para validar o csv do histórico acadêmico
+SchemaHistRecords = new SimpleSchema({
+  rga: {
+    type: Number,
+    min: 201420000000
+  },
+  nome: {
+    type: String,
+    max: 100
+  },
+  disciplina: {
+    type: String,
+    max: 100
+  },
+  situacao: {
+    type: String,
+    min: 2,
+    max: 3
+  },
+  ano: {
+    type: Number,
+    min: 2014
+  },
+  semestre: {
+    type: Number,
+    min: 1,
+    max: 10
   }
 });
