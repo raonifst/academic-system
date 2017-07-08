@@ -11,6 +11,11 @@ import {check} from 'meteor/check';
 	semestre: 1 (e.g., 1, 2),
 }
 */
+Meteor.publish('record', function(){
+    var currentUser = this.userId;
+    console.log(currentUser);
+    return Records.find({ createdBy: currentUser });
+});
 
 Meteor.methods({
   updateAcademicRecordData(data) {
@@ -34,7 +39,7 @@ Meteor.methods({
           "semestre": item.semestre,
           createdBy: currentUser
         });
-        
+
       } else {
         console.warn('Rejected. This item already exists.');
       }
