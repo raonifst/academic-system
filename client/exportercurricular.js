@@ -1,6 +1,6 @@
 import {Meteor} from 'meteor/meteor';
 
-import './exportercurricularstructure.html'
+import './exporter.html'
 
 const ExporterCurricular = {
   exportAllCurricular() {

@@ -1,8 +1,6 @@
 import {Template} from 'meteor/templating';
 import {ReactiveVar} from 'meteor/reactive-var';
 
-import Exporter from './exporter';
-
 import './uploadacademicrecord.html';
 
 Meteor.subscribe('record');
