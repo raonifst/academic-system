@@ -2,7 +2,7 @@
 @import url(https://fonts.googleapis.com/css?family=Roboto);
 body
 	{
-
+  overflow-Y: hidden;
 	background: #e2e1e0;
   text-align: center;
 	color		: #444;

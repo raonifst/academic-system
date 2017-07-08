@@ -56,11 +56,11 @@
     {{/if}}
 
     </div>
-      {{> slideMenu}}
+
 
 </template>
 
-<template name="main">
+<template name="main" style="overflow-Y: hidden;">
 
   <header class="header">
     <button id="btnRespNav" type="button" class="header__icon btn-navbar navbar-toggle slideout-menu-toggle pull-left" data-toggle="collapse" data-target="#login-navbar-collapse" ></button>
@@ -69,14 +69,16 @@
     <link rel='stylesheet prefetch' href='https://fonts.googleapis.com/icon?family=Material+Icons'>
     <script src='https://storage.googleapis.com/code.getmdl.io/1.0.0/material.min.js'></script>
   </header>
+  <body style="overflow-Y: hidden; height: auto;">
     {{> slideMenu}}
     <!--{{> navigation}}-->
 
     {{> yield}}
-
+  </body>
     <div class="footer">
       Copyright &copy; UFMT, CUVG, Projeto e Desenvolvimento de Software, 2017s1.
     </div>
+
 </template>
 
 
