@@ -15,10 +15,15 @@ Meteor.startup(() => {
      o usuário a seguir é cadastrado.
   */
   if (!Meteor.users.find().count()) {
-    Accounts.createUser({
+
+    const usr = Accounts.createUser({
       email: 'raoni@ufmt.br',
       password: '123'
-    })
+    });
+    Users.insert({
+      idUser: usr,
+      changedDefaultPassword: false
+    });
   }
 
 });
@@ -45,6 +50,19 @@ Meteor.methods({
   countRecords() {
     const currentUser = Meteor.userId();
     return Records.find({ createdBy: currentUser }).count();
+  },
+
+  isFirstLogin() {
+    const currentUser = Meteor.userId();
+    return Users.findOne({ idUser: currentUser }).changedDefaultPassword;
+  },
+
+  changeFirstLogin() {
+    const currentUser = Meteor.userId();
+    const changedPass = Users.findOne({ idUser: currentUser }).changedDefaultPassword;
+    if (!changedPass) {
+      Users.update({ idUser: currentUser }, {$set: { changedDefaultPassword: true }});
+    }
   }
 
 });

@@ -11,6 +11,9 @@ CurricularStructure = new Meteor.Collection('curricularstructure');
 Disciplines = new Meteor.Collection('disciplines');
 
 
+Users = new Meteor.Collection('usersreg');
+
+
 // Schema utilizado para validar o csv da estrutura curricular
 SchemaCurrDisc = new SimpleSchema({
   codigo: {
