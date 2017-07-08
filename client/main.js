@@ -1,9 +1,4 @@
 import {Template} from 'meteor/templating';
-import {ReactiveVar} from 'meteor/reactive-var';
-//testando
-import {check} from 'meteor/check'
-import {Accounts} from 'meteor/accounts-base'
-
 
 import './uploadacademicrecord.html';
 import './main.html';
@@ -13,6 +8,9 @@ import './uploadcurricularstructure.js'
 import './exporter.html';
 import './exportercurricular.js'
 import './exporter.js'
+
+
+Bert.defaults.hideDelay = 4000;
 
 Router.configure({
   layoutTemplate: 'main',
@@ -127,7 +125,6 @@ Template.login.onRendered(function () {
             });
           }
         } else {
-          const currentUser = Meteor.userId();
           Meteor.call('isFirstLogin', (error, results) => {
             if (results == false) {
               Bert.alert('Altere sua senha no primeiro login!',
@@ -153,7 +150,6 @@ Template.changepass.onRendered( function(){
           validator.showErrors({
             password:error.reason
           })
-
         }
         else{
           Bert.alert('Senha alterada!', 'success', 'growl-top-right');
@@ -174,21 +170,24 @@ Template.home.onRendered(function(){
 
   if (Meteor.user()) {
     var changedPassword = true;
+    const tipUploadCurricularStructure = 'Dica: Você pode realizar o upload da estrutura' +
+      ' curricular das disciplinas clicando no drop-down menu do lado superior' +
+      ' esquerdo.';
+    const tipUploadAcademicRecords = 'Dica: Você pode realizar o upload do' +
+      ' histórico acadêmico dos alunos clicando no drop-down menu do lado superior esquerdo.';
     Meteor.call('isFirstLogin', (error, results) => {
       if (!error)
         changedPassword = results;
     });
     Meteor.call('countCurricularStructure', (error, results) => {
       if (results == 0 && changedPassword) {
-        Bert.alert('Upload de matriz curricular das disciplinas requerido!',
-          'warning', 'growl-top-right', 'fa-warning');
+        Bert.alert(tipUploadCurricularStructure, 'info', 'growl-top-right');
         // Router.go("uploadcurricularstructure");
       }
     });
     Meteor.call('countRecords', (error, results) => {
       if (results == 0 && changedPassword) {
-        Bert.alert('Upload de matriz curricular dos alunos requerido!', 'warning',
-          'growl-top-right', 'fa-warning');
+        Bert.alert(tipUploadAcademicRecords, 'info', 'growl-top-right');
         // Router.go("uploadacademicrecord");
       }
     });
