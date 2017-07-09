@@ -74,9 +74,29 @@ Template.menuItems.events({
   }
 });
 
+
+Template.login.onCreated(() => {
+  Template.instance().validEmail = new ReactiveVar(true);
+  Template.instance().validPassword = new ReactiveVar(true);
+});
+
+Template.login.helpers({
+    validEmail() {
+      return Template.instance().validEmail.get();
+    },
+    validPassword() {
+      return Template.instance().validPassword.get();
+    },
+  });
+
+
 Template.login.events({
   'submit form': function (event) {
     event.preventDefault();
+  },
+  'change': function(event) {
+    Template.instance().validEmail.set($('#email').valid());
+    Template.instance().validPassword.set($('#password').valid());
   }
 });
 
@@ -100,12 +120,12 @@ $.validator.setDefaults({
   },
   messages: {
     email: {
-      required: "Você deve digitar um email.",
-      email: "Você digitou email inválido."
+      required: "Email: Você deve digitar um email.",
+      email: "Email: Você digitou email inválido."
     },
     password: {
-      required: "Você deve inserir uma Senha.",
-      minlength: "Sua senha deve ter pelo menos {0} caracteres."
+      required: "Senha: Você deve inserir uma Senha.",
+      minlength: "Senha: Sua senha deve ter pelo menos {0} caracteres."
     }
   }
 });
@@ -142,6 +162,9 @@ Template.login.onRendered(function () {
       });
     }
   });
+
+
+
 });
 
 

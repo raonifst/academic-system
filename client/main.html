@@ -7,18 +7,26 @@
        <h2>Login</h2>
         <p> <!-- <input class="form-control" type="email" name="email" required placeholder="Email"> -->
           <div class="group">
-            <input type="email" required name="email">
+            <input type="email" required name="email" id="email">
             <span class="highlight"></span>
             <span class="bar"></span>
-            <label>Email</label>
+            {{#if validEmail}}
+              <label>Email</label>
+            {{else}}
+              <label></label>
+            {{/if}}
           </div>
          </p>
         <p> <!--<input class="form-control" type="password" name="password" required placeholder="Senha"> -->
           <div class="group">
-            <input type="password" required name="password">
+            <input type="password" required name="password" id="password">
             <span class="highlight"></span>
             <span class="bar"></span>
-            <label>Senha</label>
+            {{#if validPassword}}
+              <label>Senha</label>
+            {{else}}
+              <label></label>
+            {{/if}}
           </div>
         </p>
         <p><button class="loginBtn loginBtn--google" type="submit">Entrar</button> </p>
