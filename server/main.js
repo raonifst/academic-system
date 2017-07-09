@@ -22,7 +22,9 @@ Meteor.startup(() => {
     });
     Users.insert({
       idUser: usr,
-      changedDefaultPassword: false
+      changedDefaultPassword: false,
+      uploadedCurricularStructure: false,
+      uploadedAcademicRecords: false,
     });
   }
 
@@ -42,19 +44,14 @@ Meteor.methods({
     console.warn(new Date(), ': A senha do usuario', currentUser, ' foi alterada.');
   },
 
-  countCurricularStructure() {
-    const currentUser = Meteor.userId();
-    return CurricularStructure.find({ createdBy: currentUser }).count();
-  },
-
-  countRecords() {
-    const currentUser = Meteor.userId();
-    return Records.find({ createdBy: currentUser }).count();
-  },
-
   isFirstLogin() {
     const currentUser = Meteor.userId();
-    return Users.findOne({ idUser: currentUser }).changedDefaultPassword;
+    return !(Users.findOne({ idUser: currentUser }).changedDefaultPassword);
+  },
+
+  isFirstTimeHere() {
+    const currentUser = Meteor.userId();
+    return !(Users.findOne({ idUser: currentUser }).receivedStartupTip);
   },
 
   changeFirstLogin() {
@@ -63,6 +60,27 @@ Meteor.methods({
     if (!changedPass) {
       Users.update({ idUser: currentUser }, {$set: { changedDefaultPassword: true }});
     }
-  }
+  },
 
+  changeUserUploadCurricularStructureFlag() {
+    const currentUser = Meteor.userId();
+    const changedPass = Users.findOne({ idUser: currentUser }).uploadedCurricularStructure;
+    if (!changedPass) {
+      Users.update({ idUser: currentUser }, {$set: { uploadedCurricularStructure: true }});
+    }
+  },
+
+  changeUserUploadAcademicRecordsFlag() {
+    const currentUser = Meteor.userId();
+    const changedPass = Users.findOne({ idUser: currentUser }).uploadedAcademicRecords;
+    if (!changedPass) {
+      Users.update({ idUser: currentUser }, {$set: { uploadedAcademicRecords: true }});
+    }
+  },
+
+});
+
+
+Meteor.publish('userStats', function () {
+  return Users.find({ idUser: this.userId });
 });

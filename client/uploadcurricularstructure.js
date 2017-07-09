@@ -3,7 +3,11 @@ import {ReactiveVar} from 'meteor/reactive-var';
 
 import './uploadcurricularstructure.html'
 
+
 Meteor.subscribe('disciplines');
+
+Meteor.subscribe('userStats');
+
 
 Template.uploadcurricularstructure.onCreated(() => {
   Template.instance().uploading = new ReactiveVar( false );
@@ -53,11 +57,14 @@ Template.uploadcurricularstructure.events({
         Meteor.call('uploadCurricularStruture', data, (error, results) => {
           if (error)
             Bert.alert('Unknown internal error.', 'danger', 'growl-top-right');
-          else if (results == 1)
-            Bert.alert('Upload completado com sucesso! Alguns itens repetidos foram ignorados.',
-                        'warning', 'growl-top-right');
-          else
-            Bert.alert('Upload completado com sucesso!', 'success', 'growl-top-right');
+          else {
+            if (results == 1)
+              Bert.alert('Upload completado com sucesso! Alguns itens repetidos foram ignorados.',
+                'warning', 'growl-top-right');
+            else
+              Bert.alert('Upload completado com sucesso!', 'success', 'growl-top-right');
+            Meteor.call('changeUserUploadCurricularStructureFlag');
+          }
           template.uploading.set(false);
         });
       }

@@ -1,0 +1,22 @@
+<template name="taskslist">
+  {{#if currentUser}}
+    <br>
+    <div class="card" style="width: 600px;">
+      <h4>Tarefas realizadas</h4>
+      <ul>
+        <li>
+          <input type="checkbox" {{checkTask1}} title="checkbox" disabled>
+          Alterar senha padrão
+        </li>
+        <li>
+          <input type="checkbox" {{checkTask2}} title="checkbox" disabled>
+          Fazer upload da matriz (estrutura) curricular de disciplinas
+        </li>
+        <li>
+          <input type="checkbox" {{checkTask3}} title="checkbox" disabled>
+          Fazer upload do histórico acadêmico dos alunos
+        </li>
+      </ul>
+    </div>
+  {{/if}}
+</template>

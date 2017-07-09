@@ -3,7 +3,11 @@ import {ReactiveVar} from 'meteor/reactive-var';
 
 import './uploadacademicrecord.html';
 
+
 Meteor.subscribe('record');
+
+Meteor.subscribe('userStats');
+
 
 Template.uploadacademicrecord.onCreated(() => {
   Template.instance().uploading = new ReactiveVar(false);
@@ -51,11 +55,14 @@ Template.uploadacademicrecord.events({
         Meteor.call('updateAcademicRecordData', data, (error, results) => {
           if (error)
             Bert.alert('Unknown internal error.', 'danger', 'growl-top-right');
-          else if (results == 1)
-            Bert.alert('Upload completado com sucesso! Alguns itens repetidos foram ignorados.',
-              'warning', 'growl-top-right');
-          else
-            Bert.alert('Upload completado com sucesso!', 'success', 'growl-top-right');
+          else {
+            if (results == 1)
+              Bert.alert('Upload completado com sucesso! Alguns itens repetidos foram ignorados.',
+                'warning', 'growl-top-right');
+            else
+              Bert.alert('Upload completado com sucesso!', 'success', 'growl-top-right');
+            Meteor.call('changeUserUploadAcademicRecordsFlag');
+          }
           template.uploading.set(false);
         });
       }
