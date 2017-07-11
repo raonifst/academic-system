@@ -36,7 +36,12 @@ Template.buttonremoverecords.helpers({
     const currentUserId = Meteor.userId();
     const user = (currentUserId)? Users.findOne({ idUser: currentUserId }):null;
     return user && Users.findOne({ idUser: currentUserId }).uploadedAcademicRecords;
-  }
+  },
+  canShowClearButton: function() {
+    const currentUserId = Meteor.userId();
+    const user = (currentUserId)? Users.findOne({ idUser: currentUserId }):null;
+    return user && Users.findOne({ idUser: currentUserId }).uploadedAcademicRecords && Users.findOne({ idUser: currentUserId }).uploadedAcademicRecords;
+  },
 });
 
 Template.buttonremovestructure.helpers({
