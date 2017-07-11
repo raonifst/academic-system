@@ -125,12 +125,12 @@ $.validator.setDefaults({
   },
   messages: {
     email: {
-      required: "Email: Você deve digitar um email.",
-      email: "Email: Você digitou email inválido."
+      required: "Você deve digitar um email.",
+      email: "Você digitou email inválido."
     },
     password: {
-      required: "Senha: Você deve inserir uma Senha.",
-      minlength: "Senha: Sua senha deve ter pelo menos {0} caracteres."
+      required: "Você deve inserir uma Senha.",
+      minlength: "Sua senha deve ter pelo menos {0} caracteres."
     }
   }
 });
@@ -138,6 +138,9 @@ $.validator.setDefaults({
 Template.login.onRendered(function () {
 
   var validator = $('.login').validate({
+    errorPlacement: function (error, element) {
+            Bert.alert(error.text(),'danger' );
+    },
     submitHandler: function (event) {
       var email = $('[name=email]').val();
       var password = $('[name=password]').val();
@@ -198,6 +201,14 @@ Template.changepass.onRendered( function(){
 
 });
 
+Template.home.helpers({
+    done: function () {
+      const currentUserId = Meteor.userId();
+      const user = Users.findOne({ idUser: currentUserId });
+      return user && user.changedDefaultPassword &&
+        user.uploadedCurricularStructure && user.uploadedAcademicRecords;
+    }
+});
 
 Template.home.onRendered(function(){
 
@@ -206,7 +217,8 @@ Template.home.onRendered(function(){
       ' lista de tarefas abaixo. Tente uma!';
     Meteor.call('isFirstLogin', (error, results) => {
       if (!results) {
-        Bert.alert(tipUploadCurricularStructure, 'info', 'growl-top-right');
+        if(!done())
+          Bert.alert(tipUploadCurricularStructure, 'info', 'growl-top-right');
       }
     });
   }
