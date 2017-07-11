@@ -1,3 +1,5 @@
+
+
 Template.buttonremovestructure.events({
   "click .js-clearstructure": function () {
     Meteor.call('clearStructure', (error, results) => {
@@ -25,5 +27,22 @@ Template.buttonremoverecords.events({
       }
     });
 
+  }
+});
+
+
+Template.buttonremoverecords.helpers({
+  uploaded: function() {
+    const currentUserId = Meteor.userId();
+    const user = (currentUserId)? Users.findOne({ idUser: currentUserId }):null;
+    return user && Users.findOne({ idUser: currentUserId }).uploadedAcademicRecords;
+  }
+});
+
+Template.buttonremovestructure.helpers({
+  uploaded: function() {
+    const currentUserId = Meteor.userId();
+    const user = (currentUserId)? Users.findOne({ idUser: currentUserId }):null;
+    return user && Users.findOne({ idUser: currentUserId }).uploadedCurricularStructure;
   }
 });
