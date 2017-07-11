@@ -62,7 +62,7 @@ Meteor.methods({
       Users.update({
         idUser: currentUser },
         {
-          $set: { changedDefaultPassword: !val }
+          $set: { changedDefaultPassword: true }
         });
     }
   },
