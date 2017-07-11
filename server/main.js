@@ -56,40 +56,25 @@ Meteor.methods({
 
   changeFirstLogin() {
     const currentUser = Meteor.userId();
-    const registry = Users.findOne({ idUser: currentUser });
-    if (registry) {
-      const val = Users.findOne({ idUser: currentUser }).changedDefaultPassword;
-      Users.update({
-        idUser: currentUser },
-        {
-          $set: { changedDefaultPassword: !val }
-        });
+    const changedPass = Users.findOne({ idUser: currentUser }).changedDefaultPassword;
+    if (!changedPass) {
+      Users.update({ idUser: currentUser }, {$set: { changedDefaultPassword: true }});
     }
   },
 
   changeUserUploadCurricularStructureFlag() {
     const currentUser = Meteor.userId();
-    const registry = Users.findOne({ idUser: currentUser });
-    if (registry) {
-      const val = Users.findOne({ idUser: currentUser }).uploadedCurricularStructure;
-      Users.update({
-        idUser: currentUser },
-        {
-          $set: { uploadedCurricularStructure: !val }
-        });
+    const changedPass = Users.findOne({ idUser: currentUser }).uploadedCurricularStructure;
+    if (!changedPass) {
+      Users.update({ idUser: currentUser }, {$set: { uploadedCurricularStructure: true }});
     }
   },
 
   changeUserUploadAcademicRecordsFlag() {
     const currentUser = Meteor.userId();
-    const registry = Users.findOne({ idUser: currentUser });
-    if (registry) {
-      const val = Users.findOne({ idUser: currentUser }).uploadedAcademicRecords;
-      Users.update({
-        idUser: currentUser },
-        {
-          $set: { uploadedAcademicRecords: !val }
-        });
+    const changedPass = Users.findOne({ idUser: currentUser }).uploadedAcademicRecords;
+    if (!changedPass) {
+      Users.update({ idUser: currentUser }, {$set: { uploadedAcademicRecords: true }});
     }
   },
 
