@@ -1,5 +1,7 @@
 <template name="exportercurricularstructure">
-    <button class="loginBtn loginBtn--google js-exportcurricular">Exportar</button>
+    {{#if curricularStructureHasBeenSent}}
+      <button class="loginBtn loginBtn--google js-exportcurricular">Exportar</button>
+    {{/if}}
 </template>
 <template name="exporterRecords">
   <button class="js-export loginBtn loginBtn--google">Exportar</button>
