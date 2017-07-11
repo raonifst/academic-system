@@ -97,7 +97,12 @@ Template.login.events({
   'change': function(event) {
     Template.instance().validEmail.set($('#email').valid());
     Template.instance().validPassword.set($('#password').valid());
+  },
+  'onkeydown': function(event) {
+    Template.instance().validEmail.set($('#email').valid());
+    Template.instance().validPassword.set($('#password').valid());
   }
+
 });
 
 Template.changepass.events({
@@ -139,14 +144,16 @@ Template.login.onRendered(function () {
       Meteor.loginWithPassword(email, password, function (error) {
         if (error) {
           if (error.reason === "User not found") {
-            validator.showErrors({
+            Bert.alert( 'Usuário não cadastrado', 'danger' );
+            /*validator.showErrors({
               email: 'Usuário não cadastrado.'
-            });
+            });*/
           }
           if (error.reason === "Incorrect password") {
-            validator.showErrors({
+            Bert.alert( 'Senha incorreta', 'danger' );
+            /*validator.showErrors({
               password: 'Senha incorreta.'
-            });
+            });*/
           }
         } else {
           Meteor.call('isFirstLogin', (error, results) => {
