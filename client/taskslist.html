@@ -1,0 +1,22 @@
+<template name="taskslist">
+  {{#if currentUser}}
+    <br>
+    <div class="card" style="width: 600px;">
+      <h4>Configurações {{#if done}}<span style="color:green"><i class="fa fa-check"></i></span>{{else}}<span style="color:red"><i class="fa fa-times"></i></span>{{/if}}</h4>
+
+            <div class="group">
+
+              {{#each task}}
+                {{#if status}}
+                  <i class="fa fa-check"></i>
+                    <strike> {{name}} </strike>
+                {{else}}
+                    <a href={{link}}><span  style="font-weight: bold">{{number}}. {{name}} </span></a> 
+                {{/if}}
+                <br/>
+              {{/each}}
+
+          </div>
+    </div>
+  {{/if}}
+</template>

@@ -1,6 +1,10 @@
 <template name="exportercurricularstructure">
-    <button class="loginBtn loginBtn--google js-exportcurricular">Exportar</button>
+    {{#if uploaded}}
+      <button class="loginBtn loginBtn--google js-exportcurricular">Exportar</button>
+    {{/if}}
 </template>
 <template name="exporterRecords">
-  <button class="js-export loginBtn loginBtn--google">Exportar</button>
+  {{#if uploaded}}
+    <button class="js-export loginBtn loginBtn--google">Exportar</button>
+  {{/if}}
 </template>

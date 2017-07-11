@@ -7,18 +7,26 @@
        <h2>Login</h2>
         <p> <!-- <input class="form-control" type="email" name="email" required placeholder="Email"> -->
           <div class="group">
-            <input type="email" required name="email">
+            <input type="email" required name="email" id="email">
             <span class="highlight"></span>
             <span class="bar"></span>
-            <label>Email</label>
+            {{#if validEmail}}
+              <label>Email</label>
+            {{else}}
+              <label></label>
+            {{/if}}
           </div>
          </p>
         <p> <!--<input class="form-control" type="password" name="password" required placeholder="Senha"> -->
           <div class="group">
-            <input type="password" required name="password">
+            <input type="password" required name="password" id="password">
             <span class="highlight"></span>
             <span class="bar"></span>
-            <label>Senha</label>
+            {{#if validPassword}}
+              <label>Senha</label>
+            {{else}}
+              <label></label>
+            {{/if}}
           </div>
         </p>
         <p><button class="loginBtn loginBtn--google" type="submit">Entrar</button> </p>
@@ -26,23 +34,31 @@
     </div>
 </template>
 
+
 <template name="home">
-    <br><br><br><div class="card" style="width: 600px;">
+
+  {{> searchbox}}
+  {{> taskslist}}
+
+</template>
+
+
+<template name="searchbox">
+  <br><br><br>
+  <div class="card" style="width: 600px;">
     <p><h3>Bem-vindo ao sistema acadêmico!</h3></p><br>
     <!-- ainda não funciona-->
     {{#if currentUser}}
-    <form>
+      <form>
         <div>
-       <p>
+          <p>
           <div class="group">
             <input type="text" required name="search">
             <span class="highlight"></span>
             <span class="bar"></span>
             <label>Pesquisa</label>
           </div>
-        </p>
-
-
+          </p>
           <div class="md-radio md-radio-inline">
             <input id="1" type="radio" name="g2" checked>
             <label for="1">alunos</label>
@@ -54,17 +70,19 @@
         </div>
       </form>
     {{/if}}
-
-    </div>
-
+  </div>
 
 </template>
+
 
 <template name="main" style="overflow-Y: hidden; height: auto;">
 
   <header class="header">
     <button id="btnRespNav" type="button" class="header__icon btn-navbar navbar-toggle slideout-menu-toggle pull-left" data-toggle="collapse" data-target="#login-navbar-collapse" ></button>
-    <a href="#" class="header__logo">Logo</a>
+    <a href="#" class="header__logo">
+
+      <img src="http://rdc.org.br/wp-content/themes/html5blank-master/img/ufmt.png" alt="logo" height="45" width="145" >
+    </a>
     <link rel='stylesheet prefetch' href='https://storage.googleapis.com/code.getmdl.io/1.0.0/material.indigo-pink.min.css'>
     <link rel='stylesheet prefetch' href='https://fonts.googleapis.com/icon?family=Material+Icons'>
     <script src='https://storage.googleapis.com/code.getmdl.io/1.0.0/material.min.js'></script>

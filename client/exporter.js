@@ -1,5 +1,10 @@
 import {Meteor} from 'meteor/meteor';
 import './exporter.html'
+
+
+Meteor.subscribe('userStats');
+
+
 const Exporter = {
   exportAllRecord() {
     Meteor.call("exportAllRecords", (error, data) => {
@@ -22,9 +27,25 @@ const Exporter = {
     document.body.removeChild(a);
   }
 }
+
+Template.exportercurricularstructure.helpers({
+  uploaded: function() {
+    const currentUserId = Meteor.userId();
+    const user = (currentUserId)? Users.findOne({ idUser: currentUserId }):null;
+    return user && Users.findOne({ idUser: currentUserId }).uploadedCurricularStructure
+  }
+});
+
+
 Template.exporterRecords.helpers({
   records: function () {
     return Records.find();
+  },
+  uploaded: function() {
+    const currentUserId = Meteor.userId();
+    const user = (currentUserId)? Users.findOne({ idUser: currentUserId }):null;
+    return user && Users.findOne({ idUser: currentUserId }).uploadedAcademicRecords
+
   }
 });
 Template.exporterRecords.events({

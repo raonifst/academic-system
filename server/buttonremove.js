@@ -1,15 +1,23 @@
 import {Meteor} from 'meteor/meteor';
-import {check} from 'meteor/check';
+
 
 Meteor.methods({
+
   clearStructure(){
     const currentUser = Meteor.userId();
     if (!currentUser) {
       throw new Meteor.Error("not-logged-in", "You're not logged-in.");
     }
+    const countCurr = CurricularStructure.find({ createdBy: currentUser }).count();
+    const countDisc = Disciplines.find({ createdBy: currentUser }).count();
+    if (countCurr == 0 && countDisc) {
+      console.log("Estrutura curricular já está limpa!");
+      return 0;
+    }
     CurricularStructure.remove({ createdBy: currentUser });
     Disciplines.remove({ createdBy: currentUser });
-    console.log("Estrutura Curricular limpa por",currentUser);
+    console.log("Estrutura curricular limpa por ", currentUser);
+    return 1;
   },
 
   clearRecords(){
@@ -17,7 +25,13 @@ Meteor.methods({
     if (!currentUser) {
       throw new Meteor.Error("not-logged-in", "You're not logged-in.");
     }
+    if (Records.find({ createdBy: currentUser }).count() == 0) {
+      console.log("Histórico acadêmico já está limpo!");
+      return 0;
+    }
     Records.remove({ createdBy: currentUser });
-    console.log("Histórico Acadêmico limpo por",currentUser);
+    console.log("Histórico acadêmico limpo por ", currentUser);
+    return 1;
   }
-})
+
+});

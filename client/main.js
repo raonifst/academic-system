@@ -12,6 +12,10 @@ import './exporter.js'
 
 Bert.defaults.hideDelay = 4000;
 
+
+Meteor.subscribe('userStats');
+
+
 Router.configure({
   layoutTemplate: 'main',
   loadingTemplate: 'loading'
@@ -70,10 +74,35 @@ Template.menuItems.events({
   }
 });
 
+
+Template.login.onCreated(() => {
+  Template.instance().validEmail = new ReactiveVar(true);
+  Template.instance().validPassword = new ReactiveVar(true);
+});
+
+Template.login.helpers({
+    validEmail() {
+      return Template.instance().validEmail.get();
+    },
+    validPassword() {
+      return Template.instance().validPassword.get();
+    },
+  });
+
+
 Template.login.events({
   'submit form': function (event) {
     event.preventDefault();
+  },
+  'change': function(event) {
+    Template.instance().validEmail.set($('#email').valid());
+    Template.instance().validPassword.set($('#password').valid());
+  },
+  'onkeydown': function(event) {
+    Template.instance().validEmail.set($('#email').valid());
+    Template.instance().validPassword.set($('#password').valid());
   }
+
 });
 
 Template.changepass.events({
@@ -96,12 +125,12 @@ $.validator.setDefaults({
   },
   messages: {
     email: {
-      required: "Você deve digitar um email.",
-      email: "Você digitou email inválido."
+      required: "Email: Você deve digitar um email.",
+      email: "Email: Você digitou email inválido."
     },
     password: {
-      required: "Você deve inserir uma Senha.",
-      minlength: "Sua senha deve ter pelo menos {0} caracteres."
+      required: "Senha: Você deve inserir uma Senha.",
+      minlength: "Senha: Sua senha deve ter pelo menos {0} caracteres."
     }
   }
 });
@@ -115,18 +144,20 @@ Template.login.onRendered(function () {
       Meteor.loginWithPassword(email, password, function (error) {
         if (error) {
           if (error.reason === "User not found") {
-            validator.showErrors({
+            Bert.alert( 'Usuário não cadastrado', 'danger' );
+            /*validator.showErrors({
               email: 'Usuário não cadastrado.'
-            });
+            });*/
           }
           if (error.reason === "Incorrect password") {
-            validator.showErrors({
+            Bert.alert( 'Senha incorreta', 'danger' );
+            /*validator.showErrors({
               password: 'Senha incorreta.'
-            });
+            });*/
           }
         } else {
           Meteor.call('isFirstLogin', (error, results) => {
-            if (results == false) {
+            if (results) {
               Bert.alert('Altere sua senha no primeiro login!',
                 'warning', 'growl-top-right', 'fa-warning');
               Router.go("changepass");
@@ -138,6 +169,9 @@ Template.login.onRendered(function () {
       });
     }
   });
+
+
+
 });
 
 
@@ -146,12 +180,11 @@ Template.changepass.onRendered( function(){
     submitHandler:function(event){
       const newPassword = $('[name=password]').val();
       Meteor.call('changeUserPassword',newPassword,function(error){
-        if(error){
+        if (error) {
           validator.showErrors({
             password:error.reason
           })
-        }
-        else{
+        } else {
           Bert.alert('Senha alterada!', 'success', 'growl-top-right');
           Meteor.call('changeFirstLogin');
           Router.go('home');
@@ -169,29 +202,15 @@ Template.changepass.onRendered( function(){
 Template.home.onRendered(function(){
 
   if (Meteor.user()) {
-    var changedPassword = true;
-    const tipUploadCurricularStructure = 'Dica: Você pode realizar o upload da estrutura' +
-      ' curricular das disciplinas clicando no drop-down menu do lado superior' +
-      ' esquerdo.';
-    const tipUploadAcademicRecords = 'Dica: Você pode realizar o upload do' +
-      ' histórico acadêmico dos alunos clicando no drop-down menu do lado superior esquerdo.';
+    const tipUploadCurricularStructure = 'Dica: Você pode começar completando uma das tarefas na' +
+      ' lista de tarefas abaixo. Tente uma!';
     Meteor.call('isFirstLogin', (error, results) => {
-      if (!error)
-        changedPassword = results;
-    });
-    Meteor.call('countCurricularStructure', (error, results) => {
-      if (results == 0 && changedPassword) {
+      if (!results) {
         Bert.alert(tipUploadCurricularStructure, 'info', 'growl-top-right');
-        // Router.go("uploadcurricularstructure");
-      }
-    });
-    Meteor.call('countRecords', (error, results) => {
-      if (results == 0 && changedPassword) {
-        Bert.alert(tipUploadAcademicRecords, 'info', 'growl-top-right');
-        // Router.go("uploadacademicrecord");
       }
     });
   }
+
 });
 
 
