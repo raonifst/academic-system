@@ -33,7 +33,6 @@ import {Meteor} from 'meteor/meteor';
 
  Meteor.publish('disciplines', function(){
      var currentUser = this.userId;
-     console.log(currentUser);
      return Disciplines.find({ createdBy: currentUser });
  });
 
@@ -88,16 +87,6 @@ Meteor.methods({
     });
     return (completeUpdate) ? 0 : 1;
 
-  },
-
-  showCurricularStructure() {
-    console.log(CurricularStructure.find().count());
-    console.log(CurricularStructure.find().fetch());
-  },
-
-  showDisciplines() {
-    console.log(Disciplines.find().count());
-    console.log(Disciplines.find().fetch());
   }
 
 });

@@ -12,7 +12,6 @@ import {Meteor} from 'meteor/meteor';
 */
 Meteor.publish('record', function(){
     var currentUser = this.userId;
-    console.log(currentUser);
     return Records.find({ createdBy: currentUser });
 });
 
@@ -52,11 +51,6 @@ Meteor.methods({
     });
     return (completeUpdate) ? 0 : 1;
 
-  },
-
-  showRecord() {
-    console.log(Records.find().count());
-    console.log(Records.find().fetch());
   }
 
 });

@@ -173,13 +173,13 @@ Template.login.onRendered(function () {
     }
   });
 
-
-
 });
 
 
 Template.changepass.onRendered( function(){
+
   var validator = $('.login').validate({
+
     submitHandler:function(event){
       const newPassword = $('[name=password]').val();
       Meteor.call('changeUserPassword',newPassword,function(error){
@@ -192,32 +192,24 @@ Template.changepass.onRendered( function(){
           Meteor.call('changeFirstLogin');
           Router.go('home');
         }
-
       });
-
     }
-
   });
 
 });
 
-Template.home.helpers({
-    done: function () {
-      const currentUserId = Meteor.userId();
-      const user = Users.findOne({ idUser: currentUserId });
-      return user && user.changedDefaultPassword &&
-        user.uploadedCurricularStructure && user.uploadedAcademicRecords;
-    }
-});
 
 Template.home.onRendered(function(){
 
   if (Meteor.user()) {
-    const tipUploadCurricularStructure = 'Dica: Você pode começar completando uma das tarefas na' +
-      ' lista de tarefas abaixo. Tente uma!';
+    const tipUploadCurricularStructure = 'Você possui tarefas pendentes. Veja abaixo a lista de' +
+      ' configurações!';
     Meteor.call('isFirstLogin', (error, results) => {
       if (!results) {
-        if(!done())
+        const currentUserId = Meteor.userId();
+        const user = Users.findOne({ idUser: currentUserId });
+        if(!user || !user.changedDefaultPassword ||
+          !user.uploadedCurricularStructure || !user.uploadedAcademicRecords)
           Bert.alert(tipUploadCurricularStructure, 'info', 'growl-top-right');
       }
     });
@@ -227,5 +219,6 @@ Template.home.onRendered(function(){
 
 
 Meteor.logout(function(err){
-  console.log(err);
+  if (err)
+    console.log(err);
 });

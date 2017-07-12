@@ -26,7 +26,7 @@ const Exporter = {
     a.click();
     document.body.removeChild(a);
   }
-}
+};
 
 Template.exportercurricularstructure.helpers({
   uploaded: function() {

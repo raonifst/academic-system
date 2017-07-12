@@ -1,10 +1,14 @@
+import {Template} from 'meteor/templating';
 
 
 Template.buttonremovestructure.events({
+
   "click .js-clearstructure": function () {
+
+    if (!window.confirm("Você tem certeza? Esta operação não pode ser desfeita."))
+      return;
     Meteor.call('clearStructure', (error, results) => {
       if (results == 1) {
-        console.log("Estrutura Curricular limpa por",Meteor.userId());
         Bert.alert('Estrutura curricular limpa.', 'success', 'growl-top-right');
         Meteor.call('changeUserUploadCurricularStructureFlag');
       } else {
@@ -13,13 +17,18 @@ Template.buttonremovestructure.events({
     });
 
   }
+
 });
 
+
 Template.buttonremoverecords.events({
+
   "click .js-clearrecords": function () {
+
+    if (!window.confirm("Você tem certeza? Esta operação não pode ser desfeita."))
+      return;
     Meteor.call('clearRecords', (error, results) => {
       if (results == 1) {
-        console.log("Histórico acadêmico limpo por ", Meteor.userId());
         Bert.alert('Histórico acadêmico limpo.', 'success', 'growl-top-right' );
         Meteor.call('changeUserUploadAcademicRecordsFlag');
       } else {
@@ -28,26 +37,27 @@ Template.buttonremoverecords.events({
     });
 
   }
+
 });
 
 
 Template.buttonremoverecords.helpers({
+
   uploaded: function() {
     const currentUserId = Meteor.userId();
-    const user = (currentUserId)? Users.findOne({ idUser: currentUserId }):null;
+    const user = (currentUserId)? Users.findOne({ idUser: currentUserId }) : null;
     return user && Users.findOne({ idUser: currentUserId }).uploadedAcademicRecords;
-  },
-  canShowClearButton: function() {
-    const currentUserId = Meteor.userId();
-    const user = (currentUserId)? Users.findOne({ idUser: currentUserId }):null;
-    return user && Users.findOne({ idUser: currentUserId }).uploadedAcademicRecords && Users.findOne({ idUser: currentUserId }).uploadedAcademicRecords;
-  },
+  }
+
 });
 
+
 Template.buttonremovestructure.helpers({
+
   uploaded: function() {
     const currentUserId = Meteor.userId();
-    const user = (currentUserId)? Users.findOne({ idUser: currentUserId }):null;
+    const user = (currentUserId)? Users.findOne({ idUser: currentUserId }) : null;
     return user && Users.findOne({ idUser: currentUserId }).uploadedCurricularStructure;
   }
+
 });

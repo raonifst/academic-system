@@ -41,7 +41,7 @@ Meteor.methods({
     }
 
     Accounts.setPassword(currentUser, newPassword, {logout: false});
-    console.warn(new Date(), ': A senha do usuario', currentUser, ' foi alterada.');
+    console.log("A senha do usuario " + currentUser + " foi alterada.");
   },
 
   isFirstLogin() {
@@ -58,7 +58,6 @@ Meteor.methods({
     const currentUser = Meteor.userId();
     const registry = Users.findOne({ idUser: currentUser });
     if (registry) {
-      const val = Users.findOne({ idUser: currentUser }).changedDefaultPassword;
       Users.update({
         idUser: currentUser },
         {
