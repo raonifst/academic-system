@@ -40,7 +40,7 @@ Template.uploadacademicrecord.events({
       dynamicTyping: true,
       step(row, parser) {
         try {
-          SchemaHistRecords.validate(row.data[0]);
+          Records.schema.validate(row.data[0]);
         } catch (err) {
           Bert.alert('Este não é um arquivo CSV válido.', 'danger', 'growl-top-right' );
           globalError = true;
