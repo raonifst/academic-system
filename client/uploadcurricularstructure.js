@@ -29,7 +29,11 @@ Template.uploadcurricularstructure.helpers({
         return {
             rowsPerPage: 10,
             showFilter: true,
-            fields: ['codigo', 'nome', 'creditos']
+            fields: [
+              { key: 'codigo', label: 'Codigo' , cellClass: 'col-md-4'},
+              { key: 'nome', label: 'Nome' , cellClass: 'col-md-4'},
+              { key: 'creditos', label: 'Créditos' , cellClass: 'col-md-4'}
+            ]
         };
     }
 });
