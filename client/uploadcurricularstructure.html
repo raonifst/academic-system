@@ -19,32 +19,7 @@
 
 <div >
 <table class="mdl-data-table mdl-shadow--2dp" style="margin-left: auto; margin-right:auto;">
-  <thead>
-    <tr>
-      <th>
-          <!-- <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect mdl-data-table__select" for="table-header"> -->
-            <input type="checkbox" id="table-header" class="mdl-checkbox__input" style="width: auto;"/>
-          <!-- </label> -->
-      </th>
-      <th class="mdl-data-table__cell--non-numeric">Código</th>
-      <th class="mdl-data-table__cell--non-numeric">Nome</th>
-      <th>Créditos</th>
-    </tr>
-  </thead>
-  <tbody>
-      {{#each listaDisiciplinas}}
-    <tr>
-       <td>
-          <!-- <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect mdl-data-table__select" for="row[1]"> -->
-            <input type="checkbox" id="row[1]" class="mdl-checkbox__input" style="width: auto;"/>
-          <!-- </label> -->
-      </td>
-      <td class="mdl-data-table__cell--non-numeric">{{codigo}}</td>
-      <td class="mdl-data-table__cell--non-numeric">{{nome}}</td>
-      <td>{{creditos}}</td>
-    </tr>
-      {{/each}}
-  </tbody>
+  {{> reactiveTable collection=listaDisiciplinas settings=settings}}
 </table>
 </div>
 

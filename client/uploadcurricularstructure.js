@@ -24,7 +24,14 @@ Template.uploadcurricularstructure.helpers({
     //console.log(D)
     //return Disciplines.find(({ createdBy: currentUserId },
     //                      { sort: {codigo: 1, nome: 1} }));
-  }
+  },
+  settings: function () {
+        return {
+            rowsPerPage: 10,
+            showFilter: true,
+            fields: ['codigo', 'nome', 'creditos']
+        };
+    }
 });
 
 
