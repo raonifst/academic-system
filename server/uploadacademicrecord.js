@@ -21,7 +21,7 @@ Meteor.methods({
 
     const currentUser = Meteor.userId();
     var completeUpdate = true;
-
+    var discError = false;
     data.forEach(item => {
 
       const existHist = Records.find({
@@ -31,12 +31,18 @@ Meteor.methods({
         semestre: item.semestre,
         createdBy: currentUser
       }).count();
-
+      console.log(item.disciplina);
+      const existDisc = Disciplines.find({nome: item.disciplina}).count();
       // Pré-condição: Verifica se os items já estão no banco de dados
-      if (existHist !== 0) {
+      if(existDisc==0){
+        completeUpdate=2;
+        return;
+      }
+      else {
+        if (existHist !== 0) {
         completeUpdate = false;
         return; // Equivalente ao "continue" em um laço "for" explícito
-      }
+      }}
 
       Records.insert({
         "rga": item.rga,
@@ -49,7 +55,7 @@ Meteor.methods({
       });
 
     });
-    return (completeUpdate) ? 0 : 1;
+    return completeUpdate;
 
   }
 

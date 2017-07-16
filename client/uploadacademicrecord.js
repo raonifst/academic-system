@@ -70,9 +70,14 @@ Template.uploadacademicrecord.events({
           if (error)
             Bert.alert('Unknown internal error.', 'danger', 'growl-top-right');
           else {
+            console.log(results);
             if (results == 1)
               Bert.alert('Upload completado com sucesso! Alguns itens repetidos foram ignorados.',
                 'warning', 'growl-top-right');
+            else if (results==2) {
+              Bert.alert('Upload completado com sucesso! Alguns disciplinas que não estão na estrutura foram ignoaradas',
+                'warning', 'growl-top-right');
+            }
             else
               Bert.alert('Upload completado com sucesso!', 'success', 'growl-top-right');
             Meteor.call('changeUserUploadAcademicRecordsFlag');
