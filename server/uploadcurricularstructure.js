@@ -89,6 +89,9 @@ Meteor.methods({
         codigo: item.codigo,
         nome: item.nome,
         creditos: item.creditos,
+        aprovacoes: 0,
+        reprovacoes:0,
+        perc_ap:100,
         createdBy: currentUser
       });
 
