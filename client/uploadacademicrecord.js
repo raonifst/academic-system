@@ -18,12 +18,26 @@ Template.uploadacademicrecord.helpers({
     return Template.instance().uploading.get();
   },
   'listaAlunos': function(){
-    
+
     return Records.find();
     //console.log(D)
     //return Disciplines.find(({ createdBy: currentUserId },
     //                      { sort: {codigo: 1, nome: 1} }));
-  }
+  },
+  settingsRecord: function () {
+        return {
+            rowsPerPage: 10,
+            showFilter: true,
+            fields: [
+              { key: 'rga', label: 'RGA' , cellClass: 'col-md-4'},
+              { key: 'nome', label: 'Nome' , cellClass: 'col-md-4'},
+              { key: 'disciplina', label: 'Disciplina' , cellClass: 'col-md-4'},
+              { key: 'situacao', label: 'Situação' , cellClass: 'col-md-4'},
+              { key: 'ano', label: 'Ano' , cellClass: 'col-md-4'},
+              { key: 'semestre', label: 'Semestre' , cellClass: 'col-md-4'}
+            ]
+        };
+    }
 });
 
 Template.uploadacademicrecord.events({
