@@ -25,6 +25,7 @@ Meteor.startup(() => {
       changedDefaultPassword: false,
       uploadedCurricularStructure: false,
       uploadedAcademicRecords: false,
+      currentSemester: 1
     });
   }
 
@@ -91,6 +92,25 @@ Meteor.methods({
         });
     }
   },
+
+  changeCurrentSemester(reset_flag) {
+    var currentSem = 1;
+    const currentUser = Meteor.userId();
+    const registry = Users.findOne({ idUser: currentUser });
+    if (registry) {
+      const last = Records.findOne({ createdBy: currentUser }, { sort: {semestre: -1} });
+      if (last) {
+        if (!reset_flag)
+          currentSem = last.semestre + 1;
+        Users.update({
+            idUser: currentUser },
+          {
+            $set: { currentSemester: currentSem }
+          });
+      }
+    }
+    return currentSem;
+  }
 
 });
 
