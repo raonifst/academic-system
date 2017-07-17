@@ -99,15 +99,10 @@ Meteor.methods({
     const registry = Users.findOne({ idUser: currentUser });
     if (registry) {
       const last = Records.findOne({ createdBy: currentUser }, { sort: {semestre: -1} });
-      if (last) {
-        if (!reset_flag)
-          currentSem = last.semestre + 1;
-        Users.update({
-            idUser: currentUser },
-          {
-            $set: { currentSemester: currentSem }
-          });
+      if (last && !reset_flag) {
+        currentSem = last.semestre + 1;
       }
+      Users.update({ idUser: currentUser }, { $set: { currentSemester: currentSem } });
     }
     return currentSem;
   }
