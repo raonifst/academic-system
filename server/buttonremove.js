@@ -11,12 +11,11 @@ Meteor.methods({
     const countCurr = CurricularStructure.find({ createdBy: currentUser }).count();
     const countDisc = Disciplines.find({ createdBy: currentUser }).count();
     if (countCurr == 0 && countDisc) {
-      console.log("Estrutura curricular já está limpa!");
       return 0;
     }
     CurricularStructure.remove({ createdBy: currentUser });
     Disciplines.remove({ createdBy: currentUser });
-    console.log("Estrutura curricular limpa por ", currentUser);
+    console.log("Estrutura curricular limpa por", currentUser);
     return 1;
   },
 
@@ -26,11 +25,10 @@ Meteor.methods({
       throw new Meteor.Error("not-logged-in", "You're not logged-in.");
     }
     if (Records.find({ createdBy: currentUser }).count() == 0) {
-      console.log("Histórico acadêmico já está limpo!");
       return 0;
     }
     Records.remove({ createdBy: currentUser });
-    console.log("Histórico acadêmico limpo por ", currentUser);
+    console.log("Histórico acadêmico limpo por", currentUser);
     return 1;
   }
 

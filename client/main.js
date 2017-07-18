@@ -1,4 +1,5 @@
 import {Template} from 'meteor/templating';
+import { Accounts } from 'meteor/accounts-base'
 
 import './uploadacademicrecord.html';
 import './main.html';
@@ -93,16 +94,7 @@ Template.login.helpers({
 Template.login.events({
   'submit form': function (event) {
     event.preventDefault();
-  },
-  'change': function(event) {
-    Template.instance().validEmail.set($('#email').valid());
-    Template.instance().validPassword.set($('#password').valid());
-  },
-  'onkeydown': function(event) {
-    Template.instance().validEmail.set($('#email').valid());
-    Template.instance().validPassword.set($('#password').valid());
   }
-
 });
 
 Template.changepass.events({
@@ -138,9 +130,14 @@ $.validator.setDefaults({
 Template.login.onRendered(function () {
 
   var validator = $('.login').validate({
+
+    onkeyup: false,
+    keypress: false,
+
     errorPlacement: function (error, element) {
             Bert.alert(error.text(),'danger' );
     },
+
     submitHandler: function (event) {
       var email = $('[name=email]').val();
       var password = $('[name=password]').val();
@@ -148,15 +145,11 @@ Template.login.onRendered(function () {
         if (error) {
           if (error.reason === "User not found") {
             Bert.alert( 'Usuário não cadastrado', 'danger' );
-            /*validator.showErrors({
-              email: 'Usuário não cadastrado.'
-            });*/
+
           }
           if (error.reason === "Incorrect password") {
             Bert.alert( 'Senha incorreta', 'danger' );
-            /*validator.showErrors({
-              password: 'Senha incorreta.'
-            });*/
+
           }
         } else {
           Meteor.call('isFirstLogin', (error, results) => {
@@ -173,51 +166,59 @@ Template.login.onRendered(function () {
     }
   });
 
-
-
 });
 
 
 Template.changepass.onRendered( function(){
+
   var validator = $('.login').validate({
+
+    onkeyup: false,
+    keypress: false,
+
+    errorPlacement: function (error, element) {
+            Bert.alert(error.text(),'danger' );
+    },
+
     submitHandler:function(event){
       const newPassword = $('[name=password]').val();
-      Meteor.call('changeUserPassword',newPassword,function(error){
+      const oldPassword = $('[name=oldpassword]').val();
+      Accounts.changePassword(oldPassword, newPassword, function(error){
         if (error) {
-          validator.showErrors({
+          if (error.reason === "User not found") {
+            Bert.alert( 'Usuário não cadastrado', 'danger' );
+
+          }
+          if (error.reason === "Incorrect password") {
+            Bert.alert( 'Senha incorreta', 'danger' );
+
+          }
+          /*validator.showErrors({
             password:error.reason
-          })
+          })*/
         } else {
           Bert.alert('Senha alterada!', 'success', 'growl-top-right');
           Meteor.call('changeFirstLogin');
           Router.go('home');
         }
-
       });
-
     }
-
   });
 
 });
 
-Template.home.helpers({
-    done: function () {
-      const currentUserId = Meteor.userId();
-      const user = Users.findOne({ idUser: currentUserId });
-      return user && user.changedDefaultPassword &&
-        user.uploadedCurricularStructure && user.uploadedAcademicRecords;
-    }
-});
 
 Template.home.onRendered(function(){
 
   if (Meteor.user()) {
-    const tipUploadCurricularStructure = 'Dica: Você pode começar completando uma das tarefas na' +
-      ' lista de tarefas abaixo. Tente uma!';
+    const tipUploadCurricularStructure = 'Você possui tarefas pendentes. Veja abaixo a lista de' +
+      ' configurações!';
     Meteor.call('isFirstLogin', (error, results) => {
       if (!results) {
-        if(!done())
+        const currentUserId = Meteor.userId();
+        const user = Users.findOne({ idUser: currentUserId });
+        if(!user || !user.changedDefaultPassword ||
+          !user.uploadedCurricularStructure || !user.uploadedAcademicRecords)
           Bert.alert(tipUploadCurricularStructure, 'info', 'growl-top-right');
       }
     });
@@ -227,5 +228,6 @@ Template.home.onRendered(function(){
 
 
 Meteor.logout(function(err){
-  console.log(err);
+  if (err)
+    console.log(err);
 });

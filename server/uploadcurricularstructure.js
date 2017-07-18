@@ -33,7 +33,6 @@ import {Meteor} from 'meteor/meteor';
 
  Meteor.publish('disciplines', function(){
      var currentUser = this.userId;
-     console.log(currentUser);
      return Disciplines.find({ createdBy: currentUser });
  });
 
@@ -41,63 +40,72 @@ Meteor.methods({
 
   uploadCurricularStruture(data) {
 
+    /* Variável de controle resultCode: retorna os seguintes resultados
+    0 -> Todos os itens foram inseridos sem erros
+    1 -> Todos os itens foram inseridos, itens repetidos foram encontrados e ignorados
+    2 -> Itens em formato errado foram encontrados e não foram inseridos
+
+     */
+    var resultCode = 0;
     const currentUser = Meteor.userId();
-    var completeUpdate = true;
 
     data.forEach(item => {
 
       const existCurr = CurricularStructure.find({
-        nome: item.nome,
+        codigo: item.codigo,
         createdBy: currentUser
       }).count();
 
-      const existDisc = Disciplines.find({ nome: item.nome }).count();
+      const existDisc = Disciplines.find({
+        codigo: item.codigo,
+        createdBy: currentUser
+      }).count();
 
       // Pré-condição: Verifica se os items já estão no banco de dados
       if (existCurr !== 0 || existDisc !== 0) {
-        completeUpdate = false;
+        resultCode = 1;
         return; // Equivalente ao "continue" em um laço "for" explícito
       }
-
-      const idDisciplina = Disciplines.insert({
-        codigo: item.codigo,
-        nome: item.nome,
-        creditos: item.creditos,
-        createdBy: currentUser
-      });
 
       // Array de pré-requisitos:
       // Deve conter os IDs das disciplinas pré-requisitos da disciplina em questão na estrutura
       // curricular.
       var prereqArray = [];
-      var tmpArray = item.prereq.split("; ");
-      tmpArray.forEach(function (item) {
-        const discipline = Disciplines.findOne({ nome: item });
-        if (discipline != null)
-          prereqArray.push(discipline._id);
+
+      item.prereq.split(";").forEach(function (item) {
+        if (item.localeCompare("")) {
+          const discipline = Disciplines.findOne({ codigo: parseInt(item) });
+          if (discipline != null)
+            prereqArray.push(discipline._id);
+          else {
+            resultCode = 2;
+          }
+        }
+      });
+
+      if (resultCode == 2) return;
+
+      const idDisciplina = Disciplines.insert({
+        codigo: item.codigo,
+        nome: item.nome,
+        creditos: item.creditos,
+        aprovacoes: 0,
+        reprovacoes:0,
+        perc_ap:100,
+        createdBy: currentUser
       });
 
       CurricularStructure.insert({
         idDisciplina: idDisciplina,
-        semestre: parseInt(item.semestre),
+        semestre: item.semestre,
         prereq: item.prereq,
         idPrereq: prereqArray,
         createdBy: currentUser
       });
 
     });
-    return (completeUpdate) ? 0 : 1;
 
-  },
-
-  showCurricularStructure() {
-    console.log(CurricularStructure.find().count());
-    console.log(CurricularStructure.find().fetch());
-  },
-
-  showDisciplines() {
-    console.log(Disciplines.find().count());
-    console.log(Disciplines.find().fetch());
+    return resultCode;
   }
 
 });

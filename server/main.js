@@ -25,6 +25,7 @@ Meteor.startup(() => {
       changedDefaultPassword: false,
       uploadedCurricularStructure: false,
       uploadedAcademicRecords: false,
+      currentSemester: 1
     });
   }
 
@@ -41,7 +42,7 @@ Meteor.methods({
     }
 
     Accounts.setPassword(currentUser, newPassword, {logout: false});
-    console.warn(new Date(), ': A senha do usuario', currentUser, ' foi alterada.');
+    console.log("A senha do usuario " + currentUser + " foi alterada.");
   },
 
   isFirstLogin() {
@@ -58,7 +59,6 @@ Meteor.methods({
     const currentUser = Meteor.userId();
     const registry = Users.findOne({ idUser: currentUser });
     if (registry) {
-      const val = Users.findOne({ idUser: currentUser }).changedDefaultPassword;
       Users.update({
         idUser: currentUser },
         {
@@ -92,6 +92,20 @@ Meteor.methods({
         });
     }
   },
+
+  changeCurrentSemester(reset_flag) {
+    var currentSem = 1;
+    const currentUser = Meteor.userId();
+    const registry = Users.findOne({ idUser: currentUser });
+    if (registry) {
+      const last = Records.findOne({ createdBy: currentUser }, { sort: {semestre: -1} });
+      if (last && !reset_flag) {
+        currentSem = last.semestre + 1;
+      }
+      Users.update({ idUser: currentUser }, { $set: { currentSemester: currentSem } });
+    }
+    return currentSem;
+  }
 
 });
 

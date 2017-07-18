@@ -15,7 +15,7 @@ Users = new Meteor.Collection('usersreg');
 
 
 // Schema utilizado para validar o csv da estrutura curricular
-SchemaCurrDisc = new SimpleSchema({
+CurricularStructure.schema = new SimpleSchema({
   codigo: {
     type: Number,
     min: 90000001,
@@ -36,12 +36,12 @@ SchemaCurrDisc = new SimpleSchema({
     max: 10
   },
   prereq: {
-    type: String,
+    type: String
   }
 });
 
 // Schema utilizado para validar o csv do histórico acadêmico
-SchemaHistRecords = new SimpleSchema({
+Records.schema = new SimpleSchema({
   rga: {
     type: Number,
     min: 201420000000
@@ -69,3 +69,16 @@ SchemaHistRecords = new SimpleSchema({
     max: 10
   }
 });
+
+
+CurricularStructure.parser = function(jsonObj) {
+
+  return {
+    codigo: parseInt(jsonObj.codigo),
+    nome: jsonObj.nome,
+    creditos: parseInt(jsonObj.creditos),
+    semestre: parseInt(jsonObj.semestre),
+    prereq: jsonObj.prereq
+  };
+
+};

@@ -18,12 +18,26 @@ Template.uploadacademicrecord.helpers({
     return Template.instance().uploading.get();
   },
   'listaAlunos': function(){
-    
+
     return Records.find();
     //console.log(D)
     //return Disciplines.find(({ createdBy: currentUserId },
     //                      { sort: {codigo: 1, nome: 1} }));
-  }
+  },
+  settingsRecord: function () {
+        return {
+            rowsPerPage: 10,
+            showFilter: true,
+            fields: [
+              { key: 'rga', label: 'RGA' , cellClass: 'col-md-4'},
+              { key: 'nome', label: 'Nome' , cellClass: 'col-md-4'},
+              { key: 'disciplina', label: 'Disciplina' , cellClass: 'col-md-4'},
+              { key: 'situacao', label: 'Situação' , cellClass: 'col-md-4'},
+              { key: 'ano', label: 'Ano' , cellClass: 'col-md-4'},
+              { key: 'semestre', label: 'Semestre' , cellClass: 'col-md-4'}
+            ]
+        };
+    }
 });
 
 Template.uploadacademicrecord.events({
@@ -40,7 +54,7 @@ Template.uploadacademicrecord.events({
       dynamicTyping: true,
       step(row, parser) {
         try {
-          SchemaHistRecords.validate(row.data[0]);
+          Records.schema.validate(row.data[0]);
         } catch (err) {
           Bert.alert('Este não é um arquivo CSV válido.', 'danger', 'growl-top-right' );
           globalError = true;
@@ -56,11 +70,20 @@ Template.uploadacademicrecord.events({
           if (error)
             Bert.alert('Unknown internal error.', 'danger', 'growl-top-right');
           else {
+            console.log(results);
             if (results == 1)
               Bert.alert('Upload completado com sucesso! Alguns itens repetidos foram ignorados.',
                 'warning', 'growl-top-right');
+            else if (results==2) {
+              Bert.alert('Upload completado com sucesso! Alguns disciplinas que não estão na estrutura foram ignoaradas',
+                'warning', 'growl-top-right');
+            }
             else
               Bert.alert('Upload completado com sucesso!', 'success', 'growl-top-right');
+            Meteor.call('changeCurrentSemester', 0, (error, results) => {
+              if (results)
+                console.log("Semestre atual alterado para:", results);
+            });
             Meteor.call('changeUserUploadAcademicRecordsFlag');
           }
           template.uploading.set(false);

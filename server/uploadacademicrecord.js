@@ -12,7 +12,6 @@ import {Meteor} from 'meteor/meteor';
 */
 Meteor.publish('record', function(){
     var currentUser = this.userId;
-    console.log(currentUser);
     return Records.find({ createdBy: currentUser });
 });
 
@@ -22,7 +21,7 @@ Meteor.methods({
 
     const currentUser = Meteor.userId();
     var completeUpdate = true;
-
+    var discError = false;
     data.forEach(item => {
 
       const existHist = Records.find({
@@ -32,12 +31,40 @@ Meteor.methods({
         semestre: item.semestre,
         createdBy: currentUser
       }).count();
-
-      // Pré-condição: Verifica se os items já estão no banco de dados
-      if (existHist !== 0) {
+      //console.log(item.disciplina);
+      const existDisc = Disciplines.find({nome: item.disciplina}).count();
+      var id_disciplina=0;
+      var aprov;
+      if(existDisc!=0&&existHist==0){
+      var disciplina = Disciplines.find({nome: item.disciplina}).fetch();
+      _.each(disciplina, function(h) {
+        id_disciplina=h._id;
+        aprov=h.aprovacoes;
+        rep=h.reprovacoes;
+      })
+      console.log(id_disciplina);
+      console.log(aprov)
+      if(item.situacao=='AP'){
+        aprov=aprov+1;
+      Disciplines.update({ _id: id_disciplina }, {$set: {aprovacoes:aprov} });
+    }
+    else{
+        rep=rep+1;
+      Disciplines.update({ _id: id_disciplina }, {$set: {reprovacoes:rep} });
+    }
+    var percent=(aprov/(aprov+rep))*100;
+    Disciplines.update({ _id: id_disciplina }, {$set: {perc_ap:percent} });
+  }
+  // Pré-condição: Verifica se os items já estão no banco de dados
+      if(existDisc==0){
+        completeUpdate=2;
+        return;
+      }
+      else {
+        if (existHist !== 0) {
         completeUpdate = false;
         return; // Equivalente ao "continue" em um laço "for" explícito
-      }
+      }}
 
       Records.insert({
         "rga": item.rga,
@@ -50,13 +77,8 @@ Meteor.methods({
       });
 
     });
-    return (completeUpdate) ? 0 : 1;
+    return completeUpdate;
 
-  },
-
-  showRecord() {
-    console.log(Records.find().count());
-    console.log(Records.find().fetch());
   }
 
 });
