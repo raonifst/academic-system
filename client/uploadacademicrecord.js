@@ -24,6 +24,12 @@ Template.uploadacademicrecord.helpers({
     //return Disciplines.find(({ createdBy: currentUserId },
     //                      { sort: {codigo: 1, nome: 1} }));
   },
+    uploaded: function() {
+      const currentUserId = Meteor.userId();
+      const user = (currentUserId)? Users.findOne({ idUser: currentUserId }) : null;
+      return user && Users.findOne({ idUser: currentUserId }).uploadedAcademicRecords;
+    }
+    ,
   settingsRecord: function () {
         return {
             rowsPerPage: 10,
