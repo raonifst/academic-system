@@ -25,7 +25,8 @@ Meteor.startup(() => {
       changedDefaultPassword: false,
       uploadedCurricularStructure: false,
       uploadedAcademicRecords: false,
-      currentSemester: 1
+      currentYear: null,
+      currentSemester: null
     });
   }
 
@@ -93,18 +94,26 @@ Meteor.methods({
     }
   },
 
-  changeCurrentSemester(reset_flag) {
-    var currentSem = 1;
+  changeCurrentSemester(data, reset_flag) {
+
+    var cSemester = null, cYear = null;
     const currentUser = Meteor.userId();
     const registry = Users.findOne({ idUser: currentUser });
+
+    const semesterParser = function (n) { return ((n + 1) % 2) + 1; };
+
     if (registry) {
-      const last = Records.findOne({ createdBy: currentUser }, { sort: {semestre: -1} });
-      if (last && !reset_flag) {
-        currentSem = last.semestre + 1;
+      if (!reset_flag) {
+        cSemester = semesterParser(data.semestre + 1);
+        cYear = (cSemester == 1) ? data.ano + 1 : data.ano;
       }
-      Users.update({ idUser: currentUser }, { $set: { currentSemester: currentSem } });
+      Users.update({
+        idUser: currentUser },
+        {
+          $set: { currentYear: cYear, currentSemester: cSemester }
+        });
     }
-    return currentSem;
+    console.log('Semestre atual alterado para ' + cYear + '/' + cSemester);
   }
 
 });

@@ -12,19 +12,18 @@
 {{> buttonremovestructure}}
 {{> exportercurricularstructure}}
 </div>
+{{/if}}
 
 
 
 <br>
 {{#if uploaded}}
-<table class="mdl-data-table mdl-shadow--2dp" style="margin-left: auto; margin-right:auto;">
-  {{> reactiveTable collection=listaDisiciplinas settings=settings}}
-</table>
-</div>
+  <div>
+    <table class="mdl-data-table mdl-shadow--2dp" style="margin-left: auto; margin-right:auto;">
+      {{> reactiveTable collection=listaDisiciplinas settings=settings}}
+    </table>
+  </div>
 {{/if}}
 
-<div >
 
-
-{{/if}}
 </template>

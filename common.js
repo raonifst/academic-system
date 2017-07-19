@@ -66,7 +66,7 @@ Records.schema = new SimpleSchema({
   semestre: {
     type: Number,
     min: 1,
-    max: 10
+    max: 4
   }
 });
 
