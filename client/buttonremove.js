@@ -30,10 +30,7 @@ Template.buttonremoverecords.events({
     Meteor.call('clearRecords', (error, results) => {
       if (results == 1) {
         Bert.alert('Histórico acadêmico limpo.', 'success', 'growl-top-right' );
-        Meteor.call('changeCurrentSemester', 1, (error, results) => {
-          if (results)
-            console.log("Semestre atual resetado para:", results);
-        });
+        Meteor.call('changeCurrentSemester', null, 1);
         Meteor.call('changeUserUploadAcademicRecordsFlag');
       } else {
         Bert.alert('Histórico acadêmico já está vazio.', 'warning', 'growl-top-right' );

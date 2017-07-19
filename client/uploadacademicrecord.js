@@ -86,10 +86,7 @@ Template.uploadacademicrecord.events({
             }
             else
               Bert.alert('Upload completado com sucesso!', 'success', 'growl-top-right');
-            Meteor.call('changeCurrentSemester', 0, (error, results) => {
-              if (results)
-                console.log("Semestre atual alterado para:", results);
-            });
+            Meteor.call('changeCurrentSemester', data[data.length - 1], 0);
             Meteor.call('changeUserUploadAcademicRecordsFlag');
           }
           template.uploading.set(false);

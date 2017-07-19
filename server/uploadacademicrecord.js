@@ -41,9 +41,9 @@ Meteor.methods({
         id_disciplina=h._id;
         aprov=h.aprovacoes;
         rep=h.reprovacoes;
-      })
+      });
       console.log(id_disciplina);
-      console.log(aprov)
+      console.log(aprov);
       if(item.situacao=='AP'){
         aprov=aprov+1;
       Disciplines.update({ _id: id_disciplina }, {$set: {aprovacoes:aprov} });
