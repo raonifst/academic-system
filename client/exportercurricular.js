@@ -2,6 +2,7 @@ import {Meteor} from 'meteor/meteor';
 
 import './exporter.html'
 
+
 const ExporterCurricular = {
   exportAllCurricular() {
     Meteor.call("exportAllCurricular", (error, data) => {

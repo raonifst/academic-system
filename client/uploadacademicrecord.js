@@ -13,6 +13,7 @@ Template.uploadacademicrecord.onCreated(() => {
   Template.instance().uploading = new ReactiveVar(false);
 });
 
+
 Template.uploadacademicrecord.helpers({
   uploading() {
     return Template.instance().uploading.get();
@@ -46,6 +47,7 @@ Template.uploadacademicrecord.helpers({
     }
 });
 
+
 Template.uploadacademicrecord.events({
 
   'change [name="uploadCSV"]'(event, template) {
@@ -72,11 +74,11 @@ Template.uploadacademicrecord.events({
       complete() {
         if (globalError)
           return;
+        //console.log(data); // Debug (descomente esta linha)
         Meteor.call('updateAcademicRecordData', data, (error, results) => {
           if (error)
             Bert.alert('Unknown internal error.', 'danger', 'growl-top-right');
           else {
-            console.log(results);
             if (results == 1)
               Bert.alert('Upload completado com sucesso! Alguns itens repetidos foram ignorados.',
                 'warning', 'growl-top-right');

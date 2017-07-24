@@ -9,6 +9,14 @@ Meteor.subscribe('disciplines');
 Meteor.subscribe('userStats');
 
 
+const prereqStrToArray = function (str) {
+  if (!str)
+    return [];
+  var s = str.split(";");
+  return (s == "") ? [] : s.map(Number);
+};
+
+
 Template.uploadcurricularstructure.onCreated(() => {
   Template.instance().uploading = new ReactiveVar( false );
 });
@@ -67,11 +75,13 @@ Template.uploadcurricularstructure.events({
           template.uploading.set(false);
           parser.abort();
         }
+        reg.prereq = prereqStrToArray(reg.prereq);
         data.push(reg);
       },
       complete() {
         if (globalError)
           return;
+        //console.log(data); // Debug (descomente esta linha)
         Meteor.call('uploadCurricularStruture', data, (error, results) => {
           if (error)
             Bert.alert('Unknown internal error.', 'danger', 'growl-top-right');
