@@ -1,0 +1,13 @@
+<template name="search">
+    <div class="pull-right">
+      <input type="text" name="search" class="form-control" width="250px" placeholder="Find an aluno...">
+    </div>
+  <br><br><br>
+  <ul class="mdl-data-table mdl-shadow--2dp card">
+      {{#each studentsnocoursed}}
+        <li class="mdl-data-table mdl-shadow--2dp">
+          <span class="pull-left">{{this}}</span>
+        </li>
+      {{/each}}
+  </ul>
+</template>
