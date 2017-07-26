@@ -1,6 +1,9 @@
+import {CsvUtils} from "../imports/utils/csvutils";
 
 Meteor.methods({
+
 	exportAllCurricular: function() {
+
 		var fields = [
 			"codigo",
 			"nome",
@@ -10,34 +13,19 @@ Meteor.methods({
 		];
 
 		var data = [];
-		var sem = [];
-		var pre = [];
-		var i=0;
-		var curricular = CurricularStructure.find().fetch();
-		var disciplina = Disciplines.find().fetch();
-		_.each(curricular, function(h) {
-			sem.push([
-				h.semestre
-			]);
-		})
+		var curriculars = CurricularStructure.find().fetch();
+		var disciplines = Disciplines.find().fetch();
 
-		_.each(curricular, function(l) {
-			pre.push([
-				l.prereq
-			]);
-		})
-
-
-		_.each(disciplina, function(p) {
+		for (var j = 0; j < curriculars.length; j++) {
 			data.push([
-				p.codigo,
-				p.nome,
-				p.creditos,
-				sem[i],
-				pre[i]
+        disciplines[j].codigo,
+				disciplines[j].nome,
+				disciplines[j].creditos,
+				curriculars[j].semestre,
+        CsvUtils.prereqArrayToString(curriculars[j].prereq)
 			]);
-			i=i+1;
-		})
+		}
+
 		return {fields: fields, data: data};
 	}
 });

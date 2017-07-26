@@ -2,6 +2,7 @@ import {Template} from 'meteor/templating';
 import {ReactiveVar} from 'meteor/reactive-var';
 
 import './uploadcurricularstructure.html'
+import {CsvUtils} from "../imports/utils/csvutils";
 
 
 Meteor.subscribe('disciplines');
@@ -67,11 +68,13 @@ Template.uploadcurricularstructure.events({
           template.uploading.set(false);
           parser.abort();
         }
+        reg.prereq = CsvUtils.prereqStringToArray(reg.prereq);
         data.push(reg);
       },
       complete() {
         if (globalError)
           return;
+        //console.log(data); // Debug (descomente esta linha)
         Meteor.call('uploadCurricularStruture', data, (error, results) => {
           if (error)
             Bert.alert('Unknown internal error.', 'danger', 'growl-top-right');

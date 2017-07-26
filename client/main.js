@@ -9,7 +9,8 @@ import './uploadcurricularstructure.js'
 import './exporter.html';
 import './exportercurricular.js'
 import './exporter.js'
-
+import './search.html'
+import './search.js'
 
 Bert.defaults.hideDelay = 4000;
 
@@ -44,6 +45,15 @@ Router.route('/uploadcurricularstructure', {
       this.render("login");
     }
   }
+});
+Router.route('/search', {
+  /*onBeforeAction() {
+    if (Meteor.userId()) {
+      this.next();
+    } else {
+      this.render("login");
+    }
+  }*/
 });
 Router.route('/uploadacademicrecord', {
   onBeforeAction() {

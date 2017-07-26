@@ -31,20 +31,20 @@ import {Meteor} from 'meteor/meteor';
  }
  */
 
- Meteor.publish('disciplines', function(){
-     var currentUser = this.userId;
-     return Disciplines.find({ createdBy: currentUser });
- });
+Meteor.publish('disciplines', function(){
+  var currentUser = this.userId;
+  return Disciplines.find({ createdBy: currentUser });
+});
+
 
 Meteor.methods({
 
   uploadCurricularStruture(data) {
 
-    /* Variável de controle resultCode: retorna os seguintes resultados
-    0 -> Todos os itens foram inseridos sem erros
-    1 -> Todos os itens foram inseridos, itens repetidos foram encontrados e ignorados
-    2 -> Itens em formato errado foram encontrados e não foram inseridos
-
+    /* Variável de controle resultCode: retorna os seguintes resultados:
+    0 -> Todos os itens foram inseridos sem erros;
+    1 -> Todos os itens foram inseridos, itens repetidos foram encontrados e ignorados;
+    2 -> Itens em formato errado foram encontrados e não foram inseridos.
      */
     var resultCode = 0;
     const currentUser = Meteor.userId();
@@ -72,14 +72,12 @@ Meteor.methods({
       // curricular.
       var prereqArray = [];
 
-      item.prereq.split(";").forEach(function (item) {
-        if (item.localeCompare("")) {
-          const discipline = Disciplines.findOne({ codigo: parseInt(item) });
-          if (discipline != null)
-            prereqArray.push(discipline._id);
-          else {
-            resultCode = 2;
-          }
+      item.prereq.forEach(function (item) {
+        const discipline = Disciplines.findOne({ codigo: item });
+        if (discipline != null)
+          prereqArray.push(discipline._id);
+        else {
+          resultCode = 2;
         }
       });
 
@@ -98,8 +96,7 @@ Meteor.methods({
       CurricularStructure.insert({
         idDisciplina: idDisciplina,
         semestre: item.semestre,
-        prereq: item.prereq,
-        idPrereq: prereqArray,
+        prereq: prereqArray,
         createdBy: currentUser
       });
 
