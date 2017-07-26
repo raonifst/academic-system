@@ -2,19 +2,12 @@ import {Template} from 'meteor/templating';
 import {ReactiveVar} from 'meteor/reactive-var';
 
 import './uploadcurricularstructure.html'
+import {CsvUtils} from "../imports/utils/csvutils";
 
 
 Meteor.subscribe('disciplines');
 
 Meteor.subscribe('userStats');
-
-
-const prereqStrToArray = function (str) {
-  if (!str)
-    return [];
-  var s = str.split(";");
-  return (s == "") ? [] : s.map(Number);
-};
 
 
 Template.uploadcurricularstructure.onCreated(() => {
@@ -75,7 +68,7 @@ Template.uploadcurricularstructure.events({
           template.uploading.set(false);
           parser.abort();
         }
-        reg.prereq = prereqStrToArray(reg.prereq);
+        reg.prereq = CsvUtils.prereqStringToArray(reg.prereq);
         data.push(reg);
       },
       complete() {

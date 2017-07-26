@@ -1,11 +1,4 @@
-
-
-const prereqArrToStr = function (arr) {
-	for (var i = 0; i < arr.length; i++)
-		arr[i] = Disciplines.findOne({ _id: arr[i] }).codigo;
-	return arr.join(";");
-};
-
+import {CsvUtils} from "../imports/utils/csvutils";
 
 Meteor.methods({
 
@@ -29,7 +22,7 @@ Meteor.methods({
 				disciplines[j].nome,
 				disciplines[j].creditos,
 				curriculars[j].semestre,
-        prereqArrToStr(curriculars[j].prereq)
+        CsvUtils.prereqArrayToString(curriculars[j].prereq)
 			]);
 		}
 
