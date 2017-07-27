@@ -3,6 +3,7 @@ import {ReactiveVar} from 'meteor/reactive-var';
 
 import './uploadcurricularstructure.html'
 import {CsvUtils} from "../imports/utils/csvutils";
+import {DGraph} from "../imports/utils/disciplines";
 
 
 Meteor.subscribe('disciplines');
@@ -63,7 +64,7 @@ Template.uploadcurricularstructure.events({
         try {
           CurricularStructure.schema.validate(reg);
         } catch (err) {
-          Bert.alert('Este não é um arquivo CSV válido:' + err.reason, 'danger', 'growl-top-right' );
+          Bert.alert('Este não é um arquivo CSV válido.', 'danger', 'growl-top-right' );
           globalError = true;
           template.uploading.set(false);
           parser.abort();
@@ -75,6 +76,12 @@ Template.uploadcurricularstructure.events({
         if (globalError)
           return;
         //console.log(data); // Debug (descomente esta linha)
+        if (DGraph.hasCycle(data)) {
+          Bert.alert('Listas de pré-requisitos contém um ou mais ciclos. Corrija-os e tente' +
+            ' novamente!', 'danger', 'growl-top-right');
+          template.uploading.set(false);
+          return;
+        }
         Meteor.call('uploadCurricularStruture', data, (error, results) => {
           if (error)
             Bert.alert('Unknown internal error.', 'danger', 'growl-top-right');
