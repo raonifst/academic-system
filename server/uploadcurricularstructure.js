@@ -36,6 +36,11 @@ Meteor.publish('disciplines', function(){
   return Disciplines.find({ createdBy: currentUser });
 });
 
+Meteor.publish('curricularStructure', function(){
+  var currentUser = this.userId;
+  return CurricularStructure.find({ createdBy: currentUser });
+});
+
 
 Meteor.methods({
 

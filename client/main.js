@@ -11,12 +11,15 @@ import './exportercurricular.js'
 import './exporter.js'
 import './search.html'
 import './search.js'
+import './queries.js'
 
 Bert.defaults.hideDelay = 4000;
 
 
+Meteor.subscribe('record');
 Meteor.subscribe('userStats');
-
+Meteor.subscribe('curricularStructure');
+Meteor.subscribe('disciplines');
 
 Router.configure({
   layoutTemplate: 'main',
@@ -241,3 +244,100 @@ Meteor.logout(function(err){
   if (err)
     console.log(err);
 });
+
+Template.searchbox.onCreated(() => {
+  Template.instance().courseName = new ReactiveVar('');
+  Template.instance().isStudent = new ReactiveVar(true);
+  Template.instance().countStudentsWhoMustEnrollInACourse = new ReactiveVar(0);
+  Template.instance().countStudentsWhoHavePrerequisitesForACourse = new ReactiveVar(0);
+});
+
+Template.searchbox.events({
+  'submit form': function (event) {
+    const name = $('[name=search]').val();
+    Template.instance().courseName.set(name);
+    event.preventDefault();
+  }
+
+});
+
+
+
+
+Template.searchbox.helpers({
+  isStudent: function() {
+    return Template.instance().isStudent.get();
+  },
+
+  settings: function () {
+      return {
+          rowsPerPage: 10,
+          showFilter: true,
+          fields: [
+            { key: 'rga', label: 'RGA' , cellClass: 'col-md-4'},
+            { key: 'nome', label: 'Nome' , cellClass: 'col-md-4'}
+          ]
+      };
+  },
+
+  countStudentsWhoMustEnrollInACourse: function() {
+    Template.searchbox.__helpers.get('studentsWhoMustEnrollInACourse').call();
+    return Template.instance().countStudentsWhoMustEnrollInACourse.get();
+  },
+  countStudentsWhoHavePrerequisitesForACourse: function() {
+    Template.searchbox.__helpers.get('studentsWhoHavePrerequisitesForACourse').call();
+    return Template.instance().countStudentsWhoHavePrerequisitesForACourse.get();
+  },
+
+
+  studentsWhoHavePrerequisitesForACourse: function(){
+
+    let courseName = Template.instance().courseName.get();
+    if(courseName != '') {
+      let candidates = auxStudentsWhoMustEnrollInACourse(courseName);
+      //console.log(courseName)
+      courseId = Disciplines.findOne({nome: courseName}, {fields:{_id:1}});
+      courseId = courseId==null?'':courseId._id;
+      //console.log(courseId);
+      let prereq = CurricularStructure.findOne({idDisciplina: courseId}, {fields: {prereq: 1}});
+      prereq = prereq == null?[]:prereq.prereq;
+    var map = {};
+    console.log(prereq)
+    candidates.forEach(function(student) {
+      let count = 0;
+      prereq.forEach(function(code) {
+
+        courseName = Disciplines.findOne({_id: code}, {fields: {nome: 1}}).nome;
+        let exist = Records.findOne({rga: student.rga, disciplina: courseName, situacao: "AP"}, {_id: 0});
+        if(exist)
+          count = count + 1;
+      });
+
+      if(count == prereq.length) {
+
+        map[student.rga] = {
+           nome: student.nome,
+           rga: student.rga
+       }
+      }
+    });
+      let result = hash2array(map);
+      Template.instance().countStudentsWhoHavePrerequisitesForACourse.set(result.length);
+      return result;
+    }
+    else { Template.instance().countStudentsWhoHavePrerequisitesForACourse.set(0);return [{}]};
+  },
+
+  studentsWhoMustEnrollInACourse: function(){
+      let courseName = Template.instance().courseName.get();
+      if(courseName == '') {
+        Template.instance().countStudentsWhoMustEnrollInACourse.set(0);
+        return [{}];
+      }
+      let result = auxStudentsWhoMustEnrollInACourse(courseName);
+      Template.instance().countStudentsWhoMustEnrollInACourse.set(result.length);
+      return result;
+  }
+
+
+})
