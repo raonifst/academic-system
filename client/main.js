@@ -250,6 +250,7 @@ Template.searchbox.onCreated(() => {
   Template.instance().isStudent = new ReactiveVar(true);
   Template.instance().countStudentsWhoMustEnrollInACourse = new ReactiveVar(0);
   Template.instance().countStudentsWhoHavePrerequisitesForACourse = new ReactiveVar(0);
+  Template.instance().semesterdisciplinesuggested = new ReactiveVar(0);
 });
 
 Template.searchbox.events({
@@ -289,7 +290,21 @@ Template.searchbox.helpers({
     return Template.instance().countStudentsWhoHavePrerequisitesForACourse.get();
   },
 
-
+  semesterdisciplinesuggested: function semesterdisciplinesuggested(){
+    let courseName = Template.instance().courseName.get();
+    let semestersugg;
+    if(courseName != '') {
+        console.log(courseName)
+        let courseId = Disciplines.findOne({nome: courseName}, {fields:{_id:1}});
+        courseId = courseId==null?'':courseId._id;
+        semestersugg = CurricularStructure.findOne({idDisciplina: courseId}, {fields: {semestre: 1}});
+        semestersugg = semestersugg == null?[]:semestersugg.semestre;
+        console.log(semestersugg)
+  }
+  Template.instance().semesterdisciplinesuggested.set(semestersugg);
+  	return Template.instance().semesterdisciplinesuggested.get();
+  }
+,
   studentsWhoHavePrerequisitesForACourse: function(){
 
     let courseName = Template.instance().courseName.get();
@@ -340,4 +355,4 @@ Template.searchbox.helpers({
   }
 
 
-})
+});
