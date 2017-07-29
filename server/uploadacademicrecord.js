@@ -36,33 +36,32 @@ Meteor.methods({
         disciplina: item.disciplina,
         createdBy: currentUser
       }).count();
-      //console.log(item.disciplina);
+      //console.log(reinc);
       const existDisc = Disciplines.find({nome: item.disciplina}).count();
       var id_disciplina=0;
       var aprov;
-      var reincidenciaaux=0;
-      var aprovtwo=0;
+      var reincidenciaaux;
+      var aprovtwo;
       if(existDisc!=0&&existHist==0){
       var disciplina = Disciplines.find({nome: item.disciplina}).fetch();
       _.each(disciplina, function(h) {
         id_disciplina=h._id;
         aprov=h.aprovacoes;
         rep=h.reprovacoes;
-        reincidenciaaux:h.reincidencia;
-        aprovtwo:h.aprov2;
+        reincidenciaaux=h.reincidencia;
+        aprovtwo=h.aprov2;
       });
-
-      //console.log(id_disciplina);
-      //console.log(aprov);
+      console.log(reinc);
       if(item.situacao=='AP'){
         aprov=aprov+1;
-        if(reinc==2){
+        if(reinc==1){
           aprovtwo = aprovtwo+1;
+          console.log(reinc);
         }
         Disciplines.update({ _id: id_disciplina }, {$set: {aprovacoes:aprov, aprov2:aprovtwo} });
     }
     else{
-      if(reinc>=2){
+      if(reinc>=1){
         reincidenciaaux = reincidenciaaux+1;
       }
         rep=rep+1;
@@ -71,9 +70,9 @@ Meteor.methods({
     var percent=(aprov/(aprov+rep))*100;
     percent=percent.toFixed(3);
     var percentp;
-    if((aprovtwo+reincidenciaaux>0)){
-      percentp=(aprovtwo/(aprovtwo+reincidenciaaux))*100;
-      console.log(percentp)
+    if(aprovtwo+reincidenciaaux){
+      percentp=(reincidenciaaux/(aprovtwo+reincidenciaaux))*100;
+      console.log(percentp);
       percentp=percentp.toFixed(3);
   }
   else {
