@@ -20,45 +20,48 @@ export const DGraph = {
 
   depthFirstSearch(graph, initialVertexCode, list) {
 
-    const u = graph.get(initialVertexCode);
+    var stack = [];
+    var uKey, u, vKey, v, isVertexLeaf;
+    stack.push(initialVertexCode);
 
-    graph.set(initialVertexCode, {
-      color: this.colorGray,
-      adjList: u.adjList
-    });
-
-    for (var i = 0; i < u.adjList.length; i++) {
-      var v = graph.get(u.adjList[i]);
-      if (v.color == this.colorWhite)
-        this.depthFirstSearch(graph, u.adjList[i], list);
-      else if (v.color == this.colorGray) {
-        list[0] = -1;
-        return;
+    while (stack.length > 0) {
+      isVertexLeaf = 1;
+      uKey = stack.pop();
+      u = graph.get(uKey);
+      graph.set(uKey, {
+        color: this.colorGray,
+        adjList: u.adjList
+      });
+      for (var i = 0; i < u.adjList.length; i++) {
+        vKey = u.adjList[i];
+        v = graph.get(vKey);
+        if (!v)
+          throw "Estrutura contém um ou mais códigos de disciplinas inválidos.";
+        if (v.color == this.colorWhite) {
+          stack.push(vKey);
+          isVertexLeaf = 0;
+        } else if (v.color == this.colorGray) { // Grafo contém ciclo
+          throw "Listas de pré-requisitos contém um ou mais ciclos. Corrija-os e tente novamente!";
+        }
+      }
+      if (isVertexLeaf) {
+        graph.set(uKey, {
+          color: this.colorBlack,
+          adjList: u.adjList
+        });
+        list.push(uKey);
       }
     }
-    graph.set(initialVertexCode, {
-      color: this.colorBlack,
-      adjList: u.adjList
-    });
-
-    list.push(initialVertexCode);
   },
 
-  topologicalSorting(graph) {
+  topologicalSorting(disciplinesGraphArray) {
 
     var list = [];
+    const graph = this.parseArrayToMap(disciplinesGraphArray);
     for (var key of graph.keys()) {
       this.depthFirstSearch(graph, key, list);
-      if (list.length >= 1 && list[0] == -1)
-        break;
     }
     return list;
-  },
-
-  hasCycle(disciplinesGraphArray) {
-    const graph = this.parseArrayToMap(disciplinesGraphArray);
-    const list = this.topologicalSorting(graph);
-    return list.length >= 1 && list[0] == -1;
   }
 
 };

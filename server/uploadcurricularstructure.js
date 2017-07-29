@@ -36,6 +36,11 @@ Meteor.publish('disciplines', function(){
   return Disciplines.find({ createdBy: currentUser });
 });
 
+Meteor.publish('curricularStructure', function(){
+  var currentUser = this.userId;
+  return CurricularStructure.find({ createdBy: currentUser });
+});
+
 
 Meteor.methods({
 
@@ -89,7 +94,10 @@ Meteor.methods({
         creditos: item.creditos,
         aprovacoes: 0,
         reprovacoes:0,
-        perc_ap:100,
+        perc_ap:'-',
+        perc_reic:'-',
+        reincidencia:0,
+        aprov2:0,
         createdBy: currentUser
       });
 

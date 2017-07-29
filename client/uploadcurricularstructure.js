@@ -41,7 +41,8 @@ Template.uploadcurricularstructure.helpers({
               { key: 'codigo', label: 'Codigo' , cellClass: 'col-md-4'},
               { key: 'nome', label: 'Nome' , cellClass: 'col-md-4'},
               { key: 'creditos', label: 'Créditos' , cellClass: 'col-md-4'},
-              {key:'perc_ap', label:'Porcentagem Aprovacoes',cellClass: 'col-md-4' }
+              {key:'perc_ap', label:'Porcentagem Aprovacoes',cellClass: 'col-md-4' },
+              {key:'perc_reic', label:'Porcentagem Reincidencia',cellClass: 'col-md-4' }
             ]
         };
     }
@@ -76,9 +77,10 @@ Template.uploadcurricularstructure.events({
         if (globalError)
           return;
         //console.log(data); // Debug (descomente esta linha)
-        if (DGraph.hasCycle(data)) {
-          Bert.alert('Listas de pré-requisitos contém um ou mais ciclos. Corrija-os e tente' +
-            ' novamente!', 'danger', 'growl-top-right');
+        try {
+          DGraph.topologicalSorting(data);
+        } catch (err) { // Erro é lançado caso haja ciclos ou caso haja códigos inválidos
+          Bert.alert(err, 'danger', 'growl-top-right');
           template.uploading.set(false);
           return;
         }
