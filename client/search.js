@@ -4,6 +4,7 @@ Template.search.onCreated(() => {
   Template.instance().semesterSearch = new ReactiveVar(2);
   Template.instance().countStudentsWhoMustEnrollInACourse = new ReactiveVar(0);
   Template.instance().countStudentsWhoHavePrerequisitesForACourse = new ReactiveVar(0);
+  Template.instance().countStudentsAtCourseSemester = new ReactiveVar(0);
 });
 Template.search.onCreated( () => {
   let template = Template.instance();
@@ -116,6 +117,41 @@ Template.search.helpers({
       return result;
   },
 
+
+  countStudentsAtCourseSemester:function(){
+      Template.search.__helpers.get('studentsAtCourseSemester').call();
+      return Template.instance().countStudentsAtCourseSemester.get();
+  },
+
+  studentsAtCourseSemester:function(){
+      let courseName = Template.instance().courseName.get();
+      let semesterCourse;
+      let courseId;
+      Template.instance().countStudentsAtCourseSemester.set(0);
+      if(courseName == '')
+        return [{}];
+
+      courseId = Disciplines.findOne({nome: courseName}, {fields:{_id:1}});
+      courseId = courseId==null?'':courseId._id;
+     if(courseId!=''){
+        semesterCourse=CurricularStructure.findOne({idDisciplina: courseId},{fields:{semestre:1}});
+        //Template.instance().semesterSearch.set(semesterCourse.semestre);
+        //Template.search.__helpers.get('searchStudentBySemester').call();
+        let res;
+        if(semesterCourse.semestre>1){
+          res = searchStudentBySemesterForHelper(semesterCourse.semestre);
+          Template.instance().countStudentsAtCourseSemester.set(res.length);
+          return res;
+
+        }else return [{}]
+     }
+     else{
+          //console.log("Disciplina nao encontrada");
+          return [{}];
+     }
+
+  },
+
    searchStudentBySemester:function(){
 
       let semester =Template.instance().semesterSearch.get();
@@ -155,6 +191,32 @@ Template.search.events({
     }
   }
 });
+
+function searchStudentBySemesterForHelper(semester){
+
+   var asx=calculateSem(parseInt(semester,10));
+   if(asx==null){
+     //console.log("Erro ao calcular o semestre chave");
+     return [{}];
+   }
+//   console.log("Semestre buscado:"+asx.year+"/"+asx.semester);
+   var searchKey = parseInt(String(asx.year)+String(asx.semester));
+   const data = Records.find({createdBy:Meteor.userId()});
+   var map ={};
+   data.forEach(item=>{
+   let itemKey=Math.floor((parseInt(item.rga))/Math.pow(10,7));
+     if(itemKey === searchKey && !map[item.rga]){
+         map[item.rga]={
+           nome:item.nome,
+           rga:item.rga
+         }
+
+     }
+   });
+   return hash2array(map);
+
+}
+
 
 function calculateSem(semester){
  var atualkey=getAtualSem();
