@@ -32,21 +32,17 @@
 <template name="home">
   <br><br><br>
   <div class="card" style="width: 600px;">
-
-      <p><h3>Bem-vindo ao sistema acadêmico!</h3></p><br>
-
-      <div class="valign-wrapper">
-
-          <p  class="left-align">
-          Curso: Engenharia de Computação<br>
-          Semestre Atual: 2017/02<br>
-          Coordenador: Fabricio Barbosa de Carvalho
-          </p>
-      </div>
+    <p><h3>Bem-vindo ao sistema acadêmico!</h3></p><br>
+    <div class="valign-wrapper">
+      <p class="left-align">
+        Curso: {{userCourse}}<br>
+        Semestre Atual: {{userCurrentYear}}/{{userCurrentSemester}}<br>
+        Coordenador: {{userName}}
+      </p>
+    </div>
   </div><br>
   {{> searchbox}}
   {{> taskslist}}
-
 </template>
 
 
@@ -202,6 +198,7 @@
         <li> <a href="{{pathFor route='uploadcurricularstructure'}}">Estrutura Curricular</a></li>
         <li> <a href="{{pathFor route='uploadacademicrecord'}}">Histórico Acadêmico</a></li>
         <li> <a href="{{pathFor route='search'}}">teste query</a></li>
+        <li> <a href="{{pathFor route='settings'}}">Configurações</a></li>
         <li> <a href="{{pathFor route='changepass'}}">Alterar Senha</a> </li>
         <li> <a href="#" class="logout">Logout</a></li>
       {{else}}

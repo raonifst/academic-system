@@ -1,10 +1,13 @@
 import {Meteor} from 'meteor/meteor';
-import {check} from 'meteor/check'
 
 //Records = new Meteor.Collection('record');
 
+import '../imports/api/server/publications.js'
+import '../imports/api/server/permissions.js'
 import './uploadacademicrecord.js'
 import './uploadcurricularstructure.js'
+import {defaultDisciplinesList} from "../imports/utils/defaultdisciplineslist";
+import {DefaultRootUser} from "../imports/utils/defaultrootuser";
 
 
 Meteor.startup(() => {
@@ -22,12 +25,18 @@ Meteor.startup(() => {
     });
     Users.insert({
       idUser: usr,
-      changedDefaultPassword: false,
-      uploadedCurricularStructure: false,
-      uploadedAcademicRecords: false,
-      currentYear: null,
-      currentSemester: null
+      course:                       DefaultRootUser.course,
+      name:                         DefaultRootUser.name,
+      changedDefaultPassword:       false,
+      uploadedCurricularStructure:  false,
+      uploadedAcademicRecords:      false,
+      currentYear:                  DefaultRootUser.currentYear,
+      currentSemester:              DefaultRootUser.currentSemester
     });
+  }
+
+  if (!Courses.find().count()) {
+    Courses.insert(defaultDisciplinesList);
   }
 
 });
@@ -96,7 +105,8 @@ Meteor.methods({
 
   changeCurrentSemester(data, reset_flag) {
 
-    var cSemester = null, cYear = null;
+    var cSemester = DefaultRootUser.currentSemester;
+    var cYear = DefaultRootUser.currentYear;
     const currentUser = Meteor.userId();
     const registry = Users.findOne({ idUser: currentUser });
 
@@ -118,7 +128,3 @@ Meteor.methods({
 
 });
 
-
-Meteor.publish('userStats', function () {
-  return Users.find({ idUser: this.userId });
-});
