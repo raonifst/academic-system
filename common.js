@@ -14,6 +14,19 @@ Disciplines = new Meteor.Collection('disciplines');
 Users = new Meteor.Collection('usersreg');
 
 
+//
+Courses = new Meteor.Collection('courses');
+
+
+Users.allow({
+
+  insert(userId, doc) {
+    return userId && userId == doc.idUser;
+  }
+
+});
+
+
 // Schema utilizado para validar o csv da estrutura curricular
 CurricularStructure.schema = new SimpleSchema({
   codigo: {

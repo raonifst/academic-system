@@ -1,10 +1,11 @@
 import {Meteor} from 'meteor/meteor';
-import {check} from 'meteor/check'
 
 //Records = new Meteor.Collection('record');
 
+import '../imports/api/server/publications.js'
 import './uploadacademicrecord.js'
 import './uploadcurricularstructure.js'
+import {defaultDisciplinesList} from "../imports/utils/defaultdisciplineslist";
 
 
 Meteor.startup(() => {
@@ -22,12 +23,17 @@ Meteor.startup(() => {
     });
     Users.insert({
       idUser: usr,
+      course: null,
       changedDefaultPassword: false,
       uploadedCurricularStructure: false,
       uploadedAcademicRecords: false,
       currentYear: null,
       currentSemester: null
     });
+  }
+
+  if (!Courses.find().count()) {
+    Courses.insert(defaultDisciplinesList);
   }
 
 });
@@ -118,7 +124,3 @@ Meteor.methods({
 
 });
 
-
-Meteor.publish('userStats', function () {
-  return Users.find({ idUser: this.userId });
-});

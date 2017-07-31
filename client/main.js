@@ -1,14 +1,16 @@
 import {Template} from 'meteor/templating';
 import { Accounts } from 'meteor/accounts-base'
 
-import './uploadacademicrecord.html';
 import './main.html';
+import './templates/settings.html'
+import './templates/settings.js'
+import './uploadacademicrecord.html';
 import './uploadacademicrecord.js'
 import './uploadcurricularstructure.html'
 import './uploadcurricularstructure.js'
 import './exporter.html';
-import './exportercurricular.js'
 import './exporter.js'
+import './exportercurricular.js'
 import './search.html'
 import './search.js'
 import './queries.js'
@@ -38,8 +40,8 @@ Router.route('/', {
   }
 });
 
-
 Router.route('/login');
+
 Router.route('/uploadcurricularstructure', {
   onBeforeAction() {
     if (Meteor.userId()) {
@@ -49,6 +51,7 @@ Router.route('/uploadcurricularstructure', {
     }
   }
 });
+
 Router.route('/search', {
   /*onBeforeAction() {
     if (Meteor.userId()) {
@@ -58,6 +61,7 @@ Router.route('/search', {
     }
   }*/
 });
+
 Router.route('/uploadacademicrecord', {
   onBeforeAction() {
     if (Meteor.userId()) {
@@ -67,6 +71,19 @@ Router.route('/uploadacademicrecord', {
     }
   }
 });
+
+Router.route('/settings', {
+  name: 'settings',
+  template: 'settings',
+  onBeforeAction() {
+    if (Meteor.userId()) {
+      this.next();
+    } else {
+      this.render("login");
+    }
+  }
+});
+
 Router.route('/changepass', {
   name: 'changepass',
   template: 'changepass',
