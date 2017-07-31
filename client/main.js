@@ -294,17 +294,16 @@ Template.searchbox.helpers({
     let courseName = Template.instance().courseName.get();
     let semestersugg;
     if(courseName != '') {
-        console.log(courseName)
+        //console.log(courseName)
         let courseId = Disciplines.findOne({nome: courseName}, {fields:{_id:1}});
         courseId = courseId==null?'':courseId._id;
         semestersugg = CurricularStructure.findOne({idDisciplina: courseId}, {fields: {semestre: 1}});
         semestersugg = semestersugg == null?[]:semestersugg.semestre;
-        console.log(semestersugg)
+        //console.log(semestersugg)
   }
   Template.instance().semesterdisciplinesuggested.set(semestersugg);
   	return Template.instance().semesterdisciplinesuggested.get();
-  }
-,
+  },
   studentsWhoHavePrerequisitesForACourse: function(){
 
     let courseName = Template.instance().courseName.get();
