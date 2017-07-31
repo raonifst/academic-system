@@ -263,6 +263,35 @@ Template.home.onRendered(function(){
 });
 
 
+Template.home.helpers({
+
+  userName: function () {
+    const currentUser = Meteor.userId();
+    const usr = Users.findOne({ idUser: currentUser });
+    return usr ? usr.name : "No name";
+  },
+
+  userCourse: function () {
+    const currentUser = Meteor.userId();
+    const usr = Users.findOne({ idUser: currentUser });
+    return usr ? usr.course : "No course";
+  },
+
+  userCurrentYear: function () {
+    const currentUser = Meteor.userId();
+    const usr = Users.findOne({ idUser: currentUser });
+    return usr ? usr.currentYear : "No data";
+  },
+
+  userCurrentSemester: function () {
+    const currentUser = Meteor.userId();
+    const usr = Users.findOne({ idUser: currentUser });
+    return usr ? usr.currentSemester : "No course";
+  }
+
+});
+
+
 Meteor.logout(function(err){
   if (err)
     console.log(err);

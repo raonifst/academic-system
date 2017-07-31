@@ -7,6 +7,7 @@ import '../imports/api/server/permissions.js'
 import './uploadacademicrecord.js'
 import './uploadcurricularstructure.js'
 import {defaultDisciplinesList} from "../imports/utils/defaultdisciplineslist";
+import {DefaultRootUser} from "../imports/utils/defaultrootuser";
 
 
 Meteor.startup(() => {
@@ -24,13 +25,13 @@ Meteor.startup(() => {
     });
     Users.insert({
       idUser: usr,
-      course: "Engenharia de Computação",
-      name: "Fabricio Barbosa de Carvalho",
-      changedDefaultPassword: false,
-      uploadedCurricularStructure: false,
-      uploadedAcademicRecords: false,
-      currentYear: null,
-      currentSemester: null
+      course:                       DefaultRootUser.course,
+      name:                         DefaultRootUser.name,
+      changedDefaultPassword:       false,
+      uploadedCurricularStructure:  false,
+      uploadedAcademicRecords:      false,
+      currentYear:                  DefaultRootUser.currentYear,
+      currentSemester:              DefaultRootUser.currentSemester
     });
   }
 
@@ -104,7 +105,8 @@ Meteor.methods({
 
   changeCurrentSemester(data, reset_flag) {
 
-    var cSemester = null, cYear = null;
+    var cSemester = DefaultRootUser.currentSemester;
+    var cYear = DefaultRootUser.currentYear;
     const currentUser = Meteor.userId();
     const registry = Users.findOne({ idUser: currentUser });
 

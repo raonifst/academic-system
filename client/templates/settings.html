@@ -3,7 +3,11 @@
     <br>
     <div class="card" style="width: 600px;">
       <h3 class="page-header">Configurações de usuário</h3>
-      <form action="#">
+      <form class="col s12">
+        <div class="input-field col s12">
+          <input value="{{userName}}" id="user_name" class="validate" name="name">
+          <label class="active" for="user_name">Nome</label>
+        </div>
         <div class="input-field col s12">
           <select name="courses">
             <option value="" disabled selected>Selecione um curso</option>

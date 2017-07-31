@@ -18,6 +18,12 @@ Template.settings.onRendered(function () {
 
 Template.settings.helpers({
 
+  userName: function () {
+    const currentUser = Meteor.userId();
+    const usr = Users.findOne({ idUser: currentUser });
+    return usr ? usr.name : "User not found";
+  },
+
   course: function () {
     // TODO corrigir erro no helper que não retorna os dados contigos na collection Course
     //return Courses.find({}, { sort: {name: 1} }).fetch();
@@ -41,12 +47,13 @@ Template.settings.events({
 
   'submit form': function (event) {
     event.preventDefault();
-    const selected = $('[name="courses"]').val();
+    const selectedName = $('[name="name"]').val();
+    const selectedCourse = $('[name="courses"]').val();
     const currentUser = Meteor.userId();
     const reg = Users.findOne({ idUser: currentUser });
     if (reg) {
-      Users.update({ _id: reg._id }, { $set: { course: selected }});
-      Bert.alert('Você selecionou o curso ' + selected, 'success', 'growl-top-right');
+      Users.update({ _id: reg._id }, { $set: { name: selectedName, course: selectedCourse }});
+      Bert.alert('Configurações atualizadas!', 'success', 'growl-top-right');
     }
   }
 
