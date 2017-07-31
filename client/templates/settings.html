@@ -1,0 +1,20 @@
+<template name="settings" xmlns="http://www.w3.org/1999/html">
+  {{#if currentUser}}
+    <br>
+    <div class="card" style="width: 600px;">
+      <h3 class="page-header">Configurações de usuário</h3>
+      <div class="group">
+        <form>
+          Coordenador do curso:
+          <select name="courses">
+          {{#each course}}
+            <option value="{{name}}" {{isselected}}>{{name}}</option>
+          {{/each}}
+          </select>
+          <br><br><br>
+          <input type="submit" value="Aplicar">
+        </form>
+      </div>
+    </div>
+  {{/if}}
+</template>

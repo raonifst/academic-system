@@ -2,14 +2,18 @@ import {Template} from 'meteor/templating';
 import { Accounts } from 'meteor/accounts-base'
 import { Session } from 'meteor/session'
 import './uploadacademicrecord.html';
+
 import './main.html';
 import { Meteor } from 'meteor/meteor'
+import './templates/settings.html'
+import './templates/settings.js'
+import './uploadacademicrecord.html';
 import './uploadacademicrecord.js'
 import './uploadcurricularstructure.html'
 import './uploadcurricularstructure.js'
 import './exporter.html';
-import './exportercurricular.js'
 import './exporter.js'
+import './exportercurricular.js'
 import './search.html'
 import './search.js'
 import './queries.js'
@@ -52,6 +56,7 @@ Router.route('/uploadcurricularstructure', {
     }
   }
 });
+
 Router.route('/search', {
   /*onBeforeAction() {
     if (Meteor.userId()) {
@@ -61,6 +66,7 @@ Router.route('/search', {
     }
   }*/
 });
+
 Router.route('/disciplinesSearchs',{});
 Router.route('/uploadacademicrecord', {
   onBeforeAction() {
@@ -71,6 +77,19 @@ Router.route('/uploadacademicrecord', {
     }
   }
 });
+
+Router.route('/settings', {
+  name: 'settings',
+  template: 'settings',
+  onBeforeAction() {
+    if (Meteor.userId()) {
+      this.next();
+    } else {
+      this.render("login");
+    }
+  }
+});
+
 Router.route('/changepass', {
   name: 'changepass',
   template: 'changepass',
@@ -275,7 +294,7 @@ Template.searchbox.events({
 
       Session.set('showRegister',false);
     }
-    
+
   }
 
 });
