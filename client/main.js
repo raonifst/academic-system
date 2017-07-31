@@ -349,14 +349,12 @@ Template.searchbox.events({
 
       Session.set('showRegister',false);
     }
-<<<<<<< HEAD
+
     console.log(Session.get('courseName'));
     console.log(Disciplines.find().map(function(x) {
        return { value: x.nome, data: x.codigo};
     }));
-=======
 
->>>>>>> a520678d2dc2e4ebbb9fdf6dedb77542b1e86482
   }
 
 });
