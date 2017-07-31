@@ -24,14 +24,15 @@ Meteor.startup(() => {
       password: '123'
     });
     Users.insert({
-      idUser: usr,
+      idUser:                       usr,
       course:                       DefaultRootUser.course,
       name:                         DefaultRootUser.name,
+      currentYear:                  DefaultRootUser.currentYear,
+      currentSemester:              DefaultRootUser.currentSemester,
+      durationAlerts:               DefaultRootUser.durationAlerts,
       changedDefaultPassword:       false,
       uploadedCurricularStructure:  false,
-      uploadedAcademicRecords:      false,
-      currentYear:                  DefaultRootUser.currentYear,
-      currentSemester:              DefaultRootUser.currentSemester
+      uploadedAcademicRecords:      false
     });
   }
 

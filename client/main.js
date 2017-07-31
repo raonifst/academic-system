@@ -17,8 +17,7 @@ import './exportercurricular.js'
 import './search.html'
 import './search.js'
 import './queries.js'
-
-Bert.defaults.hideDelay = 4000;
+import {DefaultRootUser} from "../imports/utils/defaultrootuser";
 
 
 Meteor.subscribe('record');
@@ -247,13 +246,18 @@ Template.changepass.onRendered( function(){
 Template.home.onRendered(function(){
 
   if (Meteor.user()) {
+
+    const currentUserId = Meteor.userId();
+    const user = Users.findOne({ idUser: currentUserId });
+
+    Bert.defaults.hideDelay = user ? user.durationAlerts : DefaultRootUser.durationAlerts;
+
     const tipUploadCurricularStructure = 'Você possui tarefas pendentes. Veja abaixo a lista de' +
       ' configurações!';
+
     Meteor.call('isFirstLogin', (error, results) => {
       if (!results) {
-        const currentUserId = Meteor.userId();
-        const user = Users.findOne({ idUser: currentUserId });
-        if(!user || !user.changedDefaultPassword ||
+        if (!user || !user.changedDefaultPassword ||
           !user.uploadedCurricularStructure || !user.uploadedAcademicRecords)
           Bert.alert(tipUploadCurricularStructure, 'info', 'growl-top-right');
       }

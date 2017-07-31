@@ -1,4 +1,5 @@
 import {defaultDisciplinesList} from "../../imports/utils/defaultdisciplineslist";
+import {defaultAlertTimeList} from "../../imports/utils/defaultbertopt";
 
 
 Template.settings.onCreated(function () {
@@ -30,12 +31,26 @@ Template.settings.helpers({
     return defaultDisciplinesList; // Solução provisória
   },
 
-  isselected: function () {
+  alertsTime: function () {
+    return defaultAlertTimeList;
+  },
+
+  isCoureSelected: function () {
     const courseName = this.name;
     const currentUser = Meteor.userId();
     const usr = Users.findOne({ idUser: currentUser });
     if (usr) {
       if (usr.course == courseName)
+        return "selected";
+    }
+  },
+
+  isAlertTimeSelected: function () {
+    const time = this.value;
+    const currentUser = Meteor.userId();
+    const usr = Users.findOne({ idUser: currentUser });
+    if (usr) {
+      if (usr.durationAlerts == time)
         return "selected";
     }
   }
@@ -49,10 +64,15 @@ Template.settings.events({
     event.preventDefault();
     const selectedName = $('[name="name"]').val();
     const selectedCourse = $('[name="courses"]').val();
+    const selectedTime = parseInt($('[name="alerts_time"]').val());
     const currentUser = Meteor.userId();
     const reg = Users.findOne({ idUser: currentUser });
     if (reg) {
-      Users.update({ _id: reg._id }, { $set: { name: selectedName, course: selectedCourse }});
+      Bert.defaults.hideDelay = selectedTime;
+      Users.update({ _id: reg._id },
+        {
+          $set: { name: selectedName, course: selectedCourse, durationAlerts: selectedTime }
+        });
       Bert.alert('Configurações atualizadas!', 'success', 'growl-top-right');
     }
   }
