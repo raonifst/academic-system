@@ -3,6 +3,7 @@ import {Meteor} from 'meteor/meteor';
 //Records = new Meteor.Collection('record');
 
 import '../imports/api/server/publications.js'
+import '../imports/api/server/permissions.js'
 import './uploadacademicrecord.js'
 import './uploadcurricularstructure.js'
 import {defaultDisciplinesList} from "../imports/utils/defaultdisciplineslist";
@@ -23,7 +24,8 @@ Meteor.startup(() => {
     });
     Users.insert({
       idUser: usr,
-      course: null,
+      course: "Engenharia de Computação",
+      name: "Fabricio Barbosa de Carvalho",
       changedDefaultPassword: false,
       uploadedCurricularStructure: false,
       uploadedAcademicRecords: false,

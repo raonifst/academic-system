@@ -9,6 +9,13 @@ Template.settings.onCreated(function () {
 });
 
 
+Template.settings.onRendered(function () {
+  $(document).ready(function() {
+    $('select').material_select();
+  });
+});
+
+
 Template.settings.helpers({
 
   course: function () {
@@ -37,9 +44,10 @@ Template.settings.events({
     const selected = $('[name="courses"]').val();
     const currentUser = Meteor.userId();
     const reg = Users.findOne({ idUser: currentUser });
-    console.log(reg);
-    Users.update({ _id: reg._id }, { $set: { course: selected }});
-    Bert.alert('Você selecionou o curso ' + selected, 'success', 'growl-top-right');
+    if (reg) {
+      Users.update({ _id: reg._id }, { $set: { course: selected }});
+      Bert.alert('Você selecionou o curso ' + selected, 'success', 'growl-top-right');
+    }
   }
 
 });

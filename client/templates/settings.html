@@ -3,18 +3,31 @@
     <br>
     <div class="card" style="width: 600px;">
       <h3 class="page-header">Configurações de usuário</h3>
-      <div class="group">
-        <form>
-          Coordenador do curso:
+      <form action="#">
+        <div class="input-field col s12">
           <select name="courses">
-          {{#each course}}
-            <option value="{{name}}" {{isselected}}>{{name}}</option>
-          {{/each}}
+            <option value="" disabled selected>Selecione um curso</option>
+            {{#each course}}
+              <option value="{{name}}" {{isselected}}>{{name}}</option>
+            {{/each}}
           </select>
-          <br><br><br>
-          <input type="submit" value="Aplicar">
-        </form>
-      </div>
+          <label>Curso para coordenador</label>
+        </div>
+        <br><br><br>
+        <div class="input-field col s2">
+          <select name="alerts-time">
+            <option value="" disabled selected>Selecione um número</option>
+            <option value="0">0</option>
+            <option value="0">1</option>
+            <option value="0">2</option>
+            <option value="0">3</option>
+            <option value="0">4</option>
+            <option value="0">5</option>
+          </select>
+          <label>Tempo de duração dos alertas (em segundos)</label>
+        </div>
+        <input type="submit" value="Submeter">
+      </form>
     </div>
   {{/if}}
 </template>
