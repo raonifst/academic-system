@@ -256,8 +256,9 @@ Template.disciplinesSearchs.onCreated(() => {
 });
 
 Template.searchbox.onCreated(() => {
-  Template.instance().courseName = new ReactiveVar('');
+  //Template.instance().courseName = new ReactiveVar('');
   Template.instance().isStudent  = new ReactiveVar(true);
+  Template.instance().semesterdisciplinesuggested = new ReactiveVar(0);
 });
 
 Template.searchbox.events({
@@ -274,7 +275,7 @@ Template.searchbox.events({
 
       Session.set('showRegister',false);
     }
-    console.log(Template.instance().courseName.get());
+    
   }
 
 });

@@ -31,32 +31,57 @@ Meteor.methods({
         semestre: item.semestre,
         createdBy: currentUser
       }).count();
-      //console.log(item.disciplina);
+      const reinc = Records.find({
+        rga: item.rga,
+        disciplina: item.disciplina,
+        createdBy: currentUser
+      }).count();
+      //console.log(reinc);
       const existDisc = Disciplines.find({nome: item.disciplina}).count();
       var id_disciplina=0;
       var aprov;
+      var reincidenciaaux;
+      var aprovtwo;
       if(existDisc!=0&&existHist==0){
       var disciplina = Disciplines.find({nome: item.disciplina}).fetch();
       _.each(disciplina, function(h) {
         id_disciplina=h._id;
         aprov=h.aprovacoes;
         rep=h.reprovacoes;
+        reincidenciaaux=h.reincidencia;
+        aprovtwo=h.aprov2;
       });
-      console.log(id_disciplina);
-      console.log(aprov);
+      console.log(reinc);
       if(item.situacao=='AP'){
         aprov=aprov+1;
-      Disciplines.update({ _id: id_disciplina }, {$set: {aprovacoes:aprov} });
+        if(reinc==1){
+          aprovtwo = aprovtwo+1;
+          console.log(reinc);
+        }
+        Disciplines.update({ _id: id_disciplina }, {$set: {aprovacoes:aprov, aprov2:aprovtwo} });
     }
     else{
+      if(reinc>=1){
+        reincidenciaaux = reincidenciaaux+1;
+      }
         rep=rep+1;
-      Disciplines.update({ _id: id_disciplina }, {$set: {reprovacoes:rep} });
+      Disciplines.update({ _id: id_disciplina }, {$set: {reprovacoes:rep, reincidencia:reincidenciaaux} });
     }
     var percent=(aprov/(aprov+rep))*100;
-    Disciplines.update({ _id: id_disciplina }, {$set: {perc_ap:percent} });
+    percent=percent.toFixed(3);
+    var percentp;
+    if(aprovtwo+reincidenciaaux){
+      percentp=(reincidenciaaux/(aprovtwo+reincidenciaaux))*100;
+      console.log(percentp);
+      percentp=percentp.toFixed(3);
+  }
+  else {
+    percentp='-';
+  }
+    Disciplines.update({ _id: id_disciplina }, {$set: {perc_ap:percent, perc_reic:percentp}});
   }
   // Pré-condição: Verifica se os items já estão no banco de dados
-      if(existDisc==0){
+      if(existDisc == 0){
         completeUpdate=2;
         return;
       }
