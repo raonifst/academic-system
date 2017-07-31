@@ -1,8 +1,9 @@
 import {Template} from 'meteor/templating';
 import { Accounts } from 'meteor/accounts-base'
-
+import { Session } from 'meteor/session'
 import './uploadacademicrecord.html';
 import './main.html';
+import { Meteor } from 'meteor/meteor'
 import './uploadacademicrecord.js'
 import './uploadcurricularstructure.html'
 import './uploadcurricularstructure.js'
@@ -40,6 +41,8 @@ Router.route('/', {
 
 
 Router.route('/login');
+
+
 Router.route('/uploadcurricularstructure', {
   onBeforeAction() {
     if (Meteor.userId()) {
@@ -58,6 +61,7 @@ Router.route('/search', {
     }
   }*/
 });
+Router.route('/disciplinesSearchs',{});
 Router.route('/uploadacademicrecord', {
   onBeforeAction() {
     if (Meteor.userId()) {
@@ -245,30 +249,52 @@ Meteor.logout(function(err){
     console.log(err);
 });
 
+Template.disciplinesSearchs.onCreated(() => {
+
+  Template.instance().countStudentsWhoMustEnrollInACourse         = new ReactiveVar(0);
+  Template.instance().countStudentsWhoHavePrerequisitesForACourse = new ReactiveVar(0);
+});
+
 Template.searchbox.onCreated(() => {
   Template.instance().courseName = new ReactiveVar('');
-  Template.instance().isStudent = new ReactiveVar(true);
-  Template.instance().countStudentsWhoMustEnrollInACourse = new ReactiveVar(0);
-  Template.instance().countStudentsWhoHavePrerequisitesForACourse = new ReactiveVar(0);
+  Template.instance().isStudent  = new ReactiveVar(true);
 });
 
 Template.searchbox.events({
   'submit form': function (event) {
     const name = $('[name=search]').val();
-    Template.instance().courseName.set(name);
+    //Template.instance().courseName.set(name);
+    Session.set('courseName', name);
     event.preventDefault();
+    var radioValue = event.target.group1.value;
+    if (radioValue == 'a'){
+
+      Session.set('showRegister',true);
+    }else if(radioValue == 'd'){
+
+      Session.set('showRegister',false);
+    }
+    console.log(Template.instance().courseName.get());
   }
 
 });
 
-
-
+Session.set('showRegister', true);
+Session.set('courseName', '');
 
 Template.searchbox.helpers({
+  showStudents :function(){
+      return Session.get('showRegister');
+  },
+  // courseName :function(){
+  //   return Template.instance().courseName.get();
+  // }
+});
+
+Template.disciplinesSearchs.helpers({
   isStudent: function() {
     return Template.instance().isStudent.get();
   },
-
   settings: function () {
       return {
           rowsPerPage: 10,
@@ -279,20 +305,8 @@ Template.searchbox.helpers({
           ]
       };
   },
-
-  countStudentsWhoMustEnrollInACourse: function() {
-    Template.searchbox.__helpers.get('studentsWhoMustEnrollInACourse').call();
-    return Template.instance().countStudentsWhoMustEnrollInACourse.get();
-  },
-  countStudentsWhoHavePrerequisitesForACourse: function() {
-    Template.searchbox.__helpers.get('studentsWhoHavePrerequisitesForACourse').call();
-    return Template.instance().countStudentsWhoHavePrerequisitesForACourse.get();
-  },
-
-
   studentsWhoHavePrerequisitesForACourse: function(){
-
-    let courseName = Template.instance().courseName.get();
+    let courseName = Session.get('courseName');
     if(courseName != '') {
       let candidates = auxStudentsWhoMustEnrollInACourse(courseName);
       //console.log(courseName)
@@ -329,7 +343,8 @@ Template.searchbox.helpers({
   },
 
   studentsWhoMustEnrollInACourse: function(){
-      let courseName = Template.instance().courseName.get();
+
+      let courseName = Session.get('courseName');
       if(courseName == '') {
         Template.instance().countStudentsWhoMustEnrollInACourse.set(0);
         return [{}];
@@ -337,7 +352,79 @@ Template.searchbox.helpers({
       let result = auxStudentsWhoMustEnrollInACourse(courseName);
       Template.instance().countStudentsWhoMustEnrollInACourse.set(result.length);
       return result;
+  },
+  countStudentsWhoMustEnrollInACourse: function() {
+
+    Template.disciplinesSearchs.__helpers.get('studentsWhoMustEnrollInACourse').call();
+    return Template.instance().countStudentsWhoMustEnrollInACourse.get();
+  },
+  countStudentsWhoHavePrerequisitesForACourse: function() {
+    Template.disciplinesSearchs.__helpers.get('studentsWhoHavePrerequisitesForACourse').call();
+    return Template.instance().countStudentsWhoHavePrerequisitesForACourse.get();
   }
 
+});
 
-})
+Template.disciplinesSearchs.onRendered(function(){
+if (Meteor.isClient) {
+(function(){
+	var d = document,
+	accordionToggles = d.querySelectorAll('.js-accordionTrigger'),
+	setAria,
+	setAccordionAria,
+	switchAccordion,
+  touchSupported = ('ontouchstart' in window),
+  pointerSupported = ('pointerdown' in window);
+
+  skipClickDelay = function(e){
+    e.preventDefault();
+    e.target.click();
+  }
+
+		setAriaAttr = function(el, ariaType, newProperty){
+		el.setAttribute(ariaType, newProperty);
+	};
+	setAccordionAria = function(el1, el2, expanded){
+		switch(expanded) {
+      case "true":
+      	setAriaAttr(el1, 'aria-expanded', 'true');
+      	setAriaAttr(el2, 'aria-hidden', 'false');
+      	break;
+      case "false":
+      	setAriaAttr(el1, 'aria-expanded', 'false');
+      	setAriaAttr(el2, 'aria-hidden', 'true');
+      	break;
+      default:
+				break;
+		}
+	};
+//function
+switchAccordion = function(e) {
+  console.log("triggered");
+	e.preventDefault();
+	var thisAnswer = e.target.parentNode.nextElementSibling;
+	var thisQuestion = e.target;
+	if(thisAnswer.classList.contains('is-collapsed')) {
+		setAccordionAria(thisQuestion, thisAnswer, 'true');
+	} else {
+		setAccordionAria(thisQuestion, thisAnswer, 'false');
+	}
+  	thisQuestion.classList.toggle('is-collapsed');
+  	thisQuestion.classList.toggle('is-expanded');
+		thisAnswer.classList.toggle('is-collapsed');
+		thisAnswer.classList.toggle('is-expanded');
+
+  	thisAnswer.classList.toggle('animateIn');
+	};
+	for (var i=0,len=accordionToggles.length; i<len; i++) {
+		if(touchSupported) {
+      accordionToggles[i].addEventListener('touchstart', skipClickDelay, false);
+    }
+    if(pointerSupported){
+      accordionToggles[i].addEventListener('pointerdown', skipClickDelay, false);
+    }
+    accordionToggles[i].addEventListener('click', switchAccordion, false);
+  }
+})();
+}
+});

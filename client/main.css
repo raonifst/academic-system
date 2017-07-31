@@ -1,5 +1,5 @@
 /* CSS declarations go here */
-@import url(https://fonts.googleapis.com/css?family=Roboto);
+@import url(https://fonts.googleap.com/css?family=Roboto);
 body
 	{
   overflow-Y: hidden;
@@ -152,183 +152,172 @@ input.error{
 
   * { box-sizing:border-box; }
 
-/* basic stylings ------------------------------------------ */
-
-.container    {
-  font-family:'Roboto';
-  width:600px;
-  margin:30px auto 0;
-  display:block;
-  background:#FFF;
-  padding:10px 50px 50px;
-}
-h2     {
-  text-align:center;
-  margin-bottom:50px;
-}
-h2 small {
-  font-weight:normal;
-  color:#888;
-  display:block;
-}
-.footer   { text-align:center; }
-.footer a  { color:#53B2C8; }
-
-/* form starting stylings ------------------------------- */
-.group        {
-  position:relative;
-  margin-bottom:45px;
-}
-input         {
-  font-size:18px;
-  padding:10px 10px 10px 5px;
-  display:block;
-  width:300px;
-  border:none;
-  border-bottom:1px solid #757575;
-}
-input:focus     { outline:none; }
-
-/* LABEL ======================================= */
-label          {
-  color:#999;
-  font-size:18px;
-  font-weight:normal;
-  position:absolute;
-  pointer-events:none;
-  left:5px;
-  top:10px;
-  transition:0.2s ease all;
-  -moz-transition:0.2s ease all;
-  -webkit-transition:0.2s ease all;
-}
-
-/* active state */
-input:focus ~ label, input:valid ~ label    {
-  top:-20px;
-  font-size:14px;
-  color:#3f51b5;
-}
-
-/* BOTTOM BARS ================================= */
-.bar  { position:relative; display:block; width:300px; }
-.bar:before, .bar:after   {
-  content:'';
-  height:2px;
-  width:0;
-  bottom:1px;
-  position:absolute;
-  background:#3f51b5;
-  transition:0.2s ease all;
-  -moz-transition:0.2s ease all;
-  -webkit-transition:0.2s ease all;
-}
-.bar:before {
-  left:50%;
-}
-.bar:after {
-  right:50%;
-}
-
-/* active state */
-input:focus ~ .bar:before, input:focus ~ .bar:after {
-  width:50%;
-}
-
-/* HIGHLIGHTER ================================== */
-.highlight {
-  position:absolute;
-  height:60%;
-  width:100px;
-  top:25%;
-  left:0;
-  pointer-events:none;
-  opacity:0.5;
-}
-
-/* active state */
-input:focus ~ .highlight {
-  -webkit-animation:inputHighlighter 0.3s ease;
-  -moz-animation:inputHighlighter 0.3s ease;
-  animation:inputHighlighter 0.3s ease;
-}
-
-/* ANIMATIONS ================ */
-@-webkit-keyframes inputHighlighter {
-  from { background:#3f51b5; }
-  to  { width:0; background:transparent; }
-}
-@-moz-keyframes inputHighlighter {
-  from { background:#3f51b5; }
-  to  { width:0; background:transparent; }
-}
-@keyframes inputHighlighter {
-  from { background:#3f51b5; }
-  to  { width:0; background:transparent; }
-}
 
 
-/*radios*/
 
-@keyframes ripple {
-  0% {
-    box-shadow: 0px 0px 0px 1px transparent;
-  }
-  50% {
-    box-shadow: 0px 0px 0px 15px rgba(0, 0, 0, 0.1);
-  }
-  100% {
-    box-shadow: 0px 0px 0px 15px transparent;
-  }
-}
-.md-radio {
-  margin: 16px 0;
-}
-.md-radio.md-radio-inline {
-  display: inline-block;
-}
-.md-radio input[type="radio"] {
-  display: none;
-}
-.md-radio input[type="radio"]:checked + label:before {
-  border-color: #337ab7;
-  animation: ripple 0.2s linear forwards;
-}
-.md-radio input[type="radio"]:checked + label:after {
-  transform: scale(1);
-}
-.md-radio label {
-  display: inline-block;
-  height: 20px;
-  position: relative;
-  padding: 0 30px;
-  margin-bottom: 0;
-  cursor: pointer;
-  vertical-align: bottom;
-}
-.md-radio label:before, .md-radio label:after {
-  position: absolute;
-  content: '';
-  border-radius: 50%;
-  transition: all .3s ease;
-  transition-property: transform, border-color;
-}
-.md-radio label:before {
-  left: 0;
-  top: 0;
-  width: 20px;
-  height: 20px;
-  border: 2px solid rgba(0, 0, 0, 0.54);
-}
-.md-radio label:after {
-  top: 5px;
-  left: 5px;
-  width: 10px;
-  height: 10px;
-  transform: scale(0);
-  background: #337ab7;
-}
+	.heading-primary {
+	  font-size: 2em;
 
-*, *:before, *:after {
-  box-sizing: border-box;
-}
+	  text-align: center;
+	}
+
+	.accordion dl,
+	.accordion-list {
+	  border: 1px solid #e2e1e0;
+	}
+	.accordion dl:after,
+	.accordion-list:after {
+	  content: "";
+	  display: block;
+	  height: 1em;
+	  width: 100%;
+	  background-color: white;
+	}
+
+	.accordion dd,
+	.accordion__panel {
+	  background-color: #e2e1e0;
+	  font-size: 1em;
+	  line-height: 1.5em;
+	}
+
+	.accordion p {
+	  padding: 1em 2em 1em 2em;
+	}
+
+	.accordion {
+	  position: relative;
+	  background-color: #eee;
+	}
+
+	.container {
+	  max-width: 960px;
+	  margin: 0 auto;
+	  padding: 2em 0 2em 0;
+	}
+
+	.accordionTitle,
+	.accordion__Heading {
+	  background-color: white;
+	  text-align: center;
+	  font-weight: 700;
+	  padding: 2em;
+	  display: block;
+	  text-decoration: none;
+	  color: black;
+	  -webkit-transition: background-color 0.5s ease-in-out;
+	  transition: background-color 0.5s ease-in-out;
+	  border-top:  1px solid black;
+	}
+	.accordionTitle:before,
+	.accordion__Heading:before {
+	  content: "+";
+	  font-size: 1.5em;
+	  line-height: 0.5em;
+	  float: left;
+	  -webkit-transition: -webkit-transform 0.3s ease-in-out;
+	  transition: -webkit-transform 0.3s ease-in-out;
+	  transition: transform 0.3s ease-in-out;
+	  transition: transform 0.3s ease-in-out, -webkit-transform 0.3s ease-in-out;
+	}
+	.accordionTitle:hover,
+	.accordion__Heading:hover {
+	  background-color: white;
+	}
+
+	.accordionTitleActive,
+	.accordionTitle.is-expanded {
+	  background-color: white;
+	}
+	.accordionTitleActive:before,
+	.accordionTitle.is-expanded:before {
+	  -webkit-transform: rotate(-225deg);
+	          transform: rotate(-225deg);
+	}
+
+	.accordionItem {
+	  height: auto;
+		overflow: hidden;
+	  /*-webkit-transition: max-height 1s;
+	  transition: max-height 1s;*/
+	}
+	@media screen and (min-width: 48em) {
+	  .accordionItem {
+	    /*max-height: 15em;
+	    -webkit-transition: max-height 0.5s;
+	    transition: max-height 0.5s;*/
+	  }
+	}
+
+	.accordionItem.is-collapsed {
+	  max-height: 0;
+
+	}
+
+	.no-js .accordionItem.is-collapsed {
+	  max-height: auto;
+	}
+
+	.animateIn {
+	  -webkit-animation: accordionIn 0.45s normal ease-in-out both 1;
+	          animation: accordionIn 0.45s normal ease-in-out both 1;
+	}
+
+	.animateOut {
+	  -webkit-animation: accordionOut 0.45s alternate ease-in-out both 1;
+	          animation: accordionOut 0.45s alternate ease-in-out both 1;
+	}
+
+	@-webkit-keyframes accordionIn {
+	  0% {
+	    opacity: 0;
+	    -webkit-transform: scale(0.9) rotateX(-60deg);
+	            transform: scale(0.9) rotateX(-60deg);
+	    -webkit-transform-origin: 50% 0;
+	            transform-origin: 50% 0;
+	  }
+	  100% {
+	    opacity: 1;
+	    -webkit-transform: scale(1);
+	            transform: scale(1);
+	  }
+	}
+
+	@keyframes accordionIn {
+	  0% {
+	    opacity: 0;
+	    -webkit-transform: scale(0.9) rotateX(-60deg);
+	            transform: scale(0.9) rotateX(-60deg);
+	    -webkit-transform-origin: 50% 0;
+	            transform-origin: 50% 0;
+	  }
+	  100% {
+	    opacity: 1;
+	    -webkit-transform: scale(1);
+	            transform: scale(1);
+	  }
+	}
+	@-webkit-keyframes accordionOut {
+	  0% {
+	    opacity: 1;
+	    -webkit-transform: scale(1);
+	            transform: scale(1);
+	  }
+	  100% {
+	    opacity: 0;
+	    -webkit-transform: scale(0.9) rotateX(-60deg);
+	            transform: scale(0.9) rotateX(-60deg);
+	  }
+	}
+	@keyframes accordionOut {
+	  0% {
+	    opacity: 1;
+	    -webkit-transform: scale(1);
+	            transform: scale(1);
+	  }
+	  100% {
+	    opacity: 0;
+	    -webkit-transform: scale(0.9) rotateX(-60deg);
+	            transform: scale(0.9) rotateX(-60deg);
+	  }
+	}
