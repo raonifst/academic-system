@@ -28,6 +28,14 @@ Meteor.methods({
       return 0;
     }
     Records.remove({ createdBy: currentUser });
+    Disciplines.update({createdBy:currentUser},{$set:{
+            aprovacoes:0,
+            reprovacoes:0,
+            reincidencia:0,
+            aprov2:0,
+            perc_ap:'-',
+            perc_reic:'-',
+            alunos:0}}, {multi: true});
     console.log("Histórico acadêmico limpo por", currentUser);
     return 1;
   }

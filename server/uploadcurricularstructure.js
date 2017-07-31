@@ -98,6 +98,7 @@ Meteor.methods({
         aprov2:0,
         perc_ap:'-',
         perc_reic:'-',
+        alunos:0,
         createdBy: currentUser
       });
 

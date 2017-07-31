@@ -42,6 +42,7 @@ Meteor.methods({
       var aprov;
       var reincidenciaaux;
       var aprovtwo;
+      var alunos;
       if(existDisc!=0&&existHist==0){
       var disciplina = Disciplines.find({nome: item.disciplina}).fetch();
       _.each(disciplina, function(h) {
@@ -50,34 +51,48 @@ Meteor.methods({
         rep=h.reprovacoes;
         reincidenciaaux=h.reincidencia;
         aprovtwo=h.aprov2;
+        alunos=h.alunos;
       });
-      console.log(reinc);
+      if(reinc==0){
+        alunos = alunos + 1;
+      }
       if(item.situacao=='AP'){
         aprov=aprov+1;
         if(reinc==1){
           aprovtwo = aprovtwo+1;
-          console.log(reinc);
         }
-        Disciplines.update({ _id: id_disciplina }, {$set: {aprovacoes:aprov, aprov2:aprovtwo} });
+        Disciplines.update(
+          { _id: id_disciplina },
+          {$set: {aprovacoes:aprov,alunos:alunos, aprov2:aprovtwo} });
     }
     else{
-      if(reinc>=1){
+      if(reinc==1){
         reincidenciaaux = reincidenciaaux+1;
       }
         rep=rep+1;
-      Disciplines.update({ _id: id_disciplina }, {$set: {reprovacoes:rep, reincidencia:reincidenciaaux} });
+      Disciplines.update(
+        { _id: id_disciplina },
+        {$set: {reprovacoes:rep, reincidencia:reincidenciaaux, alunos:alunos} });
     }
     var percent=(aprov/(aprov+rep))*100;
     percent=percent.toFixed(3);
     var percentp;
-    if(aprovtwo+reincidenciaaux){
-      percentp=(reincidenciaaux/(aprovtwo+reincidenciaaux))*100;
-      console.log(percentp);
+    var percentl;
+    if(reincidenciaaux){
+      percentp=(reincidenciaaux/alunos)*100;
       percentp=percentp.toFixed(3);
   }
   else {
     percentp='-';
   }
+  if(aprovtwo){
+    percentl=(aprovtwo/alunos)*100;
+    percentl=percentl.toFixed(3);
+  }
+  else{
+    percentl='-';
+  }
+  console.log(alunos);
     Disciplines.update({ _id: id_disciplina }, {$set: {perc_ap:percent, perc_reic:percentp}});
   }
   // Pré-condição: Verifica se os items já estão no banco de dados
