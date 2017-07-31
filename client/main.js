@@ -327,6 +327,7 @@ Template.disciplinesSearchs.onCreated(() => {
 
   Template.instance().countStudentsWhoMustEnrollInACourse         = new ReactiveVar(0);
   Template.instance().countStudentsWhoHavePrerequisitesForACourse = new ReactiveVar(0);
+  Template.instance().countStudentsAtCourseSemester = new ReactiveVar(0);
 });
 
 Template.searchbox.onCreated(() => {
@@ -385,6 +386,38 @@ Template.disciplinesSearchs.helpers({
           ]
       };
   },
+
+
+  studentsAtCourseSemester: function(){
+      let courseName = Session.get('courseName');
+      let semesterCourse;
+      let courseId;
+      Template.instance().countStudentsAtCourseSemester.set(0);
+      if(courseName == '')
+        return [{}];
+
+      courseId = Disciplines.findOne({nome: courseName}, {fields:{_id:1}});
+      courseId = courseId==null?'':courseId._id;
+     if(courseId!=''){
+        semesterCourse=CurricularStructure.findOne({idDisciplina: courseId},{fields:{semestre:1}});
+        //Template.instance().semesterSearch.set(semesterCourse.semestre);
+        //Template.search.__helpers.get('searchStudentBySemester').call();
+        console.log(semesterCourse.semestre);
+        let res;
+        if(semesterCourse.semestre>1){
+          res = searchStudentBySemesterForHelper(semesterCourse.semestre);
+          Template.instance().countStudentsAtCourseSemester.set(res.length);
+          return res;
+
+        }else return [{}]
+     }
+     else{
+          //console.log("Disciplina nao encontrada");
+          return [{}];
+     }
+
+  },
+
   studentsWhoHavePrerequisitesForACourse: function(){
     let courseName = Session.get('courseName');
     if(courseName != '') {
@@ -441,6 +474,10 @@ Template.disciplinesSearchs.helpers({
   countStudentsWhoHavePrerequisitesForACourse: function() {
     Template.disciplinesSearchs.__helpers.get('studentsWhoHavePrerequisitesForACourse').call();
     return Template.instance().countStudentsWhoHavePrerequisitesForACourse.get();
+  },
+  countStudentsAtCourseSemester:function(){
+      Template.disciplinesSearchs.__helpers.get('studentsAtCourseSemester').call();
+      return Template.instance().countStudentsAtCourseSemester.get();
   }
 
 });

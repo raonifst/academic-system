@@ -121,6 +121,21 @@
 
           </dd>
 
+          <dt>
+            <a href="#accordion2" aria-expanded="false" aria-controls="accordion2" class="accordion-title accordionTitle js-accordionTrigger">
+              Estudantes que estão no semestre sugerido: {{countStudentsAtCourseSemester}}
+            </a>
+          </dt>
+          <dd class="accordion-content accordionItem is-collapsed" id="accordion2" aria-hidden="true" style="margin-left: auto; margin-right:auto; text-align:center;">
+
+              <table class="mdl-data-table mdl-shadow--2dp" style="margin-left: auto; margin-right:auto; text-align:center;">
+                {{> reactiveTable collection=studentsAtCourseSemester settings=settings}}
+              </table>
+
+          </dd>
+
+
+
         </dl>
       </div>
   </div>
