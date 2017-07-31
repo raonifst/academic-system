@@ -29,3 +29,5 @@ aldeed:simple-schema
 aslagle:reactive-table
 materialize:materialize
 jquery
+mrt:jquery-ui
+npvn:jquery-autocomplete

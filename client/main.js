@@ -301,6 +301,28 @@ Meteor.logout(function(err){
     console.log(err);
 });
 
+Template.searchbox.onRendered(function(){
+    if (Meteor.isClient) {
+      $(document).ready(function(){
+
+
+          $('#autocomplete').autocomplete({
+            lookup: function (query, done) {
+          // Do Ajax call or lookup locally, when done,
+          // call the callback and pass your results:
+                  var result = {
+                      suggestions: Disciplines.find().map(function(x) {
+                         return { value: x.nome, data: x.codigo};
+                      })
+                  };
+                  done(result);
+            }
+
+          });
+      });
+    }
+});
+
 Template.disciplinesSearchs.onCreated(() => {
 
   Template.instance().countStudentsWhoMustEnrollInACourse         = new ReactiveVar(0);
@@ -327,7 +349,14 @@ Template.searchbox.events({
 
       Session.set('showRegister',false);
     }
+<<<<<<< HEAD
+    console.log(Session.get('courseName'));
+    console.log(Disciplines.find().map(function(x) {
+       return { value: x.nome, data: x.codigo};
+    }));
+=======
 
+>>>>>>> a520678d2dc2e4ebbb9fdf6dedb77542b1e86482
   }
 
 });

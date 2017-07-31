@@ -71,8 +71,10 @@ modules@0.9.1
 modules-runtime@0.8.0
 mongo@1.1.18
 mongo-id@1.0.6
+mrt:jquery-ui@1.9.2
 npm-bcrypt@0.9.3
 npm-mongo@2.2.24
+npvn:jquery-autocomplete@1.3.0
 observe-sequence@1.0.16
 ordered-dict@1.0.9
 promise@0.8.9
