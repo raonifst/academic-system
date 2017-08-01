@@ -1,30 +1,40 @@
 <template name="uploadacademicrecord">
-{{#if currentUser}}
-  <div class="card" style="width: 625px;">
-  <h3 class="page-header">Atualizar Histórico Acadêmico</h3>
+  {{#if currentUser}}
+    <!-- Upload de histórico acadêmico -->
+    <div class="card" style="width: 625px;">
+      <h3 class="page-header">Histórico Acadêmico</h3>
 
-  {{#if uploading}}
-    <p><i class="fa fa-spin fa-refresh"></i> Uploading files...</p>
-  {{else}}
-    <input type="file" name="uploadCSV">
+      {{#unless uploading}}
+        <form action="#">
+          <div class="row">
+            <div class="file-field input-field col s12">
+              <div class="btn">
+                <span>Arquivo</span>
+                <input type="file" name="uploadCSV">
+              </div>
+              <div class="file-path-wrapper">
+                <input class="file-path validate" placeholder="Clique para subir um arquivo CSV de Histórico Acadêmico...">
+              </div>
+            </div>
+          </div>
+        </form>
+      {{else}}
+        <p><i class="fa fa-spin fa-refresh"></i> Atualizando banco de dados... Aguarde...</p>
+      {{/unless}}
+
+      {{> buttonremoverecords}}
+      {{> exporterRecords}}
+    </div>
+
+    <!-- Tabela reativa de estrutura curricular -->
+    <br>
+    {{#if uploaded}}
+      <div>
+        <table class="mdl-data-table mdl-shadow--2dp" style="margin-left: auto; margin-right:auto;">
+          {{> reactiveTable collection=listaAlunos settings=settingsRecord}}
+        </table>
+      </div>
+    {{/if}}
+
   {{/if}}
-
-
-
-{{> buttonremoverecords}}
-{{> exporterRecords}}
-</div>
-
-<br>
-  {{#if uploaded}}
-  <div>
-  <table class="mdl-data-table mdl-shadow--2dp" style="margin-left: auto; margin-right:auto;">
-    {{> reactiveTable collection=listaAlunos settings=settingsRecord}}
-  </table>
-  </div>
-  {{/if}}
-
-
-
-{{/if}}
 </template>
