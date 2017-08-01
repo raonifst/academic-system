@@ -417,6 +417,37 @@ Template.disciplinesSearchs.helpers({
      }
 
   },
+  coursesAtStudentSemester:function(){
+      let studentKey = Session.get('courseName');//devera ser alterado
+      let cod = parseInt(studentKey,10);
+      let student=Records.findOne({rga:cod});
+      if(student==null)
+          return [{}];
+
+      let studentSem=parseInt(calcCourseSemesterByStudent(student.rga),10);
+      if(studentSem<2||studentSem>10)
+        return [{}];
+
+      let discipline = CurricularStructure.find({createdBy:Meteor.userId(),semestre:studentSem});
+      if(discipline ==null)
+        return[{}];
+
+      let map={};
+      let disc;
+      discipline.forEach(item=>{
+         disc = Disciplines.findOne({_id:item.idDisciplina},{fields:{nome:1 , codigo:1}});
+         if(!map[disc.codigo]){
+           map[disc.codigo]={
+               codigo: disc.codigo,
+               nome:disc.nome
+           }
+         }
+
+      });
+    let v =[{}];
+    v = hash2array(map);
+  return v;
+},
 
   studentsWhoHavePrerequisitesForACourse: function(){
     let courseName = Session.get('courseName');

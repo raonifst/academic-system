@@ -174,9 +174,7 @@ Template.search.helpers({
         }
       });
       return hash2array(map);
-}
-
-
+},
 
 });
 Template.search.events({
