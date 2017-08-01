@@ -7,6 +7,24 @@ hash2array = function hash2array(map) {
   return array;
 }
 
+listOfStudents = function listOfStudents()
+{
+  let map = {};
+
+    Records.find({},{fields:{rga:1, nome: 1}}).forEach(
+        function (student) {
+          if(!map[student.rga]) {
+             map[student.rga] = {
+                value: student.nome,
+                data: student.rga
+            }
+          }
+        });
+  //console.log(map);
+  return hash2array(map);
+}
+
+
 /*Funcao auxiliar para queries*/
 auxStudentsWhoMustEnrollInACourse = function auxStudentsWhoMustEnrollInACourse(courseName){
 
