@@ -93,7 +93,7 @@ Meteor.methods({
     percentl='-';
   }
   console.log(alunos);
-    Disciplines.update({ _id: id_disciplina }, {$set: {perc_ap:percent, perc_reic:percentp}});
+    Disciplines.update({ _id: id_disciplina }, {$set: {perc_ap:percent, perc_reic:percentp,perc_aprov2:percentl}});
   }
   // Pré-condição: Verifica se os items já estão no banco de dados
       if(existDisc == 0){

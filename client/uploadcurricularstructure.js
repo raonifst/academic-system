@@ -41,8 +41,9 @@ Template.uploadcurricularstructure.helpers({
               { key: 'codigo', label: 'Codigo' , cellClass: 'col-md-4'},
               { key: 'nome', label: 'Nome' , cellClass: 'col-md-4'},
               { key: 'creditos', label: 'Créditos' , cellClass: 'col-md-4'},
-              {key:'perc_ap', label:'Porcentagem Aprovacoes',cellClass: 'col-md-4' },
-              {key:'perc_reic', label:'Porcentagem Reincidencia',cellClass: 'col-md-4' }
+              {key:'perc_ap', label:'Aprovações',cellClass: 'col-md-4' },
+              {key:'perc_reic', label:'Reincidencia',cellClass: 'col-md-4' },
+              {key:'perc_reic', label:'Aprovado pela segunda vez',cellClass: 'col-md-4' }
             ]
         };
     }
