@@ -58,7 +58,7 @@
                           </label>
                          </div>
 
-                         <button class="btn-floating btn-large waves-effect waves-light indigo darken-2" type="submit" name="action" style="padding-top=10px">
+                         <button class="btn-floating btn-large waves-effect waves-light indigo darken-2" type="submit" name="action" style="padding-top: 10px">
                             <i class="material-icons">search</i>
                          </button>
                          <div class="row">
@@ -73,14 +73,9 @@
 
       </div>
       {{#if showStudents}}
-
-          {{> studentsSearchs}}
-
-      <br>
-
-
+        {{> studentsSearchs}}
       {{else}}
-          {{> disciplinesSearchs}}
+        {{> disciplinesSearchs}}
       {{/if}}
 </template>
 
@@ -175,6 +170,7 @@
     <!--{{> navigation}}-->
     <br><br><br>
     {{> yield}}
+    <br><br><br>
   </body>
 
 
@@ -204,35 +200,6 @@
         </div>
       </div>
 
-</template>
-
-
-
-
-<template name="changepass">
-  {{> slideMenu}}
-  {{#if currentUser}}
-    <div class="login-title">
-      <form class="login">
-        <h3>Alterar Senha</h3>
-        <!--<p> <input class="form-control" type="password" name="password" required placeholder="Nova Senha"> </p>-->
-        <div class="group">
-          <input type="password" name="oldpassword" id="oldpassword" required>
-          <span class="highlight"></span>
-          <span class="bar"></span>
-          <label for="oldpassword">Senha Atual</label>
-        </div>
-        <div class="group">
-          <input type="password" name="password" id="password" required>
-          <span class="highlight"></span>
-          <span class="bar"></span>
-          <label for="password">Nova Senha</label>
-        </div>
-        <br>
-        <button class="loginBtn loginBtn--google">Alterar</button>
-      </form>
-    </div>
-  {{/if}}
 </template>
 
 

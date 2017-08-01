@@ -1,23 +1,24 @@
-import {Template} from 'meteor/templating';
-import { Accounts } from 'meteor/accounts-base'
+import { Meteor } from 'meteor/meteor'
+import { Template } from 'meteor/templating'
 import { Session } from 'meteor/session'
-import './uploadacademicrecord.html';
 
 import './main.html';
-import { Meteor } from 'meteor/meteor'
+
 import './templates/settings.html'
 import './templates/settings.js'
-import './uploadacademicrecord.html';
+import './templates/changepass.html'
+import './templates/changepass.js'
+import './uploadacademicrecord.html'
 import './uploadacademicrecord.js'
 import './uploadcurricularstructure.html'
 import './uploadcurricularstructure.js'
-import './exporter.html';
+import './exporter.html'
 import './exporter.js'
 import './exportercurricular.js'
 import './search.html'
 import './search.js'
 import './queries.js'
-import {DefaultRootUser} from "../imports/utils/defaultrootuser";
+import {DefaultRootUser} from "../imports/utils/defaultrootuser"
 
 
 Meteor.subscribe('record');
@@ -90,17 +91,7 @@ Router.route('/settings', {
   }
 });
 
-Router.route('/changepass', {
-  name: 'changepass',
-  template: 'changepass',
-  onBeforeAction() {
-    if (Meteor.userId()) {
-      this.next();
-    } else {
-      this.render("login");
-    }
-  }
-});
+
 
 
 Template.menuItems.events({
@@ -133,12 +124,6 @@ Template.login.events({
   }
 });
 
-Template.changepass.events({
-  'submit form': function (event) {
-    event.preventDefault();
-  }
-
-});
 
 $.validator.setDefaults({
   rules: {
@@ -197,45 +182,6 @@ Template.login.onRendered(function () {
               Router.go("home");
             }
           });
-        }
-      });
-    }
-  });
-
-});
-
-
-Template.changepass.onRendered( function(){
-
-  var validator = $('.login').validate({
-
-    onkeyup: false,
-    keypress: false,
-
-    errorPlacement: function (error, element) {
-            Bert.alert(error.text(),'danger' );
-    },
-
-    submitHandler:function(event){
-      const newPassword = $('[name=password]').val();
-      const oldPassword = $('[name=oldpassword]').val();
-      Accounts.changePassword(oldPassword, newPassword, function(error){
-        if (error) {
-          if (error.reason === "User not found") {
-            Bert.alert( 'Usuário não cadastrado', 'danger' );
-
-          }
-          if (error.reason === "Incorrect password") {
-            Bert.alert( 'Senha incorreta', 'danger' );
-
-          }
-          /*validator.showErrors({
-            password:error.reason
-          })*/
-        } else {
-          Bert.alert('Senha alterada!', 'success', 'growl-top-right');
-          Meteor.call('changeFirstLogin');
-          Router.go('home');
         }
       });
     }
