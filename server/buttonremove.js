@@ -35,6 +35,7 @@ Meteor.methods({
             aprov2:0,
             perc_ap:'-',
             perc_reic:'-',
+            percentl:'-',
             alunos:0}}, {multi: true});
     console.log("Histórico acadêmico limpo por", currentUser);
     return 1;
