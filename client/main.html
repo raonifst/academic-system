@@ -22,7 +22,7 @@
 
 
 <template name="home">
-<<<<<<< HEAD
+
 
 
   <div class="card" style="width: 560px; left: 10%; position: absolute; top: 18%; height: 250px">
@@ -30,15 +30,17 @@
     <h3 class="left-align">Bem-vindo ao sistema acadêmico!</h3>
 
       <blockquote class="left-align" style="font-size:110%">
-=======
+
   <div class="card" style="width: 600px;">
     <p><h3>Bem-vindo ao sistema acadêmico!</h3></p><br>
     <div class="valign-wrapper">
       <p class="left-align">
->>>>>>> a75c6c6033ad35cb97ae1394f05810b794c30e34
+
         Curso: {{userCourse}}<br>
         Semestre Atual: {{userCurrentYear}}/{{userCurrentSemester}}<br>
-        Coordenador: {{userName}}
+        Coordenador: {{userName}}</p>
+      </div>
+    </div>
       </blockquote>
 
 
@@ -81,15 +83,15 @@
 
       </div>
       {{#if showStudents}}
-<<<<<<< HEAD
+
           {{> studentsSearchs}}
-=======
+
       <br>
       <div class="card" style="width: 600px;">
         Aqui estarão as pesquisas referentes a alunos
       </div>
       <br>
->>>>>>> a75c6c6033ad35cb97ae1394f05810b794c30e34
+
       {{else}}
           {{> disciplinesSearchs}}
       {{/if}}
