@@ -67,6 +67,7 @@ Router.route('/search', {
 });
 
 Router.route('/disciplinesSearchs',{});
+Router.route('/studentsSearchs',{});
 Router.route('/uploadacademicrecord', {
   onBeforeAction() {
     if (Meteor.userId()) {
@@ -300,27 +301,38 @@ Template.home.helpers({
   if (err)
     console.log(err);
 });*/
-
-Template.searchbox.onRendered(function(){
-    if (Meteor.isClient) {
-      $(document).ready(function(){
+function loadingAutoComplete(){
+  if (Meteor.isClient) {
 
 
-          $('#autocomplete').autocomplete({
+        if(Template.instance().isStudent.get()){
+          $('#autocomplete-input').autocomplete({
             lookup: function (query, done) {
-          // Do Ajax call or lookup locally, when done,
-          // call the callback and pass your results:
                   var result = {
-                      suggestions: Disciplines.find().map(function(x) {
-                         return { value: x.nome, data: x.codigo};
-                      })
+                      suggestions: listOfStudents()
                   };
                   done(result);
             }
 
           });
-      });
-    }
+        }else{
+            $('#autocomplete-input').autocomplete({
+              lookup: function (query, done) {
+                    var result = {
+                        suggestions: Disciplines.find().map(function(x) {
+                           return { value: x.nome, data: x.codigo};
+                        })
+                    };
+                    done(result);
+              }
+
+            });
+        }
+
+  }
+}
+Template.searchbox.onRendered(function(){
+  loadingAutoComplete();
 });
 
 Template.disciplinesSearchs.onCreated(() => {
@@ -356,6 +368,16 @@ Template.searchbox.events({
        return { value: x.nome, data: x.codigo};
     }));
 
+  },
+  'click .a': function(){
+      Template.instance().isStudent.set(true);
+      Session.set('showRegister',true);
+      loadingAutoComplete();
+  },
+  'click .d': function(){
+      Template.instance().isStudent.set(false);
+      Session.set('showRegister',false);      
+      loadingAutoComplete();
   }
 
 });
@@ -370,6 +392,86 @@ Template.searchbox.helpers({
   // courseName :function(){
   //   return Template.instance().courseName.get();
   // }
+});
+///////////////////////////Não é possivel acessar essas funções pelo helper do studentsSearchs////////////////////
+function getAtualSem(){
+  const dataUser = Users.findOne({idUser:Meteor.userId()});
+  if(dataUser==null){
+    //console.log("erro ao obter id da conexao");
+    return null;
+  }
+  const year=dataUser.currentYear;
+  const sem=dataUser.currentSemester;
+  //console.log("Semestre atual"+year+"/"+sem);
+  var key= {"year":year,"semester":sem};
+  return key ;
+}
+function calcCourseSemesterByStudent(rga){
+  let key_rga =Math.floor(parseInt(rga)/Math.pow(10,7));
+  let sYear = Math.floor(key_rga/10);//pega o ano do rga do estudante
+  let sSemester = parseInt((key_rga%10));
+  let key_atual = getAtualSem();
+  let cYear = parseInt(key_atual.year);
+  let cSemester = parseInt(key_atual.semester);
+  let sem=1;
+  while((sYear!=cYear || sSemester!=cSemester)&&sem<=10){
+      sem = sem+1;
+      if(sSemester==2){
+        sYear=sYear+1;
+        sSemester =1;
+      }
+      else sSemester =2;
+  }
+  return sem;
+}
+///////////////////////////Não é possivel acessar essas funções pelo helper do studentsSearchs////////////////////
+Template.studentsSearchs.helpers({
+
+disciplinesSettings: function () {
+    return {
+        rowsPerPage: 10,
+        showFilter: true,
+        fields: [
+          { key: 'codigo', label: 'Código' , cellClass: 'col-md-4'},
+          { key: 'nome', label: 'Nome' , cellClass: 'col-md-4'}
+        ]
+    };
+},
+  coursesAtStudentSemester:function(){
+      let studentKey = Session.get('courseName');//devera ser alterado
+      let cod = parseInt(studentKey,10);
+      let student=Records.findOne({rga:cod});
+      if(student==null){
+        studentNome = Session.get('courseName');//devera ser alterado
+        student=Records.findOne({nome:studentNome});
+      }
+      if(student==null)
+        return [{}];
+
+      let studentSem=parseInt(calcCourseSemesterByStudent(student.rga),10);
+      if(studentSem<2||studentSem>10)
+        return [{}];
+
+      let discipline = CurricularStructure.find({createdBy:Meteor.userId(),semestre:studentSem});
+      if(discipline ==null)
+        return[{}];
+
+      let map={};
+      let disc;
+      discipline.forEach(item=>{
+         disc = Disciplines.findOne({_id:item.idDisciplina},{fields:{nome:1 , codigo:1}});
+         if(!map[disc.codigo]){
+           map[disc.codigo]={
+               codigo: disc.codigo,
+               nome:disc.nome
+           }
+         }
+
+      });
+    let v =[{}];
+    v = hash2array(map);
+  return v;
+}
 });
 
 Template.disciplinesSearchs.helpers({
@@ -386,7 +488,16 @@ Template.disciplinesSearchs.helpers({
           ]
       };
   },
-
+disciplinesSettings: function () {
+    return {
+        rowsPerPage: 10,
+        showFilter: true,
+        fields: [
+          { key: 'codigo', label: 'Código' , cellClass: 'col-md-4'},
+          { key: 'nome', label: 'Nome' , cellClass: 'col-md-4'}
+        ]
+    };
+},
 
   studentsAtCourseSemester: function(){
       let courseName = Session.get('courseName');
@@ -514,65 +625,71 @@ Template.disciplinesSearchs.helpers({
 });
 
 Template.disciplinesSearchs.onRendered(function(){
-if (Meteor.isClient) {
-(function(){
-	var d = document,
-	accordionToggles = d.querySelectorAll('.js-accordionTrigger'),
-	setAria,
-	setAccordionAria,
-	switchAccordion,
-  touchSupported = ('ontouchstart' in window),
-  pointerSupported = ('pointerdown' in window);
-
-  skipClickDelay = function(e){
-    e.preventDefault();
-    e.target.click();
-  }
-
-		setAriaAttr = function(el, ariaType, newProperty){
-		el.setAttribute(ariaType, newProperty);
-	};
-	setAccordionAria = function(el1, el2, expanded){
-		switch(expanded) {
-      case "true":
-      	setAriaAttr(el1, 'aria-expanded', 'true');
-      	setAriaAttr(el2, 'aria-hidden', 'false');
-      	break;
-      case "false":
-      	setAriaAttr(el1, 'aria-expanded', 'false');
-      	setAriaAttr(el2, 'aria-hidden', 'true');
-      	break;
-      default:
-				break;
-		}
-	};
-//function
-switchAccordion = function(e) {
-  console.log("triggered");
-	e.preventDefault();
-	var thisAnswer = e.target.parentNode.nextElementSibling;
-	var thisQuestion = e.target;
-	if(thisAnswer.classList.contains('is-collapsed')) {
-		setAccordionAria(thisQuestion, thisAnswer, 'true');
-	} else {
-		setAccordionAria(thisQuestion, thisAnswer, 'false');
-	}
-  	thisQuestion.classList.toggle('is-collapsed');
-  	thisQuestion.classList.toggle('is-expanded');
-		thisAnswer.classList.toggle('is-collapsed');
-		thisAnswer.classList.toggle('is-expanded');
-
-  	thisAnswer.classList.toggle('animateIn');
-	};
-	for (var i=0,len=accordionToggles.length; i<len; i++) {
-		if(touchSupported) {
-      accordionToggles[i].addEventListener('touchstart', skipClickDelay, false);
-    }
-    if(pointerSupported){
-      accordionToggles[i].addEventListener('pointerdown', skipClickDelay, false);
-    }
-    accordionToggles[i].addEventListener('click', switchAccordion, false);
-  }
-})();
-}
+  accordion();
 });
+Template.studentsSearchs.onRendered(function(){
+  accordion();
+});
+function accordion(){
+    if (Meteor.isClient) {
+    (function(){
+    	var d = document,
+    	accordionToggles = d.querySelectorAll('.js-accordionTrigger'),
+    	setAria,
+    	setAccordionAria,
+    	switchAccordion,
+      touchSupported = ('ontouchstart' in window),
+      pointerSupported = ('pointerdown' in window);
+
+      skipClickDelay = function(e){
+        e.preventDefault();
+        e.target.click();
+      }
+
+    		setAriaAttr = function(el, ariaType, newProperty){
+    		el.setAttribute(ariaType, newProperty);
+    	};
+    	setAccordionAria = function(el1, el2, expanded){
+    		switch(expanded) {
+          case "true":
+          	setAriaAttr(el1, 'aria-expanded', 'true');
+          	setAriaAttr(el2, 'aria-hidden', 'false');
+          	break;
+          case "false":
+          	setAriaAttr(el1, 'aria-expanded', 'false');
+          	setAriaAttr(el2, 'aria-hidden', 'true');
+          	break;
+          default:
+    				break;
+    		}
+    	};
+    //function
+    switchAccordion = function(e) {
+      console.log("triggered");
+    	e.preventDefault();
+    	var thisAnswer = e.target.parentNode.nextElementSibling;
+    	var thisQuestion = e.target;
+    	if(thisAnswer.classList.contains('is-collapsed')) {
+    		setAccordionAria(thisQuestion, thisAnswer, 'true');
+    	} else {
+    		setAccordionAria(thisQuestion, thisAnswer, 'false');
+    	}
+      	thisQuestion.classList.toggle('is-collapsed');
+      	thisQuestion.classList.toggle('is-expanded');
+    		thisAnswer.classList.toggle('is-collapsed');
+    		thisAnswer.classList.toggle('is-expanded');
+
+      	thisAnswer.classList.toggle('animateIn');
+    	};
+    	for (var i=0,len=accordionToggles.length; i<len; i++) {
+    		if(touchSupported) {
+          accordionToggles[i].addEventListener('touchstart', skipClickDelay, false);
+        }
+        if(pointerSupported){
+          accordionToggles[i].addEventListener('pointerdown', skipClickDelay, false);
+        }
+        accordionToggles[i].addEventListener('click', switchAccordion, false);
+      }
+    })();
+    }
+}

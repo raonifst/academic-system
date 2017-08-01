@@ -1,5 +1,15 @@
-/* CSS declarations go here */
-@import url(https://fonts.googleap.com/css?family=Roboto);
+html {
+	 font-family: GillSans, Calibri, Trebuchet, sans-serif;
+	 /*width: auto;
+	 height: auto;*/
+ }
+
+ blockquote{
+   margin: 20px 0;
+   padding-left: 1.5rem;
+   border-left: 5px solid #3f51b5;
+ }
+
 body
 	{
   overflow-Y: hidden;
@@ -126,26 +136,6 @@ input.error{
   background: #E74B37;
 }
 
-.footer
-	{
-		font-family	: sans-serif;
-	margin		: 3em 0 0 0;
-	padding		: .3em;
-	border-top	: 1px solid #ccc;
-	font-style	: italic;
-	_font-style	: normal; /* IE: Italic is ugly */
-	font-size	: 80%;
-    /*position: relative;*/
-    width:100%;
-    /*bottom:0;*/
-		top:0;
-		margin-bottom: auto;
-	}
-.footer p
-	{
-	padding		: 0;
-	margin		: 0;
-	}
 
 
 

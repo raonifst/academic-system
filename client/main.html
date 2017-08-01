@@ -30,70 +30,68 @@
 
 
 <template name="home">
-  <br><br><br>
-  <div class="card" style="width: 600px;">
-    <p><h3>Bem-vindo ao sistema acadêmico!</h3></p><br>
-    <div class="valign-wrapper">
-      <p class="left-align">
+
+
+  <div class="card" style="width: 560px; left: 10%; position: absolute; top: 18%; height: 250px">
+
+    <h3 class="left-align">Bem-vindo ao sistema acadêmico!</h3>
+
+      <blockquote class="left-align" style="font-size:110%">
         Curso: {{userCourse}}<br>
         Semestre Atual: {{userCurrentYear}}/{{userCurrentSemester}}<br>
         Coordenador: {{userName}}
-      </p>
-    </div>
-  </div><br>
-  {{> searchbox}}
+      </blockquote>
+
+
+  </div>
+
+
   {{> taskslist}}
+
+  {{> searchbox}}
+
 </template>
 
 
 <template name="searchbox">
 
-
-    <div class="card" style="width: 600px;">
-            <h1 class="heading-primary">
-
+    <div class="card"  style="position: absolute; width: 560px; left: 10%; top: 60%;">
               {{#if currentUser}}
+              <h3 class="left-align">Consultas</h3>
                 <form >
-
-                  <div class="row">
-                    <div class="col s12">
-
                       <div class="row">
-                        <div class="input-field col s12">
-                          <input type="text" id="autocomplete" class="autocomplete" name="search">
+                        <div class="input-field col s12" style="width: 460px;">
+                          <input type="text" id="autocomplete-input" class="autocomplete" name="search"/>
                           <label for="autocomplete-input" >
                             Pesquisar por alunos ou disciplinas...
                           </label>
-                        </div>
+                         </div>
 
-                            <input class="with-gap" name="group1" type="radio" id="test1" value="a" checked/>
-                            <label for="test1">Alunos</label>
-                            <input class="with-gap" name="group1" type="radio" id="test2" value="d" />
-                            <label for="test2">disciplinas</label>
-
-                      </div>
-                    </div>
-                  </div>
+                         <button class="btn-floating btn-large waves-effect waves-light indigo darken-2" type="submit" name="action" style="padding-top=10px">
+                            <i class="material-icons">search</i>
+                         </button>
+                         <div class="row">
+                               <input class="with-gap a" name="group1" type="radio" id="test1" value="a" checked/>
+                               <label for="test1">Alunos</label>
+                               <input class="with-gap d" name="group1" type="radio" id="test2" value="d" />
+                               <label for="test2">Disciplinas</label>
+                         </div>
+                       </div>
                   </form>
-
-
               {{/if}}
-            </h1>
+
       </div>
       {{#if showStudents}}
-      <br><br>
-        <div class="card" style="width: 600px;">
-          Aqui estarão as pesquisas referentes a alunos
-        </div>
+          {{> studentsSearchs}}
       {{else}}
           {{> disciplinesSearchs}}
       {{/if}}
-
 </template>
 
 <template name="disciplinesSearchs">
-  <br><br>
-  <div class="card" style="width: 600px;">
+
+  <div class="card" style="width: 460px;  right:10%; position: absolute; top: 60%; ">
+<h3 class="left-align">Resultados</h3>
       <div class="accordion">
         <dl>
           <dt>
@@ -133,6 +131,29 @@
               </table>
 
           </dd>
+        </dl>
+      </div>
+  </div>
+</template>
+
+<template name="studentsSearchs">
+
+  <div class="card" style="width: 460px;  right:10%; position: absolute; top: 60%; ">
+    <h3 class="left-align">Resultados</h3>
+      <div class="accordion">
+        <dl>
+          <dt>
+            <a href="#accordion1" aria-expanded="false" aria-controls="accordion1" class="accordion-title accordionTitle js-accordionTrigger">
+              Disciplinas deste aluno no semestre:
+            </a>
+          </dt>
+          <dd class="accordion-content accordionItem is-collapsed" id="accordion1" aria-hidden="true" style="margin-left: auto; margin-right:auto; text-align:center;">
+
+              <table class="mdl-data-table mdl-shadow--2dp" style="margin-left: auto; margin-right:auto;">
+                {{> reactiveTable collection=coursesAtStudentSemester settings=disciplinesSettings}}
+              </table>
+
+          </dd>
 
 
 
@@ -159,9 +180,33 @@
 
     {{> yield}}
   </body>
-    <div class="footer">
-      Copyright &copy; UFMT, CUVG, Projeto e Desenvolvimento de Software, 2017s1.
-    </div>
+
+
+    <div class="page-footer indigo">
+        <div class="container">
+          <div class="row">
+            <div class="col l6 s12">
+              <h5 class="white-text">Footer Content</h5>
+              <p class="grey-text text-lighten-4">You can use rows and columns here to organize your footer content.</p>
+            </div>
+            <div class="col l4 offset-l2 s12">
+              <h5 class="white-text">Links</h5>
+              <ul>
+                <li><a class="grey-text text-lighten-3" href="#!">Link 1</a></li>
+                <li><a class="grey-text text-lighten-3" href="#!">Link 2</a></li>
+                <li><a class="grey-text text-lighten-3" href="#!">Link 3</a></li>
+                <li><a class="grey-text text-lighten-3" href="#!">Link 4</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="footer-copyright indigo darken-2">
+          <div class="container">
+          <a class="grey-text text-lighten-4 ">Copyright &copy; UFMT, CUVG, Projeto e Desenvolvimento de Software, 2017s1</a>
+          <a class="grey-text text-lighten-4 right" href="#!">More Links</a>
+          </div>
+        </div>
+      </div>
 
 </template>
 

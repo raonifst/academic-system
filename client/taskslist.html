@@ -1,22 +1,24 @@
-<template name="taskslist">
+<template name="taskslist" >
   {{#if currentUser}}
-    <br>
-    <div class="card" style="width: 600px;">
-      <h4>Configurações {{#if done}}<span style="color:green"><i class="fa fa-check"></i></span>{{else}}<span style="color:red"><i class="fa fa-times"></i></span>{{/if}}</h4>
 
-            <div class="group">
+    <div class="card" style="width: 460px;  right:10%; position: absolute; top: 18%; height: 250px">
+      <h3 class="left-align">Configurações {{#if done}}<span style="color:green"><i class="fa fa-check"></i></span>{{else}}<span style="color:red"><i class="fa fa-times"></i></span>{{/if}}</h3>
+
+            <blockquote class="left-align" style="font-size:90%">
 
               {{#each task}}
                 {{#if status}}
                   <i class="fa fa-check"></i>
                     <strike> {{name}} </strike>
                 {{else}}
-                    <a href={{link}}><span  style="font-weight: bold">{{number}}. {{name}} </span></a> 
+                    <a href={{link}}><span  style="font-weight: bold">{{number}}. {{name}} </span></a>
                 {{/if}}
                 <br/>
               {{/each}}
+            </blockquote>
 
-          </div>
+
+
     </div>
   {{/if}}
 </template>

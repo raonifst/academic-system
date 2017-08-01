@@ -1,19 +1,34 @@
 @import "compass/css3";
 
 @import "compass";
-@import url(https://fonts.googleapis.com/css?family=Roboto);
+
 /* VARIABLES */
 $header-bg: #3f51b5;
 $menu-width: 250px!default;
+.ilike-indigo-container {
+	 @extend .blue, .darken-2;
+ }
+ $primary-color: color("materialize-red", "lighten-2") !default;
+ $primary-color-light: false !default;
+ $primary-color-dark: false !default;
+ @if not $primary-color-light {
+   $primary-color-light: lighten($primary-color, 15%);
+ }
+ @if not $primary-color-dark {
+   $primary-color-dark: darken($primary-color, 15%);
+ }
+ $secondary-color: color("teal", "lighten-1") !default;
+ $success-color: color("green", "base") !default;
+ $error-color: color("red", "base") !default;
 
-/* BASE */
+ $link-color: color("light-blue", "darken-1") !default;
 html,
 body {
   font-family: 'Roboto', sans-serif;
   font-size: 1em;
   line-height: 1.4;
   height: 100%;
-  
+
   margin: 0;
   padding: 0;
 }
@@ -38,10 +53,10 @@ a {
   left: 0;
   right: 0;
   height: 66px;
-  
+
   line-height: 66px;
   color: #fff;
-  
+
   background-color: $header-bg;
 }
 
@@ -54,11 +69,11 @@ a {
 /* MENU */
 .menu {
   float: left;
-  
+
   a {
     padding: 0 10px;
   }
-  
+
   a:hover {
     color: #c5cae9;
   }
@@ -70,16 +85,16 @@ a {
   .site-container {
     height: 100%;
   }
-  
+
   .site-container {
     overflow: hidden;
   }
-  
+
   .site-pusher {
     @include transition-duration(0.3s);
     @include transform(translateX(0px));
   }
-  
+
   .site-content {
     position: absolute;
     top: 66px;
@@ -90,20 +105,20 @@ a {
     overflow-y: scroll;
     -webkit-overflow-scrolling: touch;
   }
-  
+
   .header {
     position: static;
   }
-  
+
   .header__icon {
     position: relative;
     display: block;
     float: left;
     width: 50px;
     height: 66px;
-    
+
     cursor: pointer;
-    
+
     &:after {
       content: '';
       position: absolute;
@@ -115,7 +130,7 @@ a {
       @include box-shadow(0 10px 0 1px #fff, 0 16px 0 1px #fff, 0 22px 0 1px #fff);
     }
   }
-  
+
   .menu {
     position: absolute;
     left: 0;
@@ -124,21 +139,21 @@ a {
     background-color: darken($header-bg, 5);
 /*    overflow-y: scroll;
     -webkit-overflow-scrolling: touch;*/
-    
+
     width: $menu-width;
-    
+
     @include transform(translateX($menu-width * -1));
     a {
       display: block;
       height: 40px;
-      
+
       text-align: center;
       line-height: 40px;
-      
+
       border-bottom: 1px solid $header-bg;
     }
   }
-  
+
   .with--sidebar {
     .site-pusher {
       @include transform(translateX($menu-width));
@@ -155,77 +170,8 @@ a {
 
 
 
-$md-radio-checked-color: rgb(51, 122, 183);
-$md-radio-border-color: rgba(0, 0, 0, 0.54);
-$md-radio-size: 20px;
-$md-radio-checked-size: 10px; 
-$md-radio-ripple-size: 15px;
-
-@keyframes ripple {
-  0% {
-    box-shadow: 0px 0px 0px 1px rgba(0, 0, 0, 0.0);
-  }
-  50% { 
-    box-shadow: 0px 0px 0px $md-radio-ripple-size rgba(0, 0, 0, 0.1);
-  }
-  100% {
-    box-shadow: 0px 0px 0px $md-radio-ripple-size rgba(0, 0, 0, 0);
-  }
-}
-
-.md-radio {
-    margin: 16px 0;
-    
-    &.md-radio-inline {
-        display: inline-block;
-    }
-
-    input[type="radio"] {
-        display: none;
-        &:checked + label:before {
-            border-color: $md-radio-checked-color;
-            animation: ripple 0.2s linear forwards;   
-        }
-        &:checked + label:after {
-            transform: scale(1);
-        }
-    }
-    
-    label {
-        display: inline-block;
-        height:$md-radio-size;
-        position: relative;
-        padding: 0 ($md-radio-size + 10px);
-        margin-bottom: 0;
-        cursor: pointer;
-        vertical-align: bottom;
-        &:before, &:after {
-            position: absolute;            
-            content: '';  
-            border-radius: 50%;
-            transition: all .3s ease;
-            transition-property: transform, border-color;
-        }
-        &:before {
-            left: 0;
-            top: 0;
-            width: $md-radio-size;
-            height: $md-radio-size;
-            border: 2px solid $md-radio-border-color;
-        }
-        &:after {
-            top: $md-radio-size / 2 - $md-radio-checked-size / 2;
-            left: $md-radio-size / 2 - $md-radio-checked-size / 2;
-            width:$md-radio-checked-size;
-            height:$md-radio-checked-size;
-            transform: scale(0);
-            background:$md-radio-checked-color;
-        }
-    }
-}
 
 
 *, *:before, *:after {
   box-sizing: border-box;
 }
-
