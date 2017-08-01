@@ -296,10 +296,10 @@ Template.home.helpers({
 });
 
 
-Meteor.logout(function(err){
+/*Meteor.logout(function(err){
   if (err)
     console.log(err);
-});
+});*/
 
 Template.searchbox.onRendered(function(){
     if (Meteor.isClient) {
