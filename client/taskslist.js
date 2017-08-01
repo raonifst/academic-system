@@ -23,13 +23,13 @@ Template.taskslist.helpers({
         },
         {
           number: '2',
-          name:'Fazer upload da matriz (estrutura) curricular de disciplinas',
+          name:'Upload da matriz (estrutura) curricular de disciplinas',
           link: 'uploadcurricularstructure',
           status: Users.findOne({ idUser: currentUserId }).uploadedCurricularStructure
         },
         {
           number: '3',
-          name: ' Fazer upload do histórico acadêmico dos alunos',
+          name: 'Upload do histórico acadêmico dos alunos',
           link: 'uploadacademicrecord',
           status: Users.findOne({ idUser: currentUserId }).uploadedAcademicRecords
         }

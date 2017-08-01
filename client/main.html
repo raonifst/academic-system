@@ -24,39 +24,31 @@
 <template name="home">
 
 
+    <blockquote class="left-align" style="font-size:110%">
+      <div class="card" style="width: 600px;">
+        <p><h3>Bem-vindo ao sistema acadêmico!</h3></p><br>
+        <div class="valign-wrapper">
+          <p class="left-align">
 
-  <div class="card" style="width: 560px; left: 10%; position: absolute; top: 18%; height: 250px">
-
-    <h3 class="left-align">Bem-vindo ao sistema acadêmico!</h3>
-
-      <blockquote class="left-align" style="font-size:110%">
-
-  <div class="card" style="width: 600px;">
-    <p><h3>Bem-vindo ao sistema acadêmico!</h3></p><br>
-    <div class="valign-wrapper">
-      <p class="left-align">
-
-        Curso: {{userCourse}}<br>
-        Semestre Atual: {{userCurrentYear}}/{{userCurrentSemester}}<br>
-        Coordenador: {{userName}}</p>
-      </div>
-    </div>
-      </blockquote>
+            Semestre Atual: {{userCurrentYear}}/{{userCurrentSemester}}<br>
+            Coordenador: {{userName}} <br>
+            Curso: {{userCourse}}<br>
+          </p>
+       </div>
+     </div>
+    </blockquote>
 
 
-  </div>
-
-
-  {{> taskslist}}
 
   {{> searchbox}}
+{{> taskslist}}
 
 </template>
 
 
 <template name="searchbox">
 
-    <div class="card"  style="position: absolute; width: 560px; left: 10%; top: 60%;">
+    <div class="card"  style="position: relative; z-index:1;float: left;width: 560px; left: 5%; top: 60%;">
               {{#if currentUser}}
               <h3 class="left-align">Consultas</h3>
                 <form >
@@ -87,10 +79,7 @@
           {{> studentsSearchs}}
 
       <br>
-      <div class="card" style="width: 600px;">
-        Aqui estarão as pesquisas referentes a alunos
-      </div>
-      <br>
+
 
       {{else}}
           {{> disciplinesSearchs}}
@@ -99,8 +88,8 @@
 
 <template name="disciplinesSearchs">
 
-  <div class="card" style="width: 460px;  right:10%; position: absolute; top: 60%; ">
-<h3 class="left-align">Resultados</h3>
+  <div class="card" style="width: 460px; z-index:1; float: right; right:5%; position: relative; top: 60%; ">
+    <h3 class="left-align">Resultados</h3>
       <div class="accordion">
         <dl>
           <dt>
@@ -147,7 +136,7 @@
 
 <template name="studentsSearchs">
 
-  <div class="card" style="width: 460px;  right:10%; position: absolute; top: 60%; ">
+  <div class="card" style="width: 460px; z-index:1; float:right; right:5%; position: relative; top: 10%; ">
     <h3 class="left-align">Resultados</h3>
       <div class="accordion">
         <dl>
