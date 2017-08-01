@@ -3,31 +3,41 @@
     <br>
     <div class="card" style="width: 600px;">
       <h3 class="page-header">Configurações de usuário</h3>
-      <form class="col s12">
-        <div class="input-field col s12">
-          <input value="{{userName}}" id="user_name" class="validate" name="name">
-          <label class="active" for="user_name">Nome</label>
-        </div>
-        <div class="input-field col s12">
-          <select name="courses" id="courses_list">
-            <option value="" disabled selected>Selecione um curso</option>
-            {{#each course}}
-              <option value="{{name}}" {{isCoureSelected}}>{{name}}</option>
-            {{/each}}
-          </select>
-          <label for="courses_list">Curso para coordenador</label>
-        </div>
-        <div class="input-field col s2">
-          <select name="alerts_time" id="alerts_time_config">
-            <option value="" disabled selected>Selecione um número</option>
-            {{#each alertsTime}}
-              <option value={{value}} {{isAlertTimeSelected}}>{{id}}</option>
-            {{/each}}
-          </select>
-          <label for="alerts_time_config">Tempo de duração dos alertas (em segundos)</label>
-        </div>
-        <input type="submit" value="Submeter">
-      </form>
+
+      <div class="row">
+        <form class="col s12">
+          <div class="row">
+            <div class="input-field col s12">
+              <input value="{{userName}}" id="user_name" class="validate" name="name">
+              <label for="user_name" class="active">Nome</label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="input-field col s12">
+              <select name="courses" id="courses_list">
+                <option value="" disabled selected>Selecione um curso</option>
+                {{#each course}}
+                  <option value="{{name}}" {{isCoureSelected}}>{{name}}</option>
+                {{/each}}
+              </select>
+              <label for="courses_list">Curso para coordenador</label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="input-field col s6">
+              <select name="alerts_time" id="alerts_time_config">
+                <option value="" disabled selected>Selecione um número</option>
+                {{#each alertsTime}}
+                  <option value={{value}} {{isAlertTimeSelected}}>{{id}}</option>
+                {{/each}}
+              </select>
+              <label for="alerts_time_config">Tempo de duração dos alertas (em segundos)</label>
+            </div>
+          </div>
+          <button class="loginBtn loginBtn--google">Alterar</button>
+        </form>
+      </div>
+
     </div>
   {{/if}}
 </template>
