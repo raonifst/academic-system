@@ -1,36 +1,27 @@
-
 <template name="login">
-<br><br><br>
-  <div  class="login-title">
-
+  <div class="login-title">
     <form class="login">
-       <h2>Login</h2>
-        <p> <!-- <input class="form-control" type="email" name="email" required placeholder="Email"> -->
-          <div class="group">
-            <input type="email" required name="email" id="email">
-            <span class="highlight"></span>
-            <span class="bar"></span>
-
-              <label>Email</label>
-
-          </div>
-         </p>
-        <p> <!--<input class="form-control" type="password" name="password" required placeholder="Senha"> -->
-          <div class="group">
-            <input type="password" required name="password" id="password">
-            <span class="highlight"></span>
-            <span class="bar"></span>
-            <label>Senha</label>
-          </div>
-        </p>
-        <p><button class="loginBtn loginBtn--google" type="submit">Entrar</button> </p>
+      <h2>Login</h2>
+      <div class="group">
+        <input type="email" required name="email" id="email">
+        <span class="highlight"></span>
+        <span class="bar"></span>
+        <label for="email">Email</label>
+      </div>
+      <div class="group">
+        <input type="password" required name="password" id="password">
+        <span class="highlight"></span>
+        <span class="bar"></span>
+        <label for="password">Senha</label>
+      </div>
+      <br>
+      <button class="loginBtn loginBtn--google">Entrar</button>
     </form>
-    </div>
+  </div>
 </template>
 
 
 <template name="home">
-  <br><br><br>
   <div class="card" style="width: 600px;">
     <p><h3>Bem-vindo ao sistema acadêmico!</h3></p><br>
     <div class="valign-wrapper">
@@ -81,10 +72,11 @@
             </h1>
       </div>
       {{#if showStudents}}
-      <br><br>
-        <div class="card" style="width: 600px;">
-          Aqui estarão as pesquisas referentes a alunos
-        </div>
+      <br>
+      <div class="card" style="width: 600px;">
+        Aqui estarão as pesquisas referentes a alunos
+      </div>
+      <br>
       {{else}}
           {{> disciplinesSearchs}}
       {{/if}}
@@ -156,7 +148,7 @@
   <body style="overflow-Y: hidden; height: auto;">
     {{> slideMenu}}
     <!--{{> navigation}}-->
-
+    <br><br><br>
     {{> yield}}
   </body>
     <div class="footer">
@@ -168,33 +160,30 @@
 
 
 
-<template name="changepass"><br><br><br>
+<template name="changepass">
   {{> slideMenu}}
   {{#if currentUser}}
-<div  class="login-title">
-
-    <form class="login">
-      <h3>Alterar Senha</h3>
+    <div class="login-title">
+      <form class="login">
+        <h3>Alterar Senha</h3>
         <!--<p> <input class="form-control" type="password" name="password" required placeholder="Nova Senha"> </p>-->
-        <p>
-          <div class="group">
-
-            <input type="password" name="oldpassword" required>
-            <span class="highlight"></span>
-            <span class="bar"></span>
-            <label>Senha Atual</label>
-          </div>
-          <div class="group">
-            <input type="password" name="password" required>
-            <span class="highlight"></span>
-            <span class="bar"></span>
-            <label>Nova Senha</label>
-          </div>
-        </p>
-        <p><button class="loginBtn loginBtn--google" type="submit">Alterar</button> </p>
-    </form>
+        <div class="group">
+          <input type="password" name="oldpassword" id="oldpassword" required>
+          <span class="highlight"></span>
+          <span class="bar"></span>
+          <label for="oldpassword">Senha Atual</label>
+        </div>
+        <div class="group">
+          <input type="password" name="password" id="password" required>
+          <span class="highlight"></span>
+          <span class="bar"></span>
+          <label for="password">Nova Senha</label>
+        </div>
+        <br>
+        <button class="loginBtn loginBtn--google">Alterar</button>
+      </form>
     </div>
-    {{/if}}
+  {{/if}}
 </template>
 
 
@@ -214,7 +203,7 @@
         <li> <a href="{{pathFor route='uploadacademicrecord'}}">Histórico Acadêmico</a></li>
         <li> <a href="{{pathFor route='search'}}">teste query</a></li>
         <li> <a href="{{pathFor route='settings'}}">Configurações</a></li>
-        <li> <a href="{{pathFor route='changepass'}}">Alterar Senha</a> </li>
+        <!--<li> <a href="{{pathFor route='changepass'}}">Alterar Senha</a> </li>-->
         <li> <a href="#" class="logout">Logout</a></li>
       {{else}}
         <li><a href="{{pathFor route='login'}}">Login</a></li>
