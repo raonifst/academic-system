@@ -16,6 +16,16 @@ const Exporter = {
     });
   },
 
+  exportExampleRecord() {
+    Meteor.call('exportExampleRecords', (error, data) => {
+        if (error) {
+          alert(error);
+          return;
+        }
+        this.downloadCSV(Papa.unparse(data));
+    });
+  },
+
   downloadCSV (csv) {
     // TODO refatorar forma de fazer essa exportacao
     const blob = new Blob([csv]);
@@ -53,4 +63,11 @@ Template.exporterRecords.events({
     Exporter.exportAllRecord();
   }
 });
+
+Template.exporterexamplerecords.events({
+  "click .js-exporterexamplerecords": function () {
+    Exporter.exportExampleRecord();
+  }
+});
+
 export default Exporter;

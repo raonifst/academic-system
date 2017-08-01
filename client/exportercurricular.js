@@ -14,6 +14,16 @@ const ExporterCurricular = {
     });
   },
 
+  exportExampleCurricular() {
+      Meteor.call('exportExampleCurricular', (error, data) => {
+        if (error) {
+          alert(error);
+          return;
+        }
+        this.downloadCurricularCSV(Papa.unparse(data));
+      });
+  },
+
   downloadCurricularCSV (csv) {
     // TODO refatorar forma de fazer essa exportacao
     const blob = new Blob([csv]);
@@ -24,19 +34,26 @@ const ExporterCurricular = {
     a.click();
     document.body.removeChild(a);
   }
-}
+};
 
 Template.exportercurricularstructure.events({
   "click .js-exportcurricular": function () {
     ExporterCurricular.exportAllCurricular();
   }
 });
+
 Template.exportercurricularstructure.helpers({
   curricular: function () {
     return CurricularStructure.find();
   },
   disciplina: function () {
     return Disciplines.find();
+  }
+});
+
+Template.exportexamplecurricular.events({
+  'click .js-exportexamplecurricular': function () {
+    ExporterCurricular.exportExampleCurricular();
   }
 });
 
