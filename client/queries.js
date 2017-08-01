@@ -115,3 +115,22 @@ function getAtualSem(){
   var key= {"year":year,"semester":sem};
   return key ;
 }
+
+function calcCourseSemesterByStudent(rga){
+  let key_rga =Math.floor(parseInt(rga)/Math.pow(10,7));
+  let sYear = Math.floor(key_rga/10);//pega o ano do rga do estudante
+  let sSemester = parseInt((key_rga%10));
+  let key_atual = getAtualSem();
+  let cYear = parseInt(key_atual.year);
+  let cSemester = parseInt(key_atual.semester);
+  let sem=1;
+  while((sYear!=cYear || sSemester!=cSemester)&&sem<=10){
+      sem = sem+1;
+      if(sSemester==2){
+        sYear=sYear+1;
+        sSemester =1;
+      }
+      else sSemester =2;
+  }
+  return sem;
+}
