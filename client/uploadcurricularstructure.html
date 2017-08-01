@@ -2,15 +2,17 @@
   {{#if currentUser}}
     <!-- Upload de estrutura curricular -->
     <div class="card" style="width: 623px;">
-      <h3 class="page-header">Estrutura Curricular</h3>
-      {{> exportexamplecurricular}}
+      <center>
+          <h3 class="page-header">Estrutura Curricular</h3>
+          {{> exportexamplecurricular}}
+      </center>
 
       {{#unless uploading}}
         <form action="#">
           <div class="row">
             <div class="file-field input-field col s12">
-              <div class="btn">
-                <span>Arquivo</span>
+              <div class="btn btn-success waves-effect waves-light">
+                <span>Upload</span>
                 <input type="file" name="uploadCSV" accept=".csv">
               </div>
               <div class="file-path-wrapper">
@@ -23,8 +25,10 @@
         <p><i class="fa fa-spin fa-refresh"></i> Atualizando banco de dados... Aguarde...</p>
       {{/unless}}
 
-      {{> buttonremovestructure}}
-      {{> exportercurricularstructure}}
+      <center>
+          {{> buttonremovestructure}}
+          {{> exportercurricularstructure}}
+      </center>
     </div>
 
     <!-- Tabela reativa de estrutura curricular -->
