@@ -1,11 +1,13 @@
 <template name="uploadacademicrecord">
   {{#if currentUser}}
     <!-- Upload de histórico acadêmico -->
-    <div class="card" style="width: 625px;">
-      <center>
+    <div class="card" style="width: 600px;">
+      <div class="row">
+        <div class="col s12">
           <h3 class="page-header">Histórico Acadêmico</h3>
-          {{> exporterexamplerecords}}
-      </center>
+        </div>
+      </div>
+      {{> exporterexamplerecords}}
 
       {{#unless uploading}}
         <form action="#">

@@ -2,6 +2,7 @@ import { Meteor } from 'meteor/meteor'
 import { Accounts } from 'meteor/accounts-base'
 
 import '../main.js'
+import './settings'
 
 
 Router.route('/changepass', {
@@ -17,7 +18,7 @@ Router.route('/changepass', {
 });
 
 
-Template.changepassForm.onRendered( function(){
+Template.changepassForm.onRendered(function(){
 
   var validator = $('.changepassform').validate({
 
@@ -29,9 +30,9 @@ Template.changepassForm.onRendered( function(){
     },
 
     submitHandler:function(event){
-      const newPassword = $('[name=password]').val();
-      const oldPassword = $('[name=oldpassword]').val();
-      Accounts.changePassword(oldPassword, newPassword, function(error){
+      const oldPassword = $('[name=oldpassword]');
+      const newPassword = $('[name=password]');
+      Accounts.changePassword(oldPassword.val(), newPassword.val(), function(error){
         if (error) {
           if (error.reason === "User not found") {
             Bert.alert( 'Usuário não cadastrado', 'danger' );
@@ -49,12 +50,25 @@ Template.changepassForm.onRendered( function(){
               Router.go('home');
             } else {
               Bert.alert('Senha alterada!', 'success', 'growl-top-right');
+              oldPassword.val('');
+              newPassword.val('');
             }
           });
         }
       });
     }
   });
+
+});
+
+
+Template.changepassForm.helpers({
+
+  hasMadeFirstLogin: function () {
+    const currentUserId = Meteor.userId();
+    const user = Users.findOne({ idUser: currentUserId });
+    return user && user.changedDefaultPassword;
+  }
 
 });
 

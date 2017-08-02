@@ -30,6 +30,10 @@ input.error{
     background-color:rgb(255, 231, 231);
 }
 
+.page-header {
+	text-align: left;
+}
+
 .card
 {
     /*max-width: 330px;*/
