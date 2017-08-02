@@ -1,6 +1,6 @@
 <template name="changepass">
   {{#if currentUser}}
-    <div class="login-title">
+    <div class="login">
       {{> changepassForm}}
     </div>
   {{/if}}
@@ -8,7 +8,7 @@
 
 
 <template name="changepassForm">
-  <form class="login">
+  <form class="changepassform">
     <h3>Alterar Senha</h3>
     <div class="group">
       <input type="password" name="oldpassword" id="oldpassword" required>

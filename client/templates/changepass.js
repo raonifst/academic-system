@@ -19,7 +19,7 @@ Router.route('/changepass', {
 
 Template.changepassForm.onRendered( function(){
 
-  var validator = $('.login').validate({
+  var validator = $('.changepassform').validate({
 
     onkeyup: false,
     keypress: false,
