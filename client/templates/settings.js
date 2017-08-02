@@ -1,2 +1,2 @@
 import './mainsettings.js'
-import './changepass.js'
+import './accountsettings.js'

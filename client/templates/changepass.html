@@ -9,45 +9,22 @@
 
 <template name="changepassForm">
   <form class="changepassform">
-    <div class="row">
-      <div class="col s12">
-        <h3 class="page-header">Alterar Senha</h3>
-      </div>
+    <h3>Alterar Senha</h3>
+    <div class="group">
+      <input type="password" name="oldpassword" id="oldpassword" required>
+      <span class="highlight"></span>
+      <span class="bar"></span>
+      <label for="oldpassword">Senha Atual</label>
     </div>
-    {{#unless hasMadeFirstLogin}}
-      <div class="group">
-        {{> changepassFormOldPass}}
-      </div>
-      <div class="group">
-        {{> changepassFormNewPass}}
-      </div>
-    {{else}}
-      <div class="group" style="width: 60%">
-        {{> changepassFormOldPass}}
-      </div>
-      <div class="group" style="width: 60%">
-        {{> changepassFormNewPass}}
-      </div>
-    {{/unless}}
+    <div class="group">
+      <input type="password" name="password" id="password" required>
+      <span class="highlight"></span>
+      <span class="bar"></span>
+      <label for="password">Nova Senha</label>
+    </div>
     <br>
     <div style="text-align: center;">
       <button class="btn btn-primary waves-effect waves-light btn-sm">Alterar</button>
     </div>
   </form>
-</template>
-
-
-<template name="changepassFormOldPass">
-  <input type="password" name="oldpassword" id="oldpassword" required>
-  <span class="highlight"></span>
-  <span class="bar"></span>
-  <label for="oldpassword">Senha Atual</label>
-</template>
-
-
-<template name="changepassFormNewPass">
-  <input type="password" name="password" id="password" required>
-  <span class="highlight"></span>
-  <span class="bar"></span>
-  <label for="password">Nova Senha</label>
 </template>
