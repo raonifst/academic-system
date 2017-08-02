@@ -19,6 +19,7 @@ import './search.html'
 import './search.js'
 import './queries.js'
 import {DefaultRootUser} from "../imports/utils/defaultrootuser"
+import {userHasCompletedTasks} from "../imports/utils/functions/userHasCompletedTasks";
 
 
 Meteor.subscribe('record');
@@ -236,6 +237,10 @@ Template.home.helpers({
     const currentUser = Meteor.userId();
     const usr = Users.findOne({ idUser: currentUser });
     return usr ? usr.currentSemester : "No course";
+  },
+
+  doneTasks: function () {
+    return userHasCompletedTasks();
   }
 
 });

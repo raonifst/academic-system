@@ -1,6 +1,7 @@
 import {Template} from 'meteor/templating';
 
 import './taskslist.html'
+import {userHasCompletedTasks} from "../imports/utils/functions/userHasCompletedTasks";
 
 
 Meteor.subscribe('userStats');
@@ -39,10 +40,7 @@ Template.taskslist.helpers({
   },
 
   done: function () {
-    const currentUserId = Meteor.userId();
-    const user = Users.findOne({ idUser: currentUserId });
-    return user && user.changedDefaultPassword &&
-      user.uploadedCurricularStructure && user.uploadedAcademicRecords;
+    return userHasCompletedTasks();
   }
 
 

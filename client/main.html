@@ -26,25 +26,25 @@
 
 
 <template name="home">
-
-
-    <blockquote class="left-align" style="font-size:110%">
-      <div class="card" style="width: 600px; z-index:0">
-        <p><h3>Bem-vindo ao sistema acadêmico!</h3></p><br>
-        <div class="valign-wrapper">
-          <p class="left-align">
-
-            Semestre Atual: {{userCurrentYear}}/{{userCurrentSemester}}<br>
-            Coordenador: {{userName}} <br>
-            Curso: {{userCourse}}<br>
-          </p>
-       </div>
+  <blockquote class="left-align" style="font-size:110%">
+    <div class="card" style="width: 600px; z-index:0">
+      <p><h3>Bem-vindo ao sistema acadêmico!</h3></p><br>
+      <div class="valign-wrapper">
+        <p class="left-align">
+          Semestre Atual: {{userCurrentYear}}/{{userCurrentSemester}}<br>
+          Coordenador: {{userName}} <br>
+          Curso: {{userCourse}}<br>
+        </p>
      </div>
-    </blockquote>
+   </div>
+  </blockquote>
 
-{{> searchbox}}
-{{> taskslist}}
-
+  <!-- TODO corrigir card de tasklist MUITO abaixo na tela. Após isto, descomentar abaixo. -->
+  <!--{{#if doneTasks}}-->
+    {{> searchbox}}
+  <!--{{else}}-->
+    {{> taskslist}}
+  <!--{{/if}}-->
 </template>
 
 
