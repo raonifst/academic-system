@@ -170,6 +170,12 @@ input.error{
   color: #fff;
 }
 
+.btn-sm {
+  padding: 10px 15px;
+  font-size: 14px;
+  line-height: 1;
+}
+
 
 
 
