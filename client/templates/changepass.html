@@ -1,25 +1,28 @@
 <template name="changepass">
-  {{> slideMenu}}
   {{#if currentUser}}
     <div class="login-title">
-      <form class="login">
-        <h3>Alterar Senha</h3>
-        <!--<p> <input class="form-control" type="password" name="password" required placeholder="Nova Senha"> </p>-->
-        <div class="group">
-          <input type="password" name="oldpassword" id="oldpassword" required>
-          <span class="highlight"></span>
-          <span class="bar"></span>
-          <label for="oldpassword">Senha Atual</label>
-        </div>
-        <div class="group">
-          <input type="password" name="password" id="password" required>
-          <span class="highlight"></span>
-          <span class="bar"></span>
-          <label for="password">Nova Senha</label>
-        </div>
-        <br>
-        <button class="loginBtn loginBtn--google">Alterar</button>
-      </form>
+      {{> changepassForm}}
     </div>
   {{/if}}
+</template>
+
+
+<template name="changepassForm">
+  <form class="login">
+    <h3>Alterar Senha</h3>
+    <div class="group">
+      <input type="password" name="oldpassword" id="oldpassword" required>
+      <span class="highlight"></span>
+      <span class="bar"></span>
+      <label for="oldpassword">Senha Atual</label>
+    </div>
+    <div class="group">
+      <input type="password" name="password" id="password" required>
+      <span class="highlight"></span>
+      <span class="bar"></span>
+      <label for="password">Nova Senha</label>
+    </div>
+    <br>
+    <button class="loginBtn loginBtn--google">Alterar</button>
+  </form>
 </template>

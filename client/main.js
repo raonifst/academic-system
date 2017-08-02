@@ -166,11 +166,9 @@ Template.login.onRendered(function () {
         if (error) {
           if (error.reason === "User not found") {
             Bert.alert( 'Usuário não cadastrado', 'danger' );
-
           }
           if (error.reason === "Incorrect password") {
             Bert.alert( 'Senha incorreta', 'danger' );
-
           }
         } else {
           Meteor.call('isFirstLogin', (error, results) => {

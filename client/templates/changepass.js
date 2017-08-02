@@ -17,7 +17,7 @@ Router.route('/changepass', {
 });
 
 
-Template.changepass.onRendered( function(){
+Template.changepassForm.onRendered( function(){
 
   var validator = $('.login').validate({
 
@@ -35,19 +35,22 @@ Template.changepass.onRendered( function(){
         if (error) {
           if (error.reason === "User not found") {
             Bert.alert( 'Usuário não cadastrado', 'danger' );
-
           }
-          if (error.reason === "Incorrect password") {
+          else if (error.reason === "Incorrect password") {
             Bert.alert( 'Senha incorreta', 'danger' );
-
           }
           /*validator.showErrors({
             password:error.reason
           })*/
         } else {
-          Bert.alert('Senha alterada!', 'success', 'growl-top-right');
-          Meteor.call('changeFirstLogin');
-          Router.go('home');
+          Meteor.call('isFirstLogin', (error, results) => {
+            Meteor.call('changeFirstLogin');
+            if (results) {
+              Router.go('home');
+            } else {
+              Bert.alert('Senha alterada!', 'success', 'growl-top-right');
+            }
+          });
         }
       });
     }
@@ -56,7 +59,7 @@ Template.changepass.onRendered( function(){
 });
 
 
-Template.changepass.events({
+Template.changepassForm.events({
 
   'submit form': function (event) {
     event.preventDefault();
