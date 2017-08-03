@@ -149,7 +149,7 @@ input.error{
   color: #fff;
 }
 .btn-primary:hover {
-  background-color: #5a95f5 !important;
+  background-color: #4285F4 !important;
   color: #fff;
 }
 .btn-success:hover {
@@ -169,7 +169,7 @@ input.error{
 .btn-primary:focus,
 .btn-success,
 .btn-success:focus {
-  background-color: #4285F4;
+  background-color: #3f51b5;
 }
 
 .btn-sm {
