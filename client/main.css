@@ -36,21 +36,15 @@ input.error{
 
 .card
 {
-    /*max-width: 330px;*/
+	position: relative;
+	display: inline-block;
+	margin: 15px 0 0;
+	min-width: 330px;
 	padding: 15px;
-    margin: 0 auto;
     box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
     background: #ffffff;
 }
 
-.login
-{
-    max-width: 330px;
-    padding: 15px;
-    margin: 0 auto;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
-    background: #ffffff;
-}
 .login .login-heading, .login
 {
     margin-bottom: 10px;
@@ -178,11 +172,7 @@ input.error{
   line-height: 1;
 }
 
-div.card {
-	position: relative;
-	display: inline-block;
-	margin: 15px 0 0;
-}
+
 
 
 
