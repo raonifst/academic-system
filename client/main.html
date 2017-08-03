@@ -29,31 +29,28 @@
 
 
 <template name="home">
-  <blockquote class="left-align" style="font-size:110%">
-    <div class="card" style="width: 600px; z-index:0">
+<p style="margin: 0px;">
+    <div class="card" style="width: 600px;">
       <p><h3>Bem-vindo ao sistema acadêmico!</h3></p><br>
-      <div class="valign-wrapper">
         <p class="left-align">
           Semestre Atual: {{userCurrentYear}}/{{userCurrentSemester}}<br>
           Coordenador: {{userName}} <br>
           Curso: {{userCourse}}<br>
         </p>
-     </div>
    </div>
-  </blockquote>
+</p>
 
-  <!-- TODO corrigir card de tasklist MUITO abaixo na tela. Após isto, descomentar abaixo. -->
-  <!--{{#if doneTasks}}-->
+  {{#if doneTasks}}
     {{> searchbox}}
-  <!--{{else}}-->
+  {{else}}
     {{> taskslist}}
-  <!--{{/if}}-->
+  {{/if}}
 </template>
 
 
 <template name="searchbox">
 
-    <div class="card"  style="position: relative; z-index:1;float: left;width: 560px; left: 5%; top: 60%;">
+    <div class="card"  style="width: 560px;">
               {{#if currentUser}}
               <h3 class="left-align">Consultas</h3>
                 <form >
@@ -88,7 +85,7 @@
 
 <template name="disciplinesSearchs">
 
-  <div class="card" style="width: 460px; z-index:1; float: right; right:5%; position: relative; top: 60%; ">
+  <div class="card" style="width: 460px;">
     <h3 class="left-align">Resultados</h3>
       <div class="accordion">
         <dl>
@@ -136,7 +133,7 @@
 
 <template name="studentsSearchs">
 
-  <div class="card" style="width: 460px; z-index:1; float:right; right:5%; position: relative; top: 10%; ">
+  <div class="card" style="width: 460px;">
     <h3 class="left-align">Resultados</h3>
       <div class="accordion">
         <dl>
@@ -175,9 +172,9 @@
   <body style="overflow-Y: hidden; height: auto;">
     {{> slideMenu}}
     <!--{{> navigation}}-->
-    <br><br><br>
+
     {{> yield}}
-    <br><br><br>
+
   </body>
 
 

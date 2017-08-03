@@ -178,6 +178,12 @@ input.error{
   line-height: 1;
 }
 
+div.card {
+	position: relative;
+	display: inline-block;
+	margin: 15px 0 0;
+}
+
 
 
   * { box-sizing:border-box; }
