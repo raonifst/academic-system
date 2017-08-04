@@ -1,0 +1,28 @@
+<template name="layout">
+  <div class="page-flexbox-wrapper">
+    {{> navbar}}
+    <div class="box center">
+      {{> yield}}
+    </div>
+    {{> footer}}
+  </div>
+</template>
+
+<template name="navbar">
+  <nav>
+    <div class="nav-wrapper">
+      <a href="" class="brand-logo center text-lighten-3">Academic System</a>
+      <ul id="nav-mobile" class="left hide-on-med-and-down"></ul>
+      <div class="left">{{> loginButtons}}</div>
+    </div>
+  </nav>
+  <br>
+</template>
+
+<template name="footer">
+  <br>
+  <div class="footer-text container">
+    Copyright &copy; UFMT, CUVG, Projeto e Desenvolvimento de Software, 2017s1
+    <a class="footer-text right" href="https://github.com/jonloureiro/academicsystem/blob/master/LICENSE">MIT License</a>
+  </div>
+</template>
