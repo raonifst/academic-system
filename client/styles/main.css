@@ -1,5 +1,5 @@
 :root {
-  --cor-pri: #3f51b5;
+  --cor-pri: #009688; /*default: #3f51b5*/
   --cor-sec: #9e9e9e;
   --cor-bg: #eee;
 }
