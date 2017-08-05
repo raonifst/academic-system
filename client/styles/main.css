@@ -1,6 +1,7 @@
 :root {
   --cor-pri: #3f51b5; /*indigo*/
   --cor-bg: #eee;
+  --cor-font: #797979;
 }
 
 body {
@@ -106,12 +107,28 @@ div.card3 {
   background-color: #5c6bc0; /*indigo lighten-1*/
 }
 
+.btn-export:hover {
+  background-color: #ffca28; /*amber lighten-1*/
+}
+
 .btn-delete:hover {
   background-color: #ef5350; /*red lighten-1*/
 }
 
 .btn-upload:hover {
   background-color: #66bb6a; /*green lighten-1*/
+}
+
+.btn-flat {
+  color: var(--cor-font);
+}
+
+.waves-indigo .waves-ripple {
+  background-color: var(--cor-pri); /*indigo darken-2*/
+}
+
+.waves-indigo:focus {
+  background-color: #fff;
 }
 
 /********** ICONS **********/
