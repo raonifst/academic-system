@@ -3,13 +3,6 @@ Router.configure({layoutTemplate: 'layout'});
 Router.route('/', {
   template: 'home',
   name: '-h',
-  onBeforeAction() {
-    if (Meteor.userId()) {
-      this.next();
-    } else {
-      this.render("login");
-    }
-  }
 });
 
 Router.route('/estrutura-curricular', {

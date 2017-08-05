@@ -31,7 +31,7 @@ div.box {
   padding: 0;
   margin: 0 auto auto;
   vertical-align: top;
-  width: 65%;
+  width: 75%;
 }
 @media only screen and (max-width: 768px) {
   div.box {
