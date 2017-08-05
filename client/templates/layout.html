@@ -15,7 +15,8 @@
       <ul id="slide-out" class="side-nav"><br>
         {{> linksmenu}}
       </ul>
-      <a href="#" data-activates="slide-out" class="button-collapse show-on-large"><i class="material-icons">menu</i></a>
+      <a href="#" data-activates="slide-out" class="button-collapse show-on-large">
+        <i class="material-icons">menu</i></a>
       <div class="container">
         {{> loginButtons}}
       </div>
@@ -36,9 +37,9 @@
 </template>
 
 <template name="linksmenu">
-  <li> <a href="{{pathFor route='home'}}"><!--<i class="material-icons">home</i>-->Início</a></li>
-  <li> <a href="{{pathFor route='uploadcurricularstructure'}}"><!--<i class="material-icons">cloud_upload</i>-->Estrutura Curricular</a></li>
-  <li> <a href="{{pathFor route='uploadacademicrecord'}}"><!--<i class="material-icons">cloud_upload</i>-->Histórico Acadêmico</a></li>
-  <li> <a href="{{pathFor route='settings'}}"><!--<i class="material-icons">settings</i>-->Configurações</a></li>
-  <li> <a href="#" class="logout"><!--<i class="material-icons">power_settings_new</i>-->Logout</a></li>
+  <li> <a href="{{pathFor route='home'}}"><i class="material-icons md-light">home</i>Início</a></li>
+  <li> <a href="{{pathFor route='uploadcurricularstructure'}}"><i class="material-icons">cloud_upload</i>Estrutura Curricular</a></li>
+  <li> <a href="{{pathFor route='uploadacademicrecord'}}"><i class="material-icons">cloud_upload</i>Histórico Acadêmico</a></li>
+  <li> <a href="{{pathFor route='settings'}}"><i class="material-icons">settings</i>Configurações</a></li>
+  <li> <a href="#" class="logout"><i class="material-icons">power_settings_new</i>Logout</a></li>
 </template>
