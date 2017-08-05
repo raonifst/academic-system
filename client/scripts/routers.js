@@ -14,7 +14,7 @@ Router.route('/estrutura-curricular', {
     } else {
       this.render("login");
     }
-  }
+  },
 });
 
 Router.route('/historico-academico', {
@@ -26,12 +26,12 @@ Router.route('/historico-academico', {
     } else {
       this.render("login");
     }
-  }
+  },
 });
 
 Router.route('/error', {
   template: 'testes',
-  name: '-t'
+  name: '-t',
 });
 
 Router.route('/settings', {
@@ -43,5 +43,15 @@ Router.route('/settings', {
     } else {
       this.render("login");
     }
-  }
+  },
+});
+
+Router.route('/about', {
+  template: 'about',
+  name: '-a',
+});
+
+Router.route('/login', {
+  template: 'login',
+  name: '-l',
 });
