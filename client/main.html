@@ -13,6 +13,15 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/js/materialize.min.js"></script>-->
 </body>
 
+<template name="linksmenu">
+  <li><a href="{{pathFor route='-h'}}"><i class="material-icons md-light">home</i>Início</a></li>
+  <li><a href="{{pathFor route='-ec'}}"><i class="material-icons">assignment</i>Estrutura Curricular</a></li>
+  <li><a href="{{pathFor route='-ha'}}"><i class="material-icons">assignment_ind</i>Histórico Acadêmico</a></li>
+  <li><a href="{{pathFor route='-t'}}"><i class="material-icons">bug_report</i>Página de testes</a></li>
+  <li><a href="{{pathFor route='-s'}}"><i class="material-icons">settings</i>Configurações</a></li>
+  <li><a href="#" class="logout"><i class="material-icons">power_settings_new</i>Logout</a></li>
+</template>
+
 <template name="home">
   {{> bemvindo}}
 </template>
