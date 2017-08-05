@@ -37,6 +37,11 @@ div.nav-wrapper {
   background-color: var(--cor-pri);
 }
 
+.side-nav {
+  width: 300px;
+  text-indent: 30px;
+}
+
 .footer-text {
   color: var(--cor-sec);
 }
@@ -69,3 +74,24 @@ div.card {
 }
 
 /********** BUTTONS **********/
+
+.btn {
+  margin: 2.5px;
+}
+
+.btn,
+.btn:focus {
+  background-color: var(--cor-pri);
+}
+
+.btn:hover {
+  background-color: #5c6bc0; /*indigo lighten-1*/
+}
+
+.btn-delete:hover {
+  background-color: #ef5350; /*red lighten-1*/
+}
+
+.btn-upload:hover {
+  background-color: #66bb6a; /*green lighten-1*/
+}

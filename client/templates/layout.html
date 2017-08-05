@@ -13,11 +13,7 @@
     <div class="nav-wrapper">
       <a href="#" class="brand-logo center">Academic System</a>
       <ul id="slide-out" class="side-nav"><br>
-        <li> <a href="{{pathFor route='home'}}"><i class="material-icons">home</i>Início</a></li>
-        <li> <a href="{{pathFor route='uploadcurricularstructure'}}"><i class="material-icons">cloud_upload</i>Estrutura Curricular</a></li>
-        <li> <a href="{{pathFor route='uploadacademicrecord'}}"><i class="material-icons">cloud_upload</i>Histórico Acadêmico</a></li>
-        <li> <a href="{{pathFor route='settings'}}"><i class="material-icons">settings</i>Configurações</a></li>
-        <li> <a href="#" class="logout"><i class="material-icons">power_settings_new</i>Logout</a></li>
+        {{> linksmenu}}
       </ul>
       <a href="#" data-activates="slide-out" class="button-collapse show-on-large"><i class="material-icons">menu</i></a>
       <div class="container">
@@ -37,4 +33,12 @@
     Copyright &copy; UFMT, CUVG, Projeto e Desenvolvimento de Software, 2017s1
     <a class="footer-text right" href="https://github.com/raonifst/academic-system/blob/develop/LICENSE">GPL-3.0</a>
   </div>
+</template>
+
+<template name="linksmenu">
+  <li> <a href="{{pathFor route='home'}}"><!--<i class="material-icons">home</i>-->Início</a></li>
+  <li> <a href="{{pathFor route='uploadcurricularstructure'}}"><!--<i class="material-icons">cloud_upload</i>-->Estrutura Curricular</a></li>
+  <li> <a href="{{pathFor route='uploadacademicrecord'}}"><!--<i class="material-icons">cloud_upload</i>-->Histórico Acadêmico</a></li>
+  <li> <a href="{{pathFor route='settings'}}"><!--<i class="material-icons">settings</i>-->Configurações</a></li>
+  <li> <a href="#" class="logout"><!--<i class="material-icons">power_settings_new</i>-->Logout</a></li>
 </template>
