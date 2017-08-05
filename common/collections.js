@@ -1,1 +1,1 @@
-Disciplines = new Mongo.Collection('disciplines');
+Disciplinas = new Mongo.Collection('disciplinas');
