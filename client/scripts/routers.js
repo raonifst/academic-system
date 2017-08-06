@@ -2,12 +2,19 @@ Router.configure({layoutTemplate: 'layout'});
 
 Router.route('/', {
   template: 'home',
-  name: '-h',
+  name: 'home',
+  onBeforeAction() {
+    if (Meteor.userId()) {
+      this.next();
+    } else {
+      this.render("login");
+    }
+  },
 });
 
 Router.route('/estrutura-curricular', {
   template: 'estruturacurricular',
-  name: '-ec',
+  name: 'estruturacurricular',
   onBeforeAction() {
     if (Meteor.userId()) {
       this.next();
@@ -19,7 +26,7 @@ Router.route('/estrutura-curricular', {
 
 Router.route('/historico-academico', {
   template: 'historicoacademico',
-  name: '-ha',
+  name: 'historicoacademico',
   onBeforeAction() {
     if (Meteor.userId()) {
       this.next();
@@ -31,12 +38,19 @@ Router.route('/historico-academico', {
 
 Router.route('/error', {
   template: 'testes',
-  name: '-t',
+  name: 'testes',
+  onBeforeAction() {
+    if (Meteor.userId()) {
+      this.next();
+    } else {
+      this.render("login");
+    }
+  },
 });
 
 Router.route('/settings', {
   template: 'settings',
-  name: '-s',
+  name: 'settings',
   onBeforeAction() {
     if (Meteor.userId()) {
       this.next();
@@ -48,10 +62,24 @@ Router.route('/settings', {
 
 Router.route('/about', {
   template: 'about',
-  name: '-a',
+  name: 'about',
+  onBeforeAction() {
+    if (Meteor.userId()) {
+      this.next();
+    } else {
+      this.render("login");
+    }
+  },
 });
 
 Router.route('/login', {
   template: 'login',
-  name: '-l',
+  name: 'login',
+  onBeforeAction() {
+    if (!Meteor.userId()) {
+      this.next();
+    } else {
+      this.render("home");
+    }
+  },
 });

@@ -1,36 +1,15 @@
 <head>
   <title>Academic System</title>
-  <meta name="theme-color" content="#3f51b5">
-  <meta name="msapplication-navbutton-color" content="#3f51b5">
-  <meta name="apple-mobile-web-app-status-bar-style" content="#3f51b5">
+  <meta name="theme-color" content="#5c6bc0">
+  <meta name="msapplication-navbutton-color" content="#5c6bc0">
+  <meta name="apple-mobile-web-app-status-bar-style" content="#5c6bc0">
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <!--<link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">-->
-  <!--<link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/css/materialize.min.css"/>-->
 </head>
 
-<body>
-  <!--<script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/js/materialize.min.js"></script>-->
-</body>
-
-<template name="linksmenu">
-  {{#if currentUser}}
-    <li><a href="{{pathFor route='-h'}}"><i class="material-icons md-light">home</i>Início</a></li>
-    <li><a href="{{pathFor route='-ec'}}"><i class="material-icons">assignment</i>Estrutura Curricular</a></li>
-    <li><a href="{{pathFor route='-ha'}}"><i class="material-icons">assignment_ind</i>Histórico Acadêmico</a></li>
-    <li><a href="{{pathFor route='-t'}}"><i class="material-icons">bug_report</i>Página de testes</a></li>
-    <li><a href="{{pathFor route='-s'}}"><i class="material-icons">settings</i>Configurações</a></li>
-    <li><a href="{{pathFor route='-a'}}"><i class="material-icons">info</i>Sobre</a></li>
-    <li><a href="#" class="logout"><i class="material-icons">power_settings_new</i>Logout</a></li>
-  {{else}}
-    <li><a href="{{pathFor route='-l'}}"><i class="material-icons">account_box</i>Login</a></li>
-    <li><a href="{{pathFor route='-t'}}"><i class="material-icons">bug_report</i>Página de testes</a></li>
-    <li><a href="{{pathFor route='-a'}}"><i class="material-icons">info</i>Sobre</a></li>
-  {{/if}}
-</template>
-
 <template name="home">
-  {{> bemvindo}}
+  <div class="card card3">
+    <p><h4>Bem-vindo ao sistema acadêmico!</h4></p>
+  </div>
 </template>
 
 <template name="estruturacurricular">
@@ -59,9 +38,19 @@
 </template>
 
 <template name="login">
-login
+  {{> formlogin}}
 </template>
 
 <template name="about">
   about
+</template>
+
+<template name="navigation">
+    <li><a href="{{pathFor route='home'}}"><i class="material-icons">home</i>Início</a></li>
+    <li><a href="{{pathFor route='estruturacurricular'}}"><i class="material-icons">assignment</i>Estrutura Curricular</a></li>
+    <li><a href="{{pathFor route='historicoacademico'}}"><i class="material-icons">assignment_ind</i>Histórico Acadêmico</a></li>
+    <li><a href="{{pathFor route='testes'}}"><i class="material-icons">bug_report</i>Página de testes</a></li>
+    <li><a href="{{pathFor route='settings'}}"><i class="material-icons">settings</i>Configurações</a></li>
+    <li><a href="{{pathFor route='about'}}"><i class="material-icons">info</i>Sobre</a></li>
+    <li><a href="#" class="logout"><i class="material-icons">power_settings_new</i>Logout</a></li>
 </template>

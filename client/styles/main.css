@@ -1,5 +1,5 @@
 :root {
-  --cor-pri: #3f51b5; /*indigo*/
+  --cor-pri: #5c6bc0; /*#3f51b5: indigo, #5c6bc0 indigo lighten-1*/
   --cor-bg: #eee;
   --cor-font: #797979;
 }
@@ -12,6 +12,8 @@ a:active,
 a:hover {
   outline: 0;
 }
+
+/********** LAYOUT *********/
 
 .page-flexbox-wrapper {
   display: flex;
@@ -36,16 +38,14 @@ div.box {
   }
 }
 
-/********** NAV & FOOTER *********/
-
 div.nav-wrapper {
   background-color: var(--cor-pri);
 }
 
 .side-nav {
-  width: 300px;
-  text-indent: 15px;
-  background-color: #333;
+  width: 250px;
+  text-indent: 10px;
+  background-color: #555;
 }
 
 .side-nav a {
@@ -53,14 +53,14 @@ div.nav-wrapper {
 }
 
 .footer-text {
-  color: #797979;
+  color: var(--cor-font) !important;
 }
 
 @media only screen and (min-width: 993px) {
    nav a.button-collapse {
     display: block;
    }
- }
+}
 
 /********** CARDS **********/
 
@@ -68,13 +68,17 @@ div.card {
   vertical-align:top;
   text-align: left;
   background-color: #fff;
-  padding: 15px;
+  padding: 16px;
   position: relative;
   display: inline-block;
   margin: 10px;
-  color: #797979;
+  color: var(--cor-pri);
   width: 27%;
   width: 360px
+}
+
+div.cardlogin {
+  width: 300px;
 }
 
 div.card2 {
@@ -87,48 +91,49 @@ div.card3 {
 
 @media only screen and (max-width: 768px) {
   div.card {
-    width: 99% !important;
+    width: 97% !important;
     margin: 10px auto 10px;
   }
+
+  div.cardlogin {
+    width: 280px !important;
+  }
+}
+
+.card h1,
+.card h2,
+.card h3,
+.card h4,
+.card h5,
+.card h6 {
+  text-align: center;
+  color: var(--cor-pri);
 }
 
 /********** BUTTONS **********/
 
 .btn {
-  margin: 2.5px;
+  background-color: var(--cor-pri) !important;
+  display: inline-block;
+  width: 180px;
+  margin: 3px;
 }
 
-.btn,
-.btn:focus {
-  background-color: var(--cor-pri);
+.btn-export {
+  background-color: #ffca28 !important; /*amber lighten-1*/
 }
 
-.btn:hover {
-  background-color: #5c6bc0; /*indigo lighten-1*/
+.btn-delete {
+  background-color: #ef5350 !important; /*red lighten-1*/
 }
 
-.btn-export:hover {
-  background-color: #ffca28; /*amber lighten-1*/
+.btn-upload {
+  background-color: #4caf50 !important; /*green lighten-1*/
 }
 
-.btn-delete:hover {
-  background-color: #ef5350; /*red lighten-1*/
-}
-
-.btn-upload:hover {
-  background-color: #66bb6a; /*green lighten-1*/
-}
-
-.btn-flat {
-  color: var(--cor-font);
-}
-
-.waves-indigo .waves-ripple {
-  background-color: var(--cor-pri); /*indigo darken-2*/
-}
-
-.waves-indigo:focus {
-  background-color: #fff;
+.login .btn {
+  float: right;
+  width: auto !important;
 }
 
 /********** ICONS **********/
