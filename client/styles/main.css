@@ -30,11 +30,26 @@ div.box {
   padding: 0;
   margin: 0 auto auto;
   vertical-align: top;
-  width: 75%;
+  width: 100%;
 }
+
+div.box2 {
+  margin: 0 250px auto;
+}
+
 @media only screen and (max-width: 768px) {
   div.box {
     width: 100%;
+  }
+  div.box2 {
+    margin: 0 auto auto;
+  }
+}
+
+@media only screen and (max-width: 992px) {
+  div.box2 {
+    margin-left: 0px;
+    margin-right: 0px;
   }
 }
 
@@ -44,7 +59,7 @@ div.nav-wrapper {
 
 .side-nav {
   width: 250px;
-  text-indent: 10px;
+  text-indent: 8px;
   background-color: #555;
 }
 
@@ -57,9 +72,12 @@ div.nav-wrapper {
 }
 
 @media only screen and (min-width: 993px) {
-   nav a.button-collapse {
+  nav a.button-collapse {
     display: block;
-   }
+  }
+  .container {
+    margin-left: 270px;
+  }
 }
 
 /********** CARDS **********/
@@ -71,10 +89,10 @@ div.card {
   padding: 16px;
   position: relative;
   display: inline-block;
-  margin: 10px;
+  margin: 5px 10px 5px;;
   color: var(--cor-pri);
-  width: 27%;
-  width: 360px
+  width: 360px;
+  max-width: 95%
 }
 
 div.cardlogin {
@@ -91,6 +109,7 @@ div.card3 {
 
 @media only screen and (max-width: 768px) {
   div.card {
+    max-width: 97%;
     width: 97% !important;
     margin: 10px auto 10px;
   }

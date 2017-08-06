@@ -2,16 +2,17 @@
   <div class="page-flexbox-wrapper">
     {{#if currentUser}}
       {{> navbar}}
-      <div class="box center">
-        {{> yield}}
+      <div class="box2">
+        <div class="box center">
+          {{> yield}}
+        </div>
       </div>
-      {{> footer}}
     {{else}}
       <div class="box center" style="margin: auto;">
-        {{> yield}}
+        {{> login}}
       </div>
-      {{> footer}}
     {{/if}}
+    {{> footer}}
   </div>
 </template>
 
