@@ -6,6 +6,8 @@
 
 body {
   background-color: var(--cor-bg);
+  overflow	: scroll;
+  overflow-x	: auto;
 }
 
 a:active,
@@ -136,6 +138,11 @@ div.card3 {
   display: inline-block;
   width: 180px;
   margin: 3px;
+  box-shadow: unset;
+}
+
+.btn:hover {
+  box-shadow: unset;
 }
 
 .btn-export {
