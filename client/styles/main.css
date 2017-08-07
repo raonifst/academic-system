@@ -55,6 +55,8 @@ div.box2 {
   }
 }
 
+/********** NAV and FOOTER *********/
+
 div.nav-wrapper {
   background-color: var(--cor-pri);
 }
