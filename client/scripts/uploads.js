@@ -20,7 +20,6 @@ Template.uploadcurricularstructure.events({
     var data = [];
     var globalError = false;
     template.uploading.set(true);
-
     Papa.parse(event.target.files[0], {
       header: true,
       skipEmptyLines: true,
@@ -73,6 +72,7 @@ Template.uploadcurricularstructure.events({
         });
       }
     });
+    event.target.value = '';
   },
 });
 
@@ -136,5 +136,6 @@ Template.uploadacademicrecord.events({
         });
       }
     });
+    event.target.value = '';
   },
 });

@@ -1,9 +1,10 @@
 import Courses from '../../imports/api/collections/courses'
+import Records from '../../imports/api/collections/records';
 
 /*--------------- TABLE CURRICULAR STRUCTURE ---------------*/
+
 Template.tablecurricularstructure.helpers({
   listaDisiciplinas() {
-    var currentUserId = Meteor.userId();
     return Courses.find();
   },
 
@@ -30,28 +31,29 @@ Template.tablecurricularstructure.helpers({
 });
 
 /*--------------- TABLE ACADEMIC RECORDS ---------------*/
-Template.tableacademicrecords.helpers({
-  'listaAlunos': function() {
-  return Records.find();
-},
 
-  uploaded: function() {
+Template.tableacademicrecords.helpers({
+  listaAlunos() {
+    return Records.find();
+  },
+
+  /*uploaded() {
     const currentUserId = Meteor.userId();
     const user = (currentUserId)? Users.findOne({ idUser: currentUserId }) : null;
     return user && Users.findOne({ idUser: currentUserId }).uploadedAcademicRecords;
-  },
+  },*/
 
-  settingsRecord: function() {
+  settings() {
     return {
       rowsPerPage: 10,
       showFilter: true,
       fields: [
-        { key: 'rga', label: 'RGA' , cellClass: 'col-md-4'},
-        { key: 'nome', label: 'Nome' , cellClass: 'col-md-4'},
-        { key: 'disciplina', label: 'Disciplina' , cellClass: 'col-md-4'},
-        { key: 'situacao', label: 'Situação' , cellClass: 'col-md-4'},
-        { key: 'ano', label: 'Ano' , cellClass: 'col-md-4'},
-        { key: 'semestre', label: 'Semestre' , cellClass: 'col-md-4'}
+        { key: 'rga',         label: 'RGA',         cellClass: 'col-md-4' },
+        { key: 'nome',        label: 'Nome',        cellClass: 'col-md-4' },
+        { key: 'disciplina',  label: 'Disciplina',  cellClass: 'col-md-4' },
+        { key: 'situacao',    label: 'Situação',    cellClass: 'col-md-4' },
+        { key: 'ano',         label: 'Ano',         cellClass: 'col-md-4' },
+        { key: 'semestre',    label: 'Semestre',    cellClass: 'col-md-4' }
       ]
     };
   },

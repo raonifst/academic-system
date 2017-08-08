@@ -22,6 +22,7 @@ Meteor.startup(() => {
       }
     });
 
+    console.log("Insere Settings");
     Settings.insert({
       navbarfixed:        true,
       menufixed:          true,
