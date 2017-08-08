@@ -18,17 +18,19 @@
 </template>
 
 <template name="navbar">
-  <nav>
-    <div class="nav-wrapper">
-      <a href="{{pathFor route='home'}}" class="brand-logo center">Sistema Acadêmico</a>
-      <ul id="slide-out" class="side-nav fixed"><br>
-        {{> navigation}}
-      </ul>
-      <a href="#" data-activates="slide-out" class="button-collapse show-on-large" style="text-indent: 15px;">
-        <i class="material-icons">menu</i>
-      </a>
-    </div>
-  </nav>
+  <div class="navbar-fixed">
+    <nav>
+      <div class="nav-wrapper">
+        <a href="{{pathFor route='home'}}" class="brand-logo center">Sistema Acadêmico</a>
+        <ul id="slide-out" class="side-nav fixed"><br>
+          {{> navigation}}
+        </ul>
+        <a href="#" data-activates="slide-out" class="button-collapse show-on-large" style="text-indent: 15px;">
+          <i class="material-icons">menu</i>
+        </a>
+      </div>
+    </nav>
+  </div>
   <script>
     $(function(){$(".button-collapse").sideNav();});
   </script>

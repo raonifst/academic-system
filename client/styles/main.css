@@ -6,8 +6,21 @@
 
 body {
   background-color: var(--cor-bg);
-  overflow	: scroll;
-  overflow-x	: auto;
+  overflow: scroll;
+  overflow-x: auto;
+}
+
+::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--cor-font);
+}
+
+::-webkit-scrollbar-track {
+  background: var(--cor-bg);
 }
 
 a:active,
