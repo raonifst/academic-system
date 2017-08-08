@@ -8,8 +8,9 @@
         </div>
       </div>
     {{else}}
-      <div class="box center" style="margin: auto;">
-        {{> login}}<p style="height: 70px;"></p>
+      <div class="box center" style="margin-top: auto;">
+        {{> yield}}
+        <p style="height: 70px;"></p>
       </div>
     {{/if}}
     {{> footer}}
@@ -28,7 +29,6 @@
       </a>
     </div>
   </nav>
-  <br>
   <script>
     $(function(){$(".button-collapse").sideNav();});
   </script>
