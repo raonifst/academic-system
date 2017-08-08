@@ -1,4 +1,4 @@
-import '../imports/api/server/publish.js'
+import '../imports/api/server/publishs.js'
 Meteor.startup(() => {
 
   /*
