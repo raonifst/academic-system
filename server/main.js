@@ -26,7 +26,7 @@ Meteor.startup(() => {
       navbarfixed:        true,
       menufixed:          true,
       createdBy:          usrId,
-    })
+    });
   }
 });
 

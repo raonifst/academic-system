@@ -1,3 +1,13 @@
 <template name="settingsNavbar">
-
+  {{#if settings}}
+  <h4>{{_id}}</h4>
+    <div class="switch">
+     <label>
+       Off
+       <input type="checkbox" class="checkbox" {{navbarchecked}}>
+       <span class="lever"></span>
+       On
+     </label>
+   </div>
+  {{/if}}
 </template>
