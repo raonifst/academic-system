@@ -19,6 +19,10 @@ body {
   background: var(--cor-font);
 }
 
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
 ::-webkit-scrollbar-track {
   background: var(--cor-bg);
 }

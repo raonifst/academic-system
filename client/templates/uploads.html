@@ -19,12 +19,14 @@
       {{else}}
         <p><i class="fa fa-spin fa-refresh"></i> Atualizando banco de dados... Aguarde...</p>
       {{/unless}}
+      <div class="center">
+        {{> removedata method="toCleanCourses"}}
+      </div>
     </div>
   {{/if}}
 </template>
 
 <!--########## UPLOAD HISTÓRICO ACADÊMICO ##########-->
-
 <template name="uploadacademicrecord">
   {{#if currentUser}}
     <div class="card card3">
@@ -45,6 +47,9 @@
       {{else}}
         <p><i class="fa fa-spin fa-refresh"></i> Atualizando banco de dados... Aguarde...</p>
       {{/unless}}
+      <div class="center">
+        {{> removedata method="toCleanRecords"}}
+      </div>
     </div>
   {{/if}}
 </template>
