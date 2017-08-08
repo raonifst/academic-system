@@ -1,5 +1,6 @@
 import {Meteor} from 'meteor/meteor';
-import Courses from '../imports/api/collections/courses'
+import Courses from '../imports/api/collections/courses';
+import Records from '../imports/api/collections/records';
 
 Meteor.methods({
   toCleanCourses() {

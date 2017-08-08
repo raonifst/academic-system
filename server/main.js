@@ -1,5 +1,6 @@
 import { Meteor } from 'meteor/meteor'
 import { AccountsServer } from 'meteor/accounts-base'
+import Settings from '../imports/api/collections/settings';
 import '../imports/api/server/publishs.js'
 
 Meteor.startup(() => {
@@ -8,18 +9,24 @@ Meteor.startup(() => {
      o usuário a seguir é cadastrado. */
   if (!Meteor.users.find().count()) {
     const usrId = Accounts.createUser({
-      email:            'raoni@ufmt.br',
-      password:         '123',
+      email:              'raoni@ufmt.br',
+      password:           '123',
     });
-    Meteor.users.update({ _id: usrId },
-      { $set:
-        {
-          name:             'Fabricio Barbosa de Carvalho',
-          gradProgram:      'Engenharia de Computação',
-          currentYear:      '2014',
-          currentSemester:  '2'
-        }
-      });
+
+    Meteor.users.update({ _id: usrId }, {
+      $set:
+      { name:             'Fabricio Barbosa de Carvalho',
+        gradProgram:      'Engenharia de Computação',
+        currentYear:      '2014',
+        currentSemester:  '2',
+      }
+    });
+
+    Settings.insert({
+      navbarfixed:        true,
+      menufixed:          true,
+      createdBy:          usrId,
+    })
   }
 });
 

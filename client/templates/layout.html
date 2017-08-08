@@ -18,11 +18,11 @@
 </template>
 
 <template name="navbar">
-  <div class="navbar-fixed">
+  <div class="{{navbarfixed}}">
     <nav>
       <div class="nav-wrapper">
         <a href="{{pathFor route='home'}}" class="brand-logo center">Sistema Acadêmico</a>
-        <ul id="slide-out" class="side-nav fixed"><br>
+        <ul id="slide-out" class="side-nav {{menufixed}}"><br>
           {{> navigation}}
         </ul>
         <a href="#" data-activates="slide-out" class="button-collapse show-on-large" style="text-indent: 15px;">

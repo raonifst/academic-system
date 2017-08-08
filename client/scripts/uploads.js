@@ -26,11 +26,11 @@ Template.uploadcurricularstructure.events({
       skipEmptyLines: true,
 
       step(row, parser) {
-        console.log(row.data[0]);
+        //console.log(row.data[0]);
         var reg = Courses.parser(row.data[0]);
 
         try {
-          console.log(reg);
+          //console.log(reg);
           Courses.schema.validate(reg);
         } catch (err) {
           Bert.alert('Este não é um arquivo CSV válido: ' + err.reason, 'danger', 'growl-top-right' );

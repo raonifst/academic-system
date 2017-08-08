@@ -4,7 +4,6 @@ Template.removedata.events({
       return;
 
     Meteor.call(this.method, (error, results) => {
-      console.log(results, error);
       if (results) {
         Bert.alert(this.method+': Troca a msg', 'success', 'growl-top-right');
         /*Meteor.call('changeUserUploadCurricularStructureFlag');*/
