@@ -1,0 +1,12 @@
+<!-- Tabela reativa da estrutura curricular -->
+<template name="tablecurricularstructure">
+  {{#if currentUser}}
+    <!--{{#if uploaded}}-->
+      <div>
+        <table class="mdl-data-table mdl-shadow--2dp" style="margin-left: auto; margin-right:auto;">
+          {{> reactiveTable collection=listaDisiciplinas settings=settings}}
+        </table>
+      </div>
+    <!--{{/if}}-->
+  {{/if}}
+</template>

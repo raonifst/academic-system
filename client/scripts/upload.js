@@ -12,6 +12,9 @@ Template.uploadcurricularstructure.helpers({
   uploading() {
     return Template.instance().uploading.get();
   },
+});
+
+Template.tablecurricularstructure.helpers({
   'listaDisiciplinas': function(){
     var currentUserId = Meteor.userId();
     return Courses.find();

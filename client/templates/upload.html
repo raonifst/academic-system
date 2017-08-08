@@ -1,22 +1,18 @@
+<!-- Upload de estrutura curricular -->
 <template name="uploadcurricularstructure">
   {{#if currentUser}}
-    <!-- Upload de estrutura curricular -->
-    <div class="card" style="width: 623px;">
-      <center>
-          <h3 class="page-header">Estrutura Curricular</h3>
-      </center>
-
+    <div class="card card3">
+      <h3>Estrutura Curricular</h3>
       {{#unless uploading}}
         <form action="#">
-          <div class="row">
-            <div class="file-field input-field col s12">
-              <div class="btn btn-success waves-effect waves-light">
-                <span>Upload</span>
-                <input type="file" name="uploadCSV" accept=".csv">
-              </div>
-              <div class="file-path-wrapper">
-                <input class="file-path validate" placeholder="Clique para subir um arquivo CSV de Estrutura Curricular...">
-              </div>
+          <div class="file-field input-field">
+            <div class="btn btn-export">
+              <i class="material-icons">file_upload</i>
+              <span>Upload</span>
+              <input type="file" name="uploadCSV" accept=".csv">
+            </div>
+            <div class="file-path-wrapper">
+              <input class="file-path validate" placeholder="Clique para subir um arquivo CSV de Estrutura Curricular...">
             </div>
           </div>
         </form>
@@ -24,16 +20,5 @@
         <p><i class="fa fa-spin fa-refresh"></i> Atualizando banco de dados... Aguarde...</p>
       {{/unless}}
     </div>
-
-    <!-- Tabela reativa de estrutura curricular -->
-    <br>
-
-  <!--  {{#if uploaded}} -->
-      <div>
-        <table class="mdl-data-table mdl-shadow--2dp" style="margin-left: auto; margin-right:auto;">
-          {{> reactiveTable collection=listaDisiciplinas settings=settings}}
-        </table>
-      </div>
-    <!--{{/if}}-->
   {{/if}}
 </template>
