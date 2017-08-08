@@ -24,3 +24,27 @@
 </template>
 
 <!--########## UPLOAD HISTÓRICO ACADÊMICO ##########-->
+
+<template name="uploadacademicrecord">
+  {{#if currentUser}}
+    <div class="card card3">
+      <h4>Histórico Acadêmico</h4>
+      {{#unless uploading}}
+        <form action="#">
+          <div class="file-field input-field">
+            <div class="btn btn-export">
+              <i class="material-icons">file_upload</i>
+              <span>Upload</span>
+              <input type="file" class="uploadCSV" accept=".csv">
+            </div>
+            <div class="file-path-wrapper">
+              <input class="file-path validate" placeholder="Clique para subir um arquivo CSV de Histórico Acadêmico...">
+            </div>
+          </div>
+        </form>
+      {{else}}
+        <p><i class="fa fa-spin fa-refresh"></i> Atualizando banco de dados... Aguarde...</p>
+      {{/unless}}
+    </div>
+  {{/if}}
+</template>
