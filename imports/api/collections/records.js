@@ -32,10 +32,7 @@ Records.schema = new SimpleSchema({
 });
 
 // Permissões 1
-Records.allow({
-
-  // O usuário precisa estar "logado" e deve ser o proprietário do documento
-
+Records.allow({ // O usuário precisa estar "logado" e deve ser o proprietário do documento
   insert(userId, doc) {
     return userId && doc.createdBy == userId;
   },
@@ -49,16 +46,13 @@ Records.allow({
   },
 
   fetch: ['createdBy']
-
 });
 
 // Permissões 2
 Records.deny({
-
   update: function (userId, doc, fields, modifier) {
     return _.contains(fields, 'createdBy');
   }
-
 });
 
 export default Records;

@@ -1,9 +1,9 @@
-<!-- Tabela reativa da estrutura curricular -->
+<!--##########  TABELA ESTRUTURA CURRICULAR ##########-->
 <template name="tablecurricularstructure">
   {{#if currentUser}}
     <!--{{#if uploaded}}-->
       <div class="card cardtable1">
-        <table class="mdl-data-table mdl-shadow--2dp" style="margin-left: auto; margin-right:auto;">
+        <table class="mdl-data-table mdl-shadow--2dp">
           {{> reactiveTable collection=listaDisiciplinas settings=settings}}
         </table>
       </div>

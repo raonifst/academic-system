@@ -2,14 +2,10 @@ import { Meteor } from 'meteor/meteor'
 import { AccountsServer } from 'meteor/accounts-base'
 import '../imports/api/server/publishs.js'
 
-
 Meteor.startup(() => {
-
-  /*
-     Solução provisória: não há registro de usuários.
+  /* Solução provisória: não há registro de usuários.
      Quando o sistema 'sobe' e não há usuarios cadastrados,
-     o usuário a seguir é cadastrado.
-  */
+     o usuário a seguir é cadastrado. */
   if (!Meteor.users.find().count()) {
     const usrId = Accounts.createUser({
       email:            'raoni@ufmt.br',
@@ -25,12 +21,9 @@ Meteor.startup(() => {
         }
       });
   }
-
 });
 
-
 Accounts.onCreateUser((options, user) => {
-
   const customUser = Object.assign(user, {
     durationAlerts:               4000,
     changedDefaultPassword:       false,
@@ -41,5 +34,4 @@ Accounts.onCreateUser((options, user) => {
     customUser.profile = options.profile;
   }
   return customUser;
-
 });

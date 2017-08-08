@@ -2,15 +2,11 @@ import {Meteor} from 'meteor/meteor';
 import {uploadDataStatus} from "../imports/utils/status"
 import Courses from '../imports/api/collections/courses'
 
-
 Meteor.methods({
-
   uploadCurricularStruture(data) {
-
     var resultCode = uploadDataStatus.SUCCESS;
 
     data.forEach(item => {
-
       const existCurr = Courses.find({
         codigo: item.codigo,
         createdBy: Meteor.userId()
@@ -37,9 +33,7 @@ Meteor.methods({
         return;
 
       Courses.insert(item);
-
     });
     return resultCode;
-  }
-
+  },
 });

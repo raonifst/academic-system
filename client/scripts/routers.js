@@ -35,6 +35,7 @@ Router.route('/historico-academico', {
     }
   },
 });
+
 Router.route('/sla', {
   template: 'upload',
   name: 'upload',
@@ -46,6 +47,7 @@ Router.route('/sla', {
     }
   },
 });
+
 Router.route('/error', {
   template: 'testes',
   name: 'testes',

@@ -68,9 +68,7 @@ Courses.schema = new SimpleSchema({
 // Função utilizada para conversão de valores recebidos do csv para o formato correto definido
 // na validação
 Courses.parser = function(jsonObj) {
-
   const currentUser = Meteor.userId();
-
   return {
     codigo:       parseInt(jsonObj.codigo),
     nome:         jsonObj.nome,
@@ -87,14 +85,10 @@ Courses.parser = function(jsonObj) {
     alunos:       0,
     createdBy:    currentUser
   };
-
 };
 
 // Permissões 1
-Courses.allow({
-
-  // O usuário precisa estar "logado" e deve ser o proprietário do documento
-
+Courses.allow({ // O usuário precisa estar "logado" e deve ser o proprietário do documento
   insert(userId, doc) {
     return userId && doc.createdBy == userId;
   },
@@ -108,16 +102,13 @@ Courses.allow({
   },
 
   fetch: ['createdBy']
-  
 });
 
 // Permissões 2
 Courses.deny({
-
   update: function (userId, doc, fields, modifier) {
     return _.contains(fields, 'createdBy');
   }
-
 });
 
 export default Courses;
