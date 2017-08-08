@@ -43,28 +43,26 @@ a:hover {
 
 div.box {
   padding: 0;
-  margin: 0 auto auto;
+  margin: 15px auto auto;
   vertical-align: top;
   width: 100%;
 }
 
 div.box2 {
-  margin: 15px 250px auto;
-}
-
-@media only screen and (max-width: 768px) {
-  div.box {
-    width: 100%;
-  }
-  div.box2 {
-    margin: 10px auto auto;
-  }
+  margin: 0 0 auto;
+  padding-left: 250px;
+  padding-right: 250px;
 }
 
 @media only screen and (max-width: 992px) {
+  div.box {
+    margin: 0px auto auto;
+    width: 100%;
+  }
   div.box2 {
-    margin-left: 0px;
-    margin-right: 0px;
+    margin: 10px 0px auto;
+    padding-left:0px;
+    padding-right: 0px;
   }
 }
 
