@@ -1,1 +1,2 @@
-Meteor.subscribe('pDisciplinas');
+Meteor.subscribe('courses');
+Meteor.subscribe('users')

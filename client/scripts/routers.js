@@ -35,7 +35,17 @@ Router.route('/historico-academico', {
     }
   },
 });
-
+Router.route('/sla', {
+  template: 'upload',
+  name: 'upload',
+  onBeforeAction() {
+    if (Meteor.userId()) {
+      this.next();
+    } else {
+      this.render("login");
+    }
+  },
+});
 Router.route('/error', {
   template: 'testes',
   name: 'testes',

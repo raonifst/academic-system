@@ -1,3 +1,3 @@
-Meteor.publish('pDisciplinas', function(){
-    return Disciplinas.find({ createdBy: this.userId });
+Meteor.publish('Courses', function(){
+    return Courses.find({ createdBy: this.userId });
 });
