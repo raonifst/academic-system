@@ -1,4 +1,5 @@
-Courses = new Mongo.Collection('courses');
+const Courses = new Mongo.Collection('courses');
+
 // Schema utilizado para validar o csv da estrutura curricular
 Courses.schema = new SimpleSchema({
   codigo: {
@@ -36,3 +37,5 @@ Courses.parser = function(jsonObj) {
   };
 
 };
+
+export default Courses;

@@ -1,2 +1,2 @@
 Meteor.subscribe('courses');
-Meteor.subscribe('users')
+Meteor.subscribe('users');

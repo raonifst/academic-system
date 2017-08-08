@@ -1,6 +1,6 @@
 import {ReactiveVar} from 'meteor/reactive-var';
-import {CsvUtils} from "../imports/utils/csvutils";
-
+import {CsvUtils} from '../../imports/utils/csvutils';
+import Courses from '../../imports/api/collections/courses'
 
 Template.uploadcurricularstructure.onCreated(() => {
   Template.instance().uploading = new ReactiveVar( false );
@@ -66,7 +66,7 @@ Template.uploadcurricularstructure.events({
       complete() {
         if (globalError)
           return;
-        //console.log(data); // Debug (descomente esta linha)
+        console.log(data); // Debug (descomente esta linha)
         Meteor.call('uploadCurricularStruture', data, (error, results) => {
           if (error)
             Bert.alert('Unknown internal error.', 'danger', 'growl-top-right');
