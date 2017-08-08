@@ -1,4 +1,8 @@
+import { Meteor } from 'meteor/meteor'
+import { AccountsServer } from 'meteor/accounts-base'
 import '../imports/api/server/publishs.js'
+
+
 Meteor.startup(() => {
 
   /*
@@ -7,20 +11,35 @@ Meteor.startup(() => {
      o usuário a seguir é cadastrado.
   */
   if (!Meteor.users.find().count()) {
-    const usr = Accounts.createUser({
-      email: 'raoni@ufmt.br',
-      password: '123'
+    const usrId = Accounts.createUser({
+      email:            'raoni@ufmt.br',
+      password:         '123',
     });
-    /*Users.insert({
-      idUser:                       usr,
-      course:                       DefaultRootUser.course,
-      name:                         DefaultRootUser.name,
-      currentYear:                  DefaultRootUser.currentYear,
-      currentSemester:              DefaultRootUser.currentSemester,
-      durationAlerts:               DefaultRootUser.durationAlerts,
-      changedDefaultPassword:       false,
-      uploadedCurricularStructure:  false,
-      uploadedAcademicRecords:      false
-    })*/
+    Meteor.users.update({ _id: usrId },
+      { $set:
+        {
+          name:             'Fabricio Barbosa de Carvalho',
+          gradProgram:      'Engenharia de Computação',
+          currentYear:      '2014',
+          currentSemester:  '2'
+        }
+      });
   }
+
+});
+
+
+Accounts.onCreateUser((options, user) => {
+
+  const customUser = Object.assign(user, {
+    durationAlerts:               4000,
+    changedDefaultPassword:       false,
+    uploadedCurricularStructure:  false,
+    uploadedAcademicRecords:      false
+  });
+  if (options.profile) {
+    customUser.profile = options.profile;
+  }
+  return customUser;
+
 });

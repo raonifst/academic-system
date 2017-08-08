@@ -90,4 +90,34 @@ Courses.parser = function(jsonObj) {
 
 };
 
+// Permissões 1
+Courses.allow({
+
+  // O usuário precisa estar "logado" e deve ser o proprietário do documento
+
+  insert(userId, doc) {
+    return userId && doc.createdBy == userId;
+  },
+
+  update(userId, doc, fields, modifier) {
+    return userId && doc.createdBy == userId;
+  },
+
+  remove(userId, doc) {
+    return userId && doc.createdBy == userId;
+  },
+
+  fetch: ['createdBy']
+  
+});
+
+// Permissões 2
+Courses.deny({
+
+  update: function (userId, doc, fields, modifier) {
+    return _.contains(fields, 'createdBy');
+  }
+
+});
+
 export default Courses;
