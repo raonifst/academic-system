@@ -1,7 +1,6 @@
 import Courses from '../../imports/api/collections/courses'
 
 /*--------------- TABLE CURRICULAR STRUCTURE ---------------*/
-
 Template.tablecurricularstructure.helpers({
   listaDisiciplinas() {
     var currentUserId = Meteor.userId();
