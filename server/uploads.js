@@ -3,6 +3,7 @@ import {uploadDataStatus} from "../imports/modules/status"
 import Courses from '../imports/api/collections/courses'
 import Records from '../imports/api/collections/records'
 import '../imports/modules/auxiliar'
+
 Meteor.methods({
   uploadCurricularStruture(data) {
     var resultCode = uploadDataStatus.SUCCESS;

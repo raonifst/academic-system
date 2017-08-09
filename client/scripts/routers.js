@@ -1,4 +1,4 @@
-Router.configure({layoutTemplate: 'layout'});
+Router.configure({ layoutTemplate: 'layout' });
 
 Router.route('/', {
   template: 'home',

@@ -1,8 +1,7 @@
 import Courses from '../../imports/api/collections/courses'
 import Records from '../../imports/api/collections/records';
 
-/*--------------- TABLE CURRICULAR STRUCTURE ---------------*/
-
+/*-------------------- TABLE CURRICULAR STRUCTURE --------------------*/
 Template.tablecurricularstructure.helpers({
   listaDisiciplinas() {
     return Courses.find();
@@ -30,8 +29,7 @@ Template.tablecurricularstructure.helpers({
   },
 });
 
-/*--------------- TABLE ACADEMIC RECORDS ---------------*/
-
+/*-------------------- TABLE ACADEMIC RECORDS --------------------*/
 Template.tableacademicrecords.helpers({
   listaAlunos() {
     return Records.find();

@@ -5,7 +5,6 @@ const GraphColors = Object.freeze({
 });
 
 export class CoursesGraph {
-
   constructor(coursesArray) {
     this.gMap = new Map();
     coursesArray.forEach(item => {
@@ -14,7 +13,6 @@ export class CoursesGraph {
   }
 
   _depthFirstSearch(initialVertexCode, visitedMap, outputList) {
-
     var stack = [];
     var uKey, uAdjList, vKey, vColor, vAdjList, isVertexLeaf;
     stack.push(initialVertexCode);
@@ -24,10 +22,12 @@ export class CoursesGraph {
       uKey = stack.pop();
       uAdjList = this.gMap.get(uKey);
       visitedMap.set(uKey, GraphColors.GRAY);
+
       for (var i = 0; i < uAdjList.length; i++) {
         vKey = uAdjList[i];
         vColor = visitedMap.get(vKey);
         vAdjList = this.gMap.get(vKey);
+
         if (!vAdjList) {
           // TODO substituir string (no throw) por ValidateError
           throw "Estrutura contém um ou mais códigos de disciplinas inválidos.";
@@ -39,6 +39,7 @@ export class CoursesGraph {
             "Corrija-os e tente novamente!";
         }
       }
+
       if (isVertexLeaf) {
         visitedMap.set(uKey, GraphColors.BLACK);
         outputList.push(uKey);
@@ -47,12 +48,13 @@ export class CoursesGraph {
   }
 
   topologicalSort() {
-
     var list = [];
     var visitedMap = new Map();
+
     for (var key2 of this.gMap.keys()) {
       visitedMap.set(key2, GraphColors.WHITE);
     }
+
     for (var key of this.gMap.keys()) {
       this._depthFirstSearch(key, visitedMap, list);
       if (!list || list.length == 0)
@@ -60,7 +62,6 @@ export class CoursesGraph {
     }
     return list;
   }
-
 }
 
 export function validateCoursesGraph(graph) {

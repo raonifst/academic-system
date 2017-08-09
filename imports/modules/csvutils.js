@@ -1,6 +1,5 @@
 const prereqDelimiter = ";";
 
-
 export const CsvUtils = {
   prereqArrayToString(arr) {
     for (var i = 0; i < arr.length; i++)
@@ -52,7 +51,7 @@ export const exampleDisciplinesCSV = [
     creditos: 4,
     semestre: 5,
     prereq:   '90000010;90000017' },
-]
+];
 
 export const exampleRecordCSV = [
   { rga: 201522401111,
@@ -82,4 +81,4 @@ export const exampleRecordCSV = [
     situacao: 'RF',
     ano: 2016,
     semestre: 2 },
-]
+];

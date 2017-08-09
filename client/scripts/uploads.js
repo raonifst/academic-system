@@ -6,8 +6,7 @@ import {CsvUtils} from "../../imports/modules/csvutils";
 import {uploadDataStatus} from "../../imports/modules/status";
 import {CoursesGraph, validateCoursesGraph} from "../../imports/modules/coursesgraph";
 
-/*--------------- UPLOAD CURRICULAR STRUCTURE ---------------*/
-
+/*-------------------- UPLOAD CURRICULAR STRUCTURE --------------------*/
 Template.uploadcurricularstructure.onCreated(() => {
   Template.instance().uploading = new ReactiveVar(false);
 });
@@ -83,7 +82,7 @@ Template.uploadcurricularstructure.events({
   },
 });
 
-/*--------------- UPLOAD ACADEMIC RECORDS ---------------*/
+/*-------------------- UPLOAD ACADEMIC RECORDS --------------------*/
 Template.uploadacademicrecord.onCreated(() => {
   Template.instance().uploading = new ReactiveVar(false);
 });
@@ -95,7 +94,6 @@ Template.uploadacademicrecord.helpers({
 });
 
 Template.uploadacademicrecord.events({
-
   'change .uploadCSV': function(event, template) {
     var data = [];
     var globalError = false;
@@ -135,8 +133,8 @@ Template.uploadacademicrecord.events({
             }
             else
               Bert.alert('Upload completado com sucesso!', 'success', 'growl-top-right');
-            Meteor.call('changeCurrentSemester', data[data.length - 1], 0);
-            Meteor.call('changeUserUploadAcademicRecordsFlag');
+            /*Meteor.call('changeCurrentSemester', data[data.length - 1], 0);
+            Meteor.call('changeUserUploadAcademicRecordsFlag');*/
           }
           template.uploading.set(false);
         });
