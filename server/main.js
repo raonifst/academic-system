@@ -18,19 +18,24 @@ Meteor.startup(() => {
         gradProgram:      'Engenharia de Computação',
         currentYear:      '2014',
         currentSemester:  '2',
-        navbarfixed:      true,
-        menufixed:        true,
       }
     });
   }
 });
 
 Accounts.onCreateUser((options, user) => {
+  // Estes são os campos padrão acrescidos para qualquer usuário que cadastre-se no sistema
   const customUser = Object.assign(user, {
+    name:                         '-',
+    gradProgram:                  '-',
+    currentYear:                  0,
+    currentSemester:              0,
     durationAlerts:               4000,
     changedDefaultPassword:       false,
     uploadedCurricularStructure:  false,
-    uploadedAcademicRecords:      false
+    uploadedAcademicRecords:      false,
+    navbarfixed:                  true,
+    menufixed:                    true
   });
   if (options.profile) {
     customUser.profile = options.profile;

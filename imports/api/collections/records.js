@@ -67,8 +67,8 @@ Records.allow({ // O usuário precisa estar "logado" e deve ser o proprietário 
 });
 
 // Permissões 2
-Records.deny({
-  update: function (userId, doc, fields, modifier) {
+Records.deny({ // O usuário não pode alterar o campo createdBy em nenhuma hipótese
+  update(userId, doc, fields, modifier) {
     return _.contains(fields, 'createdBy');
   }
 });
