@@ -31,3 +31,4 @@ materialize:materialize
 jquery@1.11.10
 mrt:jquery-ui
 npvn:jquery-autocomplete
+mdg:validation-error

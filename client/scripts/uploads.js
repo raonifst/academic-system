@@ -1,7 +1,10 @@
-import {ReactiveVar} from 'meteor/reactive-var';
-import {CsvUtils} from '../../imports/utils/csvutils';
-import {uploadDataStatus} from "../../imports/utils/status"
-import Courses from '../../imports/api/collections/courses'
+import Courses from "../../imports/api/collections/courses";
+import Records from "../../imports/api/collections/records";
+
+import {ReactiveVar} from "meteor/reactive-var";
+import {CsvUtils} from "../../imports/modules/csvutils";
+import {uploadDataStatus} from "../../imports/modules/status";
+import {CoursesGraph, validateCoursesGraph} from "../../imports/modules/coursesgraph";
 
 /*--------------- UPLOAD CURRICULAR STRUCTURE ---------------*/
 
@@ -44,10 +47,14 @@ Template.uploadcurricularstructure.events({
       complete() {
         if (globalError)
           return;
-        //console.log(data);
-        // Debug (descomente esta linha)
-        //TODO DEVOLVE MINHA ORDENAÇÃO TOPOLÓGICA HUIESAHEIOJSKNJSK
-
+        //console.log(data); // Debug (descomente esta linha)
+        try {
+          var g = new CoursesGraph(data);
+          validateCoursesGraph(g);
+        } catch (e) {
+          Bert.alert(e, 'danger', 'growl-top-right');
+          return;
+        }
         Meteor.call('uploadCurricularStruture', data, (error, results) => {
           if (error)
             Bert.alert('Unknown internal error.', 'danger', 'growl-top-right');
