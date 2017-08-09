@@ -1,3 +1,3 @@
 Meteor.subscribe('courses');
 Meteor.subscribe('records');
-Meteor.subscribe('settings');
+Meteor.subscribe('user');

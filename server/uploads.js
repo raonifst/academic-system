@@ -37,6 +37,7 @@ Meteor.methods({
     });
     return resultCode;
   },
+
   updateAcademicRecordData(data) {
     const currentUser = Meteor.userId();
     var completeUpdate = true;
