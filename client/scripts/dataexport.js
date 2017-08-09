@@ -12,7 +12,7 @@ Template.exportdata.helpers({
 });
 
 Template.exportdata.events({
-  "click .btn-export": function(type) {
+  'click .btn-export': function(type) {
     if (this.type == 'records')
       console.log('exportar records');
     else if (this.type == 'courses')
