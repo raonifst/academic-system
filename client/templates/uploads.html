@@ -5,7 +5,8 @@
       <h4>Estrutura Curricular</h4>
       {{> uploadButton}}
       <div class="center">
-        {{> removeButton method="toCleanCourses"}}
+        {{> exportbutton type="records"}}
+        {{> removebutton method="toCleanCourses"}}
       </div>
     </div>
   {{/if}}
@@ -18,7 +19,8 @@
       <h4>Histórico Acadêmico</h4>
       {{> uploadButton}}
       <div class="center">
-        {{> removeButton method="toCleanRecords"}}
+        {{> exportbutton type="records"}}
+        {{> removebutton method="toCleanRecords"}}
       </div>
     </div>
   {{/if}}

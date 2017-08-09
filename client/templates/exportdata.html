@@ -1,0 +1,12 @@
+<!--########## BOTÃO DE EXPORTAR ##########-->
+<template name="exportbutton">
+  {{> exportdata}}
+</template>
+
+<template name="exportdata">
+  {{#if uploaded}}
+    <button class="btn btn-export waves-effect waves-light">
+      <i class="material-icons">file_download</i>exportar
+    </button>
+  {{/if}}
+</template>
