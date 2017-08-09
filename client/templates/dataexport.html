@@ -4,9 +4,7 @@
 </template>
 
 <template name="dataexport">
-  {{#if uploaded}}
-    <button class="btn btn-export waves-effect waves-light">
+    <button class="btn {{uploaded}}">
       <i class="material-icons">file_download</i>exportar
     </button>
-  {{/if}}
 </template>

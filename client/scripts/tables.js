@@ -29,6 +29,13 @@ Template.tablecurricularstructure.helpers({
   },
 });
 
+Template.tablecurricularstructure.events({
+  'click .reactive-table tbody tr': function (event) {
+     event.preventDefault();
+     console.log(this.nome);
+   }
+});
+
 /*-------------------- TABLE ACADEMIC RECORDS --------------------*/
 Template.tableacademicrecords.helpers({
   listaAlunos() {

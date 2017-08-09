@@ -13,3 +13,10 @@ Template.dataremove.events({
     });
   },
 });
+
+Template.dataremove.helpers({
+  uploaded(){
+    /*if (true)*/ return 'btn-delete waves-effect waves-light';
+    /*else*/ return 'disabled';
+  }
+})

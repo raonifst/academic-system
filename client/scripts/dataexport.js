@@ -7,8 +7,9 @@ Template.dataexport.helpers({
   uploaded() {
     /*const currentUserId = Meteor.userId();
     const user = (currentUserId)? Users.findOne({ idUser: currentUserId }):null;
-    return user && Users.findOne({ idUser: currentUserId }).uploadedCurricularStructure*/
-    return true;
+    return user && Users.findOne({ idUser: currentUserId }).uploadedCurricularStructure
+    if (true)*/ return 'btn-export  waves-effect waves-light';
+    /*else */ return 'disabled';
   }
 });
 

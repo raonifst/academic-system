@@ -24,7 +24,7 @@ body {
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--cor-bg);
+  background: tranparency;
 }
 
 a:active,
@@ -94,6 +94,7 @@ div.nav-wrapper {
   nav a.button-collapse {
     display: block;
   }
+
   .container {
     margin-left: 270px;
   }
@@ -140,6 +141,10 @@ div.cardtable1 {
 
   div.cardlogin {
     width: 280px !important;
+  }
+
+  div.cardtable1{
+    font-size: 11px !important;
   }
 }
 
