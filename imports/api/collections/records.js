@@ -28,8 +28,26 @@ Records.schema = new SimpleSchema({
     type: Number,
     min: 1,
     max: 4
+  },
+  createdBy: {
+    type: String
   }
 });
+
+// Função utilizada para conversão de valores recebidos do csv para o formato correto definido
+// na validação
+Records.parser = function(jsonObj) {
+  const currentUser = Meteor.userId();
+  return {
+    rga:        parseInt(jsonObj.rga),
+    nome:       jsonObj.nome,
+    disciplina: jsonObj.disciplina,
+    situacao:   jsonObj.situacao,
+    ano:        parseInt(jsonObj.ano),
+    semestre:   parseInt(jsonObj.semestre),
+    createdBy:  currentUser
+  };
+};
 
 // Permissões 1
 Records.allow({ // O usuário precisa estar "logado" e deve ser o proprietário do documento
@@ -54,5 +72,4 @@ Records.deny({
     return _.contains(fields, 'createdBy');
   }
 });
-
 export default Records;

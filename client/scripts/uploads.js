@@ -106,17 +106,16 @@ Template.uploadacademicrecord.events({
       skipEmptyLines: true,
 
       step(row, parser) {
+        var peg = Records.parser(row.data[0]);
         try {
-          console.log(row.data[0]);
-          Records.schema.validate(row.data[0]);
-          console.log(row.data[0]);
+          Records.schema.validate(peg);
         } catch (err) {
           Bert.alert('Este não é um arquivo CSV válido.', 'danger', 'growl-top-right' );
           globalError = true;
           template.uploading.set(false);
           parser.abort();
         }
-        data.push(row.data[0]);
+        data.push(peg);
       },
 
       complete() {

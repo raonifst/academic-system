@@ -1,4 +1,8 @@
+import {Meteor} from 'meteor/meteor';
+import Courses from '../../imports/api/collections/courses'
+import Records from '../../imports/api/collections/records'
 reinc = function reinc(item) {
+  const currentUser = Meteor.userId();
   return Records.find({
     rga: item.rga,
     disciplina: item.disciplina,
@@ -26,6 +30,10 @@ ApprovedAndRecidivists = function ApprovedAndRecidivists(item) {
     if(reincident==1){
       aprovtwo = aprovtwo+1;
     }
+    Courses.update(
+      { _id: id_disciplina },
+      {$set: {aprovacoes:aprov,alunos:alunos, aprov2:aprovtwo} });
+}
   else{
     if(reincident==1){
       reincidenciaaux = reincidenciaaux+1;
@@ -60,4 +68,3 @@ ApprovedAndRecidivists = function ApprovedAndRecidivists(item) {
               perc_aprov2:percentl
               }});
   }
-}
