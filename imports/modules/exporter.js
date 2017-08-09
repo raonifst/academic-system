@@ -1,4 +1,4 @@
-export const exportdata = {
+export const Exporter = {
   courses(collection) {
     var fields = [
       "codigo",

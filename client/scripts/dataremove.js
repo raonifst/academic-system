@@ -1,4 +1,4 @@
-Template.removedata.events({
+Template.dataremove.events({
   'click .btn-delete': function (event, template) {
     if (!window.confirm("Você tem certeza? Esta operação não pode ser desfeita."))
       return;

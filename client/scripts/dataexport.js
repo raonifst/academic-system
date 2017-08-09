@@ -1,8 +1,9 @@
 import Courses from "../../imports/api/collections/courses";
 import Records from "../../imports/api/collections/records";
+import Exporter from "../../imports/modules/exporter";
 
 /*-------------------- EXPORT COURSES --------------------*/
-Template.exportdata.helpers({
+Template.dataexport.helpers({
   uploaded() {
     /*const currentUserId = Meteor.userId();
     const user = (currentUserId)? Users.findOne({ idUser: currentUserId }):null;
@@ -11,7 +12,7 @@ Template.exportdata.helpers({
   }
 });
 
-Template.exportdata.events({
+Template.dataexport.events({
   'click .btn-export': function(type) {
     if (this.type == 'records')
       console.log('exportar records');

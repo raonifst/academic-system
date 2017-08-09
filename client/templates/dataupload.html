@@ -3,7 +3,7 @@
   {{#if currentUser}}
     <div class="card card3">
       <h4>Estrutura Curricular</h4>
-      {{> uploadButton}}
+      {{> uploadbutton}}
       <div class="center">
         {{> exportbutton type="courses"}}
         {{> removebutton method="toCleanCourses"}}
@@ -17,7 +17,7 @@
   {{#if currentUser}}
     <div class="card card3">
       <h4>Histórico Acadêmico</h4>
-      {{> uploadButton}}
+      {{> uploadbutton}}
       <div class="center">
         {{> exportbutton type="records"}}
         {{> removebutton method="toCleanRecords"}}
@@ -27,7 +27,7 @@
 </template>
 
 <!--########## BOTÃO DE UPLOAD ##########-->
-<template name="uploadButton">
+<template name="uploadbutton">
   {{#unless uploading}}
     <form action="#">
       <div class="file-field input-field">
