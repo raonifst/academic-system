@@ -16,8 +16,8 @@ Meteor.startup(() => {
       $set:
       { name:             'Fabricio Barbosa de Carvalho',
         gradProgram:      'Engenharia de Computação',
-        currentYear:      '2014',
-        currentSemester:  '2',
+        currentYear:      2014,
+        currentSemester:  2,
       }
     });
   }
