@@ -1,6 +1,3 @@
-import Settings from '../../imports/api/collections/settings';
-
-
 /*--------------- LAYOUT HELPERS ---------------*/
 
 Template.navbar.helpers({
@@ -17,7 +14,7 @@ Template.navbar.helpers({
   },
 });
 
-/*--------------- SETTINGS NAVBAR ---------------*/
+/*--------------- SETTINGS NAVBAR ---------------
 
 Template.settingsNavbar.helpers({
   settings() {
@@ -45,3 +42,4 @@ Template.settingsNavbar.events({
     }
   },
 });
+*/

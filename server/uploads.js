@@ -3,6 +3,7 @@ import {uploadDataStatus} from "../imports/utils/status"
 import Courses from '../imports/api/collections/courses'
 import Records from '../imports/api/collections/records'
 import '../imports/utils/auxiliar'
+
 Meteor.methods({
   uploadCurricularStruture(data) {
     var resultCode = uploadDataStatus.SUCCESS;
@@ -37,6 +38,7 @@ Meteor.methods({
     });
     return resultCode;
   },
+  
   updateAcademicRecordData(data) {
     const currentUser = Meteor.userId();
     var completeUpdate = true;

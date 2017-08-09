@@ -1,6 +1,5 @@
 import { Meteor } from 'meteor/meteor'
 import { AccountsServer } from 'meteor/accounts-base'
-import Settings from '../imports/api/collections/settings';
 import '../imports/api/server/publishs.js'
 
 Meteor.startup(() => {
@@ -19,14 +18,9 @@ Meteor.startup(() => {
         gradProgram:      'Engenharia de Computação',
         currentYear:      '2014',
         currentSemester:  '2',
+        navbarfixed:      true,
+        menufixed:        true,
       }
-    });
-
-    console.log("Insere Settings");
-    Settings.insert({
-      navbarfixed:        true,
-      menufixed:          true,
-      createdBy:          usrId,
     });
   }
 });
