@@ -6,7 +6,8 @@
       {{> uploadbutton}}
       <div class="center">
         {{> exportbutton type="courses"}}
-        {{> removebutton method="toCleanCourses"}}
+        {{> removebutton method="toCleanCourses"
+          changeflagmethod="changeUserUploadCurricularStructureFlag"}}
       </div>
     </div>
   {{/if}}
@@ -20,7 +21,8 @@
       {{> uploadbutton}}
       <div class="center">
         {{> exportbutton type="records"}}
-        {{> removebutton method="toCleanRecords"}}
+        {{> removebutton method="toCleanRecords"
+          changeflagmethod="changeUserUploadAcademicRecordsFlag"}}
       </div>
     </div>
   {{/if}}

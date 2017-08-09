@@ -5,8 +5,9 @@ Template.dataremove.events({
 
     Meteor.call(this.method, (error, results) => {
       if (results) {
-        Bert.alert(this.method+': Troca a msg', 'success', 'growl-top-right');
-        /*Meteor.call('changeUserUploadCurricularStructureFlag');*/
+        Bert.alert(this.method + ': Troca a msg', 'success', 'growl-top-right');
+        Meteor.call(this.changeflagmethod);
+        Meteor.call('changeCurrentSemester', 1);
       } else {
         Bert.alert('Já está vazio.', 'warning', 'growl-top-right' );
       }

@@ -5,6 +5,7 @@ import {ReactiveVar} from "meteor/reactive-var";
 import {CsvUtils} from "../../imports/modules/csvutils";
 import {uploadDataStatus} from "../../imports/modules/status";
 import {CoursesGraph, validateCoursesGraph} from "../../imports/modules/coursesgraph";
+import {msgUploadCourses, msgUploadRecords} from "../../imports/modules/bertmessages";
 
 /*-------------------- UPLOAD CURRICULAR STRUCTURE --------------------*/
 Template.uploadcurricularstructure.onCreated(() => {
@@ -27,14 +28,11 @@ Template.uploadcurricularstructure.events({
       skipEmptyLines: true,
 
       step(row, parser) {
-        //console.log(row.data[0]);
         var reg = Courses.parser(row.data[0]);
-
         try {
-          //console.log(reg);
           Courses.schema.validate(reg);
         } catch (err) {
-          Bert.alert('Este não é um arquivo CSV válido: ' + err.reason, 'danger', 'growl-top-right' );
+          Bert.alert(msgUploadCourses.msgErrorInvalidCsv, 'danger', 'growl-top-right' );
           globalError = true;
           template.uploading.set(false);
           parser.abort();
@@ -60,19 +58,16 @@ Template.uploadcurricularstructure.events({
           else {
             switch (results) {
               case uploadDataStatus.SUCCESS:
-                Bert.alert('Upload completado com sucesso!', 'success', 'growl-top-right');
+                Bert.alert(msgUploadCourses.msgSuccessUpload, 'success', 'growl-top-right');
                 break;
               case uploadDataStatus.WARNINGS:
-                Bert.alert('Upload completado com sucesso! Alguns itens repetidos foram ignorados.',
-                  'warning', 'growl-top-right');
+                Bert.alert(msgUploadCourses.msgWarningUpload, 'warning', 'growl-top-right');
                 break;
               case uploadDataStatus.ERROR:
-                Bert.alert('Upload parcialmente completado. Itens com erros no campo de' +
-                  ' pré-requisitos não foram adicionados. Corrija-os e tente novamente',
-                  'warning', 'growl-top-right');
+                Bert.alert(msgUploadCourses.msgErrorsUpload, 'warning', 'growl-top-right');
                 break;
             }
-            //Meteor.call('changeUserUploadCurricularStructureFlag');
+            Meteor.call('changeUserUploadCurricularStructureFlag');
           }
           template.uploading.set(false);
         });
@@ -108,7 +103,7 @@ Template.uploadacademicrecord.events({
         try {
           Records.schema.validate(peg);
         } catch (err) {
-          Bert.alert('Este não é um arquivo CSV válido.', 'danger', 'growl-top-right' );
+          Bert.alert(msgUploadRecords.msgErrorInvalidCsv, 'danger', 'growl-top-right' );
           globalError = true;
           template.uploading.set(false);
           parser.abort();
@@ -124,17 +119,19 @@ Template.uploadacademicrecord.events({
           if (error)
             Bert.alert('Unknown internal error.', 'danger', 'growl-top-right');
           else {
-            if (results == 1)
-              Bert.alert('Upload completado com sucesso! Alguns itens repetidos foram ignorados.',
-                'warning', 'growl-top-right');
-            else if (results==2) {
-              Bert.alert('Upload completado com sucesso! Alguns disciplinas que não estão na estrutura foram ignoaradas',
-                'warning', 'growl-top-right');
+            switch (results) {
+              case uploadDataStatus.SUCCESS:
+                Bert.alert(msgUploadRecords.msgSuccessUpload, 'success', 'growl-top-right');
+                break;
+              case uploadDataStatus.WARNINGS:
+                Bert.alert(msgUploadRecords.msgWarningUpload, 'warning', 'growl-top-right');
+                break;
+              case uploadDataStatus.ERROR:
+                Bert.alert(msgUploadRecords.msgErrorsUpload, 'warning', 'growl-top-right');
+                break;
             }
-            else
-              Bert.alert('Upload completado com sucesso!', 'success', 'growl-top-right');
-            /*Meteor.call('changeCurrentSemester', data[data.length - 1], 0);
-            Meteor.call('changeUserUploadAcademicRecordsFlag');*/
+            Meteor.call('changeCurrentSemester', 0);
+            Meteor.call('changeUserUploadAcademicRecordsFlag');
           }
           template.uploading.set(false);
         });

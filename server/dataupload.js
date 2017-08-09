@@ -40,9 +40,7 @@ Meteor.methods({
   },
 
   updateAcademicRecordData(data) {
-    const currentUser = Meteor.userId();
-    var completeUpdate = true;
-    var discError = false;
+    var resultCode = uploadDataStatus.SUCCESS;
 
     data.forEach(item => {
       const existHist = Records.find({
@@ -50,30 +48,78 @@ Meteor.methods({
         disciplina: item.disciplina,
         ano: item.ano,
         semestre: item.semestre,
-        createdBy: currentUser
+        createdBy: Meteor.userId()
       }).count();
+
       const existDisc = Courses.find({nome: item.disciplina}).count();
-      console.log(existDisc);
-      if(existDisc!=0&&existHist==0){
-  //Dados de cada disicplina
-      console.log("reincidencia");
-      ApprovedAndRecidivists(item);
-    }
-  // Pré-condição: Verifica se os items já estão no banco de dados
-      if(existDisc == 0){
-        console.log("não inseriu dados");
-        completeUpdate=2;
-        return;
+
+      if (existDisc !=0 && existHist == 0) {
+        //Dados de cada disicplina
+        console.log("reincidencia");
+        // TODO ApprovedAndRecidivists não está funcionando. Exportar corretamente a função.
+        ApprovedAndRecidivists(item);
       }
-      else {
-        if (existHist !== 0) {
-        completeUpdate = false;
+      // Pré-condição: Verifica se os items já estão no banco de dados
+      if (existDisc == 0) {
+        console.log("não inseriu dados");
+        resultCode = uploadDataStatus.ERROR;
+        return;
+      } else if (existHist !== 0) {
+        resultCode = uploadDataStatus.WARNINGS;
         return; // Equivalente ao "continue" em um laço "for" explícito
-        }
       }
 
       Records.insert(item);
     });
-    return completeUpdate;
+    return resultCode;
   },
+
+  changeUserUploadCurricularStructureFlag() {
+    const currentUser = Meteor.userId();
+    const user = Meteor.users.findOne({ _id: currentUser });
+    if (user) {
+      const val = Meteor.users.findOne({ _id: currentUser }).uploadedCurricularStructure;
+      Meteor.users.update({ _id: currentUser },
+        {
+          $set: { uploadedCurricularStructure: !val }
+        });
+      console.log("Flag de upload de estrutura curricular alterado para: " + !val);
+    }
+  },
+
+  changeUserUploadAcademicRecordsFlag() {
+    const currentUser = Meteor.userId();
+    const user = Meteor.users.findOne({ _id: currentUser });
+    if (user) {
+      const val = Meteor.users.findOne({ _id: currentUser }).uploadedAcademicRecords;
+      Meteor.users.update({ _id: currentUser },
+        {
+          $set: { uploadedAcademicRecords: !val }
+        });
+      console.log("Flag de upload de histórico acadêmico alterado para: " + !val);
+    }
+  },
+
+  changeCurrentSemester(resetFlag) {
+    var cSemester = "-";
+    var cYear = "-";
+    const currentUser = Meteor.userId();
+    const user = Meteor.users.findOne({ _id: currentUser });
+
+    const semesterParser = function (n) { return ((n + 1) % 2) + 1; };
+
+    if (user) {
+      if (!resetFlag) {
+        const record = Records.findOne({ createdBy: currentUser},
+          { sort: { ano: -1, semestre: -1} });
+        cSemester = semesterParser(record.semestre + 1);
+        cYear = (cSemester == 1) ? record.ano + 1 : record.ano;
+      }
+      Meteor.users.update({ _id: currentUser },
+        {
+          $set: { currentYear: cYear, currentSemester: cSemester }
+        });
+      console.log('Semestre atual alterado para ' + cYear + '/' + cSemester);
+    }
+  }
 });
