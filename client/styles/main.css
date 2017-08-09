@@ -161,6 +161,8 @@ div.cardtable1 {
   width: 180px;
   margin: 3px;
   box-shadow: unset;
+  height: 36px !important;
+  line-height: 36px !important;
 }
 
 .btn:hover {
