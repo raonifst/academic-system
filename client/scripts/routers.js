@@ -95,3 +95,27 @@ Router.route('/login', {
     }
   },
 });
+
+Router.route('/recuperar', {
+  template: 'recpsw',
+  name: 'recpsw',
+  onBeforeAction() {
+    if (!Meteor.userId()) {
+      this.next();
+    } else {
+      this.render("home");
+    }
+  },
+});
+
+Router.route('/registrar', {
+  template: 'reg',
+  name: 'reg',
+  onBeforeAction() {
+    if (!Meteor.userId()) {
+      this.next();
+    } else {
+      this.render("home");
+    }
+  },
+});

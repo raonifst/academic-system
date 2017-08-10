@@ -192,6 +192,22 @@ div.cardtable {
   width: auto !important;
 }
 
+/********** TABLES **********/
+
+tr {
+  color: #555 !important;
+}
+
+.pintarpar {
+  background-color: var(--cor-bg);
+}
+
+.rmv,
+.edit {
+  cursor: pointer;
+  color: #555 !important;
+}
+
 /********** ICONS **********/
 
 .material-icons {
@@ -209,7 +225,7 @@ div.cardtable {
   direction: ltr;
   -webkit-font-feature-settings: 'liga';
   -webkit-font-smoothing: antialiased;
-  color: rgba(255, 255, 255, 1);
+  color: #fff;
 }
 
 @font-face {

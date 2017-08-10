@@ -17,8 +17,33 @@
       <br>
       <button class="btn btn-normal waves-effect waves-light">Entrar</button>
     </form>
-    <div class="grey-text text-darken-1">
-      <a href="#" class="grey-text text-darken-1"><p style="margin: 0px;">Esqueceu a senha?</p>Criar conta</a>
-    </div>
+    <p style="margin: 0px;">
+      <a href="{{pathFor route='recpsw'}}" class="grey-text text-darken-1">Recuperar senha</a>
+    </p>
+    <a href="{{pathFor route='reg'}}" class="grey-text text-darken-1">Criar conta</a>
   </div>
+</template>
+
+<template name="recpsw">
+  <div class="card cardlogin">
+    <h4>Recuperar Senha</h4>
+    {{> formpsw}}
+    <a href="{{pathFor route='login'}}" class="grey-text text-darken-1" style="text-align: left;">← Voltar</a>
+  </div>
+</template>
+
+<template name="formpsw">
+  <br><br><br><br><br><br><br><br><br><br>
+</template>
+
+<template name="reg">
+  <div class="card cardlogin">
+    <h4>Criar Conta</h4>
+    {{> formreg}}
+    <a href="{{pathFor route='login'}}" class="grey-text text-darken-1" style="text-align: left;">← Voltar</a>
+  </div>
+</template>
+
+<template name="formreg">
+  <br><br><br><br><br><br><br><br><br><br>
 </template>

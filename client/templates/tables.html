@@ -3,23 +3,39 @@
   {{#if currentUser}}
     {{#if uploaded}}
       <div class="card cardtable">
-        <table class="mdl-data-table mdl-shadow--2dp">
-          {{> reactiveTable collection=listaDisiciplinas settings=settings}}
-        </table>
+        {{> reactiveTable collection=listaDisiciplinas settings=settings}}
       </div>
     {{/if}}
   {{/if}}
 </template>
+
 
 <!--##########  TABELA REGISTO ACADÊMICO ##########-->
 <template name="tableacademicrecords">
   {{#if currentUser}}
     {{#if uploaded}}
       <div class="card cardtable">
-        <table class="mdl-data-table mdl-shadow--2dp">
-          {{> reactiveTable collection=listaAlunos settings=settings}}
-        </table>
+        {{> reactiveTable collection=listaAlunos settings=settings}}
       </div>
     {{/if}}
   {{/if}}
+</template>
+
+
+<template name="error404">
+  <br><br><br>
+  <h5>Não encontrei nada :(</h5>
+  <br><br><br>
+</template>
+
+<template name="editing">
+  <i class="material-icons edit">edit</i>
+</template>
+
+<template name="apagar">
+  <i class="material-icons edit">clear</i>
+</template>
+
+<template name="discplina">
+  <input value="{{nome}}" type="text" style="width: 400px">
 </template>
