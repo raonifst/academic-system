@@ -1,14 +1,14 @@
 <!--########## UPLOAD ESTRUTURA CURRICULAR ##########-->
 <template name="uploadcurricularstructure">
   {{#if currentUser}}
-    <div class="card card3">
+    <div class="card card2">
       <h4>Estrutura Curricular</h4>
-      {{> uploadbutton}}
-        <div class="center">
-          {{> exportbutton type="courses"}}
-          {{> removebutton method="toCleanCourses"
-            changeflagmethod="changeUserUploadCurricularStructureFlag"}}
-        </div>
+      <span><div class="center">
+        {{> uploadbutton}}
+        {{> exportbutton type="courses"}}
+        {{> removebutton method="toCleanCourses"
+          changeflagmethod="changeUserUploadCurricularStructureFlag"}}
+      </div></span>
     </div>
   {{/if}}
 </template>
@@ -16,14 +16,14 @@
 <!--########## UPLOAD HISTÓRICO ACADÊMICO ##########-->
 <template name="uploadacademicrecord">
   {{#if currentUser}}
-    <div class="card card3">
+    <div class="card card2">
       <h4>Histórico Acadêmico</h4>
-      {{> uploadbutton}}
-        <div class="center">
-          {{> exportbutton type="records"}}
-          {{> removebutton method="toCleanRecords"
-            changeflagmethod="changeUserUploadAcademicRecordsFlag"}}
-        </div>
+      <span><div class="center">
+        {{> uploadbutton}}
+        {{> exportbutton type="records"}}
+        {{> removebutton method="toCleanRecords"
+          changeflagmethod="changeUserUploadAcademicRecordsFlag"}}
+      </div></span>
     </div>
   {{/if}}
 </template>
@@ -46,4 +46,16 @@
   {{else}}
     <p><i class="fa fa-spin fa-refresh"></i> Atualizando banco de dados... Aguarde...</p>
   {{/unless}}
+</template>
+
+<template name="uploadbutton2">
+  <form action="#">
+    <div class="file-field">
+      <div class="btn btn-upload waves-effect waves-light">
+        <i class="material-icons">file_upload</i>
+        <span>Upload</span>
+        <input type="file" class="uploadCSV" accept=".csv">
+      </div>
+    </div>
+  </form>
 </template>

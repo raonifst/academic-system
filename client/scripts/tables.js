@@ -7,11 +7,12 @@ Template.tablecurricularstructure.helpers({
     return Courses.find();
   },
 
-  /*uploaded() {
-    const currentUserId = Meteor.userId();
-    const user = (currentUserId)? Users.findOne({ idUser: currentUserId }) : null;
-    return user && Users.findOne({ idUser: currentUserId }).courses;
-  },*/
+  uploaded() {
+    const currentUser = Meteor.userId();
+    if (currentUser)
+      return Meteor.users.findOne({_id: currentUser}).uploadCoursesFlag;
+    return false;
+  },
 
   settings() {
     return {
@@ -42,11 +43,12 @@ Template.tableacademicrecords.helpers({
     return Records.find();
   },
 
-  /*uploaded() {
-    const currentUserId = Meteor.userId();
-    const user = (currentUserId)? Users.findOne({ idUser: currentUserId }) : null;
-    return user && Users.findOne({ idUser: currentUserId }).uploadRecordsFlag;
-  },*/
+  uploaded() {
+    const currentUser = Meteor.userId();
+    if (currentUser)
+      return Meteor.users.findOne({ _id: currentUser }).uploadRecordsFlag;
+    return false;
+  },
 
   settings() {
     return {

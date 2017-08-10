@@ -33,7 +33,10 @@
   </div>
   <script language="javascript">
   $(document).ready(function(){
-    $('.button-collapse').sideNav(/*{ closeOnClick: true }*/);
+    if (1)
+      $('.button-collapse').sideNav({ closeOnClick: false });
+    else
+      $('.button-collapse').sideNav({ closeOnClick: true });
   });
   </script>
 </template>

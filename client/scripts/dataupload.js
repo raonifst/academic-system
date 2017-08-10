@@ -16,13 +16,6 @@ Template.uploadcurricularstructure.helpers({
   uploading() {
     return Template.instance().uploading.get();
   },
-
-  /*uploaded() { Não está sendo utilizado
-    const currentUser = Meteor.userId();
-    if (currentUser)
-      return Meteor.users.findOne({_id: currentUser}).uploadCoursesFlag;
-    return false;
-  }*/
 });
 
 Template.uploadcurricularstructure.events({
@@ -93,13 +86,6 @@ Template.uploadacademicrecord.helpers({
   uploading() {
     return Template.instance().uploading.get();
   },
-
-  /*uploaded() { Não está sendo utilizado
-    const currentUser = Meteor.userId();
-    if (currentUser)
-      return Meteor.users.findOne({ _id: currentUser }).uploadRecordsFlag;
-    return false;
-  }*/
 });
 
 Template.uploadacademicrecord.events({

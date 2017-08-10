@@ -70,6 +70,10 @@ div.box2 {
   }
 }
 
+.container {
+  margin-top: 15px;
+}
+
 /********** NAV and FOOTER *********/
 
 div.nav-wrapper {
@@ -109,17 +113,13 @@ div.card {
   padding: 10px;
   position: relative;
   display: inline-block;
-  margin: 10px 10px 0px;
+  margin: 5px;
   color: var(--cor-font);
   width: 360px;
   max-width: 95%
 }
 
 div.card2 {
-  width: 510px;
-}
-
-div.card3 {
   width: 720px;
 }
 
@@ -127,9 +127,10 @@ div.cardlogin {
   width: 300px;
 }
 
-div.cardtable1 {
-  padding: 10px 10px 0px 5px;
+div.cardtable {
   width: 100%;
+  margin-left: 0px !important;
+  margin-right: 0px !important;
 }
 
 @media only screen and (max-width: 768px) {
@@ -143,7 +144,7 @@ div.cardtable1 {
     width: 280px !important;
   }
 
-  div.cardtable1{
+  div.cardtable{
     font-size: 11px !important;
   }
 }
