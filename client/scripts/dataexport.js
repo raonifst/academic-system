@@ -3,15 +3,17 @@ import Records from "../../imports/api/collections/records";
 import Exporter from "../../imports/modules/exporter";
 import { Meteor } from 'meteor/meteor'
 
-/*-------------------- EXPORT COURSES --------------------*/
 Template.dataexport.helpers({
-  uploaded() {
-    /*const currentUserId = Meteor.userId();
-    const user = (currentUserId)? Users.findOne({ idUser: currentUserId }):null;
-    return user && Users.findOne({ idUser: currentUserId }).uploadedCurricularStructure
-    if (true)*/ return 'btn-export  waves-effect waves-light';
-    /*else */ return 'disabled';
-  }
+  uploaded(type) {
+    const currentUser = Meteor.userId();
+    if (currentUser)
+      if ((type == 'courses' &&
+          Meteor.users.findOne({_id: currentUser}).uploadCoursesFlag) ||
+          (type == 'records' &&
+          Meteor.users.findOne({ _id: currentUser }).uploadRecordsFlag))
+            return 'btn-export  waves-effect waves-light';
+    return 'disabled';
+  },
 });
 
 Template.dataexport.events({

@@ -1,3 +1,16 @@
+Template.dataremove.helpers({
+  uploaded(method){
+    const currentUser = Meteor.userId();
+    if (currentUser)
+      if ((method == 'toCleanCourses' &&
+          Meteor.users.findOne({_id: currentUser}).uploadCoursesFlag) ||
+          (method == 'toCleanRecords' &&
+          Meteor.users.findOne({ _id: currentUser }).uploadRecordsFlag))
+            return 'btn-delete waves-effect waves-light';
+    return 'disabled';
+  },
+})
+
 Template.dataremove.events({
   'click .btn-delete': function (event, template) {
     if (!window.confirm("Você tem certeza? Esta operação não pode ser desfeita."))
@@ -14,10 +27,3 @@ Template.dataremove.events({
     });
   },
 });
-
-Template.dataremove.helpers({
-  uploaded(){
-    /*if (true)*/ return 'btn-delete waves-effect waves-light';
-    /*else*/ return 'disabled';
-  }
-})
