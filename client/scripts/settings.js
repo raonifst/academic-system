@@ -1,13 +1,13 @@
 /*--------------- LAYOUT HELPERS ---------------*/
 
 Template.navbar.helpers({
-  navbarfixed() {
+  navbarFixed() {
     if (1)
       return 'navbar-fixed';
     else return '';
   },
 
-  menufixed() {
+  menuFixed() {
     if (1)
       return 'fixed';
     else return '';
@@ -36,9 +36,9 @@ Template.settingsNavbar.events({
   'change .checkbox': function(event){
     console.log(this._id, this.navbarchecke);
     if (this.navbarchecke) {
-      //Settings.update({ _id: this._id }, { $set: { navbarfixed: false }});
+      //Settings.update({ _id: this._id }, { $set: { navbarFixed: false }});
     } else {
-      //Settings.update({ _id: this._id }, { $set: { navbarfixed: true }});
+      //Settings.update({ _id: this._id }, { $set: { navbarFixed: true }});
     }
   },
 });

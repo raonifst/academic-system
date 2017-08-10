@@ -4,11 +4,13 @@
     <div class="card card3">
       <h4>Estrutura Curricular</h4>
       {{> uploadbutton}}
-      <div class="center">
-        {{> exportbutton type="courses"}}
-        {{> removebutton method="toCleanCourses"
-          changeflagmethod="changeUserUploadCurricularStructureFlag"}}
-      </div>
+      {{#if uploaded}}
+        <div class="center">
+          {{> exportbutton type="courses"}}
+          {{> removebutton method="toCleanCourses"
+            changeflagmethod="changeUserUploadCurricularStructureFlag"}}
+        </div>
+      {{/if}}
     </div>
   {{/if}}
 </template>
@@ -19,11 +21,13 @@
     <div class="card card3">
       <h4>Histórico Acadêmico</h4>
       {{> uploadbutton}}
-      <div class="center">
-        {{> exportbutton type="records"}}
-        {{> removebutton method="toCleanRecords"
-          changeflagmethod="changeUserUploadAcademicRecordsFlag"}}
-      </div>
+      {{#if uploaded}}
+        <div class="center">
+          {{> exportbutton type="records"}}
+          {{> removebutton method="toCleanRecords"
+            changeflagmethod="changeUserUploadAcademicRecordsFlag"}}
+        </div>
+      {{/if}}
     </div>
   {{/if}}
 </template>

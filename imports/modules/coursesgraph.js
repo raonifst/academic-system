@@ -4,6 +4,12 @@ const GraphColors = Object.freeze({
   BLACK: 2
 });
 
+const msgCoursesGraph = Object.freeze({
+  msgCycleError: "Listas de pré-requisitos contém um ou mais ciclos. " +
+                  "Corrija-os e tente novamente!",
+  msgCourseNotFound: "Estrutura contém uma ou mais disciplinas com código inválido."
+});
+
 export class CoursesGraph {
   constructor(coursesArray) {
     this.gMap = new Map();
@@ -14,7 +20,7 @@ export class CoursesGraph {
 
   _depthFirstSearch(initialVertexCode, visitedMap, outputList) {
     var stack = [];
-    var uKey, uAdjList, vKey, vColor, vAdjList, isVertexLeaf;
+    var uKey, uAdjList, isVertexLeaf;
     stack.push(initialVertexCode);
 
     while (stack.length > 0) {
@@ -23,22 +29,19 @@ export class CoursesGraph {
       uAdjList = this.gMap.get(uKey);
       visitedMap.set(uKey, GraphColors.GRAY);
 
-      for (var i = 0; i < uAdjList.length; i++) {
-        vKey = uAdjList[i];
-        vColor = visitedMap.get(vKey);
-        vAdjList = this.gMap.get(vKey);
-
+      uAdjList.forEach(vKey => {
+        var vColor = visitedMap.get(vKey);
+        var vAdjList = this.gMap.get(vKey);
         if (!vAdjList) {
           // TODO substituir string (no throw) por ValidateError
-          throw "Estrutura contém um ou mais códigos de disciplinas inválidos.";
+          throw msgCoursesGraph.msgCourseNotFound;
         } else if (vColor == GraphColors.WHITE) {
           stack.push(vKey);
           isVertexLeaf = 0;
         } else if (vColor == GraphColors.GRAY) { // Grafo contém ciclo
-          throw "Listas de pré-requisitos contém um ou mais ciclos. " +
-            "Corrija-os e tente novamente!";
+          throw msgCoursesGraph.msgCycleError;
         }
-      }
+      });
 
       if (isVertexLeaf) {
         visitedMap.set(uKey, GraphColors.BLACK);

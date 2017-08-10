@@ -14,12 +14,15 @@ Meteor.publish('user', function () {
   if (this.userId) {
     return Meteor.users.find({ _id: this.userId }, {
       fields: {
-        name:             1,
-        gradProgram:      1,
-        currentYear:      1,
-        currentSemester:  1,
-        navbarfixed:      1,
-        menufixed:        1,
+        name:               1,
+        gradProgram:        1,
+        currentYear:        1,
+        currentSemester:    1,
+        passwordFlag:       1,
+        uploadCoursesFlag:  1,
+        uploadRecordsFlag:  1,
+        navbarFixed:        1,
+        menuFixed:          1,
       }
     });
   } else {

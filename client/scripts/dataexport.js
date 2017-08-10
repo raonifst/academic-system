@@ -1,6 +1,7 @@
 import Courses from "../../imports/api/collections/courses";
 import Records from "../../imports/api/collections/records";
 import Exporter from "../../imports/modules/exporter";
+import { Meteor } from 'meteor/meteor'
 
 /*-------------------- EXPORT COURSES --------------------*/
 Template.dataexport.helpers({

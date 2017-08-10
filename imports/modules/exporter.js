@@ -83,7 +83,7 @@ Template.exportercurricularstructure.helpers({
   uploaded: function() {
     const currentUserId = Meteor.userId();
     const user = (currentUserId)? Users.findOne({ idUser: currentUserId }):null;
-    return user && Users.findOne({ idUser: currentUserId }).uploadedCurricularStructure
+    return user && Users.findOne({ idUser: currentUserId }).uploadCoursesFlag
   }
 });
 
@@ -95,7 +95,7 @@ Template.exporterRecords.helpers({
   uploaded: function() {
     const currentUserId = Meteor.userId();
     const user = (currentUserId)? Users.findOne({ idUser: currentUserId }):null;
-    return user && Users.findOne({ idUser: currentUserId }).uploadedAcademicRecords
+    return user && Users.findOne({ idUser: currentUserId }).uploadRecordsFlag
 
   }
 });
