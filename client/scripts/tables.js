@@ -22,33 +22,32 @@ Template.tablecurricularstructure.helpers({
       showFilter: true,
       /*noDataTmpl: Template.error404,*/
       fields: [
-        { key: 'codigo',    label: 'Codigo',                    cellClass(value, object) { if (object.semestre%2) return 'pintarpar';}},
-        { key: 'nome',      label: 'Nome',                      cellClass(value, object) { if (object.semestre%2) return 'pintarpar';}, tmpl: Template.discplina},
-        { key: 'creditos',  label: 'Créditos',                  cellClass(value, object) { if (object.semestre%2) return 'pintarpar';}},
-        { key: 'perc_ap',   label: 'Aprovações',                cellClass(value, object) { if (object.semestre%2) return 'pintarpar';}},
-        { key: 'perc_reic', label: 'Reincidencia',              cellClass(value, object) { if (object.semestre%2) return 'pintarpar';}},
-        { key: 'perc_reic', label: 'Aprovado pela segunda vez', cellClass(value, object) { if (object.semestre%2) return 'pintarpar';}},
-        { sortable: false,  label: '', tmpl: Template.editing,  cellClass(value, object) { if (object.semestre%2) return 'pintarpar';}},
-        { sortable: false,  label: '', tmpl: Template.apagar,  cellClass(value, object) { if (object.semestre%2) return 'pintarpar';}},
+        { key: 'codigo',    label: 'Codigo',                    headerClass: 'titleheader',
+          cellClass(value, object) { if (!(object.semestre%2)) return 'cinza'; }},
+
+        { key: 'nome',      label: 'Nome',                      headerClass: 'titleheader', tmpl: Template.discplina,
+          cellClass(value, object) { if (!(object.semestre%2)) return 'cinza'; }},
+
+        { key: 'creditos',  label: 'Créditos',                  headerClass: 'titleheader',
+          cellClass(value, object) { if (!(object.semestre%2)) return 'cinza'; }},
+
+        { key: 'perc_ap',   label: 'Aprovações',                headerClass: 'titleheader', tmpl: Template.percap,
+          cellClass(value, object) { if (!(object.semestre%2)) return 'cinza num'; return 'num' },
+          fn(value, object, key) { return 100*object.perc_ap; }},
+
+        { key: 'perc_reic', label: 'Reincidencia',              headerClass: 'titleheader', tmpl: Template.percreic,
+          cellClass(value, object) { if (!(object.semestre%2)) return 'cinza num'; return 'num' },
+          fn(value, object, key) { return 100*object.perc_reic; }},
+
+        { key: 'perc_reic', label: 'Aprovado pela segunda vez', headerClass: 'titleheader', tmpl: Template.percreic,
+          cellClass(value, object) { if (!(object.semestre%2)) return 'cinza num'; return 'num' },
+          fn(value, object, key) { return 100*object.perc_reic; }},
+
+        { sortable: false,  label: '',                          headerClass: 'titleheader', tmpl: Template.editing,
+          cellClass(value, object) { if (!(object.semestre%2)) return 'cinza'; }},
       ]
     };
   },
-
-  'selectedLine': function(){
-      return selected;
-  },
-});
-
-Template.tablecurricularstructure.events({
-  'click .reactive-table tbody tr': function (event) {
-    event.preventDefault();
-    console.log(event.target.className);
-    Session.set('editcourse', this);
-    if (event.target.className == 'material-icons edit')
-      console.log(this._id, this.nome+'\nSó Levar para o formulário');
-    if (event.target.className == 'material-icons rmv')
-      console.log(this._id, this.nome+'\nSó Apagar');
-   },
 });
 
 /*-------------------- TABLE ACADEMIC RECORDS --------------------*/
@@ -69,24 +68,53 @@ Template.tableacademicrecords.helpers({
     return {
       rowsPerPage: 10,
       showFilter: true,
+      /*noDataTmpl: Template.error404,*/
       fields: [
-        { key: 'rga',         label: 'RGA',         cellClass: 'col-md-4' },
-        { key: 'nome',        label: 'Nome',        cellClass: 'col-md-4' },
-        { key: 'disciplina',  label: 'Disciplina',  cellClass: 'col-md-4' },
-        { key: 'situacao',    label: 'Situação',    cellClass: 'col-md-4' },
-        { key: 'ano',         label: 'Ano',         cellClass: 'col-md-4' },
-        { key: 'semestre',    label: 'Semestre',    cellClass: 'col-md-4' },
-        { sortable: false,    label: '',            cellClass: 'col-md-4', tmpl: Template.editing },
+        { key: 'rga',         label: 'RGA',         headerClass: 'titleheader',
+          cellClass(value, object) { if (Session.get('selected') == object._id) return 'selected'; }},
+
+        { key: 'nome',        label: 'Nome',        headerClass: 'titleheader',
+          cellClass(value, object) { if (Session.get('selected') == object._id) return 'selected'; }},
+
+        { key: 'disciplina',  label: 'Disciplina',  headerClass: 'titleheader',
+          cellClass(value, object) { if (Session.get('selected') == object._id) return 'selected'; }},
+
+        { key: 'situacao',    label: 'Situação',    headerClass: 'titleheader',
+          cellClass(value, object) { if (Session.get('selected') == object._id) return 'selected'; }},
+
+        {                     label: 'Semestre',    headerClass: 'titleheader', tmpl: Template.anosemestre,
+          cellClass(value, object) { if (Session.get('selected') == object._id) return 'selected'; },
+          fn(value, object, key) { return 10*object.ano+object.semestre; }},
+
+        { sortable: false,    label: '', tmpl: Template.editing,
+          cellClass(value, object) { if (Session.get('selected') == object._id) return 'selected'; }},
       ]
     };
   },
 });
 
-Template.tableacademicrecords.events({
-  'click .reactive-table tbody tr': function (event) {
-     event.preventDefault();
-     Session.set('editrecord', this);
-     if (event.target.className == 'material-icons edit')
-       console.log(this._id, this.nome+'\nSó Levar para o formulário');
-   },
+Template.reactiveTable.events({
+  'click .rmv': function(event) {
+    event.preventDefault();
+    if (!window.confirm("Você tem certeza? Esta operação não pode ser desfeita."))
+        return;
+    console.log('Só apagar '+this.nome);
+  },
+
+  'click .edit': function(event) {
+    event.preventDefault();
+    console.log(this.nome+'\nSó Levar para o formulário');
+    $(document).ready(function(){
+  // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
+  $('.modal-trigger').leanModal();
+});
+  },
+
+  'mouseenter .reactive-table tbody tr':function(event) {
+    Session.set('selected', this._id);
+  },
+
+  'mouseleave .reactive-table tbody tr':function(event) {
+    Session.set('selected', 1);
+  }
 });

@@ -24,18 +24,29 @@
 
 <template name="error404">
   <br><br><br>
-  <h5>Não encontrei nada :(</h5>
+  <div class="center">
+    <i class="material-icons iconblack">mood_bad</i>
+  </div>
   <br><br><br>
 </template>
 
 <template name="editing">
   <i class="material-icons edit">edit</i>
-</template>
-
-<template name="apagar">
-  <i class="material-icons edit">clear</i>
+  <i class="material-icons rmv">clear</i>
 </template>
 
 <template name="discplina">
-  <input value="{{nome}}" type="text" style="width: 400px">
+  <input value="{{nome}}" type="text" style="width: 400px;">
+</template>
+
+<template name="anosemestre">
+  {{ano}}/{{semestre}}
+</template>
+
+<template name="percap">
+  {{perc_ap}}
+</template>
+
+<template name="percreic">
+  {{perc_reic}}
 </template>
