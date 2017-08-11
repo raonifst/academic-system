@@ -1,6 +1,7 @@
 import Courses from "../../imports/api/collections/courses";
 import Records from "../../imports/api/collections/records";
 
+import {Meteor} from 'meteor/meteor';
 import {ReactiveVar} from "meteor/reactive-var";
 import {CsvUtils} from "../../imports/modules/csvutils";
 import {uploadDataStatus} from "../../imports/modules/status";
