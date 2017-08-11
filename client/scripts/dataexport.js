@@ -28,3 +28,9 @@ Template.dataexport.events({
     }
   }
 });
+
+Template.dataexample.events({
+  'click .btn-example': function(type) {
+    Exporter.csvexample(this.type);
+  }
+});

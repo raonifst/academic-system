@@ -162,6 +162,10 @@ div.cardtable {
 
 /********** BUTTONS **********/
 
+.btn-example{
+  color: var(--cor-font) !important;
+}
+
 .btn {
   background-color: #5c6bc0 !important; /*indigo lighten-1*/
   display: inline-block !important;
