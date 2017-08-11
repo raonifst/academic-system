@@ -22,16 +22,21 @@
 </template>
 
 
-<template name="error404">
-  <br><br><br>
-  <div class="center">
-    <i class="material-icons iconblack">mood_bad</i>
-  </div>
-  <br><br><br>
-</template>
-
+<!--##########  TEMPLATES UTILIZADOS NAS TABELAS ##########-->
 <template name="editing">
-  <i class="material-icons edit">edit</i>
+  {{> autoformModals}}
+  {{#afModal
+    collection=""
+    operation="insert"
+    doc=""
+    title=_id
+    buttonCancelClasses="btn btn-delete waves-effect waves-light btn-form"
+    buttonCancelContent="Cancelar"
+    buttonSubmitClasses="btn waves-effect waves-light btn-form"
+    buttonContent="Atualizar"
+  }}
+    <i class="material-icons edit">edit</i>
+  {{/afModal}}
   <i class="material-icons rmv">clear</i>
 </template>
 
@@ -44,9 +49,17 @@
 </template>
 
 <template name="percap">
-  {{perc_ap}}
+  {{perc_ap}}%
 </template>
 
 <template name="percreic">
-  {{perc_reic}}
+  {{perc_reic}}%
+</template>
+
+<template name="error404">
+  <br><br><br>
+  <div class="center">
+    <i class="material-icons iconblack">mood_bad</i>
+  </div>
+  <br><br><br>
 </template>

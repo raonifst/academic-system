@@ -5,6 +5,7 @@
       <h4>Estrutura Curricular</h4>
       <span><div class="center">
         {{> uploadbutton}}
+        {{> addbutton collection="Courses"}}
         {{> exportbutton type="courses"}}
         {{> removebutton method="toCleanCourses"
           changeflagmethod="changeUserUploadCurricularStructureFlag"}}
@@ -20,6 +21,7 @@
       <h4>Histórico Acadêmico</h4>
       <span><div class="center">
         {{> uploadbutton}}
+        {{> addbutton collection="Records"}}
         {{> exportbutton type="records"}}
         {{> removebutton method="toCleanRecords"
           changeflagmethod="changeUserUploadAcademicRecordsFlag"}}

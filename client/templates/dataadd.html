@@ -1,0 +1,21 @@
+<template name="addbutton">
+  {{> add}}
+</template>
+
+<template name="add">
+  {{#afModal
+    collection=""
+    operation="insert"
+    title=collection
+    classes="btn"
+    buttonCancelClasses="btn btn-delete waves-effect waves-light btn-form"
+    buttonCancelContent="Cancelar"
+    buttonSubmitClasses="btn waves-effect waves-light btn-form"
+    buttonContent="Confirmar"
+  }}
+    <i class="material-icons">add</i>
+    Adicionar
+  {{/afModal}}
+  <!--{{collection}} <~ VER O QUE TEM DENTRO DE collections -->
+  {{> autoformModals}}
+</template>

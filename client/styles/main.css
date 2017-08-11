@@ -187,43 +187,13 @@ div.cardtable {
   background-color: #4caf50 !important; /*green lighten-1*/
 }
 
+.btn-form {
+  margin: 5px !important;
+}
+
 .login .btn {
   float: right;
   width: auto !important;
-}
-
-/********** TABLES **********/
-
-tr {
-  color: #555 !important;
-}
-
-.selected,
-.cinza {
-  background-color: var(--cor-bg);
-}
-
-.titleheader {
-  max-width: 120px !important;
-  font-size: 16px !important;
-  color: #5c6bc0;  /*indigo lighten-1*/
-}
-
-.num {
-  padding-right: 50px;
-  text-align: right !important;
-}
-
-.rmv,
-.edit {
-  margin-left: 10px;
-  cursor: pointer;
-  color: #555 !important;
-}
-
-.iconblack {
-  color: #555 !important;
-  font-size: 48px;
 }
 
 /********** ICONS **********/
@@ -251,4 +221,56 @@ tr {
   font-style: normal;
   font-weight: 400;
   src: url(http://fonts.gstatic.com/s/materialicons/v27/2fcrYFNaTjcS6g4U3t-Y5ZjZjT5FdEJ140U2DJYC3mY.woff2) format('woff2');
+}
+
+/********** TABLES **********/
+
+tr {
+  color: #555 !important;
+}
+
+.selected,
+.cinza {
+  background-color: var(--cor-bg);
+}
+
+.titleheader {
+  max-width: 100px !important;
+  font-size: 16px !important;
+  color: #5c6bc0;  /*indigo lighten-1*/
+}
+
+.num {
+  padding-right: 50px;
+  text-align: right !important;
+}
+
+.rmv,
+.edit {
+  margin-left: 5px;
+  cursor: pointer;
+  color: #555 !important;
+}
+
+.iconblack {
+  color: #555 !important;
+  font-size: 48px;
+}
+
+@media not screen and (min-width: 769px) {
+  .titleheader {
+    font-size: 10px !important;
+  }
+
+  .rmv,
+  .edit {
+    margin: 5px;
+    cursor: pointer;
+    color: #555 !important;
+    font-size: 14px !important;
+  }
+
+  tr {
+    font-size: 10px;
+  }
 }

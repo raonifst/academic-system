@@ -25,7 +25,7 @@ Template.tablecurricularstructure.helpers({
         { key: 'codigo',    label: 'Codigo',                    headerClass: 'titleheader',
           cellClass(value, object) { if (!(object.semestre%2)) return 'cinza'; }},
 
-        { key: 'nome',      label: 'Nome',                      headerClass: 'titleheader', tmpl: Template.discplina,
+        { key: 'nome',      label: 'Nome',                      headerClass: 'titleheader', /*tmpl: Template.discplina,*/
           cellClass(value, object) { if (!(object.semestre%2)) return 'cinza'; }},
 
         { key: 'creditos',  label: 'Créditos',                  headerClass: 'titleheader',
@@ -93,21 +93,23 @@ Template.tableacademicrecords.helpers({
   },
 });
 
+/*-------------------- AÇÕES DENTRO DAS TABELAS --------------------*/
 Template.reactiveTable.events({
+  listaDisiciplinas() {
+    return Courses.find();
+  },
+
   'click .rmv': function(event) {
     event.preventDefault();
     if (!window.confirm("Você tem certeza? Esta operação não pode ser desfeita."))
         return;
     console.log('Só apagar '+this.nome);
+    console.log(this.schema);
   },
 
   'click .edit': function(event) {
     event.preventDefault();
     console.log(this.nome+'\nSó Levar para o formulário');
-    $(document).ready(function(){
-  // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
-  $('.modal-trigger').leanModal();
-});
   },
 
   'mouseenter .reactive-table tbody tr':function(event) {
@@ -116,5 +118,22 @@ Template.reactiveTable.events({
 
   'mouseleave .reactive-table tbody tr':function(event) {
     Session.set('selected', 1);
+  }
+});
+
+/*-------------------- ÁREA DE TESTES --------------------*/
+Template.editing.helpers({
+  courses() {
+    return Courses.schema;
+  },
+});
+
+Template.add.helpers({
+  testcourses() {
+    return Courses.find();
+  },
+
+  testrecords() {
+    return Records.find();
   }
 });
