@@ -71,7 +71,8 @@ Template.tableacademicrecords.helpers({
       /*noDataTmpl: Template.error404,*/
       fields: [
         { key: 'rga',         label: 'RGA',         headerClass: 'titleheader',
-          cellClass(value, object) { if (Session.get('selected') == object._id) return 'selected'; }},
+          cellClass(value, object) { if (Session.get('selected') == object._id) return 'selected'; },
+          sortOrder: 1, sortDirection: -1},
 
         { key: 'nome',        label: 'Nome',        headerClass: 'titleheader',
           cellClass(value, object) { if (Session.get('selected') == object._id) return 'selected'; }},
@@ -84,7 +85,8 @@ Template.tableacademicrecords.helpers({
 
         {                     label: 'Semestre',    headerClass: 'titleheader', tmpl: Template.anosemestre,
           cellClass(value, object) { if (Session.get('selected') == object._id) return 'selected'; },
-          fn(value, object, key) { return 10*object.ano+object.semestre; }},
+          fn(value, object, key) { return 10*object.ano+object.semestre; },
+          sortOrder: 0, sortDirection: -1 },
 
         { sortable: false,    label: '', tmpl: Template.editing,
           cellClass(value, object) { if (Session.get('selected') == object._id) return 'selected'; }},
@@ -123,7 +125,8 @@ Template.reactiveTable.events({
 
 /*-------------------- ÁREA DE TESTES --------------------*/
 Template.editing.helpers({
-  courses() {
+  cschema() {
+    //console.log(Courses.schema);
     return Courses.schema;
   },
 });

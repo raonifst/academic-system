@@ -27,8 +27,9 @@
   {{> autoformModals}}
   {{#afModal
     collection=""
+    schema=""
     operation="insert"
-    doc=""
+    doc=this
     title=_id
     buttonCancelClasses="btn btn-delete waves-effect waves-light btn-form"
     buttonCancelContent="Cancelar"
@@ -37,7 +38,7 @@
   }}
     <i class="material-icons edit">edit</i>
   {{/afModal}}
-  <i class="material-icons rmv">clear</i>
+  <i class="material-icons rmv">delete</i>
 </template>
 
 <template name="discplina">

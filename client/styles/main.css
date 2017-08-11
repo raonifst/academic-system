@@ -131,6 +131,7 @@ div.cardtable {
   width: 100%;
   margin-left: 0px !important;
   margin-right: 0px !important;
+  overflow: auto;
 }
 
 @media only screen and (max-width: 768px) {
@@ -163,7 +164,7 @@ div.cardtable {
 
 .btn {
   background-color: #5c6bc0 !important; /*indigo lighten-1*/
-  display: inline-block;
+  display: inline-block !important;
   width: 180px;
   margin: 3px;
   box-shadow: unset;
@@ -196,6 +197,13 @@ div.cardtable {
   width: auto !important;
 }
 
+/*@media not screen and (min-width: 769px) {
+  .btn-upload {
+    margin-left: 6.3% !important;
+    margin-right: -4% !important;
+  }
+}*/
+
 /********** ICONS **********/
 
 .material-icons {
@@ -224,10 +232,6 @@ div.cardtable {
 }
 
 /********** TABLES **********/
-
-tr {
-  color: #555 !important;
-}
 
 .selected,
 .cinza {
@@ -258,19 +262,19 @@ tr {
 }
 
 @media not screen and (min-width: 769px) {
-  .titleheader {
-    font-size: 10px !important;
-  }
+  /*.titleheader {
+    font-size: 14px !important;
+  }*/
 
   .rmv,
   .edit {
     margin: 5px;
     cursor: pointer;
     color: #555 !important;
-    font-size: 14px !important;
+    font-size: 20px !important;
   }
 
   tr {
-    font-size: 10px;
+    font-size: 14px;
   }
 }
