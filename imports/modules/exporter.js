@@ -1,5 +1,5 @@
 export const Exporter = {
-  courses(collection) {
+  courses(collection, nome) {
     var fields = [
       "codigo",
       "nome",
@@ -18,10 +18,11 @@ export const Exporter = {
         c.prereq
       ]);
     });
-    return {fields: fields, data: data};
+
+    this.download(Papa.unparse({ fields: fields, data: data }), nome);
   },
 
-  records(collection) {
+  records(collection, nome) {
     var fields = [
       "rga",
       "nome",
@@ -42,71 +43,20 @@ export const Exporter = {
         r.semestre
       ]);
     });
-    return {fields: fields, data: data};
-  },
-};
 
-/*const Exporter = {
-  exportAllRecord() {
-    Meteor.call("exportAllRecords", (error, data) => {
-      if (error) {
-        alert(error);
-        return;
-      }
-      this.downloadCSV(Papa.unparse(data));
-    });
+    this.download(Papa.unparse({ fields: fields, data: data }), nome);
   },
 
-  exportExampleRecord() {
-    Meteor.call('exportExampleRecords', (error, data) => {
-        if (error) {
-          alert(error);
-          return;
-        }
-        this.downloadCSV(Papa.unparse(data));
-    });
-  },
-
-  downloadCSV (csv) {
+  download(csv, nome) {
     // TODO refatorar forma de fazer essa exportacao
     const blob = new Blob([csv]);
     const a = window.document.createElement("a");
     a.href = window.URL.createObjectURL(blob, {type: "text/plain"});
-    a.download = "records.csv";
+    a.download = nome+'.csv';
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
   }
 };
 
-Template.exportercurricularstructure.helpers({
-  uploaded: function() {
-    const currentUserId = Meteor.userId();
-    const user = (currentUserId)? Users.findOne({ idUser: currentUserId }):null;
-    return user && Users.findOne({ idUser: currentUserId }).uploadCoursesFlag
-  }
-});
-
-
-Template.exporterRecords.helpers({
-  records: function () {
-    return Records.find();
-  },
-  uploaded: function() {
-    const currentUserId = Meteor.userId();
-    const user = (currentUserId)? Users.findOne({ idUser: currentUserId }):null;
-    return user && Users.findOne({ idUser: currentUserId }).uploadRecordsFlag
-
-  }
-});
-Template.exporterRecords.events({
-  "click .js-export": function () {
-    Exporter.exportAllRecord();
-  }
-});
-
-Template.exporterexamplerecords.events({
-  "click .js-exporterexamplerecords": function () {
-    Exporter.exportExampleRecord();
-  }
-});*/
+export default Exporter;

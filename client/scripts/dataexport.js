@@ -18,9 +18,13 @@ Template.dataexport.helpers({
 
 Template.dataexport.events({
   'click .btn-export': function(type) {
-    if (this.type == 'records')
-      console.log('exportar records');
-    else if (this.type == 'courses')
-      console.log('exportar courses');
+    if (this.type == 'records') {
+      const collection = Records.find().fetch();
+      Exporter.records((collection), 'records');
+    }
+    else if (this.type == 'courses') {
+      const collection = Courses.find().fetch();
+      Exporter.courses((collection), 'courses');
+    }
   }
 });
