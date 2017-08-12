@@ -1,3 +1,26 @@
 <template name="editIcon">
-  <i class="material-icons edit">edit</i>
+  <a href="#modaledit" class="modal-trigger">
+    <i class="material-icons edit">edit</i>
+  </a>
+
+  {{> modaledit}}
+  <script type="text/javascript">
+    $(document).ready(function(){
+    $('.modal-trigger').leanModal();
+    });
+  </script>
+</template>
+
+<template name="modaledit">
+  <div id="modaledit" class="modal">
+    <div class="modal-content">
+      <h4>Editar {{nome}}</h4>
+      <p>Criando um formulário</p>
+      <p>Resolvi tirar o outro pacote, gastei muito tempo tentando aprender usar ele kk</p>
+      <p>O que era para facilitar estava dificultando!</p>
+    </div>
+    <div class="modal-footer">
+      <a href="#!" class="modal-action modal-close waves-effect btn-example btn-flat">Confirmar</a>
+    </div>
+  </div>
 </template>

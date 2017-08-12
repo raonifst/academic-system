@@ -243,14 +243,19 @@ div.cardtable {
 }
 
 .titleheader {
-  max-width: 100px !important;
-  font-size: 16px !important;
+  font-size: 14px !important;
+  height: 90px !important;
   color: #5c6bc0;  /*indigo lighten-1*/
+  text-align: center;
 }
 
 .num {
   padding-right: 50px;
   text-align: right !important;
+}
+
+.tableicon {
+  min-width: 68px !important;
 }
 
 .rmv,

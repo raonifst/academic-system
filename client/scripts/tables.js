@@ -39,9 +39,9 @@ Template.tablecurricularstructure.helpers({
           cellClass(value, object) { if (!(object.semestre%2)) return 'cinza num'; return 'num' },
           fn(value, object, key) { return 100*object.perc_reic; }},
 
-        { key: 'perc_reic', label: 'Aprovado pela segunda vez', headerClass: 'titleheader', tmpl: Template.percreic,
+        /*{ key: 'perc_reic', label: 'Aprovado pela segunda vez', headerClass: 'titleheader', tmpl: Template.percreic,
           cellClass(value, object) { if (!(object.semestre%2)) return 'cinza num'; return 'num' },
-          fn(value, object, key) { return 100*object.perc_reic; }},
+          fn(value, object, key) { return 100*object.perc_reic; }},*/
 
         { sortable: false,  label: '',                          headerClass: 'titleheader', tmpl: Template.editing,
           cellClass(value, object) { if (!(object.semestre%2)) return 'cinza'; }},
@@ -88,7 +88,7 @@ Template.tableacademicrecords.helpers({
           fn(value, object, key) { return 10*object.ano+object.semestre; },
           sortOrder: 0, sortDirection: -1 },
 
-        { sortable: false,    label: '', tmpl: Template.editing,
+        { sortable: false,    label: '', tmpl: Template.editing, headerClass: 'tableicon',
           cellClass(value, object) { if (Session.get('selected') == object._id) return 'selected'; }},
       ]
     };

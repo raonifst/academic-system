@@ -3,27 +3,29 @@
 </template>
 
 <template name="add">
-  <a  href="#modal1" class="btn modal-trigger waves-effect waves-light">
+  <a  href="#modaladd" class="btn modal-trigger waves-effect waves-light">
     <i class="material-icons">add</i>
     Adicionar
   </a>
-{{> modal}}
 
-<script type="text/javascript">
-  $(document).ready(function(){
-  $('.modal-trigger').leanModal();
-  });
-</script>
+  {{> modaladd}}
+  <script type="text/javascript">
+    $(document).ready(function(){
+    $('.modal-trigger').leanModal();
+    });
+  </script>
 </template>
 
-<template name="modal">
-  <div id="modal1" class="modal">
+<template name="modaladd">
+  <div id="modaladd" class="modal">
     <div class="modal-content">
-      <h4>Modal Header</h4>
-      <p>A bunch of text</p>
+      <h4>Adicionar {{collection}}</h4>
+      <p>Criando um formulário</p>
+      <p>Resolvi tirar o outro pacote, gastei muito tempo tentando aprender usar ele kk</p>
+      <p>O que era para facilitar estava dificultando!</p>
     </div>
     <div class="modal-footer">
-      <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
+      <a href="#!" class="modal-action modal-close waves-effect btn-example btn-flat">Confirmar</a>
     </div>
   </div>
 </template>
