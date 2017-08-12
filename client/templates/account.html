@@ -27,13 +27,18 @@
 <template name="recpsw">
   <div class="card cardlogin">
     <h4>Recuperar Senha</h4>
-    {{> formpsw}}
+    {{> formpassword}}
     <a href="{{pathFor route='login'}}" class="grey-text text-darken-1" style="text-align: left;">← Voltar</a>
   </div>
 </template>
 
-<template name="formpsw">
-  <br><br><br><br><br><br><br><br><br><br>
+<template name="formpassword">
+  <form>
+    <div class="input-field">
+      <input type="email" name="email" class="validate">
+      <label for="email">Digite seu email:</label>
+    </div>
+  </form>
 </template>
 
 <template name="reg">
@@ -45,5 +50,5 @@
 </template>
 
 <template name="formreg">
-  <br><br><br><br><br><br><br><br><br><br>
+
 </template>

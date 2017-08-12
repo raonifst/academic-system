@@ -24,21 +24,8 @@
 
 <!--##########  TEMPLATES UTILIZADOS NAS TABELAS ##########-->
 <template name="editing">
-  {{> autoformModals}}
-  {{#afModal
-    collection=""
-    schema=""
-    operation="insert"
-    doc=this
-    title=_id
-    buttonCancelClasses="btn btn-delete waves-effect waves-light btn-form"
-    buttonCancelContent="Cancelar"
-    buttonSubmitClasses="btn waves-effect waves-light btn-form"
-    buttonContent="Atualizar"
-  }}
-    <i class="material-icons edit">edit</i>
-  {{/afModal}}
-  <i class="material-icons rmv">delete</i>
+  {{> editIcon}}
+  {{> rmvIcon}}
 </template>
 
 <template name="discplina">

@@ -122,21 +122,3 @@ Template.reactiveTable.events({
     Session.set('selected', 1);
   }
 });
-
-/*-------------------- ÁREA DE TESTES --------------------*/
-Template.editing.helpers({
-  cschema() {
-    //console.log(Courses.schema);
-    return Courses.schema;
-  },
-});
-
-Template.add.helpers({
-  testcourses() {
-    return Courses.find();
-  },
-
-  testrecords() {
-    return Records.find();
-  }
-});

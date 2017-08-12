@@ -3,19 +3,27 @@
 </template>
 
 <template name="add">
-  {{#afModal
-    collection=""
-    operation="insert"
-    title=collection
-    classes="btn"
-    buttonCancelClasses="btn btn-delete waves-effect waves-light btn-form"
-    buttonCancelContent="Cancelar"
-    buttonSubmitClasses="btn waves-effect waves-light btn-form"
-    buttonContent="Confirmar"
-  }}
+  <a  href="#modal1" class="btn modal-trigger waves-effect waves-light">
     <i class="material-icons">add</i>
     Adicionar
-  {{/afModal}}
-  <!--{{collection}} <~ VER O QUE TEM DENTRO DE collections -->
-  {{> autoformModals}}
+  </a>
+{{> modal}}
+
+<script type="text/javascript">
+  $(document).ready(function(){
+  $('.modal-trigger').leanModal();
+  });
+</script>
+</template>
+
+<template name="modal">
+  <div id="modal1" class="modal">
+    <div class="modal-content">
+      <h4>Modal Header</h4>
+      <p>A bunch of text</p>
+    </div>
+    <div class="modal-footer">
+      <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
+    </div>
+  </div>
 </template>
