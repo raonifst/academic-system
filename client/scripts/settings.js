@@ -1,19 +1,3 @@
-/*--------------- LAYOUT HELPERS ---------------*/
-
-Template.navbar.helpers({
-  navbarFixed() {
-    if (1)
-      return 'navbar-fixed';
-    else return '';
-  },
-
-  menuFixed() {
-    if (1)
-      return 'fixed';
-    else return '';
-  },
-});
-
 /*--------------- SETTINGS NAVBAR ---------------
 
 Template.settingsNavbar.helpers({

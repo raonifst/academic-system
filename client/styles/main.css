@@ -54,8 +54,8 @@ div.box {
 
 div.box2 {
   margin: 0 0 auto;
-  padding-left: 250px;
-  padding-right: 250px;
+  padding-left: 255px;
+  padding-right: 0px;
 }
 
 @media only screen and (max-width: 992px) {
@@ -67,6 +67,11 @@ div.box2 {
     margin: 10px 0px auto;
     padding-left:0px;
     padding-right: 0px;
+  }
+}
+@media only screen and (min-width: 1919px) {
+  div.box2 {
+    padding-right: 255px;
   }
 }
 
@@ -81,7 +86,7 @@ div.nav-wrapper {
 }
 
 .side-nav {
-  width: 250px;
+  min-width: 250px !important;
   text-indent: 8px;
   background-color: #333;
 }
@@ -89,6 +94,44 @@ div.nav-wrapper {
 .side-nav a {
   color: var(--cor-bg) !important;
 }
+
+.side-nav-branca {
+  background-color: #fff;
+}
+
+.side-nav-branca a {
+  color: #555 !important;
+}
+
+.side-nav-transparent {
+  background-color: transparent;
+  box-shadow: unset;
+}
+
+.side-nav-transparent a {
+    color: #555 !important;
+}
+
+.button-collapse {
+  padding-left: 15px;
+}
+
+@media only screen and (min-width: 993px) {
+  nav .brand-logo {
+    text-indent: 250px;
+  }
+}
+@media only screen and (max-width: 992px) {
+  nav .brand-logo {
+    text-indent: 0px;
+  }
+}
+@media only screen and (min-width: 1919px) {
+  nav .brand-logo {
+    text-indent: 0px;
+  }
+}
+
 
 .footer-text {
   color: var(--cor-font) !important;
@@ -225,7 +268,13 @@ div.cardtable {
   direction: ltr;
   -webkit-font-feature-settings: 'liga';
   -webkit-font-smoothing: antialiased;
-  color: #fff;
+  color: var(--cor-bg);
+}
+
+.side-nav-branca .material-icons,
+.side-nav-transparent .material-icons,
+.dropdown-content .material-icons  {
+  color: var(--cor-font) !important;
 }
 
 @font-face {
@@ -286,4 +335,10 @@ div.cardtable {
   tr {
     font-size: 14px;
   }
+}
+
+/********** MODALS **********/
+
+.modal-content {
+  text-align: left;
 }

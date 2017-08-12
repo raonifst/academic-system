@@ -18,14 +18,46 @@
 
 <template name="modaladd">
   <div id="modaladd" class="modal">
+    {{#if coursesOrRecords collection}}
     <div class="modal-content">
-      <h4>Adicionar {{collection}}</h4>
-      <p>Criando um formulário</p>
+      <h5>Adicionar {{collection}}</h5>
+      {{> addcourse}}
       <p>Resolvi tirar o outro pacote, gastei muito tempo tentando aprender usar ele kk</p>
       <p>O que era para facilitar estava dificultando!</p>
     </div>
     <div class="modal-footer">
       <a href="#!" class="modal-action modal-close waves-effect btn-example btn-flat">Confirmar</a>
     </div>
+    {{/if}}
   </div>
+</template>
+
+<template name="addcourse">
+  <form class="addcourse">
+    <div class="row">
+      <div class="input-field col s2">
+        <input id="codigo" type="text" class="validate">
+        <label for="codigo">Código <small>(90000267)</small>
+        </label>
+      </div>
+      <div class="input-field col s10">
+        <input id="nome" type="text" class="validate">
+        <label for="nome">Nome <small>(COMPUTAÇÃO GRÁFICA)</small></label>
+      </div>
+    </div>
+    <div class="row">
+      <div class="input-field col s2">
+        <input id="creditos" type="text" class="validate">
+        <label for="creditos">Créditos <small>(4)</small></label>
+      </div>
+      <div class="input-field col s2">
+        <input id="semestre" type="text" class="validate">
+        <label for="semestre">Semestre <small>(5)</small></label>
+      </div>
+      <div class="input-field col s8">
+        <input id="prereq" type="text" class="validate">
+        <label for="prereq">Pré-requisitos <small>(90000009;90000017)</small></label>
+      </div>
+    </div>
+  </form>
 </template>
