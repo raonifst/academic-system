@@ -6,7 +6,7 @@ import '../imports/modules/auxiliar'
 import {approvedAndRecidivists} from "../imports/modules/auxiliar";
 
 Meteor.methods({
-  uploadCurricularStruture(data) {
+  uploadCoursesData(data) {
     var resultCode = uploadDataStatus.SUCCESS;
 
     data.forEach(item => {
@@ -40,7 +40,7 @@ Meteor.methods({
     return resultCode;
   },
 
-  updateAcademicRecordData(data) {
+  updateRecordsData(data) {
     var resultCode = uploadDataStatus.SUCCESS;
 
     data.forEach(item => {
@@ -74,12 +74,11 @@ Meteor.methods({
     return resultCode;
   },
 
-  changeUserUploadCurricularStructureFlag() {
-    const currentUser = Meteor.userId();
-    const user = Meteor.users.findOne({ _id: currentUser });
-    if (user) {
-      const val = Meteor.users.findOne({ _id: currentUser }).uploadCoursesFlag;
-      Meteor.users.update({ _id: currentUser },
+  changeUploadCoursesFlag() {
+    const currentUser = Meteor.user();
+    if (currentUser) {
+      const val = currentUser.uploadCoursesFlag;
+      Meteor.users.update({ _id: currentUser._id },
         {
           $set: { uploadCoursesFlag: !val }
         });
@@ -87,12 +86,11 @@ Meteor.methods({
     }
   },
 
-  changeUserUploadAcademicRecordsFlag() {
-    const currentUser = Meteor.userId();
-    const user = Meteor.users.findOne({ _id: currentUser });
-    if (user) {
-      const val = Meteor.users.findOne({ _id: currentUser }).uploadRecordsFlag;
-      Meteor.users.update({ _id: currentUser },
+  changeUploadRecordsFlag() {
+    const currentUser = Meteor.user();
+    if (currentUser) {
+      const val = currentUser.uploadRecordsFlag;
+      Meteor.users.update({ _id: currentUser._id },
         {
           $set: { uploadRecordsFlag: !val }
         });
@@ -103,22 +101,21 @@ Meteor.methods({
   changeCurrentSemester(resetFlag) {
     var cSemester = "-";
     var cYear = "-";
-    const currentUser = Meteor.userId();
-    const user = Meteor.users.findOne({ _id: currentUser });
+    const currentUser = Meteor.user();
 
     const semesterParser = function (n) { return ((n + 1) % 2) + 1; };
 
-    if (user) {
+    if (currentUser) {
       if (!resetFlag) {
-        const record = Records.findOne({ createdBy: currentUser },
+        const record = Records.findOne({ createdBy: currentUser._id },
           { sort: { ano: -1, semestre: -1} }); // Devolve o registro mais recente
         if (!record)
-          throw new Meteor.Error(403, "Operação não permitida. Não há registros no histórico" +
-            " acadêmico.");
+          throw new Meteor.Error("records-empty", "Operação não permitida. " +
+                                                  "Não há registros no histórico acadêmico.");
         cSemester = semesterParser(record.semestre + 1);
         cYear = (cSemester == 1) ? record.ano + 1 : record.ano;
       }
-      Meteor.users.update({ _id: currentUser },
+      Meteor.users.update({ _id: currentUser._id },
         {
           $set: { currentYear: cYear, currentSemester: cSemester }
         });

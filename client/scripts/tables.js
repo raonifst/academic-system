@@ -9,10 +9,8 @@ Template.tablecurricularstructure.helpers({
   },
 
   uploaded() {
-    const currentUser = Meteor.userId();
-    if (currentUser)
-      return Meteor.users.findOne({_id: currentUser}).uploadCoursesFlag;
-    return false;
+    const currentUser = Meteor.user();
+    return currentUser && currentUser.uploadCoursesFlag;
   },
 
   settings() {
@@ -57,10 +55,8 @@ Template.tableacademicrecords.helpers({
   },
 
   uploaded() {
-    const currentUser = Meteor.userId();
-    if (currentUser)
-      return Meteor.users.findOne({ _id: currentUser }).uploadRecordsFlag;
-    return false;
+    const currentUser = Meteor.user();
+    return currentUser && currentUser.uploadRecordsFlag;
   },
 
   settings() {

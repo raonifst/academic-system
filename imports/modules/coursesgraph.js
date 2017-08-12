@@ -1,3 +1,5 @@
+import {Meteor} from "meteor/meteor"
+
 const GraphColors = Object.freeze({
   WHITE: 0,
   GRAY: 1,
@@ -33,13 +35,12 @@ export class CoursesGraph {
         var vColor = visitedMap.get(vKey);
         var vAdjList = this.gMap.get(vKey);
         if (!vAdjList) {
-          // TODO substituir string (no throw) por ValidateError
-          throw msgCoursesGraph.msgCourseNotFound;
+          throw new Meteor.Error("graph-contains-cycles", msgCoursesGraph.msgCourseNotFound);
         } else if (vColor == GraphColors.WHITE) {
           stack.push(vKey);
           isVertexLeaf = 0;
         } else if (vColor == GraphColors.GRAY) { // Grafo contém ciclo
-          throw msgCoursesGraph.msgCycleError;
+          throw new Meteor.Error("graph-invalid-keys", msgCoursesGraph.msgCycleError);
         }
       });
 
@@ -59,15 +60,23 @@ export class CoursesGraph {
     }
 
     for (var key of this.gMap.keys()) {
-      this._depthFirstSearch(key, visitedMap, list);
-      if (!list || list.length == 0)
-        break;
+      try {
+        this._depthFirstSearch(key, visitedMap, list);
+      } catch (e) {
+        if (e.error == "graph-contains-cycles")
+          return [];
+        if (e.error == "graph-invalid-keys")
+          return null;
+      }
     }
     return list;
   }
 }
 
 export function validateCoursesGraph(graph) {
-  graph.topologicalSort();
-  // TODO exceptions serão tratadas e relançadas aqui com ValidateError (quando disponível)
+  var list = graph.topologicalSort();
+  if (!list)
+    throw new Meteor.Error("invalid-dag", msgCoursesGraph.msgCycleError);
+  if (list.length <= 0)
+    throw new Meteor.Error("invalid-dag", msgCoursesGraph.msgCourseNotFound);
 }

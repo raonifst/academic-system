@@ -68,7 +68,7 @@ Courses.schema = new SimpleSchema({
 // Função utilizada para conversão de valores recebidos do csv para o formato correto definido
 // na validação
 Courses.parser = function(jsonObj) {
-  const currentUser = Meteor.userId();
+  const currentUserId = Meteor.userId();
   return {
     codigo:       parseInt(jsonObj.codigo),
     nome:         jsonObj.nome,
@@ -83,7 +83,7 @@ Courses.parser = function(jsonObj) {
     perc_reic:    0,
     perc_aprov2:  0,
     alunos:       0,
-    createdBy:    currentUser
+    createdBy:    currentUserId
   };
 };
 

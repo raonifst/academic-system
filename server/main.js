@@ -7,11 +7,11 @@ Meteor.startup(() => {
      Quando o sistema 'sobe' e não há usuarios cadastrados,
      o usuário a seguir é cadastrado. */
   if (!Meteor.users.find().count()) {
-    const usrId = Accounts.createUser({
+    const userId = Accounts.createUser({
       email:              'raoni@ufmt.br',
       password:           '123',
     });
-    Meteor.users.update({ _id: usrId }, {
+    Meteor.users.update({ _id: userId }, {
       $set:
       { name:             'Fabricio Barbosa de Carvalho',
         gradProgram:      'Engenharia de Computação',

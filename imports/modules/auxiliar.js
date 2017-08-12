@@ -3,11 +3,11 @@ import Courses from '../../imports/api/collections/courses'
 import Records from '../../imports/api/collections/records'
 
 function reinc(item) {
-  const currentUser = Meteor.userId();
+  const currentUserId = Meteor.userId();
   return Records.find({
     rga: item.rga,
     disciplina: item.disciplina,
-    createdBy: currentUser
+    createdBy: currentUserId
   }).count();
 }
 

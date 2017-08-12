@@ -5,12 +5,10 @@ import { Meteor } from 'meteor/meteor'
 
 Template.dataexport.helpers({
   uploaded(type) {
-    const currentUser = Meteor.userId();
+    const currentUser = Meteor.user();
     if (currentUser)
-      if ((type == 'courses' &&
-          Meteor.users.findOne({_id: currentUser}).uploadCoursesFlag) ||
-          (type == 'records' &&
-          Meteor.users.findOne({ _id: currentUser }).uploadRecordsFlag))
+      if ((type == 'courses' && currentUser.uploadCoursesFlag) ||
+          (type == 'records' && currentUser.uploadRecordsFlag))
             return 'btn-export  waves-effect waves-light';
     return 'disabled';
   },
