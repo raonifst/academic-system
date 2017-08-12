@@ -1,9 +1,6 @@
 import Courses from "../../imports/api/collections/courses";
 import Records from "../../imports/api/collections/records"
 
-Template.add.helpers({
-});
-
 Template.modaladd.helpers({
   coursesOrRecords(collection) {
     if (collection == 'Disciplina')
@@ -38,7 +35,7 @@ Template.add.events({
       event.target.disciplina.value = '';
       event.target.situacao.value = '';
       event.target.ano.value = '';
-      event.target.semestre.value = '';      
+      event.target.semestre.value = '';
     }
   }
 });

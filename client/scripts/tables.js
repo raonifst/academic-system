@@ -106,12 +106,10 @@ Template.reactiveTable.events({
     if (!window.confirm("Você tem certeza? Esta operação não pode ser desfeita."))
         return;
     console.log('Só apagar '+this.nome);
-    console.log(this.schema);
   },
 
   'click .edit': function(event) {
     event.preventDefault();
-    console.log(this.nome+'\nSó Levar para o formulário');
   },
 
   'mouseenter .reactive-table tbody tr':function(event) {
