@@ -34,12 +34,12 @@
 <template name="modaledit">
   <div id="modaledit" class="modal">
     <div class="modal-content">
-      <h4>Editar {{nome}}</h4>
+      <h4>Editar {{edit.nome}}</h4>
       <form>
       {{#if coursesOrRecords}}
-        {{> editcourse}}
+        {{> editcourse edit}}
       {{else}}
-        {{> editrecord}}
+        {{> editrecord edit}}
       {{/if}}
       <div class="modal-footer"><!-- BUG: modal-close -->
         <button required type="submit" class="modal-action modal-close waves-effect waves-light btn btn-form">Confirmar</button>
@@ -52,26 +52,26 @@
 <template name="editcourse">
   <div class="row">
     <div class="input-field col s3">
-      <input required name="codigo" type="text" class="validate" value="{{codigo}}">
+      <input required name="codigo" type="text" class="validate" value="{{edit.codigo}}">
       <label class="active" for="codigo">Código <small>(Ex.: 90000267)</small>
       </label>
     </div>
     <div class="input-field col s9">
-      <input required name="nome" type="text" class="validate" value="{{nome}}">
+      <input required name="nome" type="text" class="validate" value="{{edit.nome}}">
       <label class="active" for="nome">Nome <small>(Ex.: COMPUTAÇÃO GRÁFICA)</small></label>
     </div>
   </div>
   <div class="row">
     <div class="input-field col s2">
-      <input required name="creditos" type="text" class="validate" value="{{creditos}}">
+      <input required name="creditos" type="text" class="validate" value="{{edit.creditos}}">
       <label class="active" for="creditos">Créditos <small>(Ex.: 4)</small></label>
     </div>
     <div class="input-field col s2">
-      <input required name="semestre" type="text" class="validate" value="{{semestre}}">
+      <input required name="semestre" type="text" class="validate" value="{{edit.semestre}}">
       <label class="active" for="semestre">Semestre <small>(Ex.: 5)</small></label>
     </div>
     <div class="input-field col s8">
-      <input name="prereq" type="text" class="validate" value="{{prereq}}">
+      <input name="prereq" type="text" class="validate" value="{{edit.prereq}}">
       <label class="active" for="prereq">Pré-requisitos <small>(Ex.: 90000009;90000017)</small></label>
     </div>
   </div>
@@ -80,30 +80,30 @@
 <template name="editrecord">
   <div class="row">
     <div class="input-field col s3">
-      <input required id="rga" type="text" class="validate" value="{{rga}}">
+      <input required id="rga" type="text" class="validate" value="{{edit.rga}}">
       <label class="active" for="rga">RGA <small>(Ex.: 201511901032)</small>
       </label>
     </div>
     <div class="input-field col s9">
-      <input required id="nome" type="text" class="validate" value="{{nome}}">
+      <input required id="nome" type="text" class="validate" value="{{edit.nome}}">
       <label class="active" for="nome">Nome <small>(Ex.: Jonathan Loureiro de Moraes)</small></label>
     </div>
   </div>
   <div class="row">
     <div class="input-field col s6">
-      <input required id="disciplina" type="text" class="validate" value="{{disciplina}}">
+      <input required id="disciplina" type="text" class="validate" value="{{edit.disciplina}}">
       <label class="active" for="disciplina">Disciplina <small>(Ex.: CÁLCULO I)</small></label>
     </div>
     <div class="input-field col s2">
-      <input required id="situacao" type="text" class="validate" value="{{situacao}}">
+      <input required id="situacao" type="text" class="validate" value="{{edit.situacao}}">
       <label class="active" for="situacao">Situação <small>(Ex.: AP)</small></label>
     </div>
     <div class="input-field col s2">
-      <input required id="ano" type="text" class="validate" value="{{ano}}">
+      <input required id="ano" type="text" class="validate" value="{{edit.ano}}">
       <label class="active" for="ano">Ano <small>(Ex.: 2015)</small></label>
     </div>
     <div class="input-field col s2">
-      <input required id="semestre" type="text" class="validate" value="{{semestre}}">
+      <input required id="semestre" type="text" class="validate" value="{{edit.semestre}}">
       <label class="active" for="semestre">Semestre <small>(Ex.: 1)</small></label>
     </div>
   </div>

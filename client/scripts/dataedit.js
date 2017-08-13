@@ -1,15 +1,32 @@
+import { Session } from 'meteor/session';
+
 Template.modaledit.helpers({
   coursesOrRecords(){
     if (!(this.rga))
       return 1;
     return 0;
-  }
+  },
+
+  edit(){
+    return Session.get('editing');
+  },
+});
+
+Template.editcourse.helpers({
+  edit(){
+    return Session.get('editing');
+  },
+});
+
+Template.editrecord.helpers({
+  edit(){
+    return Session.get('editing');
+  },
 });
 
 Template.edit.events({
   'submit form': function(event) {
     event.preventDefault();
-    console.log(this.rga);
     if (!(this.rga)) {
       console.log(event.target.codigo.value);
       console.log(event.target.nome.value);
@@ -35,5 +52,10 @@ Template.edit.events({
       event.target.ano.value = '';
       event.target.semestre.value = '';*/
     }
-  }
+  },
+
+  'click .edit': function(event) {
+    event.preventDefault();
+    Session.set('editing', this);
+  },
 });

@@ -67,25 +67,25 @@ Template.tableacademicrecords.helpers({
       /*noDataTmpl: Template.error404,*/
       fields: [
         { key: 'rga',         label: 'RGA',         headerClass: 'titleheader',
-          cellClass(value, object) { if (Session.get('selected') == object._id) return 'selected'; },
+          cellClass(value, object) { if (Session.get('hover') == object._id) return 'hover'; },
           sortOrder: 1, sortDirection: -1},
 
         { key: 'nome',        label: 'Nome',        headerClass: 'titleheader',
-          cellClass(value, object) { if (Session.get('selected') == object._id) return 'selected'; }},
+          cellClass(value, object) { if (Session.get('hover') == object._id) return 'hover'; }},
 
         { key: 'disciplina',  label: 'Disciplina',  headerClass: 'titleheader',
-          cellClass(value, object) { if (Session.get('selected') == object._id) return 'selected'; }},
+          cellClass(value, object) { if (Session.get('hover') == object._id) return 'hover'; }},
 
         { key: 'situacao',    label: 'Situação',    headerClass: 'titleheader',
-          cellClass(value, object) { if (Session.get('selected') == object._id) return 'selected'; }},
+          cellClass(value, object) { if (Session.get('hover') == object._id) return 'hover'; }},
 
         {                     label: 'Semestre',    headerClass: 'titleheader', tmpl: Template.anosemestre,
-          cellClass(value, object) { if (Session.get('selected') == object._id) return 'selected'; },
+          cellClass(value, object) { if (Session.get('hover') == object._id) return 'hover'; },
           fn(value, object, key) { return 10*object.ano+object.semestre; },
           sortOrder: 0, sortDirection: -1 },
 
         { sortable: false,    label: '', tmpl: Template.editing, headerClass: 'tableicon',
-          cellClass(value, object) { if (Session.get('selected') == object._id) return 'selected'; }},
+          cellClass(value, object) { if (Session.get('hover') == object._id) return 'hover'; }},
       ]
     };
   },
@@ -103,16 +103,12 @@ Template.reactiveTable.events({
         return;
     console.log('Só apagar '+this.nome);
   },
-
-  'click .edit': function(event) {
-    event.preventDefault();
+  
+  'mouseenter .reactive-table tr':function(event) {
+    Session.set('hover', this._id);
   },
 
-  'mouseenter .reactive-table tbody tr':function(event) {
-    Session.set('selected', this._id);
-  },
-
-  'mouseleave .reactive-table tbody tr':function(event) {
-    Session.set('selected', 1);
+  'mouseleave .reactive-table tr':function(event) {
+    Session.set('hover', 1);
   }
 });
