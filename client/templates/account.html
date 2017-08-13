@@ -1,20 +1,21 @@
 <template name="formlogin">
-  <div class="card cardlogin">
+  <div class="card cardlogin z-depth-3">
     <form class="login">
-      <h4>Login</h4><br>
-      <div class="group">
-        <label for="email">Email: </label>
-        <input type="email" required name="email" id="email">
-        <span class="highlight"></span>
-        <span class="bar"></span>
+      <h4>Login</h4><br><br>
+      <div class="row magin">
+        <div class="input-field col s12">
+          <i class="material-icons prefix">account_circle</i>
+          <input type="email" required name="email" id="email">
+          <label for="email">Email: </label>
+        </div>
       </div>
-      <div class="group">
-        <label for="password">Senha</label>
-        <input type="password" required name="password" id="password">
-        <span class="highlight"></span>
-        <span class="bar"></span>
-      </div>
-      <br>
+      <div class="row magin">
+        <div class="input-field col s12">
+          <i class="material-icons prefix">lock</i>
+          <input type="password" required name="password" id="password">
+          <label for="password">Senha</label>
+        </div>
+      </div><br><br>
       <button class="btn waves-effect waves-light"><i class="material-icons" style="margin-left: -15px;">lock_open</i>Entrar</button>
     </form>
     <p style="margin: 0px;">
@@ -22,12 +23,15 @@
     </p>
     <a href="{{pathFor route='reg'}}" class="grey-text text-darken-1">Criar conta</a>
   </div>
+<script type="text/javascript">
+  Materialize.updateTextFields();
+</script>
 </template>
 
 <template name="recpsw">
-  <div class="card cardlogin">
-    <h4>Recuperar Senha</h4>
-    {{> formpassword}}
+  <div class="card cardlogin z-depth-3">
+    <h4>Recuperar Senha</h4><br>
+    {{> formpassword}}<br>
     <a href="{{pathFor route='login'}}" class="grey-text text-darken-1" style="text-align: left;">← Voltar</a>
   </div>
 </template>
@@ -35,6 +39,7 @@
 <template name="formpassword">
   <form>
     <div class="input-field">
+      <i class="material-icons prefix">email</i>
       <input type="email" name="email" class="validate">
       <label for="email">Digite seu email:</label>
     </div>
@@ -42,7 +47,7 @@
 </template>
 
 <template name="reg">
-  <div class="card cardlogin">
+  <div class="card cardlogin z-depth-3">
     <h4>Criar Conta</h4>
     {{> formreg}}
     <a href="{{pathFor route='login'}}" class="grey-text text-darken-1" style="text-align: left;">← Voltar</a>

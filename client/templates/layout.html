@@ -1,20 +1,24 @@
 <template name="layout">
-  <div class="page-flexbox-wrapper">
-    {{#if currentUser}}
+
+  {{#if currentUser}}
+    <div class="page-flexbox-wrapper">
       {{> navbar}}
       <div class="box2">
         <div class="box center">
           {{> yield}}
         </div>
       </div>
-    {{else}}
+      {{> footer}}
+    </div>
+  {{else}}
+    <div class="page-flexbox-wrapper boxlogin">
       <div class="box center" style="margin-top: auto !important;">
         {{> yield}}
         <p style="height: 70px;"></p>
       </div>
-    {{/if}}
     {{> footer}}
-  </div>
+    </div>
+  {{/if}}
 </template>
 
 <template name="navbar">

@@ -1,14 +1,17 @@
 :root {
   --cor-pri: #3f51b5; /*indigo*/
   --cor-seg: #5c6bc0; /*indigo lighten-1*/
-  --cor-bg: #eee;
+  --cor-ter: #1a237e; /*indigo darken-4*/
+  --cor-bg: #eee; /*grey lighten-3*/
+  --cor-bg-login: #333;
   --cor-font: #797979;
+  --cor-font2: #fafafa; /*grey lighten-5*/
 }
 
 body {
-  background-color: var(--cor-bg);
   overflow: scroll;
   overflow-x: auto;
+  background-color: var(--cor-bg);
 }
 
 ::-webkit-scrollbar {
@@ -63,6 +66,10 @@ div.box2 {
   padding-right: 0px;
 }
 
+.boxlogin {
+  background-color: var(--cor-bg-login);
+}
+
 @media only screen and (max-width: 992px) {
   div.box {
     margin: 0px auto auto;
@@ -97,7 +104,7 @@ div.nav-wrapper {
 }
 
 .side-nav a {
-  color: var(--cor-bg) !important;
+  color: var(--cor-font2) !important;
 }
 
 .side-nav-branca {
@@ -138,11 +145,15 @@ div.nav-wrapper {
 }
 
 .brand-logo {
-  color: var(--cor-bg) !important;
+  color: var(--cor-font2) !important;
 }
 
 .footer-text {
   color: var(--cor-font) !important;
+}
+
+.boxlogin .footer-text {
+  color: #fff !important;
 }
 
 @media only screen and (min-width: 993px) {
@@ -292,14 +303,24 @@ div.cardtable {
   color: #fff;
 }
 
-.side-nav-branca .material-icons,
-.side-nav-transparent .material-icons,
+.material-icons.prefix {
+  font-size: 32px !important;
+  color: #555;
+  background-color: #fff;
+}
+
+.input-field .prefix.active {
+  color: #555 !important;
+}
+
+.side-nav.side-nav-branca .material-icons,
+.side-nav.side-nav-transparent .material-icons,
 .dropdown-content .material-icons  {
   color: var(--cor-font) !important;
 }
 
 .side-nav .material-icons {
-  color: var(--cor-bg) !important;
+  color: var(--cor-font2) !important;
 }
 
 @font-face {
@@ -332,7 +353,7 @@ i.fa.fa-filter{
 
 .hover,
 .cinza {
-  background-color: var(--cor-bg);
+  background-color: var(--cor-font2);
 }
 
 .titleheader {
@@ -399,7 +420,9 @@ i.fa.fa-filter{
 
 /********** OTHERS **********/
 
-
+.magin {
+  margin: 0px !important;
+}
 
 div.error {
   font-size: 12px;
