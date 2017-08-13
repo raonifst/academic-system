@@ -13,11 +13,11 @@
       <h5>Perfil</h5>
       <form>
         <div class="row">
-          <div class="input-field col s12 m6">
+          <div class="input-field col s12 m6 paddingright">
             <input value="{{userName}}" id="user_name" class="validate" name="name">
             <label for="user_name" class="active">Nome</label>
           </div>
-          <div class="input-field col s12 m6">
+          <div class="input-field col s12 m6 paddingleft">
             <select name="courses" id="courses_list">
               <option value="" disabled selected>Selecione um curso</option>
               {{#each course}}
@@ -28,7 +28,7 @@
           </div>
         </div>
         <div class="row">
-          <div class="input-field col s12 m6">
+          <div class="input-field col s12 m6 paddingright">
             <select name="alerts_time" id="alerts_time_config">
               <option value="" disabled selected>Selecione um número</option>
               {{#each alertsTime}}
@@ -50,17 +50,17 @@
       <h5>Alteração de senha</h5>
       <form id="changepassform">
         <div class="row">
-          <div class="input-field col s12 m6">
+          <div class="input-field col s12 m6 paddingright">
             <input type="password" id="oldpassword" name="oldpassword" required>
             <label for="oldpassword">Senha atua</label>
           </div>
         </div>
         <div class="row">
-          <div class="input-field col s12 m6">
+          <div class="input-field col s12 m6 paddingright">
             <input type="password" id="password" name="password" required>
             <label for="password">Nova senha</label>
           </div>
-          <div class="input-field col s12 m6">
+          <div class="input-field col s12 m6 paddingleft">
             <input type="password" id="password2" name="password2" required>
             <label for="password2">Confirme a nova senha</label>
           </div>

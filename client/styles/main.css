@@ -186,7 +186,7 @@ div.card2 {
 }
 
 div.cardlogin {
-  width: 300px;
+  width: 290px;
 }
 
 div.card50 {
@@ -208,7 +208,7 @@ div.cardtable {
   }
 
   div.cardlogin {
-    width: 280px !important;
+    width: 290px !important;
   }
 
   div.cardtable{
@@ -353,7 +353,7 @@ i.fa.fa-filter{
 
 .hover,
 .cinza {
-  background-color: var(--cor-font2);
+  background-color: var(--cor-bg);
 }
 
 .titleheader {
@@ -416,6 +416,27 @@ i.fa.fa-filter{
 
 .modal-content {
   text-align: left;
+}
+
+/********** FORMS **********/
+
+.input-field {
+  padding: 0px !important;
+}
+
+.paddingleft {
+  padding-left: 10px !important;
+}
+
+.paddingright {
+  padding-right: 10px !important;
+}
+
+@media only screen and (max-width: 768px) {
+  .paddingleft,
+  .paddingright {
+    padding: 0px !important;
+  }
 }
 
 /********** OTHERS **********/

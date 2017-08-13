@@ -1,12 +1,12 @@
 <template name="formlogin">
   <div class="card cardlogin z-depth-3">
     <form class="login">
-      <h4>Login</h4><br><br>
-      <div class="row magin">
+      <h5>Login</h5><br><br>
+      <div class="row">
         <div class="input-field col s12">
           <i class="material-icons prefix">account_circle</i>
           <input type="email" required name="email" id="email">
-          <label for="email">Email: </label>
+          <label for="email">Login</label>
         </div>
       </div>
       <div class="row magin">
@@ -30,7 +30,7 @@
 
 <template name="recpsw">
   <div class="card cardlogin z-depth-3">
-    <h4>Recuperar Senha</h4><br>
+    <h5>Recuperar Senha</h5><br>
     {{> formpassword}}<br>
     <a href="{{pathFor route='login'}}" class="grey-text text-darken-1" style="text-align: left;">← Voltar</a>
   </div>
@@ -41,14 +41,14 @@
     <div class="input-field">
       <i class="material-icons prefix">email</i>
       <input type="email" name="email" class="validate">
-      <label for="email">Digite seu email:</label>
+      <label for="email">Digite seu email</label>
     </div>
   </form>
 </template>
 
 <template name="reg">
   <div class="card cardlogin z-depth-3">
-    <h4>Criar Conta</h4>
+    <h5>Criar Conta</h5>
     {{> formreg}}
     <a href="{{pathFor route='login'}}" class="grey-text text-darken-1" style="text-align: left;">← Voltar</a>
   </div>
