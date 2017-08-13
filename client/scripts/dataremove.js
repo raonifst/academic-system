@@ -1,15 +1,13 @@
 Template.dataremove.helpers({
   uploaded(method){
-    const currentUser = Meteor.userId();
+    const currentUser = Meteor.user();
     if (currentUser)
-      if ((method == 'toCleanCourses' &&
-          Meteor.users.findOne({_id: currentUser}).uploadCoursesFlag) ||
-          (method == 'toCleanRecords' &&
-          Meteor.users.findOne({ _id: currentUser }).uploadRecordsFlag))
+      if ((method == 'toCleanCourses' && currentUser.uploadCoursesFlag) ||
+          (method == 'toCleanRecords' && currentUser.uploadRecordsFlag))
             return 'btn-delete waves-effect waves-light';
     return 'disabled';
   },
-})
+});
 
 Template.dataremove.events({
   'click .btn-delete': function (event, template) {

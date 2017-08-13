@@ -1,0 +1,106 @@
+<!--########## CAIXA PARA CONSULTA ##########-->
+<template name="searchbox">
+
+    <div class="card"  style="width: 560px;">
+              {{#if currentUser}}
+              <h3 class="left-align">Consultas</h3>
+                <form >
+                      <div class="row">
+                        <div class="input-field col s12" style="width: 460px;">
+                          <input type="text" id="autocomplete-input" class="autocomplete" name="search"/>
+                          <label for="autocomplete-input" >
+                            Pesquisar por alunos ou disciplinas...
+                          </label>
+                         </div>
+
+                         <button class="btn-floating btn-large waves-effect waves-light indigo" type="submit" name="action" style="padding-top: 10px">
+                            <i class="material-icons">search</i>
+                         </button>
+                         <div class="row">
+                               <input class="with-gap a" name="group1" type="radio" id="test1" value="a" checked/>
+                               <label for="test1">Alunos</label>
+                               <input class="with-gap d" name="group1" type="radio" id="test2" value="d" />
+                               <label for="test2">Disciplinas</label>
+                         </div>
+                       </div>
+                  </form>
+              {{/if}}
+
+      </div>
+      {{#if showStudents}}
+        {{> studentsSearchs}}
+      {{else}}
+        {{> disciplinesSearchs}}
+      {{/if}}
+</template>
+
+<!--########## coNSULTA PARA ESTUDANTES ##########-->
+<template name="studentsSearchs">
+
+  <div class="card" style="width: 460px;">
+    <h3 class="left-align">Resultados</h3>
+      <div class="accordion">
+        <dl>
+          <dt>
+            <a href="#accordion1" aria-expanded="false" aria-controls="accordion1" class="accordion-title accordionTitle js-accordionTrigger">
+              Disciplinas deste aluno no semestre:
+            </a>
+          </dt>
+          <dd class="accordion-content accordionItem is-collapsed" id="accordion1" aria-hidden="true" style="margin-left: auto; margin-right:auto; text-align:center;">
+              <table class="mdl-data-table mdl-shadow--2dp" style="margin-left: auto; margin-right:auto;">
+                {{> reactiveTable collection=coursesAtStudentSemester settings=disciplinesSettings}}
+              </table>
+          </dd>
+        </dl>
+      </div>
+  </div>
+</template>
+
+<!--########## CONSULTAS PARA DISICPLINA ##########-->
+<template name="disciplinesSearchs">
+
+  <div class="card" style="width: 460px;">
+    <h3 class="left-align">Resultados</h3>
+      <div class="accordion">
+        <dl>
+          <dt>
+            <a href="#accordion1" aria-expanded="false" aria-controls="accordion1" class="accordion-title accordionTitle js-accordionTrigger">
+              Estudantes que ainda farão esta disciplina: {{countStudentsWhoMustEnrollInACourse}}
+            </a>
+          </dt>
+          <dd class="accordion-content accordionItem is-collapsed" id="accordion1" aria-hidden="true" style="margin-left: auto; margin-right:auto; text-align:center;">
+
+              <table class="mdl-data-table mdl-shadow--2dp" style="margin-left: auto; margin-right:auto;">
+                {{> reactiveTable collection=studentsWhoMustEnrollInACourse settings=settings}}
+              </table>
+
+          </dd>
+          <dt>
+            <a href="#accordion2" aria-expanded="false" aria-controls="accordion2" class="accordion-title accordionTitle js-accordionTrigger">
+              Estudantes que tem pre-requisito para cursar-la: {{countStudentsWhoHavePrerequisitesForACourse}}
+            </a>
+          </dt>
+          <dd class="accordion-content accordionItem is-collapsed" id="accordion2" aria-hidden="true" style="margin-left: auto; margin-right:auto; text-align:center;">
+
+              <table class="mdl-data-table mdl-shadow--2dp" style="margin-left: auto; margin-right:auto; text-align:center;">
+                {{> reactiveTable collection=studentsWhoHavePrerequisitesForACourse settings=settings}}
+              </table>
+
+          </dd>
+
+          <dt>
+            <a href="#accordion2" aria-expanded="false" aria-controls="accordion2" class="accordion-title accordionTitle js-accordionTrigger">
+              Estudantes que estão no semestre sugerido: {{countStudentsAtCourseSemester}}
+            </a>
+          </dt>
+          <dd class="accordion-content accordionItem is-collapsed" id="accordion2" aria-hidden="true" style="margin-left: auto; margin-right:auto; text-align:center;">
+
+              <table class="mdl-data-table mdl-shadow--2dp" style="margin-left: auto; margin-right:auto; text-align:center;">
+                {{> reactiveTable collection=studentsAtCourseSemester settings=settings}}
+              </table>
+
+          </dd>
+        </dl>
+      </div>
+  </div>
+</template>

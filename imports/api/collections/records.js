@@ -37,7 +37,7 @@ Records.schema = new SimpleSchema({
 // Função utilizada para conversão de valores recebidos do csv para o formato correto definido
 // na validação
 Records.parser = function(jsonObj) {
-  const currentUser = Meteor.userId();
+  const currentUserId = Meteor.userId();
   return {
     rga:        parseInt(jsonObj.rga),
     nome:       jsonObj.nome,
@@ -45,7 +45,7 @@ Records.parser = function(jsonObj) {
     situacao:   jsonObj.situacao,
     ano:        parseInt(jsonObj.ano),
     semestre:   parseInt(jsonObj.semestre),
-    createdBy:  currentUser
+    createdBy:  currentUserId
   };
 };
 

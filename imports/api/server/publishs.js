@@ -18,6 +18,7 @@ Meteor.publish('user', function () {
         gradProgram:        1,
         currentYear:        1,
         currentSemester:    1,
+        durationAlerts:     1,
         passwordFlag:       1,
         uploadCoursesFlag:  1,
         uploadRecordsFlag:  1,

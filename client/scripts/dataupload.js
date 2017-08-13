@@ -47,13 +47,12 @@ Template.uploadcurricularstructure.events({
           return;
         //console.log(data); // Debug (descomente esta linha)
         try {
-          var g = new CoursesGraph(data);
-          validateCoursesGraph(g);
+          validateCoursesGraph(new CoursesGraph(data));
         } catch (e) {
-          Bert.alert(e, 'danger', 'growl-top-right');
+          Bert.alert(e.reason, 'danger', 'growl-top-right');
           return;
         }
-        Meteor.call('uploadCurricularStruture', data, (error, results) => {
+        Meteor.call('uploadCoursesData', data, (error, results) => {
           if (error)
             Bert.alert('Unknown internal error.', 'danger', 'growl-top-right');
           else {
@@ -68,7 +67,7 @@ Template.uploadcurricularstructure.events({
                 Bert.alert(msgUploadCourses.msgErrorsUpload, 'warning', 'growl-top-right');
                 break;
             }
-            Meteor.call('changeUserUploadCurricularStructureFlag');
+            Meteor.call('changeUploadCoursesFlag');
           }
           template.uploading.set(false);
         });
@@ -113,12 +112,12 @@ Template.uploadacademicrecord.events({
       },
 
       complete() {
-        if (globalError)
-          return;
+        if (globalError) return;
+
         //console.log(data); // Debug (descomente esta linha)
-        Meteor.call('updateAcademicRecordData', data, (error, results) => {
+        Meteor.call('updateRecordsData', data, (error, results) => {
           if (error)
-            Bert.alert('Unknown internal error.', 'danger', 'growl-top-right');
+            Bert.alert(error.reason, 'danger', 'growl-top-right');
           else {
             switch (results) {
               case uploadDataStatus.SUCCESS:
@@ -132,7 +131,7 @@ Template.uploadacademicrecord.events({
                 break;
             }
             Meteor.call('changeCurrentSemester', 0);
-            Meteor.call('changeUserUploadAcademicRecordsFlag');
+            Meteor.call('changeUploadRecordsFlag');
           }
           template.uploading.set(false);
         });
