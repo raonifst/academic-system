@@ -1,6 +1,7 @@
 import { Meteor } from 'meteor/meteor'
 import { AccountsServer } from 'meteor/accounts-base'
 import '../imports/api/server/publishs.js'
+import {defaultRootUser} from "../imports/modules/defaults";
 
 Meteor.startup(() => {
   /* Solução provisória: não há registro de usuários.
@@ -13,10 +14,10 @@ Meteor.startup(() => {
     });
     Meteor.users.update({ _id: userId }, {
       $set:
-      { name:             'Fabricio Barbosa de Carvalho',
-        gradProgram:      'Engenharia de Computação',
-        currentYear:      2014,
-        currentSemester:  2,
+      { name:             defaultRootUser.name,
+        gradProgram:      defaultRootUser.gradProgram,
+        currentYear:      defaultRootUser.currentYear,
+        currentSemester:  defaultRootUser.currentSemester,
       }
     });
   }
