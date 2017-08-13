@@ -1,5 +1,6 @@
 :root {
-  --cor-pri: #3f51b5; /*#3f51b5: indigo, #5c6bc0 indigo lighten-1*/
+  --cor-pri: #3f51b5; /*indigo*/
+  --cor-seg: #5c6bc0; /*indigo lighten-1*/
   --cor-bg: #eee;
   --cor-font: #797979;
 }
@@ -25,6 +26,10 @@ body {
 
 ::-webkit-scrollbar-track {
   background: tranparency;
+}
+
+dt a {
+    color: var(--cor-font) !important;
 }
 
 a:active,
@@ -158,7 +163,7 @@ div.card {
   display: inline-block;
   margin: 5px;
   color: var(--cor-font);
-  width: 360px;
+  width: 460px;
   max-width: 95%
 }
 
@@ -168,6 +173,10 @@ div.card2 {
 
 div.cardlogin {
   width: 300px;
+}
+
+div.card50 {
+  width: 48%;
 }
 
 div.cardtable {
@@ -203,6 +212,11 @@ div.cardtable {
   color: var(--cor-pri);
 }
 
+.section h5 {
+  text-align: left;
+  color: var(--cor-font);
+}
+
 /********** BUTTONS **********/
 
 .btn-example{
@@ -210,7 +224,7 @@ div.cardtable {
 }
 
 .btn {
-  background-color: #5c6bc0 !important; /*indigo lighten-1*/
+  background-color: var(--cor-seg) !important; /*indigo lighten-1*/
   display: inline-block !important;
   width: 180px;
   margin: 3px;
@@ -286,6 +300,10 @@ div.cardtable {
 
 /********** TABLES **********/
 
+.reactive-table-input form-control {
+  width: 100%;
+}
+
 .hover,
 .cinza {
   background-color: var(--cor-bg);
@@ -294,7 +312,7 @@ div.cardtable {
 .titleheader {
   font-size: 14px !important;
   height: 90px !important;
-  color: #5c6bc0;  /*indigo lighten-1*/
+  color: var(--cor-seg);
   text-align: center;
 }
 
@@ -341,4 +359,51 @@ div.cardtable {
 
 .modal-content {
   text-align: left;
+}
+
+/********** OTHERS **********/
+
+input:not([type]):focus:not([readonly]),
+input[type=text]:focus:not([readonly]),
+input[type=password]:focus:not([readonly]),
+input[type=email]:focus:not([readonly]),
+input[type=url]:focus:not([readonly]),
+input[type=time]:focus:not([readonly]),
+input[type=date]:focus:not([readonly]),
+input[type=datetime]:focus:not([readonly]),
+input[type=datetime-local]:focus:not([readonly]),
+input[type=tel]:focus:not([readonly]),
+input[type=number]:focus:not([readonly]),
+input[type=search]:focus:not([readonly]),
+textarea.materialize-textarea:focus:not([readonly]) {
+  border-bottom: 1px solid var(--cor-seg);
+  box-shadow: 0 1px 0 0 var(--cor-seg);
+}
+
+input:not([type]):focus:not([readonly]) + label,
+input[type=text]:focus:not([readonly]) + label,
+input[type=password]:focus:not([readonly]) + label,
+input[type=email]:focus:not([readonly]) + label,
+input[type=url]:focus:not([readonly]) + label,
+input[type=time]:focus:not([readonly]) + label,
+input[type=date]:focus:not([readonly]) + label,
+input[type=datetime]:focus:not([readonly]) + label,
+input[type=datetime-local]:focus:not([readonly]) + label,
+input[type=tel]:focus:not([readonly]) + label,
+input[type=number]:focus:not([readonly]) + label,
+input[type=search]:focus:not([readonly]) + label,
+textarea.materialize-textarea:focus:not([readonly]) + label {
+  color: var(--cor-seg);
+}
+
+[type="radio"]:checked + label:after,
+[type="radio"].with-gap:checked + label:before,
+[type="radio"].with-gap:checked + label:after {
+  border: 2px solid var(--cor-seg);
+}
+
+[type="radio"]:checked + label:after,
+[type="radio"].with-gap:checked + label:after {
+  background-color: var(--cor-seg);
+  z-index: 0;
 }

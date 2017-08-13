@@ -1,33 +1,23 @@
 <template name="usersettings">
-  <div class="card" style="width: 600px;">
-    <div class="row">
-      <div class="col s12">
-        <h3 class="page-header">Configurações de usuário</h3>
-      </div>
-    </div>
-    {{> profilesettings}}
-    <br>
-    {{> accountsettings}}
+  <div class="card card2">
+    <h4>Configurações de usuário</h4>
+      {{> profilesettings}}
+    <div class="divider"></div>
+      {{> accountsettings}}
   </div>
 </template>
 
 <template name="profilesettings" xmlns="http://www.w3.org/1999/html">
   {{#if currentUser}}
-    <div class="row">
-      <div class="col s12">
-        <h5 class="page-header">Perfil</h5>
-      </div>
-    </div>
-    <div class="row">
-      <form class="col s12">
+    <div class="section" style="margin-bottom: 50px;">
+      <h5>Perfil</h5>
+      <form>
         <div class="row">
-          <div class="input-field col s12">
+          <div class="input-field col s12 m6">
             <input value="{{userName}}" id="user_name" class="validate" name="name">
             <label for="user_name" class="active">Nome</label>
           </div>
-        </div>
-        <div class="row">
-          <div class="input-field col s12">
+          <div class="input-field col s12 m6">
             <select name="courses" id="courses_list">
               <option value="" disabled selected>Selecione um curso</option>
               {{#each course}}
@@ -38,7 +28,7 @@
           </div>
         </div>
         <div class="row">
-          <div class="input-field col s6">
+          <div class="input-field col s12 m6">
             <select name="alerts_time" id="alerts_time_config">
               <option value="" disabled selected>Selecione um número</option>
               {{#each alertsTime}}
@@ -48,9 +38,7 @@
             <label for="alerts_time_config">Tempo de duração dos alertas (em segundos)</label>
           </div>
         </div>
-        <div style="text-align: center;">
-          <button class="btn btn-primary waves-effect waves-light btn-sm">Alterar</button>
-        </div>
+          <button class="btn waves-effect waves-light right" style="margin-right: 20px;">Alterar</button>
       </form>
     </div>
   {{/if}}
@@ -58,32 +46,31 @@
 
 <template name="accountsettings">
   {{#if currentUser}}
-    <div class="row">
-      <div class="col s12">
-        <h5 class="page-header">Alteração de senha</h5>
-      </div>
-    </div>
-    <div class="row">
-      <form class="changepassform col s12">
+    <div class="section" style="margin-bottom: 40px;">
+      <h5>Alteração de senha</h5>
+      <form class="changepassform">
         <div class="row">
-          <div class="col s8">
+          <div class="col s12 m6">
             <input type="password" name="oldpassword" id="oldpassword" placeholder="Senha atual" required>
-            <span class="highlight"></span>
-            <span class="bar"></span>
+            <!--<span class="highlight"></span>
+            <span class="bar"></span>-->
             <!--<label for="oldpassword">Senha Atual</label>-->
           </div>
         </div>
         <div class="row">
-          <div class="col s8">
+          <div class="col s12 m6">
             <input type="password" name="password" id="password" placeholder="Nova senha" required>
-            <span class="highlight"></span>
-            <span class="bar"></span>
+            <!--<span class="highlight"></span>
+            <span class="bar"></span>-->
             <!--<label for="password">Nova Senha</label>-->
           </div>
+          <div class="col s12 m6">
+            <input type="password" name="password2" id="password2" placeholder="Confirme a nova senha" required>
+            <span class="highlight"></span>
+            <span class="bar"></span>
+          </div>
         </div>
-        <div style="text-align: center;">
-          <button class="btn btn-primary waves-effect waves-light btn-sm">Alterar</button>
-        </div>
+        <button class="btn waves-effect waves-light right" style="margin-right: 20px;">Alterar</button>
       </form>
     </div>
   {{/if}}
