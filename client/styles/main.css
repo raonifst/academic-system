@@ -399,6 +399,8 @@ i.fa.fa-filter{
 
 /********** OTHERS **********/
 
+
+
 div.error {
   font-size: 12px;
   color: red;
@@ -480,8 +482,8 @@ input[type=search].invalid,
 input[type=search]:focus.invalid,
 textarea.materialize-textarea.invalid,
 textarea.materialize-textarea:focus.invalid {
-  border-bottom: 1px solid #F44336 !important;
-  box-shadow: 0 1px 0 0 #F44336 !important;
+  border-bottom: 1px solid #F44336;
+  box-shadow: 0 1px 0 0 #F44336;
 }
 
 input:not([type]).invalid + label:after,
@@ -510,7 +512,7 @@ input[type=search].invalid + label:after,
 input[type=search]:focus.invalid + label:after,
 textarea.materialize-textarea.invalid + label:after,
 textarea.materialize-textarea:focus.invalid + label:after {
-  content: attr(data-error) !important;
-  color: #F44336 !important;
-  opacity: 1 !important;
+  content: attr(data-error);
+  color: #F44336;
+  opacity: 1;
 }

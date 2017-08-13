@@ -70,8 +70,9 @@
     </div>
   {{/if}}
 
-  <script type="text/javascript">
-  /*$(document).ready(function(){
+  <script type="text/javascript"> // ISSO FOI MUITO CHATO, DESISTI DE DEIXAR A BARRA VERMELHA!
+  /*$(document).ready(function(){ // Descomenta apenas este bloco
+    Materialize.updateTextFields();
     $('#changepassform').validate({
       rules: {
         oldpassword: {
@@ -104,16 +105,34 @@
         },
       },
       errorElement : 'div',
-      errorPlacement: function(error, element) {
-        var placement = $(element).data('error');
-        //alert(placement);
+      errorPlacement: function (error, element) {
+        //var placement = $(element).data('error');
+        var placement = $(element).attr('data-error');
+        console.log($(element).val());
         if (placement) {
-          $(placement).append(error)
+          $(placement).append(error);
         } else {
           error.insertAfter(element);
+          //if (error.length) {
+          //  $(element).removeClass('valid');
+          //  $(element).addClass('invalid');
+          //} else {
+          //  $(element).removeClass('invalid');
+          //  $(element).removeClass('error');
+          //  $(element).addClass('valid');
+          //}
         }
       }
     });
+  });
+  /*$(document).on("blur", ".required", function (event) {
+    event.preventDefault();
+    if ($(this).val() === "") {
+      $(this).addClass("invalid");
+      $(this).parent().find("label").addClass("active");
+    } else {
+      $(this).removeClass("invalid");
+    }
   });*/
   </script>
 </template>
