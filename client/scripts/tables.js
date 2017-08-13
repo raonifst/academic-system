@@ -27,7 +27,7 @@ Template.tablecurricularstructure.helpers({
           cellClass(value, object) { if (!(object.semestre%2)) return 'cinza'; }},
 
         { key: 'creditos',  label: 'Créditos',                  headerClass: 'titleheader',
-          cellClass(value, object) { if (!(object.semestre%2)) return 'cinza'; }},
+          cellClass(value, object) { if (!(object.semestre%2)) return 'cinza num'; return 'num'}},
 
         { key: 'perc_ap',   label: 'Aprovações',                headerClass: 'titleheader', tmpl: Template.percap,
           cellClass(value, object) { if (!(object.semestre%2)) return 'cinza num'; return 'num' },
@@ -77,10 +77,10 @@ Template.tableacademicrecords.helpers({
           cellClass(value, object) { if (Session.get('hover') == object._id) return 'hover'; }},
 
         { key: 'situacao',    label: 'Situação',    headerClass: 'titleheader',
-          cellClass(value, object) { if (Session.get('hover') == object._id) return 'hover'; }},
+          cellClass(value, object) { if (Session.get('hover') == object._id) return 'hover num'; return 'num'; }},
 
         {                     label: 'Semestre',    headerClass: 'titleheader', tmpl: Template.anosemestre,
-          cellClass(value, object) { if (Session.get('hover') == object._id) return 'hover'; },
+          cellClass(value, object) { if (Session.get('hover') == object._id) return 'hover num'; return 'num'; },
           fn(value, object, key) { return 10*object.ano+object.semestre; },
           sortOrder: 0, sortDirection: -1 },
 
@@ -103,7 +103,7 @@ Template.reactiveTable.events({
         return;
     console.log('Só apagar '+this.nome);
   },
-  
+
   'mouseenter .reactive-table tr':function(event) {
     Session.set('hover', this._id);
   },

@@ -38,7 +38,7 @@
             <label for="alerts_time_config">Tempo de duração dos alertas (em segundos)</label>
           </div>
         </div>
-          <button class="btn waves-effect waves-light right" style="margin-right: 20px;">Alterar</button>
+        <button class="btn waves-effect waves-light right" style="margin-right: 20px;">Alterar</button>
       </form>
     </div>
   {{/if}}
@@ -48,30 +48,72 @@
   {{#if currentUser}}
     <div class="section" style="margin-bottom: 40px;">
       <h5>Alteração de senha</h5>
-      <form class="changepassform">
+      <form id="changepassform">
         <div class="row">
-          <div class="col s12 m6">
-            <input type="password" name="oldpassword" id="oldpassword" placeholder="Senha atual" required>
-            <!--<span class="highlight"></span>
-            <span class="bar"></span>-->
-            <!--<label for="oldpassword">Senha Atual</label>-->
+          <div class="input-field col s12 m6">
+            <input type="password" id="oldpassword" name="oldpassword" required>
+            <label for="oldpassword">Senha atua</label>
           </div>
         </div>
         <div class="row">
-          <div class="col s12 m6">
-            <input type="password" name="password" id="password" placeholder="Nova senha" required>
-            <!--<span class="highlight"></span>
-            <span class="bar"></span>-->
-            <!--<label for="password">Nova Senha</label>-->
+          <div class="input-field col s12 m6">
+            <input type="password" id="password" name="password" required>
+            <label for="password">Nova senha</label>
           </div>
-          <div class="col s12 m6">
-            <input type="password" name="password2" id="password2" placeholder="Confirme a nova senha" required>
-            <span class="highlight"></span>
-            <span class="bar"></span>
+          <div class="input-field col s12 m6">
+            <input type="password" id="password2" name="password2" required>
+            <label for="password2">Confirme a nova senha</label>
           </div>
         </div>
         <button class="btn waves-effect waves-light right" style="margin-right: 20px;">Alterar</button>
       </form>
     </div>
   {{/if}}
+
+  <script type="text/javascript">
+  /*$(document).ready(function(){
+    $('#changepassform').validate({
+      rules: {
+        oldpassword: {
+          required: true,
+          minlength: 3
+        },
+        password: {
+          required: true,
+          minlength: 3
+        },
+        password2: {
+          required: true,
+          minlength: 3,
+          equalTo: '#password'
+        },
+      },
+      messages: {
+        oldpassword: {
+          required: "Digite sua senha",
+          minlength: "No mínimo 3 caracteres"
+        },
+        password:{
+          required: "Digite sua nova senha",
+          minlength: "No mínimo 3 caracteres"
+        },
+        password2:{
+          equalTo: "As senhas precisam ser iguais",
+          required: "Digite novamente sua nova senha",
+          minlength: "No mínimo 3 caracteres"
+        },
+      },
+      errorElement : 'div',
+      errorPlacement: function(error, element) {
+        var placement = $(element).data('error');
+        //alert(placement);
+        if (placement) {
+          $(placement).append(error)
+        } else {
+          error.insertAfter(element);
+        }
+      }
+    });
+  });*/
+  </script>
 </template>

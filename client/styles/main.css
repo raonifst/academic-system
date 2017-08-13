@@ -137,6 +137,9 @@ div.nav-wrapper {
   }
 }
 
+.brand-logo {
+  color: var(--cor-bg) !important;
+}
 
 .footer-text {
   color: var(--cor-font) !important;
@@ -219,8 +222,12 @@ div.cardtable {
 
 /********** BUTTONS **********/
 
-.btn-example{
+.btn-example {
   color: var(--cor-font) !important;
+}
+
+.btn-floating {
+  background-color: var(--cor-seg) !important;
 }
 
 .btn {
@@ -255,7 +262,7 @@ div.cardtable {
 
 .login .btn {
   float: right;
-  width: auto !important;
+  width: 140px !important;
 }
 
 /*@media not screen and (min-width: 769px) {
@@ -282,13 +289,17 @@ div.cardtable {
   direction: ltr;
   -webkit-font-feature-settings: 'liga';
   -webkit-font-smoothing: antialiased;
-  color: var(--cor-bg);
+  color: #fff;
 }
 
 .side-nav-branca .material-icons,
 .side-nav-transparent .material-icons,
 .dropdown-content .material-icons  {
   color: var(--cor-font) !important;
+}
+
+.side-nav .material-icons {
+  color: var(--cor-bg) !important;
 }
 
 @font-face {
@@ -300,8 +311,23 @@ div.cardtable {
 
 /********** TABLES **********/
 
-.reactive-table-input form-control {
+.reactive-table-input.form-control {
+  margin-left: 55%;
+  width: 45%;
+}
+
+/*.reactive-table-input.form-control {
+  margin-left: 0px;
   width: 100%;
+}*/
+
+.pull-right {
+  float:none;
+  margin: 0px;
+}
+
+i.fa.fa-filter{
+  font-size: 0px;
 }
 
 .hover,
@@ -337,6 +363,11 @@ div.cardtable {
   font-size: 48px;
 }
 
+.accordion-title.accordionTitle {
+  font-size: 18px;
+}
+
+
 @media not screen and (min-width: 769px) {
   /*.titleheader {
     font-size: 14px !important;
@@ -353,6 +384,11 @@ div.cardtable {
   tr {
     font-size: 14px;
   }
+
+  .reactive-table-input.form-control {
+    margin-left: 0px;
+    width: 100%;
+  }
 }
 
 /********** MODALS **********/
@@ -362,6 +398,12 @@ div.cardtable {
 }
 
 /********** OTHERS **********/
+
+div.error {
+  font-size: 12px;
+  color: red;
+  margin-top: -15px;
+}
 
 input:not([type]):focus:not([readonly]),
 input[type=text]:focus:not([readonly]),
@@ -406,4 +448,69 @@ textarea.materialize-textarea:focus:not([readonly]) + label {
 [type="radio"].with-gap:checked + label:after {
   background-color: var(--cor-seg);
   z-index: 0;
+}
+
+.dropdown-content li > a, .dropdown-content li > span {
+  color: var(--cor-seg);
+}
+
+input:not([type]).invalid,
+input:not([type]):focus.invalid,
+input[type=text].invalid,
+input[type=text]:focus.invalid,
+input[type=password].invalid,
+input[type=password]:focus.invalid,
+input[type=email].invalid,
+input[type=email]:focus.invalid,
+input[type=url].invalid,
+input[type=url]:focus.invalid,
+input[type=time].invalid,
+input[type=time]:focus.invalid,
+input[type=date].invalid,
+input[type=date]:focus.invalid,
+input[type=datetime].invalid,
+input[type=datetime]:focus.invalid,
+input[type=datetime-local].invalid,
+input[type=datetime-local]:focus.invalid,
+input[type=tel].invalid,
+input[type=tel]:focus.invalid,
+input[type=number].invalid,
+input[type=number]:focus.invalid,
+input[type=search].invalid,
+input[type=search]:focus.invalid,
+textarea.materialize-textarea.invalid,
+textarea.materialize-textarea:focus.invalid {
+  border-bottom: 1px solid #F44336 !important;
+  box-shadow: 0 1px 0 0 #F44336 !important;
+}
+
+input:not([type]).invalid + label:after,
+input:not([type]):focus.invalid + label:after,
+input[type=text].invalid + label:after,
+input[type=text]:focus.invalid + label:after,
+input[type=password].invalid + label:after,
+input[type=password]:focus.invalid + label:after,
+input[type=email].invalid + label:after,
+input[type=email]:focus.invalid + label:after,
+input[type=url].invalid + label:after,
+input[type=url]:focus.invalid + label:after,
+input[type=time].invalid + label:after,
+input[type=time]:focus.invalid + label:after,
+input[type=date].invalid + label:after,
+input[type=date]:focus.invalid + label:after,
+input[type=datetime].invalid + label:after,
+input[type=datetime]:focus.invalid + label:after,
+input[type=datetime-local].invalid + label:after,
+input[type=datetime-local]:focus.invalid + label:after,
+input[type=tel].invalid + label:after,
+input[type=tel]:focus.invalid + label:after,
+input[type=number].invalid + label:after,
+input[type=number]:focus.invalid + label:after,
+input[type=search].invalid + label:after,
+input[type=search]:focus.invalid + label:after,
+textarea.materialize-textarea.invalid + label:after,
+textarea.materialize-textarea:focus.invalid + label:after {
+  content: attr(data-error) !important;
+  color: #F44336 !important;
+  opacity: 1 !important;
 }

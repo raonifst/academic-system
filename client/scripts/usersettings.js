@@ -71,6 +71,11 @@ Template.accountsettings.onRendered(function(){
     submitHandler(event) {
       const oldPassword = $('[name=oldpassword]');
       const newPassword = $('[name=password]');
+      const newPassword2 = $('[name=password2]');
+      /*console.log(oldPassword.val());
+      if (newPassword.val() != newPassword2.val())
+        Bert.alert('As senhas precisam ser iguais', 'danger', 'growl-top-right');
+      else*/
       Accounts.changePassword(oldPassword.val(), newPassword.val(), function (error) {
         if (error) {
           if (error.reason === "User not found") {
