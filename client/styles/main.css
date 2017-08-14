@@ -226,6 +226,10 @@ div.cardtable {
   color: var(--cor-pri);
 }
 
+.card h4 {
+  font-size: 30px;
+}
+
 .section h5 {
   text-align: left;
   color: var(--cor-font);
@@ -271,9 +275,15 @@ div.cardtable {
   margin: 5px !important;
 }
 
+.forgotpsw .btn,
 .login .btn {
   float: right;
   width: 140px !important;
+}
+
+.login .btn .material-icons,
+.forgotpsw .btn .material-icons {
+  float: right !important;
 }
 
 /*@media not screen and (min-width: 769px) {
@@ -421,22 +431,13 @@ i.fa.fa-filter{
 /********** FORMS **********/
 
 .input-field {
+  padding: 5px !important;
+  margin: 0px !important;
+}
+
+.row {
   padding: 0px !important;
-}
-
-.paddingleft {
-  padding-left: 10px !important;
-}
-
-.paddingright {
-  padding-right: 10px !important;
-}
-
-@media only screen and (max-width: 768px) {
-  .paddingleft,
-  .paddingright {
-    padding: 0px !important;
-  }
+  margin: 0px !important;
 }
 
 /********** OTHERS **********/

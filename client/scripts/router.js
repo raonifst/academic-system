@@ -61,8 +61,8 @@ Router.route('/error', {
 });
 
 Router.route('/settings', {
-  template: 'usersettings',
-  name: 'usersettings',
+  template: 'settings',
+  name: 'settings',
   onBeforeAction() {
     if (Meteor.userId()) {
       this.next();
