@@ -62,7 +62,7 @@ Template.profilesettings.events({
 
 /*-------------------- ACCOUNT SETTINGS --------------------*/
 Template.accountsettings.onRendered(function(){
-  $('.changepassform').validate({
+  /*$('.changepassform').validate({
     onkeyup: false,
     keypress: false,
     errorPlacement(error, element) {
@@ -72,10 +72,10 @@ Template.accountsettings.onRendered(function(){
       const oldPassword = $('[name=oldpassword]');
       const newPassword = $('[name=password]');
       const newPassword2 = $('[name=password2]');
-      /*console.log(oldPassword.val());
-      if (newPassword.val() != newPassword2.val())
-        Bert.alert('As senhas precisam ser iguais', 'danger', 'growl-top-right');
-      else*/
+      //console.log(oldPassword.val());
+      //if (newPassword.val() != newPassword2.val())
+      //  Bert.alert('As senhas precisam ser iguais', 'danger', 'growl-top-right');
+      //else
       Accounts.changePassword(oldPassword.val(), newPassword.val(), function (error) {
         if (error) {
           if (error.reason === "User not found") {
@@ -92,5 +92,45 @@ Template.accountsettings.onRendered(function(){
       oldPassword.val('');
       newPassword.val('');
     }
-  });
+  });*/
 });
+
+Template.settings.events({
+  'submit #changepassform': function (event) {
+    event.preventDefault();
+
+    if (event.target.password.value != event.target.password2.value) {
+      Bert.alert('Senhas precisam ser iguais', 'danger', 'growl-top-right');
+      event.target.oldpassword.value = '';
+      event.target.password.value = '';
+      event.target.password2.value = '';
+      $(event.target.oldpassword).removeClass('valid');
+      $(event.target.password).removeClass('valid');
+      $(event.target.password2).removeClass('valid');
+      Materialize.updateTextFields();
+    }
+
+    const oldpassword = event.target.oldpassword.value;
+    const newpassword = event.target.password.value;
+
+    Accounts.changePassword(oldpassword, newpassword, function (error) {
+      if (error) {
+        if (error.reason === "User not found")
+          Bert.alert('Usuário não cadastrado', 'danger');
+        else if (error.reason === "Incorrect password")
+          Bert.alert('Senha incorreta', 'danger', 'growl-top-right');
+      } else {
+        Bert.alert('Senha alterada!', 'success', 'growl-top-right');
+        //Meteor.call('changeFirstLogin');
+      }
+    });
+
+    $(event.target.oldpassword).removeClass('valid');
+    $(event.target.password).removeClass('valid');
+    $(event.target.password2).removeClass('valid');
+    event.target.oldpassword.value = '';
+    event.target.password.value = '';
+    event.target.password2.value = '';
+    Materialize.updateTextFields();
+  }
+})
