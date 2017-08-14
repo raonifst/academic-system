@@ -1,5 +1,26 @@
 import { Session } from 'meteor/session';
 
+Template.edit.onRendered(function() {
+  $(document).ready(function() {
+    $('.modal-trigger').leanModal({
+      dismissible: true,
+      opacity: .5,
+      inDuration: 300,
+      outDuration: 200,
+      startingTop: '4%',
+      endingTop: '10%',
+      complete() {
+        console.log("Complete");
+        Materialize.updateTextFields(); // BUG: Atualiza os campos value
+      },
+      ready(modal, trigger) {
+        console.log("Ready");
+        Materialize.updateTextFields();
+      },
+    });
+  });
+});
+
 Template.modaledit.helpers({
   coursesOrRecords(){
     if (!(this.rga))
