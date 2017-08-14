@@ -1,6 +1,7 @@
 import { Session } from 'meteor/session';
 
-Template.edit.onRendered(function() {
+Template.modaledit.onRendered(function() {
+  Materialize.updateTextFields();
   $(document).ready(function() {
     $('.modal-trigger').leanModal({
       dismissible: true,
@@ -10,12 +11,10 @@ Template.edit.onRendered(function() {
       startingTop: '4%',
       endingTop: '10%',
       complete() {
-        console.log("Complete");
-        Materialize.updateTextFields(); // BUG: Atualiza os campos value
+        //console.log("Complete");
       },
       ready(modal, trigger) {
-        console.log("Ready");
-        Materialize.updateTextFields();
+        //console.log("Ready");
       },
     });
   });

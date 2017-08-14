@@ -27,7 +27,7 @@ Template.dataremove.events({
 });
 
 
-Template.rmvIcon.events({
+Template.editing.events({
   'click .rmv': function(event) {
     event.preventDefault();
     if (window.confirm("Deseja apagar "+this.nome+"?"))

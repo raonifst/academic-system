@@ -10,9 +10,8 @@ Meteor.methods({
     if (!currentUserId)
       throw new Meteor.Error("not-logged-in", "You're not logged-in.");
 
-    if (!Courses.find({ createdBy: currentUserId }).count()) {
+    if (!Courses.find({ createdBy: currentUserId }).count())
       return 0;
-    }
 
     Courses.remove({ createdBy: currentUserId });
     console.log("Estrutura curricular limpa por", currentUserId);
@@ -36,7 +35,6 @@ Meteor.methods({
   removeItem(item) {
     check(item, Object);
     check(item._id, String);
-
     const currentUserId = Meteor.userId();
     const id = item._id;
 
