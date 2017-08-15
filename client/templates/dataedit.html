@@ -6,7 +6,29 @@
   <a href="#modaledit" class="modal-trigger">
     <i class="material-icons edit">edit</i>
   </a>
+
   {{> modaledit}}
+  <script type="text/javascript">
+    $(document).ready(function(){
+      $('.modal-trigger').leanModal({
+        dismissible: true,
+        opacity: .5,
+        inDuration: 300,
+        outDuration: 200,
+        startingTop: '4%',
+        endingTop: '10%',
+        complete() {
+          console.log("Complete");
+          Materialize.updateTextFields(); // BUG: Atualiza os campos value
+        },
+        ready(modal, trigger) {
+          console.log("Ready");
+          Materialize.updateTextFields();
+
+        },
+      });
+    });
+  </script>
 </template>
 
 <template name="modaledit">

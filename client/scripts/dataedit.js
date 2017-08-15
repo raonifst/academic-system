@@ -1,25 +1,5 @@
 import { Session } from 'meteor/session';
 
-Template.modaledit.onRendered(function() {
-  Materialize.updateTextFields();
-  $(document).ready(function() {
-    $('.modal-trigger').leanModal({
-      dismissible: true,
-      opacity: .5,
-      inDuration: 300,
-      outDuration: 200,
-      startingTop: '4%',
-      endingTop: '10%',
-      complete() {
-        //console.log("Complete");
-      },
-      ready(modal, trigger) {
-        //console.log("Ready");
-      },
-    });
-  });
-});
-
 Template.modaledit.helpers({
   coursesOrRecords(){
     if (!(this.rga))
