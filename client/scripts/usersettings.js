@@ -107,9 +107,7 @@ Template.settings.events({
       $(event.target.oldpassword).removeClass('valid');
       $(event.target.password).removeClass('valid');
       $(event.target.password2).removeClass('valid');
-      $(event.target.oldpassword).blur();
-      $(event.target.password).blur();
-      $(event.target.password2).blur();;
+      Materialize.updateTextFields();
     }
 
     const oldpassword = event.target.oldpassword.value;
@@ -133,8 +131,6 @@ Template.settings.events({
     event.target.oldpassword.value = '';
     event.target.password.value = '';
     event.target.password2.value = '';
-    $(event.target.oldpassword).blur();
-    $(event.target.password).blur();
-    $(event.target.password2).blur();
+    Materialize.updateTextFields();
   }
 })
