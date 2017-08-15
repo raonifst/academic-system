@@ -1,8 +1,8 @@
 import { Session } from 'meteor/session';
 
 Template.modaledit.onRendered(function() {
-  Materialize.updateTextFields();
   $(document).ready(function() {
+    //Materialize.updateTextFields();
     $('.modal-trigger').leanModal({
       dismissible: true,
       opacity: .5,
@@ -10,12 +10,6 @@ Template.modaledit.onRendered(function() {
       outDuration: 200,
       startingTop: '4%',
       endingTop: '10%',
-      complete() {
-        //console.log("Complete");
-      },
-      ready(modal, trigger) {
-        //console.log("Ready");
-      },
     });
   });
 });
@@ -53,11 +47,20 @@ Template.edit.events({
       console.log(event.target.creditos.value);
       console.log(event.target.semestre.value);
       console.log(event.target.prereq.value);
-      /*event.target.nome.value = '';
-      event.target.creditos.value = '';
-      event.target.semestre.value = '';
-      event.target.prereq.value = '';
-      event.target.codigo.value = '';*/
+      $(event.target.codigo).removeClass('valid');
+      $(event.target.nome).removeClass('valid');
+      $(event.target.creditos).removeClass('valid');
+      $(event.target.semestre).removeClass('valid');
+      $(event.target.prereq).removeClass('valid');
+      $(event.target.nome).blur();
+      $(event.target.creditos).blur();
+      $(event.target.semestre).blur();
+      $(event.target.prereq).blur();
+      $(event.target.codigo).blur();
+
+      const modal_id = $($('.modal-trigger').leanModal()).attr("href");
+      $(modal_id).closeModal();
+      Bert.alert("Só atualizar! by Courses", 'danger', 'growl-top-right');
     } else {
       console.log(event.target.rga.value);
       console.log(event.target.nome.value);
@@ -65,12 +68,22 @@ Template.edit.events({
       console.log(event.target.situacao.value);
       console.log(event.target.ano.value);
       console.log(event.target.semestre.value);
-      /*event.target.rga.value = '';
-      event.target.nome.value = '';
-      event.target.disciplina.value = '';
-      event.target.situacao.value = '';
-      event.target.ano.value = '';
-      event.target.semestre.value = '';*/
+      $(event.target.rga).removeClass('valid');
+      $(event.target.nome).removeClass('valid');
+      $(event.target.disciplina).removeClass('valid');
+      $(event.target.situacao).removeClass('valid');
+      $(event.target.ano).removeClass('valid');
+      $(event.target.semestre).removeClass('valid');
+      $(event.target.rga).blur();
+      $(event.target.nome).blur();
+      $(event.target.disciplina).blur();
+      $(event.target.situacao).blur();
+      $(event.target.ano).blur();
+      $(event.target.semestre).blur();
+
+      const modal_id = $($('.modal-trigger').leanModal()).attr("href");
+      $(modal_id).closeModal();
+      Bert.alert("Só atualizar! by Records", 'danger', 'growl-top-right');
     }
   },
 
