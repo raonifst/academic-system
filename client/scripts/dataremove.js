@@ -25,3 +25,12 @@ Template.dataremove.events({
     });
   },
 });
+
+
+Template.editing.events({
+  'click .rmv': function(event) {
+    event.preventDefault();
+    if (window.confirm("Deseja apagar "+this.nome+"?"))
+      Meteor.call('removeItem', this);
+  },
+});

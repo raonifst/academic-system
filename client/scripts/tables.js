@@ -93,17 +93,6 @@ Template.tableacademicrecords.helpers({
 
 /*-------------------- AÇÕES DENTRO DAS TABELAS --------------------*/
 Template.reactiveTable.events({
-  listaDisiciplinas() {
-    return Courses.find();
-  },
-
-  'click .rmv': function(event) {
-    event.preventDefault();
-    if (!window.confirm("Você tem certeza? Esta operação não pode ser desfeita."))
-        return;
-    console.log('Só apagar '+this.nome);
-  },
-
   'mouseenter .reactive-table tr':function(event) {
     Session.set('hover', this._id);
   },
