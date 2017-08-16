@@ -2,6 +2,7 @@ import {Meteor} from 'meteor/meteor';
 import { check } from 'meteor/check'
 import Courses from '../imports/api/collections/courses';
 import Records from '../imports/api/collections/records';
+import '../imports/modules/auxiliar'
 
 Meteor.methods({
   toCleanCourses() {
@@ -28,6 +29,7 @@ Meteor.methods({
       return 0;
 
     Records.remove({ createdBy: currentUserId });
+    updateCoursesRemoveRecords(currentUserId);
     console.log("Histórico acadêmico limpo por", currentUserId);
     return 1;
   },

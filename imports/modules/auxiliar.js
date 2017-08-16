@@ -11,10 +11,20 @@ function reinc(item) {
   }).count();
 }
 
+updateCoursesRemoveRecords = function updateCoursesRemoveRecords(currentUserId) {
+  Courses.update({ createdBy: currentUserId }, { $set:
+  { perc_ap:      0,
+    perc_reic:    0,
+    perc_aprov2:  0,
+    reprovacoes:  0,
+    aprovacoes:   0,
+    alunos:       0}}, {multi: true});
+}
+
 export function approvedAndRecidivists(item) {
   var idDisciplina, aprov, rep, reincidenciaAux, aprovtwo, alunos;
   //console.log(item); /* Descomente p/ debug */
-  
+
   var disciplina = Courses.findOne({nome: item.disciplina});
   if (!disciplina) return;
 
