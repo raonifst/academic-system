@@ -122,6 +122,7 @@ Template.settings.events({
         else if (error.reason === "Incorrect password")
           Bert.alert('Senha incorreta', 'danger', 'growl-top-right');
       } else {
+        Meteor.logout();
         Bert.alert('Senha alterada!', 'success', 'growl-top-right');
         //Meteor.call('changeFirstLogin');
       }
