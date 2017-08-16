@@ -77,24 +77,42 @@ Meteor.methods({
   changeUploadCoursesFlag() {
     const currentUser = Meteor.user();
     if (currentUser) {
-      const val = currentUser.uploadCoursesFlag;
-      Meteor.users.update({ _id: currentUser._id },
-        {
-          $set: { uploadCoursesFlag: !val }
-        });
-      console.log("Flag de upload de estrutura curricular alterado para: " + !val);
+      const val = Courses.findOne({createdBy:currentUser._id});
+      if(val) {
+        Meteor.users.update({ _id: currentUser._id },
+          {
+            $set: { uploadCoursesFlag: true }
+          });
+          console.log("Flag de upload de estrutura curricular alterado para: true");
+      }
+      else {
+        Meteor.users.update({ _id: currentUser._id },
+          {
+            $set: { uploadCoursesFlag: false }
+          });
+          console.log("Flag de upload de estrutura curricular alterado para: false");
+      }
     }
   },
 
   changeUploadRecordsFlag() {
     const currentUser = Meteor.user();
     if (currentUser) {
-      const val = currentUser.uploadRecordsFlag;
-      Meteor.users.update({ _id: currentUser._id },
-        {
-          $set: { uploadRecordsFlag: !val }
-        });
-      console.log("Flag de upload de histórico acadêmico alterado para: " + !val);
+      const val = Records.findOne({createdBy:currentUser._id});
+      if(val) {
+        Meteor.users.update({ _id: currentUser._id },
+          {
+            $set: { uploadRecordsFlag: true }
+          });
+          console.log("Flag de upload de histórico acadêmico alterado para: true");
+      }
+      else {
+        Meteor.users.update({ _id: currentUser._id },
+          {
+            $set: { uploadRecordsFlag: false }
+          });
+          console.log("Flag de upload de histórico acadêmico alterado para: false");
+      }
     }
   },
 
