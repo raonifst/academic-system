@@ -4,8 +4,14 @@ Router.route('/', {
   template: 'home',
   name: 'home',
   onBeforeAction() {
-    if (Meteor.userId()) {
-      this.next();
+    const currentUser = Meteor.user();
+    if (currentUser) {
+      if (!currentUser.uploadCoursesFlag)
+        this.render("estruturacurricular");
+      else if (!currentUser.uploadRecordsFlag)
+        this.render("historicoacademico");
+      else
+        this.next();
     } else {
       this.render("login");
     }
@@ -28,8 +34,12 @@ Router.route('/historico-academico', {
   template: 'historicoacademico',
   name: 'historicoacademico',
   onBeforeAction() {
-    if (Meteor.userId()) {
-      this.next();
+    const currentUser = Meteor.user();
+    if (currentUser) {
+      if (!currentUser.uploadCoursesFlag)
+        this.render("estruturacurricular");
+      else
+        this.next();
     } else {
       this.render("login");
     }
@@ -84,17 +94,17 @@ Router.route('/about', {
   },
 });
 
-Router.route('/login', {
+/*Router.route('/login', {
   template: 'login',
   name: 'login',
   onBeforeAction() {
     if (!Meteor.userId()) {
       this.next();
     } else {
-      this.render("home");
+      this.render("login");
     }
   },
-});
+});*/
 
 Router.route('/recuperar', {
   template: 'recpsw',

@@ -14,3 +14,11 @@ Template.login.events({
     Meteor.loginWithPassword(email, password);
   }
 });
+
+
+Template.navigation.events({
+    'click .exit': function(event){
+        event.preventDefault();
+        Meteor.logout();
+    }
+});
