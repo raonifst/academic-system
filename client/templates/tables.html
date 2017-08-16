@@ -37,11 +37,19 @@
 </template>
 
 <template name="percap">
-  {{perc_ap}}%
+  {{#if perc_ap}}
+    {{perc_ap}}%
+  {{else}}
+    <center>-</center>
+  {{/if}}
 </template>
 
 <template name="percreic">
-  {{perc_reic}}%
+  {{#if perc_reic}}
+    {{perc_reic}}%
+  {{else}}
+    <center>-</center>
+  {{/if}}
 </template>
 
 <template name="error404">
