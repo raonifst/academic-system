@@ -5,17 +5,18 @@ import { Meteor } from 'meteor/meteor'
 import { Session } from 'meteor/session'
 
 Template.studentsSearchs.helpers({
+  disciplinesSettings: function () {
+      return {
+          rowsPerPage: 10,
+          showFilter: true,
+          fields: [
+            { sortable: false, label: Template.tableexport },
+            { key: 'codigo', label: 'Código' , cellClass: 'col-md-4'},
+            { key: 'nome', label: 'Nome' , cellClass: 'col-md-4'}
+          ]
+      };
+  },
 
-disciplinesSettings: function () {
-    return {
-        rowsPerPage: 10,
-        showFilter: true,
-        fields: [
-          { key: 'codigo', label: 'Código' , cellClass: 'col-md-4'},
-          { key: 'nome', label: 'Nome' , cellClass: 'col-md-4'}
-        ]
-    };
-},
   coursesAtStudentSemester:function(){
       let studentKey = Session.get('courseName');//devera ser alterado
       let cod = parseInt(studentKey,10);
@@ -49,5 +50,11 @@ disciplinesSettings: function () {
     let v =[{}];
     v = hash2array(map);
   return v;
-}
+  }
 });
+
+Template.studentsSearchs.events({
+  'click .export': function() {
+    console.log("Tentando Exportar");
+  }
+})

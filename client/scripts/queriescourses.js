@@ -22,6 +22,7 @@ Template.disciplinesSearchs.helpers({
           rowsPerPage: 10,
           showFilter: true,
           fields: [
+            { sortable: false, label: Template.tableexport },
             { key: 'rga', label: 'RGA' , cellClass: 'col-md-4'},
             { key: 'nome', label: 'Nome' , cellClass: 'col-md-4'}
           ]
@@ -33,6 +34,7 @@ Template.disciplinesSearchs.helpers({
         rowsPerPage: 10,
         showFilter: true,
         fields: [
+          { sortable: false, label: Template.tableexport },
           { key: 'codigo', label: 'Código' , cellClass: 'col-md-4'},
           { key: 'nome', label: 'Nome' , cellClass: 'col-md-4'}
         ]
@@ -157,3 +159,9 @@ Template.disciplinesSearchs.helpers({
 Template.disciplinesSearchs.onRendered(function(){
   accordion();
 });
+
+Template.disciplinesSearchs.events({
+  'click .export': function() {
+    console.log("Tentando Exportar");
+  }
+})

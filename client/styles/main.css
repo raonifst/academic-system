@@ -386,11 +386,16 @@ i.fa.fa-filter{
   min-width: 68px !important;
 }
 
+.export,
 .rmv,
 .edit {
   margin-left: 5px;
   cursor: pointer;
   color: #555 !important;
+}
+
+.export {
+  vertical-align: bottom;
 }
 
 .iconblack {
