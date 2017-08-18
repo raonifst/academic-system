@@ -39,6 +39,11 @@
 </template>
 
 <template name="navigation">
+  <p>Nome:</p>
+  <h6 class="truncate">{{nome}}</h6>
+  <p>Curso:</p>
+  <h6 class="truncate">{{curso}}</h6>
+  <li><div class="divider"></div></li>
   <li><a href="{{pathFor route='home'}}"><i class="material-icons">home</i>Início</a></li>
   <li><a href="{{pathFor route='estruturacurricular'}}"><i class="material-icons">assignment</i>Estrutura Curricular</a></li>
   <li><a href="{{pathFor route='historicoacademico'}}"><i class="material-icons">assignment_ind</i>Histórico Acadêmico</a></li>

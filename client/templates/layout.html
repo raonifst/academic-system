@@ -23,6 +23,7 @@
 <template name="navbar">
     <nav>
       <div class="nav-wrapper">
+        <p style="float: right; padding-right: 10px; font-size: 18px;">{{ano}}/{{semestre}}</p>
         <div class="show-on-large">
           <a href="{{pathFor route='home'}}" class="brand-logo center">Sistema Acadêmico</a>
           {{> navbig}}
@@ -35,7 +36,7 @@
 </template>
 
 <template name="navsmall">
-  <ul id="slide-out" class="side-nav side-nav-branca"><br>
+  <ul id="slide-out" class="side-nav side-nav-branca">
     {{> navigation}}
   </ul>
   <a href="#" data-activates="slide-out" class="button-collapse"><i class="material-icons">menu</i></a>
@@ -51,7 +52,7 @@
 </template>
 
 <template name="navbig">
-  <ul class="side-nav fixed"><br>
+  <ul class="side-nav fixed">
     {{> navigation}}
   </ul>
 </template>
