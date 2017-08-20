@@ -8,15 +8,14 @@ import {approvedAndRecidivists} from "../imports/modules/auxiliar";
 Meteor.methods({
   uploadCoursesData(data) {
     var resultCode = uploadDataStatus.SUCCESS;
-
     data.forEach(item => {
       const existCurr = Courses.find({
         codigo: item.codigo,
         createdBy: Meteor.userId()
       }).count();
-
       // Pré-condição: Verifica se os items já estão no banco de dados
       if (existCurr !== 0) {
+        console.log(item.createdBy);
         resultCode = uploadDataStatus.WARNINGS;
         return; // Equivalente ao "continue" em um laço "for" explícito
       }
@@ -34,7 +33,7 @@ Meteor.methods({
 
       if (resultCode == uploadDataStatus.ERROR)
         return;
-
+      console.log("é noix");
       Courses.insert(item);
     });
     return resultCode;
@@ -56,7 +55,6 @@ Meteor.methods({
 
       if (existDisc !=0 && existHist == 0) {
         //Dados de cada disicplina
-        console.log("reincidencia");
         approvedAndRecidivists(item);
       }
       // Pré-condição: Verifica se os items já estão no banco de dados
