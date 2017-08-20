@@ -250,6 +250,7 @@ div.cardtable {
 .card h5,
 .card h6 {
   text-align: center;
+  margin: 10px auto 18px;
   color: var(--cor-pri);
 }
 
