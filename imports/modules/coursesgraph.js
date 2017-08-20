@@ -54,12 +54,38 @@ export class CVertexAttr {
   }
 }
 
-export class CoursesGraph {
+export class CoursesDAG {
   constructor(coursesArray) {
     this.gMap = new Map();
     coursesArray.forEach(item => {
       this.gMap.set(item.codigo, item.prereq);
     });
+    this._validate();
+    this.transpose();
+  }
+
+  _validate() {
+    var list = this.topologicalSort();
+    // TODO remove this debug line later
+    console.log(list); // Debug
+    if (!list)
+      throw new Meteor.Error("invalid-dag", msgCoursesGraph.msgCourseNotFound);
+    if (list.length <= 0)
+      throw new Meteor.Error("invalid-dag", msgCoursesGraph.msgCycleError);
+  }
+
+  transpose() {
+    var revMap = new Map();
+    for (var key1 of this.gMap.keys()) {
+      revMap.set(key1, []);
+    }
+    for (var u of this.gMap.keys()) {
+      var adjList = this.gMap.get(u);
+      adjList.forEach(v => {
+        revMap.get(v).push(u);
+      });
+    }
+    this.gMap = revMap;
   }
 
   depthFirstSearch(list) {
@@ -132,14 +158,4 @@ export class CoursesGraph {
     }
     return list;
   }
-}
-
-export function validateCoursesGraph(graph) {
-  var list = graph.topologicalSort();
-  // TODO remove this debug line later
-  console.log(list); // Debug
-  if (!list)
-    throw new Meteor.Error("invalid-dag", msgCoursesGraph.msgCourseNotFound);
-  if (list.length <= 0)
-    throw new Meteor.Error("invalid-dag", msgCoursesGraph.msgCycleError);
 }
