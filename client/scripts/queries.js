@@ -5,6 +5,8 @@ import { Meteor } from 'meteor/meteor'
 import { Session } from 'meteor/session'
 import "../../imports/modules/queriescourses";
 import "../../imports/modules/queriesstudents";
+import Exporter from "../../imports/modules/exporter";
+
 
 ////////////  CONSULTAS DE DISCIPLINAS /////////////
 Template.disciplinesSearchs.onCreated(() => {
@@ -109,9 +111,8 @@ Template.studentsSearchs.helpers({
 
 Template.studentsSearchs.events({
   'click .export': function() {
-    console.log("alguma coisa");
-    if(this.type=='a'){
-      console.log("Tentando Exportar");
+    let collection = coursesAtStudentSemester();
+    Exporter.QcoursesAtStudentSemester ((collection), 'Consulta_Alunos');
     }
   }
-})
+)

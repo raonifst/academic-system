@@ -46,6 +46,22 @@ export const Exporter = {
 
     this.download(Papa.unparse({ fields: fields, data: data }), nome);
   },
+  QcoursesAtStudentSemester(collection, nome) {
+    var fields = [
+      "codigo",
+      "nome",
+    ];
+
+    var data = [];
+    _.each(collection, function(c1) {
+      data.push([
+        c1.codigo,
+        c1.nome
+      ]);
+    });
+
+    this.download(Papa.unparse({ fields: fields, data: data }), nome);
+  },
 
   download(csv, nome) {
     // TODO refatorar forma de fazer essa exportacao
