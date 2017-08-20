@@ -103,7 +103,6 @@ Template.studentsSearchs.helpers({
   },
 
   coursesAtStudentSemester:function(){
-    let aux = coursesAtStudentSemester();
     return coursesAtStudentSemester();
   }
 });
