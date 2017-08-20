@@ -98,7 +98,7 @@ Template.uploadacademicrecord.helpers({
     const currentUser = Meteor.user();
     if (currentUser)
       if (!currentUser.uploadRecordsFlag)
-        Bert.alert("É necessário fazer upload da Estrutura Curricular", 'warning', 'growl-top-right');
+        Bert.alert("É necessário fazer upload do Histórico Acadêmico", 'warning', 'growl-top-right');
   },
 });
 
