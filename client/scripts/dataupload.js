@@ -5,7 +5,7 @@ import {Meteor} from 'meteor/meteor';
 import {ReactiveVar} from "meteor/reactive-var";
 import {CsvUtils} from "../../imports/modules/csvutils";
 import {uploadDataStatus} from "../../imports/modules/status";
-import {CoursesGraph, validateCoursesGraph} from "../../imports/modules/coursesgraph";
+import {CoursesDAG} from "../../imports/modules/coursesgraph";
 import {msgUploadCourses, msgUploadRecords} from "../../imports/modules/bertmessages";
 
 /*-------------------- UPLOAD CURRICULAR STRUCTURE --------------------*/
@@ -54,7 +54,8 @@ Template.uploadcurricularstructure.events({
           return;
         //console.log(data); // Debug (descomente esta linha)
         try {
-          validateCoursesGraph(new CoursesGraph(data));
+          var g = new CoursesDAG(data);
+          console.log(g.gMap); // Debug (descomente esta linha)
         } catch (e) {
           Bert.alert(e.reason, 'danger', 'growl-top-right');
           return;
