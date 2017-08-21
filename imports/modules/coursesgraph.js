@@ -73,7 +73,7 @@ export class CoursesDAG {
   _validate() {
     var list = this.topologicalSort();
     // TODO remove this debug line later
-    console.log(list); // Debug
+    //console.log(list); // Debug
     if (!list)
       throw new Meteor.Error("invalid-dag", msgCoursesGraph.msgCourseNotFound);
     if (list.length <= 0)
@@ -110,7 +110,7 @@ export class CoursesDAG {
         this._depthFirstSearchVisit(key2, list);
     }
     // TODO remove this debug line later
-    console.log(this.attributes);
+    //console.log(this.attributes);
     return this.attributes;
   }
 

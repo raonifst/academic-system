@@ -7,7 +7,6 @@ Template.login.events({
   }
 });
 
-
 Template.navigation.events({
     'click .exit': function(event){
         event.preventDefault();
@@ -20,10 +19,10 @@ Template.navigation.helpers({
   nome() {
     return Meteor.user().name;
   },
+
   curso() {
     return Meteor.user().gradProgram;
-  },
-
+  }
 });
 
 Template.navbar.helpers({

@@ -6,7 +6,7 @@ Template.dataremove.helpers({
           (method == 'toCleanRecords' && currentUser.uploadRecordsFlag))
             return 'btn-delete waves-effect waves-light';
     return 'disabled';
-  },
+  }
 });
 
 Template.dataremove.events({
@@ -23,7 +23,7 @@ Template.dataremove.events({
         Bert.alert('Já está vazio.', 'warning', 'growl-top-right' );
       }
     });
-  },
+  }
 });
 
 

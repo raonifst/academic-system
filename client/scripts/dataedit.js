@@ -2,7 +2,6 @@ import { Session } from 'meteor/session';
 
 Template.modaledit.onRendered(function() {
   $(document).ready(function() {
-    //Materialize.updateTextFields();
     $('.modal-trigger').leanModal({
       dismissible: true,
       opacity: .5,
@@ -23,19 +22,19 @@ Template.modaledit.helpers({
 
   edit(){
     return Session.get('editing');
-  },
+  }
 });
 
 Template.editcourse.helpers({
   edit(){
     return Session.get('editing');
-  },
+  }
 });
 
 Template.editrecord.helpers({
   edit(){
     return Session.get('editing');
-  },
+  }
 });
 
 Template.edit.events({
@@ -90,5 +89,5 @@ Template.edit.events({
   'click .edit': function(event) {
     event.preventDefault();
     Session.set('editing', this);
-  },
+  }
 });

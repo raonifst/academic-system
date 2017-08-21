@@ -15,7 +15,7 @@ Router.route('/', {
     } else {
       this.render("login");
     }
-  },
+  }
 });
 
 Router.route('/estrutura-curricular', {
@@ -27,7 +27,7 @@ Router.route('/estrutura-curricular', {
     } else {
       this.render("login");
     }
-  },
+  }
 });
 
 Router.route('/historico-academico', {
@@ -43,7 +43,7 @@ Router.route('/historico-academico', {
     } else {
       this.render("login");
     }
-  },
+  }
 });
 
 Router.route('/sla', {
@@ -55,7 +55,7 @@ Router.route('/sla', {
     } else {
       this.render("login");
     }
-  },
+  }
 });
 
 Router.route('/error', {
@@ -67,7 +67,7 @@ Router.route('/error', {
     } else {
       this.render("login");
     }
-  },
+  }
 });
 
 Router.route('/settings', {
@@ -79,7 +79,7 @@ Router.route('/settings', {
     } else {
       this.render("login");
     }
-  },
+  }
 });
 
 Router.route('/about', {
@@ -91,20 +91,8 @@ Router.route('/about', {
     } else {
       this.render("login");
     }
-  },
+  }
 });
-
-/*Router.route('/login', {
-  template: 'login',
-  name: 'login',
-  onBeforeAction() {
-    if (!Meteor.userId()) {
-      this.next();
-    } else {
-      this.render("login");
-    }
-  },
-});*/
 
 Router.route('/recuperar', {
   template: 'recpsw',
@@ -115,7 +103,7 @@ Router.route('/recuperar', {
     } else {
       this.render("home");
     }
-  },
+  }
 });
 
 Router.route('/registrar', {
@@ -127,5 +115,5 @@ Router.route('/registrar', {
     } else {
       this.render("home");
     }
-  },
+  }
 });

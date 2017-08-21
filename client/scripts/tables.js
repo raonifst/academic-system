@@ -45,7 +45,7 @@ Template.tablecurricularstructure.helpers({
           cellClass(value, object) { if (!(object.semestre%2)) return 'cinza'; }},
       ]
     };
-  },
+  }
 });
 
 /*-------------------- TABLE ACADEMIC RECORDS --------------------*/
@@ -88,7 +88,7 @@ Template.tableacademicrecords.helpers({
           cellClass(value, object) { if (Session.get('hover') == object._id) return 'hover'; }},
       ]
     };
-  },
+  }
 });
 
 /*-------------------- AÇÕES DENTRO DAS TABELAS --------------------*/

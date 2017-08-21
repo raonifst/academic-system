@@ -1,12 +1,13 @@
 import Courses from "../../imports/api/collections/courses";
 import Records from "../../imports/api/collections/records";
 
-import {Meteor} from 'meteor/meteor';
-import {ReactiveVar} from "meteor/reactive-var";
-import {CsvUtils} from "../../imports/modules/csvutils";
-import {uploadDataStatus} from "../../imports/modules/status";
-import {CoursesDAG} from "../../imports/modules/coursesgraph";
-import {msgUploadCourses, msgUploadRecords} from "../../imports/modules/bertmessages";
+import { Meteor } from 'meteor/meteor';
+import { ReactiveVar } from "meteor/reactive-var";
+
+import { CsvUtils } from "../../imports/modules/csvutils";
+import { uploadDataStatus } from "../../imports/modules/status";
+import { CoursesDAG } from "../../imports/modules/coursesgraph";
+import { msgUploadCourses, msgUploadRecords } from "../../imports/modules/bertmessages";
 
 /*-------------------- UPLOAD CURRICULAR STRUCTURE --------------------*/
 Template.uploadcurricularstructure.onCreated(() => {
@@ -55,7 +56,7 @@ Template.uploadcurricularstructure.events({
         //console.log(data); // Debug (descomente esta linha)
         try {
           var g = new CoursesDAG(data);
-          console.log(g.gMap); // Debug (descomente esta linha)
+          //console.log(g.gMap); // Debug (descomente esta linha)
         } catch (e) {
           Bert.alert(e.reason, 'danger', 'growl-top-right');
           return;
@@ -82,7 +83,7 @@ Template.uploadcurricularstructure.events({
       }
     });
     event.target.value = '';
-  },
+  }
 });
 
 /*-------------------- UPLOAD ACADEMIC RECORDS --------------------*/
@@ -100,7 +101,7 @@ Template.uploadacademicrecord.helpers({
     if (currentUser)
       if (!currentUser.uploadRecordsFlag)
         Bert.alert("É necessário fazer upload do Histórico Acadêmico", 'warning', 'growl-top-right');
-  },
+  }
 });
 
 Template.uploadacademicrecord.events({
@@ -153,5 +154,5 @@ Template.uploadacademicrecord.events({
       }
     });
     event.target.value = '';
-  },
+  }
 });

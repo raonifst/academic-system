@@ -1,7 +1,7 @@
 import Courses from "../../imports/api/collections/courses";
-import Records from "../../imports/api/collections/records"
-import {Meteor} from 'meteor/meteor';
+import Records from "../../imports/api/collections/records";
 
+import { Meteor } from 'meteor/meteor';
 
 Template.modaladd.onRendered(function() {
   $(document).ready(function(){
@@ -12,7 +12,6 @@ Template.modaladd.onRendered(function() {
         outDuration: 200,
         startingTop: '4%',
         endingTop: '10%',
-          //Materialize.updateTextFields();
       }
     );
   });
@@ -60,10 +59,7 @@ Template.add.events({
 
       const modal_id = $($('.modal-trigger').leanModal()).attr("href");
       $(modal_id).closeModal();
-
-      //CRIAR METODO GENÉRICO PARA UPLOAD
       Meteor.call('uploadCoursesData', data);
-      //Bert.alert("Método ainda não criado! by Courses", 'danger', 'growl-top-right');
     } else {
       const currentUserId = Meteor.userId();
       const data = [{
@@ -90,8 +86,6 @@ Template.add.events({
 
       const modal_id = $($('.modal-trigger').leanModal()).attr("href");
       $(modal_id).closeModal();
-
-      //CRIAR METODO GENÉRICO PARA UPLOAD
       Meteor.call('updateRecordsData', data);
     }
   }
