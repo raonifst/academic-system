@@ -28,8 +28,8 @@ Template.disciplinesSearchs.helpers({
           showFilter: true,
           fields: [
             { sortable: false, label: Template.tableexport },
-            { key: 'rga', label: 'RGA' , cellClass: 'col-md-4'},
-            { key: 'nome', label: 'Nome' , cellClass: 'col-md-4'}
+            { key: 'rga', label: 'RGA' , headerClass: 'titleheader2' },
+            { key: 'nome', label: 'Nome' , headerClass: 'titleheader2' }
           ]
       };
   },
@@ -84,8 +84,8 @@ Template.studentsSearchs.helpers({
           showFilter: true,
           fields: [
             { sortable: false, label: Template.tableexport },
-            { key: 'codigo', label: 'Código' , cellClass: 'col-md-4'},
-            { key: 'nome', label: 'Nome' , cellClass: 'col-md-4'}
+            { key: 'codigo', label: 'Código' , headerClass: 'titleheader2' },
+            { key: 'nome', label: 'Nome' , headerClass: 'titleheader2' }
           ]
       };
   },

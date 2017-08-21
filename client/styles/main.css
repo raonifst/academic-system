@@ -398,10 +398,14 @@ i.fa.fa-filter{
   background-color: var(--cor-bg);
 }
 
+.titleheader2,
 .titleheader {
   font-size: 14px !important;
-  height: 90px !important;
   color: var(--cor-seg);
+}
+
+.titleheader {
+  height: 90px !important;
   text-align: center;
 }
 
