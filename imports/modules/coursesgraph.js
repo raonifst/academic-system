@@ -7,9 +7,9 @@ const GraphColors = Object.freeze({
 });
 
 const msgCoursesGraph = Object.freeze({
-  msgCycleError: "Listas de pré-requisitos contém um ou mais ciclos. " +
-                  "Corrija-os e tente novamente!",
-  msgCourseNotFound: "Estrutura contém uma ou mais disciplinas com código inválido."
+  msgCycleError:      "Listas de pré-requisitos contém um ou mais ciclos. " +
+                      "Corrija-os e tente novamente!",
+  msgCourseNotFound:  "Estrutura contém uma ou mais disciplinas com código inválido."
 });
 
 export class CVertexAttr {
@@ -18,7 +18,6 @@ export class CVertexAttr {
     this.piMap = new Map();
     this.discoveredMap = new Map();
     this.finishedMap = new Map();
-    this.time = 0;
   }
 
   setColorTo(vertex, color) {
@@ -126,10 +125,10 @@ export class CoursesDAG {
       uAdjList = this.gMap.get(uKey);
       this.attributes.setColorTo(uKey, GraphColors.GRAY);
       // TODO remove this debug line later
-      console.log("Vertex " + uKey + " changed color to " + this.attributes.getColorFrom(uKey));
+      //console.log("Vertex " + uKey + " changed color to " + this.attributes.getColorFrom(uKey));
       this.attributes.setDiscoveredTimeTo(uKey, ++this.time);
       // TODO remove this debug line later
-      console.log("Vertex " + uKey + " changed dtime to " + this.attributes.getDiscoveredTimeFrom(uKey));
+      //console.log("Vertex " + uKey + " changed dtime to " + this.attributes.getDiscoveredTimeFrom(uKey));
       uAdjList.forEach(vKey => {
         var vColor = this.attributes.getColorFrom(vKey);
         var vAdjList = this.gMap.get(vKey);
@@ -138,7 +137,7 @@ export class CoursesDAG {
         } else if (vColor == GraphColors.WHITE) {
           this.attributes.setPiTo(vKey, uKey);
           // TODO remove this debug line later
-          console.log("Vertex " + vKey + " changed pi to " + this.attributes.getColorFrom(vKey));
+          //console.log("Vertex " + vKey + " changed pi to " + this.attributes.getColorFrom(vKey));
           stack.push(vKey);
           isVertexLeaf = 0;
         } else if (vColor == GraphColors.GRAY) { // Grafo contém ciclo
@@ -148,12 +147,11 @@ export class CoursesDAG {
       if (isVertexLeaf) {
         this.attributes.setColorTo(uKey, GraphColors.BLACK);
         // TODO remove this debug line later
-        console.log("Vertex " + uKey + " changed color to " + this.attributes.getColorFrom(uKey));
+        //console.log("Vertex " + uKey + " changed color to " + this.attributes.getColorFrom(uKey));
         this.attributes.setFinishedTimeTo(uKey, ++this.time);
         // TODO remove this debug line later
-        console.log("Vertex " + uKey + " changed finished time to " + this.attributes.getFinishedTimeFrom(uKey));
-        if (outputList != null)
-          outputList.push(uKey);
+        //console.log("Vertex " + uKey + " changed finished time to " + this.attributes.getFinishedTimeFrom(uKey));
+        if (outputList != null) outputList.push(uKey);
       }
     }
   }

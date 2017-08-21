@@ -11,7 +11,7 @@ function reinc(item) {
   }).count();
 }
 
-updateCoursesRemoveRecords = function updateCoursesRemoveRecords(currentUserId) {
+export function updateCoursesRemoveRecords(currentUserId) {
   Courses.update({ createdBy: currentUserId }, { $set:
   { perc_ap:      0,
     perc_reic:    0,

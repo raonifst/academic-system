@@ -72,4 +72,5 @@ Records.deny({ // O usuário não pode alterar o campo createdBy em nenhuma hip�
     return _.contains(fields, 'createdBy');
   }
 });
+
 export default Records;

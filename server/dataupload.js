@@ -19,7 +19,6 @@ Meteor.methods({
         resultCode = uploadDataStatus.WARNINGS;
         return; // Equivalente ao "continue" em um laço "for" explícito
       }
-
       // Cria o array de pré-requisitos com base no _id das disciplinas já inseridas no banco
       for (var i = 0; i < item.prereq.length; i++) {
         const course = Courses.findOne({ codigo: item.prereq[i] });
@@ -30,10 +29,8 @@ Meteor.methods({
           break;
         }
       }
-
       if (resultCode == uploadDataStatus.ERROR)
         return;
-      console.log("é noix");
       Courses.insert(item);
     });
     return resultCode;
@@ -41,7 +38,6 @@ Meteor.methods({
 
   updateRecordsData(data) {
     var resultCode = uploadDataStatus.SUCCESS;
-
     data.forEach(item => {
       const existHist = Records.find({
         rga: item.rga,
@@ -50,9 +46,7 @@ Meteor.methods({
         semestre: item.semestre,
         createdBy: Meteor.userId()
       }).count();
-
       const existDisc = Courses.find({ nome: item.disciplina }).count();
-
       if (existDisc !=0 && existHist == 0) {
         //Dados de cada disicplina
         approvedAndRecidivists(item);
@@ -66,7 +60,6 @@ Meteor.methods({
         resultCode = uploadDataStatus.WARNINGS;
         return; // Equivalente ao "continue" em um laço "for" explícito
       }
-
       Records.insert(item);
     });
     return resultCode;
@@ -74,6 +67,9 @@ Meteor.methods({
 
   changeUploadCoursesFlag() {
     const currentUser = Meteor.user();
+    const serverLog = function (id, value) {
+      return "Flag de upload de estrutura curricular (usuário " + id + ") alterado para: " + value;
+    };
     if (currentUser) {
       const val = Courses.findOne({createdBy:currentUser._id});
       if(val) {
@@ -81,35 +77,36 @@ Meteor.methods({
           {
             $set: { uploadCoursesFlag: true }
           });
-          console.log("Flag de upload de estrutura curricular alterado para: true");
-      }
-      else {
+        console.log(serverLog(currentUser._id, true));
+      } else {
         Meteor.users.update({ _id: currentUser._id },
           {
             $set: { uploadCoursesFlag: false }
           });
-          console.log("Flag de upload de estrutura curricular alterado para: false");
+        console.log(serverLog(currentUser._id, false));
       }
     }
   },
 
   changeUploadRecordsFlag() {
     const currentUser = Meteor.user();
+    const serverLog = function (id, value) {
+      return "Flag de upload de histórico acadêmico (usuário " + id + ") alterado para: " + value;
+    };
     if (currentUser) {
       const val = Records.findOne({createdBy:currentUser._id});
-      if(val) {
+      if (val) {
         Meteor.users.update({ _id: currentUser._id },
           {
             $set: { uploadRecordsFlag: true }
           });
-          console.log("Flag de upload de histórico acadêmico alterado para: true");
-      }
-      else {
+        console.log(serverLog(currentUser._id, true));
+      } else {
         Meteor.users.update({ _id: currentUser._id },
           {
             $set: { uploadRecordsFlag: false }
           });
-          console.log("Flag de upload de histórico acadêmico alterado para: false");
+        console.log(serverLog(currentUser._id, false));
       }
     }
   },
@@ -118,9 +115,10 @@ Meteor.methods({
     var cSemester = "-";
     var cYear = "-";
     const currentUser = Meteor.user();
-
     const semesterParser = function (n) { return ((n + 1) % 2) + 1; };
-
+    const serverLog = function (id, year, semester) {
+      return "Semestre atual (usuário " + id + ") alterado para " + year + "/" + semester;
+    };
     if (currentUser) {
       if (!resetFlag) {
         const record = Records.findOne({ createdBy: currentUser._id },
@@ -135,7 +133,7 @@ Meteor.methods({
         {
           $set: { currentYear: cYear, currentSemester: cSemester }
         });
-      console.log('Semestre atual alterado para ' + cYear + '/' + cSemester);
+      console.log(serverLog(currentUser._id, cYear, cSemester));
     }
   }
 });
