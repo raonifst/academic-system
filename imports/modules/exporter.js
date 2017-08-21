@@ -46,16 +46,33 @@ export const Exporter = {
 
     this.download(Papa.unparse({ fields: fields, data: data }), nome);
   },
-  QcoursesAtStudentSemester(collection, nome) {
+  Qstudents(collection, nome) {
     var fields = [
       "codigo",
       "nome",
     ];
 
     var data = [];
+    _.each(collection, function(s) {
+      data.push([
+        s.codigo,
+        s.nome
+      ]);
+    });
+
+    this.download(Papa.unparse({ fields: fields, data: data }), nome);
+  },
+
+  Qcourses(collection, nome) {
+    var fields = [
+      "rga",
+      "nome",
+    ];
+
+    var data = [];
     _.each(collection, function(c1) {
       data.push([
-        c1.codigo,
+        c1.rga,
         c1.nome
       ]);
     });

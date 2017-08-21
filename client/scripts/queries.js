@@ -28,8 +28,8 @@ Template.disciplinesSearchs.helpers({
           showFilter: true,
           fields: [
             { sortable: false, label: Template.tableexport },
-            { key: 'rga', label: 'RGA' , headerClass: 'titleheader2' },
-            { key: 'nome', label: 'Nome' , headerClass: 'titleheader2' }
+            { key: 'rga', label: 'RGA' , cellClass: 'col-md-4'},
+            { key: 'nome', label: 'Nome' , cellClass: 'col-md-4'}
           ]
       };
   },
@@ -72,7 +72,12 @@ Template.disciplinesSearchs.onRendered(function(){
 
 Template.disciplinesSearchs.events({
   'click .export': function() {
-    console.log("Tentando Exportar");
+    let collection1 = studentsWhoMustEnrollInACourse();
+    let collection2 = studentsWhoHavePrerequisitesForACourse();
+    let collection3 = studentsAtCourseSemester();
+    Exporter.Qcourses ((collection1), 'Consulta_Disciplinas_1');
+    Exporter.Qcourses ((collection2), 'Consulta_Disciplinas_2');
+    Exporter.Qcourses ((collection3), 'Consulta_Disciplinas_3');
   }
 });
 
@@ -84,8 +89,8 @@ Template.studentsSearchs.helpers({
           showFilter: true,
           fields: [
             { sortable: false, label: Template.tableexport },
-            { key: 'codigo', label: 'Código' , headerClass: 'titleheader2' },
-            { key: 'nome', label: 'Nome' , headerClass: 'titleheader2' }
+            { key: 'codigo', label: 'Código' , cellClass: 'col-md-4'},
+            { key: 'nome', label: 'Nome' , cellClass: 'col-md-4'}
           ]
       };
   },
@@ -98,6 +103,6 @@ Template.studentsSearchs.helpers({
 Template.studentsSearchs.events({
   'click .export': function() {
     let collection = coursesAtStudentSemester();
-    Exporter.QcoursesAtStudentSemester ((collection), 'Consulta_Alunos');
+    Exporter.Qstudents ((collection), 'Consulta_Alunos');
   }
 });
