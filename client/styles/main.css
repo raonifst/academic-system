@@ -435,7 +435,6 @@ i.fa.fa-filter{
   font-size: 18px;
 }
 
-
 @media not screen and (min-width: 769px) {
   /*.titleheader {
     font-size: 14px !important;
@@ -457,6 +456,29 @@ i.fa.fa-filter{
     margin-left: 0px;
     width: 100%;
   }
+}
+
+.collapsible {
+  box-shadow: unset;
+  border: 0px;
+}
+
+.collapsible-header,
+.collapsible-body {
+  margin: 0px -5px 0px !important;
+  padding: 0px;
+}
+
+.collapsible-header {
+  border-bottom: 0px;
+  border-top: 1px solid #ddd;
+  padding-left: 15px;
+  margin-bottom: -10px !important;
+  font-size: 15px;
+}
+
+.collapsible-body {
+  border-bottom: 0px !important;
 }
 
 /********** MODALS **********/

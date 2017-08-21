@@ -36,60 +36,54 @@
 <template name="studentsSearchs">
   <div class="card card50">
     <h4>Resultados</h4>
-    <div class="accordion">
-      <dl>
-        <dt>
-          <a href="#accordion1" aria-expanded="false" aria-controls="accordion1" class="accordion-title accordionTitle js-accordionTrigger">
-            Disciplinas deste aluno no semestre:
-          </a>
-        </dt>
-        <dd class="accordion-content accordionItem is-collapsed" id="accordion1" aria-hidden="true" style="margin-left: auto; margin-right:auto; text-align:center;">
-          <table class="mdl-data-table mdl-shadow--2dp" style="margin-left: auto; margin-right:auto;">
-            {{> reactiveTable collection=coursesAtStudentSemester settings=settings}}
-          </table>
-        </dd>
-      </dl>
-    </div>
+    <ul class="collapsible" data-collapsible="accordion">
+      <li>
+        <div class="collapsible-header">Disciplinas deste aluno no semestre:</div>
+        <div class="collapsible-body">
+          {{> reactiveTable collection=coursesAtStudentSemester settings=settings}}
+        </div>
+      </li>
+    </ul>
   </div>
+  <script type="text/javascript">
+    $(document).ready(function(){
+     $('.collapsible').collapsible();
+    });
+  </script>
 </template>
 
 <!--########## CONSULTAS PARA DISICPLINA ##########-->
 <template name="disciplinesSearchs">
   <div class="card card50">
     <h4>Resultados</h4>
-    <div class="accordion">
-      <dl>
-        <dt>
-          <a href="#accordion1" aria-expanded="false" aria-controls="accordion1" class="accordion-title accordionTitle js-accordionTrigger">
-            Estudantes que ainda farão esta disciplina: {{countStudentsWhoMustEnrollInACourse}}
-          </a>
-        </dt>
-        <dd class="accordion-content accordionItem is-collapsed" id="accordion1" aria-hidden="true" style="margin-left: auto; margin-right:auto; text-align:center;">
-          <table class="mdl-data-table mdl-shadow--2dp" style="margin-left: auto; margin-right:auto;">
-            {{> reactiveTable collection=studentsWhoMustEnrollInACourse settings=settings}}
-          </table>
-        </dd>
-        <dt>
-          <a href="#accordion2" aria-expanded="false" aria-controls="accordion2" class="accordion-title accordionTitle js-accordionTrigger">
-            Estudantes que tem pre-requisito para cursar-la: {{countStudentsWhoHavePrerequisitesForACourse}}
-          </a>
-        </dt>
-        <dd class="accordion-content accordionItem is-collapsed" id="accordion2" aria-hidden="true" style="margin-left: auto; margin-right:auto; text-align:center;">
-          <table class="mdl-data-table mdl-shadow--2dp" style="margin-left: auto; margin-right:auto; text-align:center;">
-            {{> reactiveTable collection=studentsWhoHavePrerequisitesForACourse settings=settings}}
-          </table>
-        </dd>
-        <dt>
-          <a href="#accordion2" aria-expanded="false" aria-controls="accordion2" class="accordion-title accordionTitle js-accordionTrigger">
-            Estudantes que estão no semestre sugerido: {{countStudentsAtCourseSemester}}
-          </a>
-        </dt>
-        <dd class="accordion-content accordionItem is-collapsed" id="accordion2" aria-hidden="true" style="margin-left: auto; margin-right:auto; text-align:center;">
-          <table class="mdl-data-table mdl-shadow--2dp" style="margin-left: auto; margin-right:auto; text-align:center;">
-            {{> reactiveTable collection=studentsAtCourseSemester settings=settings}}
-          </table>
-        </dd>
-      </dl>
-    </div>
+    <ul class="collapsible" data-collapsible="accordion">
+      <li>
+        <div class="collapsible-header">Estudantes que ainda farão esta disciplina: {{countStudentsWhoMustEnrollInACourse}}:</div>
+        <div class="collapsible-body">
+          {{> reactiveTable collection=studentsWhoMustEnrollInACourse settings=settings}}
+        </div>
+      </li>
+    </ul>
+    <ul class="collapsible" data-collapsible="accordion">
+      <li>
+        <div class="collapsible-header">Estudantes que tem pre-requisito para cursar-la: {{countStudentsWhoHavePrerequisitesForACourse}}</div>
+        <div class="collapsible-body">
+          {{> reactiveTable collection=studentsWhoHavePrerequisitesForACourse settings=settings}}
+        </div>
+      </li>
+    </ul>
+    <ul class="collapsible" data-collapsible="accordion">
+      <li>
+        <div class="collapsible-header">Estudantes que estão no semestre sugerido: {{countStudentsAtCourseSemester}}</div>
+        <div class="collapsible-body">
+          {{> reactiveTable collection=studentsAtCourseSemester settings=settings}}
+        </div>
+      </li>
+    </ul>
   </div>
+  <script type="text/javascript">
+    $(document).ready(function(){
+     $('.collapsible').collapsible();
+    });
+  </script>
 </template>
