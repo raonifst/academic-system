@@ -25,7 +25,7 @@ studentsWhoHavePrerequisitesForACourse = function studentsWhoHavePrerequisitesFo
     let prereq = Courses.findOne({nome: courseName}, {fields: {prereq: 1}});
     prereq = prereq == null?[]:prereq.prereq;
   var map = {};
-  console.log(prereq)
+  //console.log(prereq)
   candidates.forEach(function(student) {
     let count = 0;
     prereq.forEach(function(code) {
@@ -52,7 +52,7 @@ studentsWhoHavePrerequisitesForACourse = function studentsWhoHavePrerequisitesFo
 
 studentsAtCourseSemester = function studentsAtCourseSemester() {
     let courseName = Session.get('courseName');
-    console.log(courseName);
+    //console.log(courseName);
     let semesterCourse;
     let courseId;
     Template.instance().countStudentsAtCourseSemester.set(0);
@@ -62,7 +62,7 @@ studentsAtCourseSemester = function studentsAtCourseSemester() {
       semesterCourse=Courses.findOne({nome: courseName},{fields:{semestre:1}});
       //Template.instance().semesterSearch.set(semesterCourse.semestre);
       //Template.search.__helpers.get('searchStudentBySemester').call();
-      console.log(semesterCourse.semestre);
+      //console.log(semesterCourse.semestre);
       let res;
       if(semesterCourse.semestre>1){
         res = searchStudentBySemesterForHelper(semesterCourse.semestre);

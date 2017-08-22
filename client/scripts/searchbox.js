@@ -28,31 +28,34 @@ Template.searchbox.helpers({
 Template.searchbox.events({
   'submit form': function (event) {
     event.preventDefault();
-    const name = $('[name=search]').val();
+    const name = event.target.search.value;
+    const radioValue = event.target.group1.value;
+
     //Template.instance().courseName.set(name);
     Session.set('courseName', name);
-    var radioValue = event.target.group1.value;
 
     if (radioValue == 'a') {
       Session.set('showRegister', true);
     } else if(radioValue == 'd') {
       Session.set('showRegister', false);
     }
-    /*console.log(Session.get('courseName'));
-    console.log(Courses.find().map(function(x) {
-       return { value: x.nome, data: x.codigo};
-    }));*/
   },
 
-  'click .a': function(){
+  'click .a': function(event){
       Template.instance().isStudent.set(true);
-      Session.set('showRegister',true);
+      Session.set('courseName', '');
+      Session.set('showRegister', true);
+      $('#autocomplete-input').val('');
+      $('#autocomplete-label').removeClass('active');
       loadingAutoComplete();
   },
 
   'click .d': function(){
       Template.instance().isStudent.set(false);
-      Session.set('showRegister',false);
+      Session.set('courseName', '');
+      Session.set('showRegister', false);
+      $('#autocomplete-input').val('');
+      $('#autocomplete-label').removeClass('active');
       loadingAutoComplete();
   }
 });

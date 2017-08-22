@@ -56,7 +56,7 @@ searchStudentBySemesterForHelper = function searchStudentBySemesterForHelper(sem
    if(asx==null){
      return [{}];
    }
-   console.log("Semestre buscado:"+asx.year+"/"+asx.semester);
+   //console.log("Semestre buscado:"+asx.year+"/"+asx.semester);
 
    var searchKey = parseInt(String(asx.year)+String(asx.semester));
    const data = Records.find({createdBy:Meteor.userId()});
@@ -121,7 +121,7 @@ calcCourseSemesterByStudent = function calcCourseSemesterByStudent(rga) {
   let sYear = Math.floor(key_rga/10);//pega o ano do rga do estudante
   let sSemester = parseInt((key_rga%10));
   let key_atual = getAtualSem();
-  console.log(key_atual.year);
+  //console.log(key_atual.year);
   let cYear = parseInt(key_atual.year);
   let cSemester = parseInt(key_atual.semester);
   let sem=1;
@@ -138,95 +138,24 @@ calcCourseSemesterByStudent = function calcCourseSemesterByStudent(rga) {
 
 loadingAutoComplete = function loadingAutoComplete() {
   if (Meteor.isClient) {
-
-
-        if(Template.instance().isStudent.get()){
-          $('#autocomplete-input').autocomplete({
-            lookup: function (query, done) {
-                  var result = {
-                      suggestions: listOfStudents()
-                  };
-                  done(result);
-            }
-
-          });
-        }else{
-            $('#autocomplete-input').autocomplete({
-              lookup: function (query, done) {
-                    var result = {
-                        suggestions: Courses.find().map(function(x) {
-                           return { value: x.nome, data: x.codigo};
-                        })
-                    };
-                    done(result);
-              }
-
-            });
+    if (Template.instance().isStudent.get()){
+      $('#autocomplete-input').autocomplete({
+        lookup: function (query, done) {
+          var result = { suggestions: listOfStudents() };
+          done(result);
         }
-
-  }
-}
-
-accordion = function accordion() {
-    if (Meteor.isClient) {
-    (function(){
-    	var d = document,
-    	accordionToggles = d.querySelectorAll('.js-accordionTrigger'),
-    	setAria,
-    	setAccordionAria,
-    	switchAccordion,
-      touchSupported = ('ontouchstart' in window),
-      pointerSupported = ('pointerdown' in window);
-
-      skipClickDelay = function(e){
-        e.preventDefault();
-        e.target.click();
-      }
-
-    		setAriaAttr = function(el, ariaType, newProperty){
-    		el.setAttribute(ariaType, newProperty);
-    	};
-    	setAccordionAria = function(el1, el2, expanded){
-    		switch(expanded) {
-          case "true":
-          	setAriaAttr(el1, 'aria-expanded', 'true');
-          	setAriaAttr(el2, 'aria-hidden', 'false');
-          	break;
-          case "false":
-          	setAriaAttr(el1, 'aria-expanded', 'false');
-          	setAriaAttr(el2, 'aria-hidden', 'true');
-          	break;
-          default:
-    				break;
-    		}
-    	};
-    //function
-    switchAccordion = function(e) {
-      console.log("triggered");
-    	e.preventDefault();
-    	var thisAnswer = e.target.parentNode.nextElementSibling;
-    	var thisQuestion = e.target;
-    	if(thisAnswer.classList.contains('is-collapsed')) {
-    		setAccordionAria(thisQuestion, thisAnswer, 'true');
-    	} else {
-    		setAccordionAria(thisQuestion, thisAnswer, 'false');
-    	}
-      	thisQuestion.classList.toggle('is-collapsed');
-      	thisQuestion.classList.toggle('is-expanded');
-    		thisAnswer.classList.toggle('is-collapsed');
-    		thisAnswer.classList.toggle('is-expanded');
-
-      	thisAnswer.classList.toggle('animateIn');
-    	};
-    	for (var i=0,len=accordionToggles.length; i<len; i++) {
-    		if(touchSupported) {
-          accordionToggles[i].addEventListener('touchstart', skipClickDelay, false);
+      });
+    } else {
+      $('#autocomplete-input').autocomplete({
+        lookup: function (query, done) {
+          var result = {
+            suggestions: Courses.find().map(function(x) {
+              return { value: x.nome, data: x.codigo};
+            })
+          };
+          done(result);
         }
-        if(pointerSupported){
-          accordionToggles[i].addEventListener('pointerdown', skipClickDelay, false);
-        }
-        accordionToggles[i].addEventListener('click', switchAccordion, false);
-      }
-    })();
+      });
     }
+  }
 }

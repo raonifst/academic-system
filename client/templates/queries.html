@@ -7,7 +7,7 @@
         <div class="row center">
           <div class="input-field col s10">
             <input type="text" id="autocomplete-input" class="autocomplete" name="search"/>
-            <label for="autocomplete-input" >
+            <label id='autocomplete-label' for="autocomplete-input" >
               Pesquisar por alunos ou disciplinas...
             </label>
           </div>
@@ -38,7 +38,7 @@
     <h4>Resultados</h4>
     <ul class="collapsible" data-collapsible="accordion">
       <li>
-        <div class="collapsible-header">Disciplinas deste aluno no semestre:</div>
+        <div class="collapsible-header">Disciplinas deste aluno no semestre: <!--{{countCoursesAtStudentSemester}}--></div>
         <div class="collapsible-body">
           {{> reactiveTable collection=coursesAtStudentSemester settings=settings}}
         </div>
@@ -58,7 +58,7 @@
     <h4>Resultados</h4>
     <ul class="collapsible" data-collapsible="accordion">
       <li>
-        <div class="collapsible-header">Estudantes que ainda farão esta disciplina: {{countStudentsWhoMustEnrollInACourse}}:</div>
+        <div class="collapsible-header">Estudantes que ainda farão esta disciplina: {{countStudentsWhoMustEnrollInACourse}}</div>
         <div class="collapsible-body">
           {{> reactiveTable collection=studentsWhoMustEnrollInACourse settings=settings}}
         </div>

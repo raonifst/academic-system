@@ -66,10 +66,6 @@ Template.disciplinesSearchs.helpers({
   }
 });
 
-Template.disciplinesSearchs.onRendered(function(){
-  accordion();
-});
-
 Template.disciplinesSearchs.events({
   'click .export': function() {
     let collection1 = studentsWhoMustEnrollInACourse();
