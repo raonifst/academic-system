@@ -1,8 +1,0 @@
-{
-  "public": {
-    "staleSessionInactivityTimeout": 300000,
-    "staleSessionHeartbeatInterval": 180000,
-    "staleSessionPurgeInterval": 60000,
-    "staleSessionActivityEvents": "mousemove click keydown"
-  }
-}

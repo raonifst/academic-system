@@ -1,0 +1,70 @@
+<template name="layout">
+  {{#if currentUser}}
+    <div class="page-flexbox-wrapper">
+      {{> navbar}}
+      <div class="box2">
+        <div class="box center">
+          {{> yield}}
+        </div>
+      </div>
+      {{> footer}}
+    </div>
+  {{else}}
+    <div class="page-flexbox-wrapper boxlogin">
+      <div class="box center" style="margin-top: auto !important;">
+        {{> yield}}
+        <p style="height: 70px;"></p>
+      </div>
+    {{> footer}}
+    </div>
+  {{/if}}
+</template>
+
+<template name="navbar">
+    <nav>
+      <div class="nav-wrapper">
+        <p style="float: right; padding-right: 10px; font-size: 18px; font-weight: 400;">{{ano}}/{{semestre}}</p>
+        <div class="show-on-large">
+          <a href="{{pathFor route='home'}}" class="brand-logo center">Sistema Acadêmico</a>
+          {{> navbig}}
+        </div>
+        <div class="hide-on-large-only">
+          {{> navsmall}}
+        </div>
+      </div>
+    </nav>
+</template>
+
+<template name="navsmall">
+  <ul id="slide-out" class="side-nav side-nav-branca">
+    {{> navigation}}
+  </ul>
+  <a href="#" data-activates="slide-out" class="button-collapse"><i class="material-icons">menu</i></a>
+
+  <script type="text/javascript">
+    $('.button-collapse').sideNav({
+      menuWidth: 250,
+      edge: 'left',
+      closeOnClick: true,
+      draggable: true,
+    });
+  </script>
+</template>
+
+<template name="navbig">
+  <ul class="side-nav fixed">
+    {{> navigation}}
+  </ul>
+</template>
+
+<template name="footer">
+  <div class="footer-text container hide-on-small-only">
+    Copyright &copy; UFMT, CUVG, Projeto e Desenvolvimento de Software, 2017s1
+    <a class="footer-text right" href="https://github.com/raonifst/academic-system/blob/develop/LICENSE">GPL-3.0</a>
+  </div>
+
+  <div class="footer-text container hide-on-med-and-up">
+    Copyright &copy; UFMT, CUVG, PDS, 2017s1
+    <a class="footer-text right" href="https://github.com/raonifst/academic-system/blob/develop/LICENSE">GPL-3.0</a>
+  </div>
+</template>

@@ -1,0 +1,61 @@
+<!--##########  TABELA ESTRUTURA CURRICULAR ##########-->
+<template name="tablecurricularstructure">
+  {{#if currentUser}}
+    {{#if uploaded}}
+      <div class="card cardtable">
+        {{> reactiveTable collection=listaDisiciplinas settings=settings}}
+      </div>
+    {{/if}}
+  {{/if}}
+</template>
+
+
+<!--##########  TABELA REGISTO ACADÊMICO ##########-->
+<template name="tableacademicrecords">
+  {{#if currentUser}}
+    {{#if uploaded}}
+      <div class="card cardtable">
+        {{> reactiveTable collection=listaAlunos settings=settings}}
+      </div>
+    {{/if}}
+  {{/if}}
+</template>
+
+
+<!--##########  TEMPLATES UTILIZADOS NAS TABELAS ##########-->
+<template name="editing">
+  {{> editIcon}}
+  {{> rmvIcon}}
+</template>
+
+<template name="discplina">
+  <input value="{{nome}}" type="text" style="width: 400px;">
+</template>
+
+<template name="anosemestre">
+  {{ano}}/{{semestre}}
+</template>
+
+<template name="percap">
+  {{#if perc_ap}}
+    {{perc_ap}}%
+  {{else}}
+    <center>-</center>
+  {{/if}}
+</template>
+
+<template name="percreic">
+  {{#if perc_reic}}
+    {{perc_reic}}%
+  {{else}}
+    <center>-</center>
+  {{/if}}
+</template>
+
+<template name="error404">
+  <br><br><br>
+  <div class="center">
+    <i class="material-icons iconblack">mood_bad</i>
+  </div>
+  <br><br><br>
+</template>

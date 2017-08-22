@@ -1,0 +1,139 @@
+<template name="usersettings">
+  <div class="card card2">
+    <h4>Configurações de usuário</h4>
+    <div class="divider"></div>
+      {{> profilesettings}}
+    <div class="divider"></div>
+      {{> accountsettings}}
+  </div>
+</template>
+
+<template name="profilesettings" xmlns="http://www.w3.org/1999/html">
+  {{#if currentUser}}
+    <div class="section" style="margin-bottom: 50px;">
+      <h5>Perfil</h5>
+      <form>
+        <div class="row">
+          <div class="input-field col s12 m6 l6 ">
+            <input value="{{userName}}" id="user_name" class="validate" name="name">
+            <label for="user_name" class="active">Nome</label>
+          </div>
+          <div class="input-field col s12 m6 l6">
+            <select name="courses" id="courses_list">
+              <option value="" disabled selected>Selecione um curso</option>
+              {{#each course}}
+                <option value="{{name}}" {{isCoureSelected}}>{{name}}</option>
+              {{/each}}
+            </select>
+            <label for="courses_list">Curso para coordenador</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s12 m6 l6 ">
+            <select name="alerts_time" id="alerts_time_config">
+              <option value="" disabled selected>Selecione um número</option>
+              {{#each alertsTime}}
+                <option value={{value}} {{isAlertTimeSelected}}>{{id}}</option>
+              {{/each}}
+            </select>
+            <label for="alerts_time_config">Tempo de duração dos alertas (em segundos)</label>
+          </div>
+        </div>
+        <button class="btn waves-effect waves-light right" style="margin-right: 20px;">Alterar</button>
+      </form>
+    </div>
+  {{/if}}
+</template>
+
+<template name="accountsettings">
+  {{#if currentUser}}
+    <div class="section" style="margin-bottom: 40px;">
+      <h5>Alteração de senha</h5>
+      <form id="changepassform">
+        <div class="row">
+          <div class="input-field col s12 m6 l6">
+            <input type="password" name="oldpassword" class="validate" required>
+            <label for="oldpassword">Senha atua</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s12 m6 l6">
+            <input type="password" name="password" class="validate" required>
+            <label for="password">Nova senha</label>
+          </div>
+          <div class="input-field col s12 m6 l6">
+            <input type="password" name="password2" class="validate" required>
+            <label for="password2">Confirme a nova senha</label>
+          </div>
+        </div>
+        <button class="btn waves-effect waves-light right" style="margin-right: 20px;">Alterar</button>
+      </form>
+    </div>
+  {{/if}}
+
+  <script type="text/javascript"> // ISSO FOI MUITO CHATO, DESISTI DE DEIXAR A BARRA VERMELHA!
+  /*$(document).ready(function(){ // Descomenta apenas este bloco
+    Materialize.updateTextFields();
+    $('#changepassform').validate({
+      rules: {
+        oldpassword: {
+          required: true,
+          minlength: 3
+        },
+        password: {
+          required: true,
+          minlength: 3
+        },
+        password2: {
+          required: true,
+          minlength: 3,
+          equalTo: '#password'
+        },
+      },
+      messages: {
+        oldpassword: {
+          required: "Digite sua senha",
+          minlength: "No mínimo 3 caracteres"
+        },
+        password:{
+          required: "Digite sua nova senha",
+          minlength: "No mínimo 3 caracteres"
+        },
+        password2:{
+          equalTo: "As senhas precisam ser iguais",
+          required: "Digite novamente sua nova senha",
+          minlength: "No mínimo 3 caracteres"
+        },
+      },
+      errorElement : 'div',
+      errorPlacement: function (error, element) {
+        //var placement = $(element).data('error');
+        var placement = $(element).attr('data-error');
+        console.log($(element).val());
+        if (placement) {
+          $(placement).append(error);
+        } else {
+          error.insertAfter(element);
+          //if (error.length) {
+          //  $(element).removeClass('valid');
+          //  $(element).addClass('invalid');
+          //} else {
+          //  $(element).removeClass('invalid');
+          //  $(element).removeClass('error');
+          //  $(element).addClass('valid');
+          //}
+        }
+      }
+    });
+  });
+  /*$(document).on("blur", ".required", function (event) {
+    event.preventDefault();
+    if ($(this).val() === "") {
+      $(this).addClass("invalid");
+      $(this).parent().find("label").addClass("active");
+    } else {
+      $(this).removeClass("invalid");
+    }
+  });*/
+  </script>
+</template>

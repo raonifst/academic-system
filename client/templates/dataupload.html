@@ -1,0 +1,67 @@
+<!--########## UPLOAD ESTRUTURA CURRICULAR ##########-->
+<template name="uploadcurricularstructure">
+  {{#if currentUser}}
+    <div class="card card2">
+      <h4>Estrutura Curricular</h4>
+      <span><div class="center">
+        {{> examplebutton type="courses"}}
+        {{> uploadbutton}}
+        {{> addbutton collection="Disciplina"}}
+        {{> exportbutton type="courses"}}
+        {{> removebutton method="toCleanCourses"
+          changeflagmethod="changeUploadCoursesFlag"}}
+      </div></span>
+    </div>
+    {{uploaded}}
+  {{/if}}
+</template>
+
+<!--########## UPLOAD HISTÓRICO ACADÊMICO ##########-->
+<template name="uploadacademicrecord">
+  {{#if currentUser}}
+    <div class="card card2">
+      <h4>Histórico Acadêmico</h4>
+      <span><div class="center">
+        {{> examplebutton type="records"}}
+        {{> uploadbutton}}
+        {{> addbutton collection="Aluno"}}
+        {{> exportbutton type="records"}}
+        {{> removebutton method="toCleanRecords"
+          changeflagmethod="changeUploadRecordsFlag"}}
+      </div></span>
+    </div>
+    {{uploaded}}
+  {{/if}}
+</template>
+
+<!--########## BOTÃO DE UPLOAD ##########-->
+<template name="uploadbutton">
+  {{#unless uploading}}
+    <form action="#">
+      <div class="file-field input-field">
+        <div class="btn btn-upload">
+          <i class="material-icons">file_upload</i>
+          <span>Upload</span>
+          <input type="file" class="uploadCSV" accept=".csv">
+        </div>
+        <div class="file-path-wrapper"><!--hide-on-small-only-->
+          <input class="file-path validate" placeholder="Clique para subir um arquivo CSV...">
+        </div>
+      </div>
+    </form>
+  {{else}}
+    <p><i class="fa fa-spin fa-refresh"></i> Atualizando banco de dados... Aguarde...</p>
+  {{/unless}}
+</template>
+
+<template name="uploadbutton2">
+  <form action="#">
+    <div class="file-field">
+      <div class="btn btn-upload waves-effect waves-light">
+        <i class="material-icons">file_upload</i>
+        <span>Upload</span>
+        <input type="file" class="uploadCSV" accept=".csv">
+      </div>
+    </div>
+  </form>
+</template>
