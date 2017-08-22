@@ -515,6 +515,27 @@ div.error {
   margin-top: -15px;
 }
 
+input:not([type]),
+input[type=text],
+input[type=password],
+input[type=email],
+input[type=url],
+input[type=time],
+input[type=date],
+input[type=datetime],
+input[type=datetime-local],
+input[type=tel],
+input[type=number],
+input[type=search],
+textarea.materialize-textarea,
+.select-wrapper input.select-dropdown {
+  border-bottom-color: #e0e0e0;
+}
+
+span.caret {
+  color: var(--cor-font) !important;
+}
+
 input:not([type]):focus:not([readonly]),
 input[type=text]:focus:not([readonly]),
 input[type=password]:focus:not([readonly]),

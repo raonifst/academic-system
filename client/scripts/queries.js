@@ -20,27 +20,23 @@ Template.disciplinesSearchs.onCreated(() => {
 Template.disciplinesSearchs.helpers({
   /*isStudent: function() {
     return Template.instance().isStudent.get();
-  },
-*/
+  },*/
+
   settings() {
       return {
           rowsPerPage: 10,
           showFilter: true,
           fields: [
             { sortable: false, label: Template.tableexport },
-            { key: 'rga', label: 'RGA' , cellClass: 'col-md-4'},
-            { key: 'nome', label: 'Nome' , cellClass: 'col-md-4'}
+            { key: 'rga',      label: 'RGA',  headerClass: 'titleheader2' },
+            { key: 'nome',     label: 'Nome', headerClass: 'titleheader2' }
           ]
       };
   },
 
-  studentsAtCourseSemester() {
+  studentsAtCourseSemester(){
     return studentsAtCourseSemester();
   },
-
-  coursesAtStudentSemester() {
-    return coursesAtStudentSemester();
-},
 
   studentsWhoHavePrerequisitesForACourse() {
     return studentsWhoHavePrerequisitesForACourse();
@@ -85,15 +81,20 @@ Template.studentsSearchs.helpers({
           showFilter: true,
           fields: [
             { sortable: false, label: Template.tableexport },
-            { key: 'codigo', label: 'Código' , cellClass: 'col-md-4'},
-            { key: 'nome', label: 'Nome' , cellClass: 'col-md-4'}
+            { key: 'codigo',   label: 'Código', headerClass: 'titleheader2' },
+            { key: 'nome',     label: 'Nome',   headerClass: 'titleheader2' }
           ]
       };
   },
 
   coursesAtStudentSemester(){
     return coursesAtStudentSemester();
-  }
+  },
+
+  /*countCoursesAtStudentSemester() {
+      Template.disciplinesSearchs.__helpers.get('coursesAtStudentSemester').call();
+      return Template.instance().countCoursesAtStudentSemester.get();
+  }*/
 });
 
 Template.studentsSearchs.events({

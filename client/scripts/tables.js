@@ -20,6 +20,8 @@ Template.tablecurricularstructure.helpers({
       showFilter: true,
       /*noDataTmpl: Template.error404,*/
       fields: [
+        { sortable: false, label: Template.tableexport },
+
         { key: 'codigo',    label: 'Codigo',                    headerClass: 'titleheader',
           cellClass(value, object) { if (!(object.semestre%2)) return 'cinza'; }},
 
@@ -48,6 +50,12 @@ Template.tablecurricularstructure.helpers({
   }
 });
 
+Template.tablecurricularstructure.events({
+  'click .export': function() {
+    Bert.alert("[Courses] Criar método para exportar dados da tabela", 'warning', 'growl-top-right');
+  }
+});
+
 /*-------------------- TABLE ACADEMIC RECORDS --------------------*/
 Template.tableacademicrecords.helpers({
   listaAlunos() {
@@ -66,6 +74,8 @@ Template.tableacademicrecords.helpers({
       showFilter: true,
       /*noDataTmpl: Template.error404,*/
       fields: [
+        { sortable: false, label: Template.tableexport },
+
         { key: 'rga',         label: 'RGA',         headerClass: 'titleheader',
           cellClass(value, object) { if (Session.get('hover') == object._id) return 'hover'; },
           sortOrder: 1, sortDirection: -1},
@@ -88,6 +98,12 @@ Template.tableacademicrecords.helpers({
           cellClass(value, object) { if (Session.get('hover') == object._id) return 'hover'; }},
       ]
     };
+  }
+});
+
+Template.tableacademicrecords.events({
+  'click .export': function() {
+    Bert.alert("[Records] Criar método para exportar dados da tabela", 'warning', 'growl-top-right');
   }
 });
 
