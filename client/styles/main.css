@@ -207,6 +207,7 @@ div.card2 {
   width: 720px;
 }
 
+div.cardpass,
 div.cardlogin {
   width: 290px;
 }
@@ -229,6 +230,7 @@ div.cardtable {
     margin: 10px auto 10px;
   }
 
+  div.cardpass,
   div.cardlogin {
     width: 290px !important;
   }
@@ -260,6 +262,7 @@ div.cardtable {
   font-size: 28px;
 }
 
+
 .section h6,
 .section h5 {
   text-align: left;
@@ -272,6 +275,13 @@ div.cardtable {
   font-size: 20px;
   padding-left: 12px;
   margin-bottom: 5px;
+}
+
+.cardlogin h6 {
+  font-size: 18px;
+  color: var(--cor-font);
+  margin-bottom: 20px;
+  text-align: center;
 }
 /********** BUTTONS **********/
 
@@ -313,6 +323,7 @@ div.cardtable {
   margin: 5px !important;
 }
 
+.cardpass .btn,
 .forgotpsw .btn,
 .login .btn {
   float: right;

@@ -67,7 +67,7 @@ Template.disciplinesSearchs.helpers({
   },
 
   studentsWhoMustEnrollInACourse() {
-      return studentsWhoMustEnrollInACourse();
+    return studentsWhoMustEnrollInACourse();
   },
 
   countStudentsWhoMustEnrollInACourse() {
@@ -81,8 +81,8 @@ Template.disciplinesSearchs.helpers({
   },
 
   countStudentsAtCourseSemester() {
-      Template.disciplinesSearchs.__helpers.get('studentsAtCourseSemester').call();
-      return Template.instance().countStudentsAtCourseSemester.get();
+    Template.disciplinesSearchs.__helpers.get('studentsAtCourseSemester').call();
+    return Template.instance().countStudentsAtCourseSemester.get();
   }
 });
 
@@ -90,17 +90,13 @@ Template.disciplinesSearchs.events({
   'click .export': function() {
     let collection1 = studentsWhoMustEnrollInACourse();
     Exporter.Qcourses ((collection1), 'Consulta_Disciplinas_1');
-  }
-});
+  },
 
-Template.disciplinesSearchs.events({
   'click .export2': function() {
     let collection2 = studentsWhoHavePrerequisitesForACourse();
     Exporter.Qcourses ((collection2), 'Consulta_Disciplinas_2');
-  }
-});
+  },
 
-Template.disciplinesSearchs.events({
   'click .export3': function() {
     let collection3 = studentsAtCourseSemester();
     Exporter.Qcourses ((collection3), 'Consulta_Disciplinas_3');
@@ -134,8 +130,6 @@ Template.studentsSearchs.helpers({
       Template.studentsSearchs.__helpers.get('coursesAtStudentSemester').call();
       return Template.instance().countCoursesAtStudentSemester.get();
   }
-  
-
 });
 
 Template.studentsSearchs.events({

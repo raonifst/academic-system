@@ -25,7 +25,7 @@ Template.profilesettings.helpers({
 
   isCoureSelected() {
     const currentUser = Meteor.user();
-    
+
     if (currentUser) {
       const gradProgramName = this.name;
       if (currentUser.gradProgram == gradProgramName)
@@ -79,6 +79,18 @@ Template.settings.events({
       $(event.target.oldpassword).blur();
       $(event.target.password).blur();
       $(event.target.password2).blur();;
+    } else
+    if (event.target.oldpassword.value == event.target.password.value) {
+      Bert.alert('Senha precisa ser diferente da senha primária', 'danger', 'growl-top-right');
+      event.target.oldpassword.value = '';
+      event.target.password.value = '';
+      event.target.password2.value = '';
+      $(event.target.oldpassword).removeClass('valid');
+      $(event.target.password).removeClass('valid');
+      $(event.target.password2).removeClass('valid');
+      $(event.target.oldpassword).blur();
+      $(event.target.password).blur();
+      $(event.target.password2).blur();;
     }
 
     const oldpassword = event.target.oldpassword.value;
@@ -91,7 +103,7 @@ Template.settings.events({
         else if (error.reason === "Incorrect password")
           Bert.alert('Senha incorreta', 'danger', 'growl-top-right');
       } else {
-        Meteor.logout();
+        //Meteor.logout();
         Bert.alert('Senha alterada!', 'success', 'growl-top-right');
       }
     });

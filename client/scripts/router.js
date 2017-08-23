@@ -1,4 +1,20 @@
-Router.configure({ layoutTemplate: 'layout' });
+Router.configure({
+  layoutTemplate: 'layout',
+  waitOn() {
+    return Meteor.subscribe('user');
+  },
+  onBeforeAction() {
+    const currentUser = Meteor.user();
+    if (currentUser)
+      if (!currentUser.passwordFlag) {
+        console.log(currentUser.passwordFlag);
+        this.render('changepass');
+      } else
+        this.next();
+    else
+      this.render("login");
+  }
+});
 
 Router.route('/', {
   template: 'home',
@@ -46,7 +62,7 @@ Router.route('/historico-academico', {
   }
 });
 
-Router.route('/sla', {
+/*Router.route('/sla', {
   template: 'upload',
   name: 'upload',
   onBeforeAction() {
@@ -56,7 +72,7 @@ Router.route('/sla', {
       this.render("login");
     }
   }
-});
+});*/
 
 Router.route('/error', {
   template: 'testes',

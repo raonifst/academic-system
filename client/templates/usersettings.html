@@ -49,25 +49,7 @@
   {{#if currentUser}}
     <div class="section" style="margin-bottom: 40px;">
       <h5>Alteração de senha</h5>
-      <form id="changepassform">
-        <div class="row">
-          <div class="input-field col s12 m6 l6">
-            <input type="password" name="oldpassword" class="validate" required>
-            <label for="oldpassword">Senha atua</label>
-          </div>
-        </div>
-        <div class="row">
-          <div class="input-field col s12 m6 l6">
-            <input type="password" name="password" class="validate" required>
-            <label for="password">Nova senha</label>
-          </div>
-          <div class="input-field col s12 m6 l6">
-            <input type="password" name="password2" class="validate" required>
-            <label for="password2">Confirme a nova senha</label>
-          </div>
-        </div>
-        <button class="btn waves-effect waves-light right" style="margin-right: 20px;">Alterar</button>
-      </form>
+      {{> changepassform}}
     </div>
   {{/if}}
 
@@ -136,4 +118,58 @@
     }
   });*/
   </script>
+</template>
+
+<template name="changepassform">
+  <form id="changepassform">
+    <div class="row">
+      <div class="input-field col s12 m6 l6">
+        <input type="password" name="oldpassword" class="validate" required>
+        <label for="oldpassword">Senha atual</label>
+      </div>
+    </div>
+    <div class="row">
+      <div class="input-field col s12 m6 l6">
+        <input type="password" name="password" class="validate" required>
+        <label for="password">Nova senha</label>
+      </div>
+      <div class="input-field col s12 m6 l6">
+        <input type="password" name="password2" class="validate" required>
+        <label for="password2">Confirme a nova senha</label>
+      </div>
+    </div>
+    <button class="btn waves-effect waves-light right" style="margin-right: 20px;">Alterar</button>
+  </form>
+</template>
+
+<template name="changepassform2">
+  <form id="changepassform" class="cardpass">
+    <div class="row">
+      <div class="input-field col s12">
+        <input type="password" name="oldpassword" class="validate" required>
+        <label for="oldpassword">Senha atual</label>
+      </div>
+      <div class="input-field col s12">
+        <input type="password" name="password" class="validate" required>
+        <label for="password">Nova senha</label>
+      </div>
+      <div class="input-field col s12">
+        <input type="password" name="password2" class="validate" required>
+        <label for="password2">Confirme a nova senha</label>
+      </div>
+    </div>
+    <button class="btn waves-effect waves-light right">Alterar</button>
+  </form>
+  <p style="margin: 6px -10px -6px 10px;">
+    <a href="#" class="exit grey-text text-darken-1" style="text-align: left;">← Voltar</a>
+  </p>
+</template>
+
+<template name="changepass">
+  {{#if currentUser}}
+    <div class="card cardpass">
+      <h5>Altere sua senha</h5>
+      {{> changepassform2}}
+    </div>
+  {{/if}}
 </template>
