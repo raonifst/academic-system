@@ -424,6 +424,8 @@ i.fa.fa-filter{
   min-width: 68px !important;
 }
 
+.export3,
+.export2,
 .export,
 .rmv,
 .edit {
@@ -432,6 +434,8 @@ i.fa.fa-filter{
   color: #555 !important;
 }
 
+.export3,
+.export2,
 .export {
   vertical-align: bottom;
 }

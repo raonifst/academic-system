@@ -34,6 +34,30 @@ Template.disciplinesSearchs.helpers({
       };
   },
 
+  settings2() {
+      return {
+          rowsPerPage: 10,
+          showFilter: true,
+          fields: [
+            { sortable: false, label: Template.tableexport2 },
+            { key: 'rga',      label: 'RGA',  headerClass: 'titleheader2' },
+            { key: 'nome',     label: 'Nome', headerClass: 'titleheader2' }
+          ]
+      };
+  },
+
+  settings3() {
+      return {
+          rowsPerPage: 10,
+          showFilter: true,
+          fields: [
+            { sortable: false, label: Template.tableexport3 },
+            { key: 'rga',      label: 'RGA',  headerClass: 'titleheader2' },
+            { key: 'nome',     label: 'Nome', headerClass: 'titleheader2' }
+          ]
+      };
+  },
+
   studentsAtCourseSemester(){
     return studentsAtCourseSemester();
   },
@@ -65,10 +89,20 @@ Template.disciplinesSearchs.helpers({
 Template.disciplinesSearchs.events({
   'click .export': function() {
     let collection1 = studentsWhoMustEnrollInACourse();
-    let collection2 = studentsWhoHavePrerequisitesForACourse();
-    let collection3 = studentsAtCourseSemester();
     Exporter.Qcourses ((collection1), 'Consulta_Disciplinas_1');
+  }
+});
+
+Template.disciplinesSearchs.events({
+  'click .export2': function() {
+    let collection2 = studentsWhoHavePrerequisitesForACourse();
     Exporter.Qcourses ((collection2), 'Consulta_Disciplinas_2');
+  }
+});
+
+Template.disciplinesSearchs.events({
+  'click .export3': function() {
+    let collection3 = studentsAtCourseSemester();
     Exporter.Qcourses ((collection3), 'Consulta_Disciplinas_3');
   }
 });

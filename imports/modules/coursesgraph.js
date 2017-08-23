@@ -66,14 +66,14 @@ export class CoursesDAG {
     this.transpose();
     // Para fazer uma segunda validação do grafo transposto (não é necessário) descomente as
     // duas linhas abaixo:
-    //this._validate();
-    //this.topologicalOrderList = this.attributes = null;
+    this._validate();
+    this.topologicalOrderList = this.attributes = null;
   }
 
   _validate() {
     var list = this.topologicalSort();
     // TODO remove this debug line later
-    //console.log(list); // Debug
+    console.log(list); // Debug
     if (!list)
       throw new Meteor.Error("invalid-dag", msgCoursesGraph.msgCourseNotFound);
     if (list.length <= 0)
@@ -105,55 +105,37 @@ export class CoursesDAG {
       this.attributes.setPiTo(key1, null);
       this.attributes.setDiscoveredTimeTo(key1, -1);
     }
+    this.time = 0;
     for (var key2 of this.gMap.keys()) {
       if (this.attributes.getColorFrom(key2) == GraphColors.WHITE)
         this._depthFirstSearchVisit(key2, list);
     }
     // TODO remove this debug line later
-    //console.log(this.attributes);
+    console.log(this.attributes);
     return this.attributes;
   }
 
   _depthFirstSearchVisit(initialVertexCode, outputList) {
-    var stack = [];
-    var uKey, uAdjList, isVertexLeaf;
-    this.time = 0;
-    stack.push(initialVertexCode);
-    while (stack.length > 0) {
-      isVertexLeaf = 1;
-      uKey = stack.pop();
-      uAdjList = this.gMap.get(uKey);
-      this.attributes.setColorTo(uKey, GraphColors.GRAY);
-      // TODO remove this debug line later
-      //console.log("Vertex " + uKey + " changed color to " + this.attributes.getColorFrom(uKey));
-      this.attributes.setDiscoveredTimeTo(uKey, ++this.time);
-      // TODO remove this debug line later
-      //console.log("Vertex " + uKey + " changed dtime to " + this.attributes.getDiscoveredTimeFrom(uKey));
-      uAdjList.forEach(vKey => {
-        var vColor = this.attributes.getColorFrom(vKey);
-        var vAdjList = this.gMap.get(vKey);
-        if (!vAdjList) {
-          throw new Meteor.Error("graph-invalid-keys", msgCoursesGraph.msgCourseNotFound);
-        } else if (vColor == GraphColors.WHITE) {
-          this.attributes.setPiTo(vKey, uKey);
-          // TODO remove this debug line later
-          //console.log("Vertex " + vKey + " changed pi to " + this.attributes.getColorFrom(vKey));
-          stack.push(vKey);
-          isVertexLeaf = 0;
-        } else if (vColor == GraphColors.GRAY) { // Grafo contém ciclo
-          throw new Meteor.Error("graph-contains-cycles", msgCoursesGraph.msgCycleError);
-        }
-      });
-      if (isVertexLeaf) {
-        this.attributes.setColorTo(uKey, GraphColors.BLACK);
-        // TODO remove this debug line later
-        //console.log("Vertex " + uKey + " changed color to " + this.attributes.getColorFrom(uKey));
-        this.attributes.setFinishedTimeTo(uKey, ++this.time);
-        // TODO remove this debug line later
-        //console.log("Vertex " + uKey + " changed finished time to " + this.attributes.getFinishedTimeFrom(uKey));
-        if (outputList != null) outputList.push(uKey);
+    var uKey = initialVertexCode;
+    var uAdjList = this.gMap.get(uKey);
+    this.attributes.setColorTo(uKey, GraphColors.GRAY);
+    this.attributes.setDiscoveredTimeTo(uKey, ++this.time);
+    uAdjList.forEach(vKey => {
+      var vColor = this.attributes.getColorFrom(vKey);
+      var vAdjList = this.gMap.get(vKey);
+      if (!vAdjList) {
+        throw new Meteor.Error("graph-invalid-keys", msgCoursesGraph.msgCourseNotFound);
+      } else if (vColor == GraphColors.WHITE) {
+        this.attributes.setPiTo(vKey, uKey);
+        this._depthFirstSearchVisit(vKey, outputList); // Recursão
+      } else if (vColor == GraphColors.GRAY) { // Grafo contém ciclo
+        throw new Meteor.Error("graph-contains-cycles", msgCoursesGraph.msgCycleError);
       }
-    }
+    });
+    this.attributes.setColorTo(uKey, GraphColors.BLACK);
+    this.attributes.setFinishedTimeTo(uKey, ++this.time);
+    if (outputList != null)
+      outputList.push(uKey);
   }
 
   topologicalSort() {
