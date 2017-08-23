@@ -207,7 +207,10 @@ div.card2 {
   width: 720px;
 }
 
-div.cardpass,
+div.cardpass {
+  width: 250px;
+}
+
 div.cardlogin {
   width: 290px;
 }
@@ -230,7 +233,10 @@ div.cardtable {
     margin: 10px auto 10px;
   }
 
-  div.cardpass,
+  div.cardpass {
+    width: 250px !important;
+  }
+
   div.cardlogin {
     width: 290px !important;
   }

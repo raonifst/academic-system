@@ -17,13 +17,6 @@ Template.uploadcurricularstructure.onCreated(() => {
 Template.uploadcurricularstructure.helpers({
   uploading() {
     return Template.instance().uploading.get();
-  },
-
-  uploaded() {
-    const currentUser = Meteor.user();
-    if (currentUser)
-      if (!currentUser.uploadCoursesFlag)
-        Bert.alert("É necessário fazer upload da Estrutura Curricular", 'warning', 'growl-top-right');
   }
 });
 
@@ -94,13 +87,6 @@ Template.uploadacademicrecord.onCreated(() => {
 Template.uploadacademicrecord.helpers({
   uploading() {
     return Template.instance().uploading.get();
-  },
-
-  uploaded() {
-    const currentUser = Meteor.user();
-    if (currentUser)
-      if (!currentUser.uploadRecordsFlag)
-        Bert.alert("É necessário fazer upload do Histórico Acadêmico", 'warning', 'growl-top-right');
   }
 });
 

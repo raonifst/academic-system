@@ -5,14 +5,11 @@ Router.configure({
   },
   onBeforeAction() {
     const currentUser = Meteor.user();
-    if (currentUser)
-      if (!currentUser.passwordFlag) {
-        console.log(currentUser.passwordFlag);
-        this.render('changepass');
-      } else
-        this.next();
-    else
-      this.render("login");
+    if (currentUser && !currentUser.passwordFlag) {
+      Bert.alert("É necessário trocar a senha padrão", 'warning', 'growl-top-right');
+      this.render('changepass');
+    } else
+      this.next();
   }
 });
 
@@ -22,11 +19,13 @@ Router.route('/', {
   onBeforeAction() {
     const currentUser = Meteor.user();
     if (currentUser) {
-      if (!currentUser.uploadCoursesFlag)
+      if (!currentUser.uploadCoursesFlag) {
+        Bert.alert("É necessário fazer upload da Estrutura Curricular", 'warning', 'growl-top-right');
         this.render("estruturacurricular");
-      else if (!currentUser.uploadRecordsFlag)
+      } else if (!currentUser.uploadRecordsFlag) {
+        Bert.alert("É necessário fazer upload do Histórico Acadêmico", 'warning', 'growl-top-right');
         this.render("historicoacademico");
-      else
+      } else
         this.next();
     } else {
       this.render("login");
@@ -52,27 +51,16 @@ Router.route('/historico-academico', {
   onBeforeAction() {
     const currentUser = Meteor.user();
     if (currentUser) {
-      if (!currentUser.uploadCoursesFlag)
+      if (!currentUser.uploadCoursesFlag) {
+        Bert.alert("É necessário fazer upload da Estrutura Curricular", 'warning', 'growl-top-right');
         this.render("estruturacurricular");
-      else
+      } else
         this.next();
     } else {
       this.render("login");
     }
   }
 });
-
-/*Router.route('/sla', {
-  template: 'upload',
-  name: 'upload',
-  onBeforeAction() {
-    if (Meteor.userId()) {
-      this.next();
-    } else {
-      this.render("login");
-    }
-  }
-});*/
 
 Router.route('/error', {
   template: 'testes',
