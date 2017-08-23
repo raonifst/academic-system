@@ -10,6 +10,7 @@ Session.set('showRegister', true);
 Session.set('courseName', '');
 
 Template.searchbox.onRendered(function(){
+  Session.set('showRegister', true);
   loadingAutoComplete();
 });
 

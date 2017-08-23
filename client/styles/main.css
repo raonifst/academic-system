@@ -47,11 +47,6 @@ a:hover {
   min-height: 100vh;
   flex-direction: column;
 }
-@media only screen and (max-width: 768px) {
-  .page-flexbox-wrapper {
-    min-height: 92.9vh;
-  }
-}
 
 div.box {
   padding: 0;
@@ -240,6 +235,13 @@ div.cardtable {
 
   div.cardtable{
     font-size: 11px !important;
+  }
+}
+
+@media only screen and (max-width: 1024px) {
+  div.card2,
+  div.card50 {
+    width: 97% !important;
   }
 }
 
@@ -531,12 +533,17 @@ div.perfil {
   float: left;
 }
 
-.perfil div{
+.perfil div {
   padding-left: 10px;
   font-size: 16px;
   display: table-cell;
   vertical-align: middle;
   line-height: 48px;
+  color: var(--cor-font);
+}
+
+.perfil {
+  cursor: default;
 }
 
 .magin {
