@@ -258,6 +258,7 @@ div.cardtable {
   font-size: 28px;
 }
 
+.section h6,
 .section h5 {
   text-align: left;
   color: var(--cor-font);
@@ -265,6 +266,11 @@ div.cardtable {
   margin-bottom: 20px;
 }
 
+.section h6 {
+  font-size: 20px;
+  padding-left: 12px;
+  margin-bottom: 5px;
+}
 /********** BUTTONS **********/
 
 .btn-example {
@@ -503,11 +509,37 @@ i.fa.fa-filter{
   margin: 0px !important;
 }
 
-/********** OTHERS **********/
+/********** ABOUT **********/
+
+.section div.texto {
+  padding-left: 12px;
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+div.perfil {
+  margin: 5px 0px 5px;
+}
+
+.perfil .circle {
+  width: 48px;
+  height: 48px;
+  float: left;
+}
+
+.perfil div{
+  padding-left: 10px;
+  font-size: 16px;
+  display: table-cell;
+  vertical-align: middle;
+  line-height: 48px;
+}
 
 .magin {
   margin: 0px !important;
 }
+
+/********** OTHERS **********/
 
 div.error {
   font-size: 12px;
