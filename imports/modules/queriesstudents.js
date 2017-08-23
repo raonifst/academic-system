@@ -40,4 +40,5 @@ coursesAtStudentSemester =  function coursesAtStudentSemester() {
   v = hash2array(map);
 Template.instance().countCoursesAtStudentSemester.set(v.length);
 return v;
+
 }

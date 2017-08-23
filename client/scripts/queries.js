@@ -134,6 +134,7 @@ Template.studentsSearchs.helpers({
       Template.studentsSearchs.__helpers.get('coursesAtStudentSemester').call();
       return Template.instance().countCoursesAtStudentSemester.get();
   }
+  
 
 });
 
