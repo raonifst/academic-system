@@ -58,14 +58,10 @@ studentsAtCourseSemester = function studentsAtCourseSemester() {
     Template.instance().countStudentsAtCourseSemester.set(0);
     if(courseName == '')
       return [{}];
-
       semesterCourse=Courses.findOne({nome: courseName},{fields:{semestre:1}});
-      //Template.instance().semesterSearch.set(semesterCourse.semestre);
-      //Template.search.__helpers.get('searchStudentBySemester').call();
-      //console.log(semesterCourse.semestre);
       let res;
       if(semesterCourse.semestre>1){
-        res = searchStudentBySemesterForHelper(semesterCourse.semestre);
+        res = searchStudentBySemesterForHelper(courseName,semesterCourse.semestre);
         Template.instance().countStudentsAtCourseSemester.set(res.length);
         return res;
       }else return [{}]

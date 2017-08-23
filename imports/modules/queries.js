@@ -49,28 +49,31 @@ auxStudentsWhoMustEnrollInACourse = function auxStudentsWhoMustEnrollInACourse(c
 }
 
 
-searchStudentBySemesterForHelper = function searchStudentBySemesterForHelper(semester) {
 
+searchStudentBySemesterForHelper = function searchStudentBySemesterForHelper(courseName,semester){
+  //console.log("searchStudentBySemesterForHelper dentro de queries.js");
    var asx=calculateSem(parseInt(semester,10));
-
    if(asx==null){
      return [{}];
    }
-   //console.log("Semestre buscado:"+asx.year+"/"+asx.semester);
-
    var searchKey = parseInt(String(asx.year)+String(asx.semester));
-   const data = Records.find({createdBy:Meteor.userId()});
+   let studentsApprovedInCourse =[];
    var map ={};
+    Records.find({createdBy:Meteor.userId(),disciplina: courseName, situacao: "AP"}, {_id: 0}).forEach(
+                  function(rec){studentsApprovedInCourse.push(rec.rga)
+                });
 
-   data.forEach(item=>{
-   let itemKey=Math.floor((parseInt(item.rga))/Math.pow(10,7));
-   if(itemKey === searchKey && !map[item.rga]){
-       map[item.rga]={
-       nome:item.nome,
-       rga:item.rga
-       }
-     }
-   });
+   Records.find( { 'rga': {'$nin': studentsApprovedInCourse}}, { sort: { rga: 1 } } ).forEach(
+                  function(rec){
+                    let itemKey=Math.floor((parseInt(rec.rga))/Math.pow(10,7));
+                    if(!map[rec.rga] && itemKey === searchKey) {
+                       map[rec.rga] = {
+                          nome: rec.nome,
+                          rga: rec.rga
+                      }
+                    }
+                  });
+
    return hash2array(map);
 }
 
