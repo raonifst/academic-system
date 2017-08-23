@@ -74,6 +74,11 @@ Template.disciplinesSearchs.events({
 });
 
 /*-------------------- CONSULTAS DE ESTUDANTES --------------------*/
+
+Template.studentsSearchs.onCreated(() => {
+  Template.instance().countCoursesAtStudentSemester= new ReactiveVar(0);
+});
+
 Template.studentsSearchs.helpers({
   settings() {
       return {
@@ -91,10 +96,11 @@ Template.studentsSearchs.helpers({
     return coursesAtStudentSemester();
   },
 
-  /*countCoursesAtStudentSemester() {
-      Template.disciplinesSearchs.__helpers.get('coursesAtStudentSemester').call();
+  countCoursesAtStudentSemester() {
+      Template.studentsSearchs.__helpers.get('coursesAtStudentSemester').call();
       return Template.instance().countCoursesAtStudentSemester.get();
-  }*/
+  }
+
 });
 
 Template.studentsSearchs.events({

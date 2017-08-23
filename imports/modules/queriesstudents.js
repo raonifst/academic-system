@@ -8,6 +8,7 @@ coursesAtStudentSemester =  function coursesAtStudentSemester() {
     let studentKey = Session.get('courseName');//devera ser alterado
     let cod = parseInt(studentKey,10);
     let student=Records.findOne({rga:cod});
+    //Template.instance().countCoursesAtStudentSemester.set(0);
     if(student==null){
       studentNome = Session.get('courseName');//devera ser alterado
       student=Records.findOne({nome:studentNome});
@@ -35,6 +36,8 @@ coursesAtStudentSemester =  function coursesAtStudentSemester() {
 
     });
   let v =[{}];
+
   v = hash2array(map);
+Template.instance().countCoursesAtStudentSemester.set(v.length);
 return v;
 }
