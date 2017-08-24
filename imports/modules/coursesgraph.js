@@ -56,18 +56,18 @@ export class CVertexAttr {
 export class CoursesDAG {
   constructor(coursesArray) {
     this.gMap = new Map();
-    this.topologicalOrderList = null;
+    this.topologicalOrder = null;
     this.attributes = null;
     coursesArray.forEach(item => {
       this.gMap.set(item.codigo, item.prereq);
     });
     this._validate(); // Verifica se existem códigos inválidos ou ciclos no DAG
-    this.topologicalOrderList = this.attributes = null;
+    this.topologicalOrder = this.attributes = null;
     this.transpose();
     // Para fazer uma segunda validação do grafo transposto (não é necessário) descomente as
     // duas linhas abaixo:
     this._validate();
-    this.topologicalOrderList = this.attributes = null;
+    this.topologicalOrder = this.attributes = null;
   }
 
   _validate() {
@@ -94,11 +94,7 @@ export class CoursesDAG {
     this.gMap = revMap;
   }
 
-  depthFirstSearch() {
-    return this._depthFirstSearch(null);
-  }
-
-  _depthFirstSearch(list) {
+  _dfs() {
     this.attributes = new CVertexAttr();
     for (var key1 of this.gMap.keys()) {
       this.attributes.setColorTo(key1, GraphColors.WHITE);
@@ -107,15 +103,18 @@ export class CoursesDAG {
     }
     this.time = 0;
     for (var key2 of this.gMap.keys()) {
-      if (this.attributes.getColorFrom(key2) == GraphColors.WHITE)
-        this._depthFirstSearchVisit(key2, list);
+      if (this.attributes.getColorFrom(key2) == GraphColors.WHITE) {
+        var list = [];
+        this._dfsVisit(key2, list);
+        this.topologicalOrder.push(list);
+      }
     }
     // TODO remove this debug line later
     console.log(this.attributes);
     return this.attributes;
   }
 
-  _depthFirstSearchVisit(initialVertexCode, outputList) {
+  _dfsVisit(initialVertexCode, outputList) {
     var uKey = initialVertexCode;
     var uAdjList = this.gMap.get(uKey);
     this.attributes.setColorTo(uKey, GraphColors.GRAY);
@@ -127,7 +126,7 @@ export class CoursesDAG {
         throw new Meteor.Error("graph-invalid-keys", msgCoursesGraph.msgCourseNotFound);
       } else if (vColor == GraphColors.WHITE) {
         this.attributes.setPiTo(vKey, uKey);
-        this._depthFirstSearchVisit(vKey, outputList); // Recursão
+        this._dfsVisit(vKey, outputList); // Recursão
       } else if (vColor == GraphColors.GRAY) { // Grafo contém ciclo
         throw new Meteor.Error("graph-contains-cycles", msgCoursesGraph.msgCycleError);
       }
@@ -135,21 +134,21 @@ export class CoursesDAG {
     this.attributes.setColorTo(uKey, GraphColors.BLACK);
     this.attributes.setFinishedTimeTo(uKey, ++this.time);
     if (outputList != null)
-      outputList.push(uKey);
+      outputList.unshift(uKey);
   }
 
   topologicalSort() {
-    if (this.topologicalOrderList == null) {
-      this.topologicalOrderList = [];
+    if (this.topologicalOrder == null) {
+      this.topologicalOrder = [];
       try {
-        this._depthFirstSearch(this.topologicalOrderList);
+        this._dfs();
       } catch (e) {
         if (e.error == "graph-contains-cycles")
-          this.topologicalOrderList = [];
+          this.topologicalOrder = [];
         if (e.error == "graph-invalid-keys")
-          this.topologicalOrderList = null;
+          this.topologicalOrder = null;
       }
     }
-    return this.topologicalOrderList;
+    return this.topologicalOrder;
   }
 }
