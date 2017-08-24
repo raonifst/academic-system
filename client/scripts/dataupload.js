@@ -49,7 +49,7 @@ Template.uploadcurricularstructure.events({
         //console.log(data); // Debug (descomente esta linha)
         try {
           var g = new CoursesDAG(data);
-          //console.log(g.gMap); // Debug (descomente esta linha)
+          console.log(g); // Debug (descomente esta linha)
         } catch (e) {
           Bert.alert(e.reason, 'danger', 'growl-top-right');
           return;

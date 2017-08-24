@@ -1,8 +1,9 @@
 Router.configure({
   layoutTemplate: 'layout',
   loadingTemplate: 'loading',
+  // TODO escolher adequadamente quais serão os subscribes necessários em todas as routes
   waitOn() {
-    return Meteor.subscribe('user');
+    return [Meteor.subscribe('courses'), Meteor.subscribe('records'), Meteor.subscribe('user')];
   },
   onBeforeAction() {
     const currentUser = Meteor.user();
@@ -17,6 +18,9 @@ Router.configure({
 Router.route('/', {
   template: 'home',
   name: 'home',
+  waitOn() {
+    return [Meteor.subscribe('courses'), Meteor.subscribe('records'), Meteor.subscribe('user')];
+  },
   onBeforeAction() {
     const currentUser = Meteor.user();
     if (currentUser) {
@@ -37,6 +41,9 @@ Router.route('/', {
 Router.route('/estrutura-curricular', {
   template: 'estruturacurricular',
   name: 'estruturacurricular',
+  waitOn() {
+    return [Meteor.subscribe('courses'), Meteor.subscribe('records'), Meteor.subscribe('user')];
+  },
   onBeforeAction() {
     if (Meteor.userId()) {
       this.next();
@@ -49,6 +56,9 @@ Router.route('/estrutura-curricular', {
 Router.route('/historico-academico', {
   template: 'historicoacademico',
   name: 'historicoacademico',
+  waitOn() {
+    return [Meteor.subscribe('courses'), Meteor.subscribe('records'), Meteor.subscribe('user')];
+  },
   onBeforeAction() {
     const currentUser = Meteor.user();
     if (currentUser) {
@@ -66,6 +76,9 @@ Router.route('/historico-academico', {
 Router.route('/error', {
   template: 'testes',
   name: 'testes',
+  waitOn() {
+    return [Meteor.subscribe('courses'), Meteor.subscribe('records'), Meteor.subscribe('user')];
+  },
   onBeforeAction() {
     if (Meteor.userId()) {
       this.next();
@@ -78,6 +91,9 @@ Router.route('/error', {
 Router.route('/settings', {
   template: 'settings',
   name: 'settings',
+  waitOn() {
+    return [Meteor.subscribe('courses'), Meteor.subscribe('records'), Meteor.subscribe('user')];
+  },
   onBeforeAction() {
     if (Meteor.userId()) {
       this.next();
@@ -102,6 +118,9 @@ Router.route('/about', {
 Router.route('/recuperar', {
   template: 'recpsw',
   name: 'recpsw',
+  waitOn() {
+    return [Meteor.subscribe('courses'), Meteor.subscribe('records'), Meteor.subscribe('user')];
+  },
   onBeforeAction() {
     if (!Meteor.userId()) {
       this.next();
@@ -114,6 +133,9 @@ Router.route('/recuperar', {
 Router.route('/registrar', {
   template: 'reg',
   name: 'reg',
+  waitOn() {
+    return [Meteor.subscribe('courses'), Meteor.subscribe('records'), Meteor.subscribe('user')];
+  },
   onBeforeAction() {
     if (!Meteor.userId()) {
       this.next();

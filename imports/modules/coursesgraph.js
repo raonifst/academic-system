@@ -14,141 +14,144 @@ const msgCoursesGraph = Object.freeze({
 
 export class CVertexAttr {
   constructor() {
-    this.colorMap = new Map();
-    this.piMap = new Map();
-    this.discoveredMap = new Map();
-    this.finishedMap = new Map();
+    this._colors = new Map();
+    this._pi = new Map();
+    this._dtime = new Map();
+    this._ftime = new Map();
   }
 
   setColorTo(vertex, color) {
-    this.colorMap.set(vertex, color);
+    this._colors.set(vertex, color);
   }
 
   setPiTo(vertex, pi) {
-    this.piMap.set(vertex, pi);
+    this._pi.set(vertex, pi);
   }
 
   setDiscoveredTimeTo(vertex, d) {
-    this.discoveredMap.set(vertex, d);
+    this._dtime.set(vertex, d);
   }
 
   setFinishedTimeTo(vertex, f) {
-    this.finishedMap.set(vertex, f);
+    this._ftime.set(vertex, f);
   }
 
   getColorFrom(vertex) {
-    return this.colorMap.get(vertex);
+    return this._colors.get(vertex);
   }
 
   getPiFrom(vertex) {
-    return this.piMap.get(vertex);
+    return this._pi.get(vertex);
   }
 
   getDiscoveredTimeFrom(vertex) {
-    return this.discoveredMap.get(vertex);
+    return this._dtime.get(vertex);
   }
 
   getFinishedTimeFrom(vertex) {
-    return this.finishedMap.get(vertex);
+    return this._ftime.get(vertex);
   }
 }
 
 export class CoursesDAG {
   constructor(coursesArray) {
-    this.gMap = new Map();
-    this.topologicalOrder = null;
-    this.attributes = null;
-    coursesArray.forEach(item => {
-      this.gMap.set(item.codigo, item.prereq);
-    });
-    this._validate(); // Verifica se existem códigos inválidos ou ciclos no DAG
-    this.topologicalOrder = this.attributes = null;
-    this.transpose();
-    // Para fazer uma segunda validação do grafo transposto (não é necessário) descomente as
-    // duas linhas abaixo:
+    this._gmap = new Map();
+    coursesArray.forEach(c => this._gmap.set(c.codigo, c.prereq));
+    /* A primeira validação apenas verifica se existem disciplinas inválidas e/ou ciclos no grafo.
+     * A segunda validação (após transposição) gera os resultados corretos para a ordenação
+     * topológica do grafo.
+     */
     this._validate();
-    this.topologicalOrder = this.attributes = null;
+    this.transpose();
+    this._validate();
+  }
+
+  _reset() {
+    this._topologicalOrder = null;
+    this._attributes = null;
   }
 
   _validate() {
-    var list = this.topologicalSort();
-    // TODO remove this debug line later
-    console.log(list); // Debug
-    if (!list)
+    this._reset();
+    this.getTopologicalOrder();
+    if (!this._topologicalOrder) {
+      this._topologicalOrder = [];
       throw new Meteor.Error("invalid-dag", msgCoursesGraph.msgCourseNotFound);
-    if (list.length <= 0)
+    }
+    if (this._topologicalOrder.length <= 0)
       throw new Meteor.Error("invalid-dag", msgCoursesGraph.msgCycleError);
   }
 
   transpose() {
     var revMap = new Map();
-    for (var key1 of this.gMap.keys()) {
+    for (var key1 of this._gmap.keys()) {
       revMap.set(key1, []);
     }
-    for (var u of this.gMap.keys()) {
-      var adjList = this.gMap.get(u);
-      adjList.forEach(v => {
-        revMap.get(v).push(u);
-      });
+    for (var u of this._gmap.keys()) {
+      var adjList = this._gmap.get(u);
+      adjList.forEach(v => revMap.get(v).push(u));
     }
-    this.gMap = revMap;
+    this._gmap = revMap;
   }
 
   _dfs() {
-    this.attributes = new CVertexAttr();
-    for (var key1 of this.gMap.keys()) {
-      this.attributes.setColorTo(key1, GraphColors.WHITE);
-      this.attributes.setPiTo(key1, null);
-      this.attributes.setDiscoveredTimeTo(key1, -1);
+    this._attributes = new CVertexAttr();
+    for (var key1 of this._gmap.keys()) {
+      this._attributes.setColorTo(key1, GraphColors.WHITE);
+      this._attributes.setPiTo(key1, null);
+      this._attributes.setDiscoveredTimeTo(key1, -1);
     }
-    this.time = 0;
-    for (var key2 of this.gMap.keys()) {
-      if (this.attributes.getColorFrom(key2) == GraphColors.WHITE) {
+    this._time = 0;
+    for (var key2 of this._gmap.keys()) {
+      if (this._attributes.getColorFrom(key2) == GraphColors.WHITE) {
         var list = [];
         this._dfsVisit(key2, list);
-        this.topologicalOrder.push(list);
+        this._topologicalOrder.push(list);
       }
     }
-    // TODO remove this debug line later
-    console.log(this.attributes);
-    return this.attributes;
+    return this._attributes;
   }
 
-  _dfsVisit(initialVertexCode, outputList) {
-    var uKey = initialVertexCode;
-    var uAdjList = this.gMap.get(uKey);
-    this.attributes.setColorTo(uKey, GraphColors.GRAY);
-    this.attributes.setDiscoveredTimeTo(uKey, ++this.time);
+  _dfsVisit(uKey, outputList) {
+    var uAdjList = this._gmap.get(uKey);
+    this._attributes.setColorTo(uKey, GraphColors.GRAY);
+    this._attributes.setDiscoveredTimeTo(uKey, ++this._time);
     uAdjList.forEach(vKey => {
-      var vColor = this.attributes.getColorFrom(vKey);
-      var vAdjList = this.gMap.get(vKey);
+      var vColor = this._attributes.getColorFrom(vKey);
+      var vAdjList = this._gmap.get(vKey);
       if (!vAdjList) {
         throw new Meteor.Error("graph-invalid-keys", msgCoursesGraph.msgCourseNotFound);
       } else if (vColor == GraphColors.WHITE) {
-        this.attributes.setPiTo(vKey, uKey);
-        this._dfsVisit(vKey, outputList); // Recursão
+        this._attributes.setPiTo(vKey, uKey);
+        this._dfsVisit(vKey, outputList);
       } else if (vColor == GraphColors.GRAY) { // Grafo contém ciclo
         throw new Meteor.Error("graph-contains-cycles", msgCoursesGraph.msgCycleError);
       }
     });
-    this.attributes.setColorTo(uKey, GraphColors.BLACK);
-    this.attributes.setFinishedTimeTo(uKey, ++this.time);
-    if (outputList != null)
-      outputList.unshift(uKey);
+    this._attributes.setColorTo(uKey, GraphColors.BLACK);
+    this._attributes.setFinishedTimeTo(uKey, ++this._time);
+    if (outputList != null) outputList.unshift(uKey);
   }
 
-  topologicalSort() {
-    if (this.topologicalOrder == null) {
-      this.topologicalOrder = [];
-      try {
-        this._dfs();
-      } catch (e) {
-        if (e.error == "graph-contains-cycles")
-          this.topologicalOrder = [];
-        if (e.error == "graph-invalid-keys")
-          this.topologicalOrder = null;
-      }
+  _topologicalSort() {
+    this._topologicalOrder = [];
+    try {
+      this._dfs();
+    } catch (e) {
+      if (e.error == "graph-contains-cycles")
+        this._topologicalOrder = [];
+      if (e.error == "graph-invalid-keys")
+        this._topologicalOrder = null;
     }
-    return this.topologicalOrder;
+  }
+
+  getTopologicalOrder() {
+    if (this._topologicalOrder == null)
+      this._topologicalSort();
+    return this._topologicalOrder;
+  }
+
+  getAttributes() {
+    return this._attributes;
   }
 }
