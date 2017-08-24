@@ -20,7 +20,7 @@ Template.searchbox.onCreated(() => {
   Template.instance().semesterdisciplinesuggested = new ReactiveVar(0);
 });
 
-Template.searchbox.helpers({
+Template.home.helpers({
   showStudents :function(){
       return Session.get('showRegister');
   }

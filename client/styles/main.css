@@ -123,6 +123,12 @@ div.nav-wrapper {
   padding-left: 15px;
 }
 
+@media only screen and (max-width: 414px) {
+  nav .brand-logo {
+    text-indent: -20px !important;
+    font-size: 22px;
+  }
+}
 @media only screen and (min-width: 993px) {
   nav .brand-logo {
     text-indent: 250px;
@@ -507,7 +513,14 @@ i.fa.fa-filter{
   border-top: 1px solid #ddd;
   padding-left: 15px;
   margin-bottom: -10px !important;
-  font-size: 15px;
+  font-size: 16px;
+}
+
+@media only screen and (max-width: 413px) {
+  .collapsible-header {
+    padding-left: 5px;
+    font-size: 15px;
+  }
 }
 
 .collapsible-body {
