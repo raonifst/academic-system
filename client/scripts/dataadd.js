@@ -2,6 +2,8 @@ import Courses from "../../imports/api/collections/courses";
 import Records from "../../imports/api/collections/records";
 
 import { Meteor } from 'meteor/meteor';
+import {Course} from "../../imports/modules/course";
+import {AcademicRecord} from "../../imports/modules/academicrecord";
 
 Template.modaladd.onRendered(function() {
   $(document).ready(function(){
@@ -28,24 +30,14 @@ Template.modaladd.helpers({
 Template.add.events({
   'submit #addform': function(event) {
     event.preventDefault();
-    const currentUserId = Meteor.userId();
     if (this.collection == 'Disciplina') {
-      const data = [{
-        codigo:       parseInt(event.target.codigo.value),
-        nome:         event.target.nome.value,
-        creditos:     parseInt(event.target.creditos.value),
-        semestre:     parseInt(event.target.semestre.value),
-        prereq:       parseInt(event.target.prereq.value),
-        aprovacoes:   0,
-        reprovacoes:  0,
-        reincidencia: 0,
-        aprov2:       0,
-        perc_ap:      0,
-        perc_reic:    0,
-        perc_aprov2:  0,
-        alunos:       0,
-        createdBy:    currentUserId
-      }];
+      const codigo    = parseInt(event.target.codigo.value);
+      const nome      = event.target.nome.value;
+      const creditos  = parseInt(event.target.creditos.value);
+      const semestre  = parseInt(event.target.semestre.value);
+      const prereq    = event.target.prereq.value;
+      const data      = [new Course(codigo, nome, creditos, semestre, prereq)];
+      data[0].convertPrereqToArray();
       event.target.nome.value = '';
       event.target.creditos.value = '';
       event.target.semestre.value = '';
@@ -56,21 +48,17 @@ Template.add.events({
       $(event.target.semestre).blur();
       $(event.target.prereq).blur();
       $(event.target.codigo).blur();
-
       const modal_id = $($('.modal-trigger').leanModal()).attr("href");
       $(modal_id).closeModal();
       Meteor.call('uploadCoursesData', data);
     } else {
-      const currentUserId = Meteor.userId();
-      const data = [{
-        rga:        parseInt(event.target.rga.value),
-        nome:       event.target.nome.value,
-        disciplina: event.target.disciplina.value,
-        situacao:   event.target.situacao.value,
-        ano:        parseInt(event.target.ano.value),
-        semestre:   parseInt(event.target.semestre.value),
-        createdBy:  currentUserId
-      }];
+      const rga         = parseInt(event.target.rga.value);
+      const nome        = event.target.nome.value;
+      const disciplina  = event.target.disciplina.value;
+      const situacao    = event.target.situacao.value;
+      const ano         = parseInt(event.target.ano.value);
+      const semestre    = parseInt(event.target.semestre.value);
+      const data        = [new AcademicRecord(rga, nome, disciplina, situacao, ano, semestre)];
       event.target.rga.value = '';
       event.target.nome.value = '';
       event.target.disciplina.value = '';
@@ -83,7 +71,6 @@ Template.add.events({
       $(event.target.situacao).blur();
       $(event.target.ano).blur();
       $(event.target.semestre).blur();
-
       const modal_id = $($('.modal-trigger').leanModal()).attr("href");
       $(modal_id).closeModal();
       Meteor.call('updateRecordsData', data);
