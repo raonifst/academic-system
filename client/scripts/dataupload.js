@@ -4,7 +4,7 @@ import Records from "../../imports/api/collections/records";
 import { Meteor } from 'meteor/meteor';
 import { ReactiveVar } from "meteor/reactive-var";
 
-import { CsvUtils } from "../../imports/modules/csvutils";
+import { csvUtils } from "../../imports/modules/csvutils";
 import { uploadDataStatus } from "../../imports/modules/status";
 import { CoursesDAG } from "../../imports/modules/coursesgraph";
 import { msgUploadCourses, msgUploadRecords } from "../../imports/modules/bertmessages";
@@ -28,25 +28,23 @@ Template.uploadcurricularstructure.events({
     Papa.parse(event.target.files[0], {
       header: true,
       skipEmptyLines: true,
-
       step(row, parser) {
         var reg = Courses.parser(row.data[0]);
         try {
           Courses.schema.validate(reg);
         } catch (err) {
-          Bert.alert(msgUploadCourses.msgErrorInvalidCsv, 'danger', 'growl-top-right' );
+          Bert.alert(msgUploadCourses.errorInvalidCsv, 'danger', 'growl-top-right' );
           globalError = true;
           template.uploading.set(false);
           parser.abort();
         }
-        reg.prereq = CsvUtils.prereqStringToArray(reg.prereq);
+        reg.prereq = csvUtils.prereqStringToArray(reg.prereq);
         data.push(reg);
       },
-
       complete() {
         if (globalError)
           return;
-        //console.log(data); // Debug (descomente esta linha)
+        console.log(data); // Debug (descomente esta linha)
         try {
           var g = new CoursesDAG(data);
           console.log(g); // Debug (descomente esta linha)
@@ -60,16 +58,17 @@ Template.uploadcurricularstructure.events({
           else {
             switch (results) {
               case uploadDataStatus.SUCCESS:
-                Bert.alert(msgUploadCourses.msgSuccessUpload, 'success', 'growl-top-right');
+                Bert.alert(msgUploadCourses.successUpload, 'success', 'growl-top-right');
                 break;
               case uploadDataStatus.WARNINGS:
-                Bert.alert(msgUploadCourses.msgWarningUpload, 'warning', 'growl-top-right');
+                Bert.alert(msgUploadCourses.warningUpload, 'warning', 'growl-top-right');
                 break;
               case uploadDataStatus.ERROR:
-                Bert.alert(msgUploadCourses.msgErrorsUpload, 'warning', 'growl-top-right');
+                Bert.alert(msgUploadCourses.errorsUpload, 'warning', 'growl-top-right');
                 break;
             }
             Meteor.call('changeUploadCoursesFlag');
+            console.log(Courses.find().fetch());
           }
           template.uploading.set(false);
         });
@@ -105,7 +104,7 @@ Template.uploadacademicrecord.events({
         try {
           Records.schema.validate(peg);
         } catch (err) {
-          Bert.alert(msgUploadRecords.msgErrorInvalidCsv, 'danger', 'growl-top-right' );
+          Bert.alert(msgUploadRecords.errorInvalidCsv, 'danger', 'growl-top-right' );
           globalError = true;
           template.uploading.set(false);
           parser.abort();
@@ -123,13 +122,13 @@ Template.uploadacademicrecord.events({
           else {
             switch (results) {
               case uploadDataStatus.SUCCESS:
-                Bert.alert(msgUploadRecords.msgSuccessUpload, 'success', 'growl-top-right');
+                Bert.alert(msgUploadRecords.successUpload, 'success', 'growl-top-right');
                 break;
               case uploadDataStatus.WARNINGS:
-                Bert.alert(msgUploadRecords.msgWarningUpload, 'warning', 'growl-top-right');
+                Bert.alert(msgUploadRecords.warningUpload, 'warning', 'growl-top-right');
                 break;
               case uploadDataStatus.ERROR:
-                Bert.alert(msgUploadRecords.msgErrorsUpload, 'warning', 'growl-top-right');
+                Bert.alert(msgUploadRecords.errorsUpload, 'warning', 'growl-top-right');
                 break;
             }
             Meteor.call('changeCurrentSemester', 0);

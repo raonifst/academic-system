@@ -1,14 +1,15 @@
+import {msgRoutes} from "../../imports/modules/bertmessages";
+
 Router.configure({
   layoutTemplate: 'layout',
   loadingTemplate: 'loading',
-  // TODO escolher adequadamente quais serão os subscribes necessários em todas as routes
   waitOn() {
-    return [Meteor.subscribe('courses'), Meteor.subscribe('records'), Meteor.subscribe('user')];
+    return Meteor.subscribe('user');
   },
   onBeforeAction() {
     const currentUser = Meteor.user();
     if (currentUser && !currentUser.passwordFlag) {
-      Bert.alert("É necessário trocar a senha padrão", 'warning', 'growl-top-right');
+      Bert.alert(msgRoutes.firstLogin, 'warning', 'growl-top-right');
       this.render('changepass');
     } else
       this.next();
@@ -25,10 +26,10 @@ Router.route('/', {
     const currentUser = Meteor.user();
     if (currentUser) {
       if (!currentUser.uploadCoursesFlag) {
-        Bert.alert("É necessário fazer upload da Estrutura Curricular", 'warning', 'growl-top-right');
+        Bert.alert(msgRoutes.uploadCourses, 'warning', 'growl-top-right');
         this.render("estruturacurricular");
       } else if (!currentUser.uploadRecordsFlag) {
-        Bert.alert("É necessário fazer upload do Histórico Acadêmico", 'warning', 'growl-top-right');
+        Bert.alert(msgRoutes.uploadRecords, 'warning', 'growl-top-right');
         this.render("historicoacademico");
       } else
         this.next();
@@ -63,7 +64,7 @@ Router.route('/historico-academico', {
     const currentUser = Meteor.user();
     if (currentUser) {
       if (!currentUser.uploadCoursesFlag) {
-        Bert.alert("É necessário fazer upload da Estrutura Curricular", 'warning', 'growl-top-right');
+        Bert.alert(msgRoutes.uploadCourses, 'warning', 'growl-top-right');
         this.render("estruturacurricular");
       } else
         this.next();
@@ -92,7 +93,7 @@ Router.route('/settings', {
   template: 'settings',
   name: 'settings',
   waitOn() {
-    return [Meteor.subscribe('courses'), Meteor.subscribe('records'), Meteor.subscribe('user')];
+    return Meteor.subscribe('user');
   },
   onBeforeAction() {
     if (Meteor.userId()) {
@@ -119,7 +120,7 @@ Router.route('/recuperar', {
   template: 'recpsw',
   name: 'recpsw',
   waitOn() {
-    return [Meteor.subscribe('courses'), Meteor.subscribe('records'), Meteor.subscribe('user')];
+    return Meteor.subscribe('user');
   },
   onBeforeAction() {
     if (!Meteor.userId()) {
@@ -134,7 +135,7 @@ Router.route('/registrar', {
   template: 'reg',
   name: 'reg',
   waitOn() {
-    return [Meteor.subscribe('courses'), Meteor.subscribe('records'), Meteor.subscribe('user')];
+    return Meteor.subscribe('user');
   },
   onBeforeAction() {
     if (!Meteor.userId()) {

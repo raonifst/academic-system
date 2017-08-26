@@ -99,7 +99,7 @@ export class CoursesDAG {
     for (var key1 of this._gmap.keys()) {
       this._attributes.setColorTo(key1, GraphColors.WHITE);
       this._attributes.setPiTo(key1, null);
-      this._attributes.setDiscoveredTimeTo(key1, -1);
+      //this._attributes.setDiscoveredTimeTo(key1, -1);
     }
     this._time = 0;
     for (var key2 of this._gmap.keys()) {
