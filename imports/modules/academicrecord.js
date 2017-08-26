@@ -35,13 +35,13 @@ export class AcademicRecord {
     };
   }
 
-  constructor(jsonObj) {
-    this.rga = parseInt(jsonObj.rga);
-    this.nome = jsonObj.nome;
-    this.disciplina = jsonObj.disciplina;
-    this.situacao = jsonObj.situacao;
-    this.ano = parseInt(jsonObj.ano);
-    this.semestre = parseInt(jsonObj.semestre);
+  constructor(rga, nome, disciplina, situacao, ano, semestre) {
+    this.rga = rga;
+    this.nome = nome;
+    this.disciplina = disciplina;
+    this.situacao = situacao;
+    this.ano = ano;
+    this.semestre = semestre;
     this.createdBy = Meteor.userId();
   }
 }

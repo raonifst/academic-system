@@ -66,12 +66,16 @@ export class Course {
     };
   }
 
-  constructor(registry) {
-    this.codigo = parseInt(registry.codigo);
-    this.nome = registry.nome;
-    this.creditos = parseInt(registry.creditos);
-    this.semestre = parseInt(registry.semestre);
-    this.prereq = registry.prereq;
+  static prereqDelimiter() {
+    return ";";
+  }
+
+  constructor(codigo, nome, creditos, semestre, prereq) {
+    this.codigo = codigo;
+    this.nome = nome;
+    this.creditos = creditos;
+    this.semestre = semestre;
+    this.prereq = prereq;
     this.aprovacoes = 0;
     this.reprovacoes = 0;
     this.reincidencia = 0;
@@ -81,5 +85,14 @@ export class Course {
     this.perc_aprov2 = 0;
     this.alunos = 0;
     this.createdBy = Meteor.userId();
+  }
+
+  convertPrereqToArray() {
+    if (!this.prereq)
+      this.prereq = [];
+    else {
+      var s = this.prereq.split(Course.prereqDelimiter());
+      this.prereq = (s == "") ? [] : s.map(Number);
+    }
   }
 }

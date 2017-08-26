@@ -7,10 +7,4 @@ export const csvUtils = {
     return arr.join(prereqDelimiter);
   },
 
-  prereqStringToArray(str) {
-    if (!str)
-      return [];
-    var s = str.split(prereqDelimiter);
-    return (s == "") ? [] : s.map(Number);
-  }
 };

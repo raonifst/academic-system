@@ -8,6 +8,8 @@ import { csvUtils } from "../../imports/modules/csvutils";
 import { uploadDataStatus } from "../../imports/modules/status";
 import { CoursesDAG } from "../../imports/modules/coursesgraph";
 import { msgUploadCourses, msgUploadRecords } from "../../imports/modules/bertmessages";
+import {AcademicRecord} from "../../imports/modules/academicrecord";
+import {Course} from "../../imports/modules/course";
 
 /*-------------------- UPLOAD CURRICULAR STRUCTURE --------------------*/
 Template.uploadcurricularstructure.onCreated(() => {
@@ -29,7 +31,9 @@ Template.uploadcurricularstructure.events({
       header: true,
       skipEmptyLines: true,
       step(row, parser) {
-        var reg = Courses.parser(row.data[0]);
+        var l = row.data[0];
+        var reg = new Course(parseInt(l.codigo), l.nome, parseInt(l.creditos),
+                              parseInt(l.semestre), l.prereq);
         try {
           Courses.schema.validate(reg);
         } catch (err) {
@@ -38,7 +42,7 @@ Template.uploadcurricularstructure.events({
           template.uploading.set(false);
           parser.abort();
         }
-        reg.prereq = csvUtils.prereqStringToArray(reg.prereq);
+        reg.convertPrereqToArray();
         data.push(reg);
       },
       complete() {
@@ -94,27 +98,26 @@ Template.uploadacademicrecord.events({
     var data = [];
     var globalError = false;
     template.uploading.set(true);
-
     Papa.parse( event.target.files[0], {
       header: true,
       skipEmptyLines: true,
-
       step(row, parser) {
-        var peg = Records.parser(row.data[0]);
+        var l = row.data[0];
+        var reg = new AcademicRecord(parseInt(l.rga), l.nome, l.disciplina, l.situacao,
+                                      parseInt(l.ano), parseInt(l.semestre));
         try {
-          Records.schema.validate(peg);
+          Records.schema.validate(reg);
         } catch (err) {
           Bert.alert(msgUploadRecords.errorInvalidCsv, 'danger', 'growl-top-right' );
           globalError = true;
           template.uploading.set(false);
           parser.abort();
         }
-        data.push(peg);
+        data.push(reg);
       },
-
       complete() {
-        if (globalError) return;
-
+        if (globalError)
+          return;
         //console.log(data); // Debug (descomente esta linha)
         Meteor.call('updateRecordsData', data, (error, results) => {
           if (error)
