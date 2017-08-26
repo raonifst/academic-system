@@ -1,6 +1,6 @@
 const prereqDelimiter = ";";
 
-export const CsvUtils = {
+export const csvUtils = {
   prereqArrayToString(arr) {
     for (var i = 0; i < arr.length; i++)
       arr[i] = Disciplines.findOne({ _id: arr[i] }).codigo;
@@ -12,5 +12,5 @@ export const CsvUtils = {
       return [];
     var s = str.split(prereqDelimiter);
     return (s == "") ? [] : s.map(Number);
-  },
+  }
 };
