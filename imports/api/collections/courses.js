@@ -6,28 +6,6 @@ const Courses = new Mongo.Collection('courses');
 // Schema utilizado para validar o csv da estrutura curricular
 Courses.schema = new SimpleSchema(Course.validator());
 
-// Função utilizada para conversão de valores recebidos do csv para o formato correto definido
-// na validação
-Courses.parser = function(jsonObj) {
-  const currentUserId = Meteor.userId();
-  return {
-    codigo:       parseInt(jsonObj.codigo),
-    nome:         jsonObj.nome,
-    creditos:     parseInt(jsonObj.creditos),
-    semestre:     parseInt(jsonObj.semestre),
-    prereq:       jsonObj.prereq,
-    aprovacoes:   0,
-    reprovacoes:  0,
-    reincidencia: 0,
-    aprov2:       0,
-    perc_ap:      0,
-    perc_reic:    0,
-    perc_aprov2:  0,
-    alunos:       0,
-    createdBy:    currentUserId
-  };
-};
-
 // Permissões 1
 Courses.allow({ // O usuário precisa estar "logado" e deve ser o proprietário do documento
   insert(userId, doc) {

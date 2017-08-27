@@ -1,7 +1,7 @@
 import { Meteor } from 'meteor/meteor'
 import { AccountsServer } from 'meteor/accounts-base'
 import '../imports/api/server/publishs.js'
-import {defaultRootUser} from "../imports/modules/defaults";
+import Default from "../imports/modules/defaults";
 
 Meteor.startup(() => {
   /* Solução provisória: não há registro de usuários.
@@ -14,10 +14,10 @@ Meteor.startup(() => {
     });
     Meteor.users.update({ _id: userId }, {
       $set:
-      { name:             defaultRootUser.name,
-        gradProgram:      defaultRootUser.gradProgram,
-        currentYear:      defaultRootUser.currentYear,
-        currentSemester:  defaultRootUser.currentSemester,
+      { name:             Default.rootUser.name,
+        gradProgram:      Default.rootUser.gradProgram,
+        currentYear:      Default.rootUser.currentYear,
+        currentSemester:  Default.rootUser.currentSemester,
       }
     });
   }

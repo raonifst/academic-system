@@ -71,10 +71,10 @@ export class Course {
   }
 
   constructor(codigo, nome, creditos, semestre, prereq) {
-    this.codigo = codigo;
+    this.codigo = parseInt(codigo);
     this.nome = nome;
-    this.creditos = creditos;
-    this.semestre = semestre;
+    this.creditos = parseInt(creditos);
+    this.semestre = parseInt(semestre);
     this.prereq = prereq;
     this.aprovacoes = 0;
     this.reprovacoes = 0;
@@ -94,5 +94,10 @@ export class Course {
       var s = this.prereq.split(Course.prereqDelimiter());
       this.prereq = (s == "") ? [] : s.map(Number);
     }
+  }
+
+  getPrereqAsString() {
+    var arr = this.prereq;
+    return arr.join(Course.prereqDelimiter());
   }
 }

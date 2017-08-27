@@ -31,10 +31,10 @@ Template.add.events({
   'submit #addform': function(event) {
     event.preventDefault();
     if (this.collection == 'Disciplina') {
-      const codigo    = parseInt(event.target.codigo.value);
+      const codigo    = event.target.codigo.value;
       const nome      = event.target.nome.value;
-      const creditos  = parseInt(event.target.creditos.value);
-      const semestre  = parseInt(event.target.semestre.value);
+      const creditos  = event.target.creditos.value;
+      const semestre  = event.target.semestre.value;
       const prereq    = event.target.prereq.value;
       const data      = [new Course(codigo, nome, creditos, semestre, prereq)];
       data[0].convertPrereqToArray();
@@ -52,12 +52,12 @@ Template.add.events({
       $(modal_id).closeModal();
       Meteor.call('uploadCoursesData', data);
     } else {
-      const rga         = parseInt(event.target.rga.value);
+      const rga         = event.target.rga.value;
       const nome        = event.target.nome.value;
       const disciplina  = event.target.disciplina.value;
       const situacao    = event.target.situacao.value;
-      const ano         = parseInt(event.target.ano.value);
-      const semestre    = parseInt(event.target.semestre.value);
+      const ano         = event.target.ano.value;
+      const semestre    = event.target.semestre.value;
       const data        = [new AcademicRecord(rga, nome, disciplina, situacao, ano, semestre)];
       event.target.rga.value = '';
       event.target.nome.value = '';

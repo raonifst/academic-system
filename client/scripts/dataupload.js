@@ -1,13 +1,12 @@
 import Courses from "../../imports/api/collections/courses";
 import Records from "../../imports/api/collections/records";
 
-import { Meteor } from 'meteor/meteor';
-import { ReactiveVar } from "meteor/reactive-var";
+import {Meteor} from "meteor/meteor";
+import {ReactiveVar} from "meteor/reactive-var";
 
-import { csvUtils } from "../../imports/modules/csvutils";
-import { uploadDataStatus } from "../../imports/modules/status";
-import { CoursesDAG } from "../../imports/modules/coursesgraph";
-import { msgUploadCourses, msgUploadRecords } from "../../imports/modules/bertmessages";
+import {uploadDataStatus} from "../../imports/modules/status";
+import {CoursesDAG} from "../../imports/modules/coursesgraph";
+import {msgUploadCourses, msgUploadRecords} from "../../imports/modules/bertmessages";
 import {AcademicRecord} from "../../imports/modules/academicrecord";
 import {Course} from "../../imports/modules/course";
 
@@ -31,24 +30,27 @@ Template.uploadcurricularstructure.events({
       header: true,
       skipEmptyLines: true,
       step(row, parser) {
-        var l = row.data[0];
-        var reg = new Course(parseInt(l.codigo), l.nome, parseInt(l.creditos),
-                              parseInt(l.semestre), l.prereq);
+        const codigo    = row.data[0].codigo;
+        const nome      = row.data[0].nome;
+        const creditos  = row.data[0].creditos;
+        const semestre  = row.data[0].semestre;
+        const prereq    = row.data[0].prereq;
+        const courseRegistry = new Course(codigo, nome, creditos, semestre, prereq);
         try {
-          Courses.schema.validate(reg);
+          Courses.schema.validate(courseRegistry);
         } catch (err) {
           Bert.alert(msgUploadCourses.errorInvalidCsv, 'danger', 'growl-top-right' );
           globalError = true;
           template.uploading.set(false);
           parser.abort();
         }
-        reg.convertPrereqToArray();
-        data.push(reg);
+        courseRegistry.convertPrereqToArray();
+        data.push(courseRegistry);
       },
       complete() {
         if (globalError)
           return;
-        console.log(data); // Debug (descomente esta linha)
+        //console.log(data); // Debug (descomente esta linha)
         try {
           var g = new CoursesDAG(data);
           console.log(g); // Debug (descomente esta linha)
@@ -72,7 +74,6 @@ Template.uploadcurricularstructure.events({
                 break;
             }
             Meteor.call('changeUploadCoursesFlag');
-            console.log(Courses.find().fetch());
           }
           template.uploading.set(false);
         });
@@ -102,18 +103,22 @@ Template.uploadacademicrecord.events({
       header: true,
       skipEmptyLines: true,
       step(row, parser) {
-        var l = row.data[0];
-        var reg = new AcademicRecord(parseInt(l.rga), l.nome, l.disciplina, l.situacao,
-                                      parseInt(l.ano), parseInt(l.semestre));
+        const rga         = row.data[0].rga;
+        const nome        = row.data[0].nome;
+        const disciplina  = row.data[0].disciplina;
+        const situacao    = row.data[0].situacao;
+        const ano         = row.data[0].ano;
+        const semestre    = row.data[0].semestre;
+        const recordRegistry = new AcademicRecord(rga, nome, disciplina, situacao, ano, semestre);
         try {
-          Records.schema.validate(reg);
+          Records.schema.validate(recordRegistry);
         } catch (err) {
           Bert.alert(msgUploadRecords.errorInvalidCsv, 'danger', 'growl-top-right' );
           globalError = true;
           template.uploading.set(false);
           parser.abort();
         }
-        data.push(reg);
+        data.push(recordRegistry);
       },
       complete() {
         if (globalError)

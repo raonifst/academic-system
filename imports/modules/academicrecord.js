@@ -36,12 +36,12 @@ export class AcademicRecord {
   }
 
   constructor(rga, nome, disciplina, situacao, ano, semestre) {
-    this.rga = rga;
+    this.rga = parseInt(rga);
     this.nome = nome;
     this.disciplina = disciplina;
     this.situacao = situacao;
-    this.ano = ano;
-    this.semestre = semestre;
+    this.ano = parseInt(ano);
+    this.semestre = parseInt(semestre);
     this.createdBy = Meteor.userId();
   }
 }

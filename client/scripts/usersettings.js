@@ -1,6 +1,6 @@
 import { Meteor } from 'meteor/meteor'
 import { Accounts } from 'meteor/accounts-base'
-import {defaultAlertTimeList, defaultGradProgramsList} from "../../imports/modules/defaults";
+import Default from "../../imports/modules/defaults";
 
 /*-------------------- PROFILE SETTINGS --------------------*/
 Template.profilesettings.onRendered(function () {
@@ -16,11 +16,11 @@ Template.profilesettings.helpers({
   },
 
   course() {
-    return defaultGradProgramsList;
+    return Default.gradProgramsList;
   },
 
   alertsTime() {
-    return defaultAlertTimeList;
+    return Default.alertTimeList;
   },
 
   isCoureSelected() {
@@ -50,8 +50,6 @@ Template.profilesettings.events({
     const name = $('[name="name"]').val();
     const gradProgram = $('[name="courses"]').val();
     const time = parseInt($('[name="alerts_time"]').val());
-    const currentUser = Meteor.user();
-
     Meteor.call('updateProfile', name, gradProgram, time, (error, results) => {
       if (error) {
         Bert.alert(e.reason, 'danger', 'growl-top-right');
@@ -67,47 +65,24 @@ Template.profilesettings.events({
 Template.settings.events({
   'submit #changepassform': function (event) {
     event.preventDefault();
-
     if (event.target.password.value != event.target.password2.value) {
-      Bert.alert('Senhas precisam ser iguais', 'danger', 'growl-top-right');
-      event.target.oldpassword.value = '';
-      event.target.password.value = '';
-      event.target.password2.value = '';
-      $(event.target.oldpassword).removeClass('valid');
-      $(event.target.password).removeClass('valid');
-      $(event.target.password2).removeClass('valid');
-      $(event.target.oldpassword).blur();
-      $(event.target.password).blur();
-      $(event.target.password2).blur();;
-    } else
-    if (event.target.oldpassword.value == event.target.password.value) {
-      Bert.alert('Senha precisa ser diferente da senha primária', 'danger', 'growl-top-right');
-      event.target.oldpassword.value = '';
-      event.target.password.value = '';
-      event.target.password2.value = '';
-      $(event.target.oldpassword).removeClass('valid');
-      $(event.target.password).removeClass('valid');
-      $(event.target.password2).removeClass('valid');
-      $(event.target.oldpassword).blur();
-      $(event.target.password).blur();
-      $(event.target.password2).blur();;
+      Bert.alert("Senhas precisam ser iguais.", 'danger', 'growl-top-right');
+    } else if (event.target.oldpassword.value == event.target.password.value) {
+      Bert.alert("Senha precisa ser diferente da senha primária.", 'danger', 'growl-top-right');
+    } else {
+      const oldpassword = event.target.oldpassword.value;
+      const newpassword = event.target.password.value;
+      Accounts.changePassword(oldpassword, newpassword, function (error) {
+        if (error) {
+          if (error.reason === "User not found")
+            Bert.alert('Usuário não cadastrado', 'danger');
+          else if (error.reason === "Incorrect password")
+            Bert.alert('Senha incorreta', 'danger', 'growl-top-right');
+        } else {
+          Bert.alert('Senha alterada!', 'success', 'growl-top-right');
+        }
+      });
     }
-
-    const oldpassword = event.target.oldpassword.value;
-    const newpassword = event.target.password.value;
-
-    Accounts.changePassword(oldpassword, newpassword, function (error) {
-      if (error) {
-        if (error.reason === "User not found")
-          Bert.alert('Usuário não cadastrado', 'danger');
-        else if (error.reason === "Incorrect password")
-          Bert.alert('Senha incorreta', 'danger', 'growl-top-right');
-      } else {
-        //Meteor.logout();
-        Bert.alert('Senha alterada!', 'success', 'growl-top-right');
-      }
-    });
-
     $(event.target.oldpassword).removeClass('valid');
     $(event.target.password).removeClass('valid');
     $(event.target.password2).removeClass('valid');
@@ -118,4 +93,4 @@ Template.settings.events({
     $(event.target.password).blur();
     $(event.target.password2).blur();
   }
-})
+});

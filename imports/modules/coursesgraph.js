@@ -55,8 +55,12 @@ export class CVertexAttr {
 
 export class CoursesDAG {
   constructor(coursesArray) {
-    this._gmap = new Map();
-    coursesArray.forEach(c => this._gmap.set(c.codigo, c.prereq));
+    this._gMap = new Map();
+    this._adjMap = new Map();
+    coursesArray.forEach(c => {
+      this._gMap.set(c.codigo, c);
+      this._adjMap.set(c.codigo, c.prereq);
+    });
     /* A primeira validação apenas verifica se existem disciplinas inválidas e/ou ciclos no grafo.
      * A segunda validação (após transposição) gera os resultados corretos para a ordenação
      * topológica do grafo.
@@ -84,25 +88,25 @@ export class CoursesDAG {
 
   transpose() {
     var revMap = new Map();
-    for (var key1 of this._gmap.keys()) {
+    for (var key1 of this._adjMap.keys()) {
       revMap.set(key1, []);
     }
-    for (var u of this._gmap.keys()) {
-      var adjList = this._gmap.get(u);
+    for (var u of this._adjMap.keys()) {
+      var adjList = this._adjMap.get(u);
       adjList.forEach(v => revMap.get(v).push(u));
     }
-    this._gmap = revMap;
+    this._adjMap = revMap;
   }
 
   _dfs() {
     this._attributes = new CVertexAttr();
-    for (var key1 of this._gmap.keys()) {
+    for (var key1 of this._adjMap.keys()) {
       this._attributes.setColorTo(key1, GraphColors.WHITE);
       this._attributes.setPiTo(key1, null);
       //this._attributes.setDiscoveredTimeTo(key1, -1);
     }
     this._time = 0;
-    for (var key2 of this._gmap.keys()) {
+    for (var key2 of this._adjMap.keys()) {
       if (this._attributes.getColorFrom(key2) == GraphColors.WHITE) {
         var list = [];
         this._dfsVisit(key2, list);
@@ -113,12 +117,12 @@ export class CoursesDAG {
   }
 
   _dfsVisit(uKey, outputList) {
-    var uAdjList = this._gmap.get(uKey);
+    var uAdjList = this._adjMap.get(uKey);
     this._attributes.setColorTo(uKey, GraphColors.GRAY);
     this._attributes.setDiscoveredTimeTo(uKey, ++this._time);
     uAdjList.forEach(vKey => {
       var vColor = this._attributes.getColorFrom(vKey);
-      var vAdjList = this._gmap.get(vKey);
+      var vAdjList = this._adjMap.get(vKey);
       if (!vAdjList) {
         throw new Meteor.Error("graph-invalid-keys", msgCoursesGraph.msgCourseNotFound);
       } else if (vColor == GraphColors.WHITE) {
