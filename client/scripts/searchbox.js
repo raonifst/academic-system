@@ -36,9 +36,32 @@ Template.searchbox.events({
     //Template.instance().courseName.set(name);
     Session.set('courseName', name);
     if (radioValue == 'a') {
-      // TODO ao final da implementação de sugestão de disciplinas, remover este bloco de testes
+      // TODO ao final da implementação de sugestão de disciplinas, REMOVER este bloco de testes
 
       // ***** Início de bloco de teste *****
+
+      const suggestCoursesToStudent = function (graph, maxCreditsPerSemester = 28) {
+        const groups = new Map();
+        var topologicalOrder = graph.getTopologicalOrder();
+        var index = 1;
+        var creditsCounter = 0;
+        groups.set(index, []);
+        for (var j = 1; j <= graph.size(); j++) {
+          topologicalOrder.forEach(g => {
+            const code = g[0];
+            if (code) {
+              creditsCounter += graph._gMap.get(code).creditos;
+              if (creditsCounter >= maxCreditsPerSemester) {
+                groups.set(++index, []);
+                creditsCounter = 0;
+                return;
+              }
+              groups.get(index).push(g.shift());
+            }
+          });
+        }
+        return groups;
+      };
 
       console.log("Aluno selecionado: " + name);
       console.log("Disciplinas do aluno:");
@@ -52,9 +75,14 @@ Template.searchbox.events({
       var coursesNotDone = Courses.find({ nome: { $nin: recordsDoneList } }).fetch();
       console.log(coursesNotDone);
       console.log("Grafo de todas as disciplinas:");
-      console.log(new CoursesDAG(Courses.find().fetch()));
+      var allCoursesGraph = new CoursesDAG(Courses.find().fetch());
+      console.log(allCoursesGraph);
       console.log("Grafo das disciplinas não cursadas:");
-      console.log(new CoursesDAG(coursesNotDone, false));
+      var studentCoursesGraph = new CoursesDAG(coursesNotDone, false);
+      console.log(studentCoursesGraph);
+      var sug = suggestCoursesToStudent(studentCoursesGraph);
+      console.log("Sugestões:");
+      console.log(sug);
 
       // ****** Fim de bloco de teste ******
 
