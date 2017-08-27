@@ -5,6 +5,7 @@ import { Meteor } from 'meteor/meteor';
 import { Session } from 'meteor/session';
 
 import "../../imports/modules/queries";
+import {CoursesDAG} from "../../lib/classes/coursesdag";
 
 Session.set('showRegister', true);
 Session.set('courseName', '');
@@ -43,12 +44,17 @@ Template.searchbox.events({
       console.log("Disciplinas do aluno:");
       var recordsList = Records.find({ nome: name }).fetch();
       console.log(recordsList);
-      var recordsDoneList = recordsList.map(function (o) { return o.disciplina; });
+      var recordsDoneList = recordsList.map(function (o) { return o.disciplina });
       console.log(recordsDoneList);
       console.log("Todas as disciplinas:");
       console.log(Courses.find().fetch());
       console.log("Disciplinas ainda não cursadas:");
-      console.log(Courses.find({ nome: { $nin: recordsDoneList } }).fetch());
+      var coursesNotDone = Courses.find({ nome: { $nin: recordsDoneList } }).fetch();
+      console.log(coursesNotDone);
+      console.log("Grafo de todas as disciplinas:");
+      console.log(new CoursesDAG(Courses.find().fetch()));
+      console.log("Grafo das disciplinas não cursadas:");
+      console.log(new CoursesDAG(coursesNotDone, false));
 
       // ****** Fim de bloco de teste ******
 

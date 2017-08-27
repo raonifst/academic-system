@@ -30,7 +30,7 @@ studentsWhoHavePrerequisitesForACourse = function studentsWhoHavePrerequisitesFo
     let count = 0;
     prereq.forEach(function(code) {
 
-      courseName = Courses.findOne({_id: code}, {fields: {nome: 1}}).nome;
+      courseName = Courses.findOne({codigo: code}, {fields: {nome: 1}}).nome;
       let exist = Records.findOne({rga: student.rga, disciplina: courseName, situacao: "AP"}, {_id: 0});
       if(exist)
         count = count + 1;

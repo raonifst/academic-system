@@ -9,28 +9,11 @@ Meteor.methods({
   uploadCoursesData(data) {
     var resultCode = uploadDataStatus.SUCCESS;
     data.forEach(item => {
-      const existCurr = Courses.find({
-        codigo: item.codigo,
-        createdBy: Meteor.userId()
-      }).count();
       // Pré-condição: Verifica se os items já estão no banco de dados
-      if (existCurr !== 0) {
-        console.log(item.createdBy);
+      if (Courses.findOne({ codigo: item.codigo, createdBy: Meteor.userId() })) {
         resultCode = uploadDataStatus.WARNINGS;
         return; // Equivalente ao "continue" em um laço "for" explícito
       }
-      // Cria o array de pré-requisitos com base no _id das disciplinas já inseridas no banco
-      for (var i = 0; i < item.prereq.length; i++) {
-        const course = Courses.findOne({ codigo: item.prereq[i] });
-        if (course)
-          item.prereq[i] = course._id;
-        else {
-          resultCode = uploadDataStatus.ERROR; // Disciplina é inválida
-          break;
-        }
-      }
-      if (resultCode == uploadDataStatus.ERROR)
-        return;
       Courses.insert(item);
     });
     return resultCode;
@@ -71,20 +54,12 @@ Meteor.methods({
       return "Flag de upload de estrutura curricular (usuário " + id + ") alterado para: " + value;
     };
     if (currentUser) {
-      const val = Courses.findOne({createdBy:currentUser._id});
-      if(val) {
-        Meteor.users.update({ _id: currentUser._id },
-          {
-            $set: { uploadCoursesFlag: true }
-          });
-        console.log(serverLog(currentUser._id, true));
-      } else {
-        Meteor.users.update({ _id: currentUser._id },
-          {
-            $set: { uploadCoursesFlag: false }
-          });
-        console.log(serverLog(currentUser._id, false));
-      }
+      const boolVal = Courses.findOne({ createdBy: currentUser._id }) !== undefined;
+      Meteor.users.update({ _id: currentUser._id },
+        {
+          $set: { uploadCoursesFlag: boolVal }
+        });
+      console.log(serverLog(currentUser._id, boolVal));
     }
   },
 
@@ -94,20 +69,12 @@ Meteor.methods({
       return "Flag de upload de histórico acadêmico (usuário " + id + ") alterado para: " + value;
     };
     if (currentUser) {
-      const val = Records.findOne({createdBy:currentUser._id});
-      if (val) {
-        Meteor.users.update({ _id: currentUser._id },
-          {
-            $set: { uploadRecordsFlag: true }
-          });
-        console.log(serverLog(currentUser._id, true));
-      } else {
-        Meteor.users.update({ _id: currentUser._id },
-          {
-            $set: { uploadRecordsFlag: false }
-          });
-        console.log(serverLog(currentUser._id, false));
-      }
+      const boolVal = Records.findOne({ createdBy:currentUser._id }) !== undefined;
+      Meteor.users.update({ _id: currentUser._id },
+        {
+          $set: { uploadRecordsFlag: boolVal }
+        });
+      console.log(serverLog(currentUser._id, boolVal));
     }
   },
 
