@@ -1,4 +1,4 @@
-import {Course} from "../../modules/course";
+import {Course} from "../../../lib/classes/course";
 
 // Coleção contendo a estrutura curricular das disciplinas
 const Courses = new Mongo.Collection('courses');

@@ -5,10 +5,10 @@ import {Meteor} from "meteor/meteor";
 import {ReactiveVar} from "meteor/reactive-var";
 
 import {uploadDataStatus} from "../../imports/modules/status";
-import {CoursesDAG} from "../../imports/modules/coursesgraph";
+import {CoursesDAG} from "../../lib/classes/coursesdag";
 import {msgUploadCourses, msgUploadRecords} from "../../imports/modules/bertmessages";
-import {AcademicRecord} from "../../imports/modules/academicrecord";
-import {Course} from "../../imports/modules/course";
+import {AcademicRecord} from "../../lib/classes/academicrecord";
+import {Course} from "../../lib/classes/course";
 
 /*-------------------- UPLOAD CURRICULAR STRUCTURE --------------------*/
 Template.uploadcurricularstructure.onCreated(() => {

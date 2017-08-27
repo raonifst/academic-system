@@ -1,4 +1,4 @@
-import {AcademicRecord} from "../../modules/academicrecord";
+import {AcademicRecord} from "../../../lib/classes/academicrecord";
 
 // Coleção contendo o histórico acadêmico dos alunos
 const Records = new Mongo.Collection('records');

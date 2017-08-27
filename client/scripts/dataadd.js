@@ -1,19 +1,16 @@
-import Courses from "../../imports/api/collections/courses";
-import Records from "../../imports/api/collections/records";
-
-import { Meteor } from 'meteor/meteor';
-import {Course} from "../../imports/modules/course";
-import {AcademicRecord} from "../../imports/modules/academicrecord";
+import {Meteor} from "meteor/meteor";
+import {Course} from "../../lib/classes/course";
+import {AcademicRecord} from "../../lib/classes/academicrecord";
 
 Template.modaladd.onRendered(function() {
-  $(document).ready(function(){
+  $(document).ready(function() {
     $('.modal-trigger').leanModal({
-        dismissible: true,
-        opacity: .5,
-        inDuration: 300,
-        outDuration: 200,
-        startingTop: '4%',
-        endingTop: '10%',
+      dismissible: true,
+      opacity: .5,
+      inDuration: 300,
+      outDuration: 200,
+      startingTop: '4%',
+      endingTop: '10%',
       }
     );
   });
@@ -21,9 +18,7 @@ Template.modaladd.onRendered(function() {
 
 Template.modaladd.helpers({
   coursesOrRecords(collection) {
-    if (collection == 'Disciplina')
-      return 1;
-    return 0;
+    return (collection == 'Disciplina') ? 1 : 0;
   }
 });
 
@@ -48,8 +43,8 @@ Template.add.events({
       $(event.target.semestre).blur();
       $(event.target.prereq).blur();
       $(event.target.codigo).blur();
-      const modal_id = $($('.modal-trigger').leanModal()).attr("href");
-      $(modal_id).closeModal();
+      const modalId = $($('.modal-trigger').leanModal()).attr("href");
+      $(modalId).closeModal();
       Meteor.call('uploadCoursesData', data);
     } else {
       const rga         = event.target.rga.value;
@@ -71,8 +66,8 @@ Template.add.events({
       $(event.target.situacao).blur();
       $(event.target.ano).blur();
       $(event.target.semestre).blur();
-      const modal_id = $($('.modal-trigger').leanModal()).attr("href");
-      $(modal_id).closeModal();
+      const modalId = $($('.modal-trigger').leanModal()).attr("href");
+      $(modalId).closeModal();
       Meteor.call('updateRecordsData', data);
     }
   }

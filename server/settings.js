@@ -16,9 +16,6 @@ Meteor.methods({
     const currentUser = Meteor.user();
     if (!currentUser)
       throw new Meteor.Error("user-not-found", "User not found");
-      Meteor.users.update({ _id: currentUser._id },
-        {
-          $set: { passwordFlag: true }
-        });
-    }
+    Meteor.users.update({ _id: currentUser._id }, { $set: { passwordFlag: true } });
+  }
 });
