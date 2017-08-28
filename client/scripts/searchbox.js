@@ -40,32 +40,9 @@ Template.searchbox.events({
 
       // ***** Início de bloco de teste *****
 
-      const suggestCoursesToStudent = function (graph, maxCreditsPerSemester = 28) {
-        const groups = new Map();
-        var topologicalOrder = graph.getTopologicalOrder();
-        var index = 1;
-        var creditsCounter = 0;
-        groups.set(index, []);
-        for (var j = 1; j <= graph.size(); j++) {
-          topologicalOrder.forEach(g => {
-            const code = g[0];
-            if (code) {
-              creditsCounter += graph._gMap.get(code).creditos;
-              if (creditsCounter >= maxCreditsPerSemester) {
-                groups.set(++index, []);
-                creditsCounter = 0;
-                return;
-              }
-              groups.get(index).push(g.shift());
-            }
-          });
-        }
-        return groups;
-      };
-
       console.log("Aluno selecionado: " + name);
       console.log("Disciplinas do aluno:");
-      var recordsList = Records.find({ nome: name }).fetch();
+      var recordsList = Records.find({ nome: name, situacao: "AP" }).fetch();
       console.log(recordsList);
       var recordsDoneList = recordsList.map(function (o) { return o.disciplina });
       console.log(recordsDoneList);
@@ -80,9 +57,9 @@ Template.searchbox.events({
       console.log("Grafo das disciplinas não cursadas:");
       var studentCoursesGraph = new CoursesDAG(coursesNotDone, false);
       console.log(studentCoursesGraph);
-      var sug = suggestCoursesToStudent(studentCoursesGraph);
+      var suggestions = studentCoursesGraph.groupBy();
       console.log("Sugestões:");
-      console.log(sug);
+      console.log(suggestions);
 
       // ****** Fim de bloco de teste ******
 
