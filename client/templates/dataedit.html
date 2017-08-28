@@ -13,7 +13,7 @@
   <div id="modaledit" class="modal">
     <div class="modal-content">
       <h4>Editar {{edit.nome}}</h4>
-      <form>
+      <!--<form>-->
       {{#if coursesOrRecords}}
         {{> editcourse edit}}
       {{else}}
@@ -22,7 +22,7 @@
       <div class="modal-footer"><!-- BUG: modal-close -->
         <button required type="submit" class="modal-action waves-effect waves-light btn btn-form">Confirmar</button>
       </div>
-      </form>
+      <!--</form>-->
     </div>
   </div>
 </template>
@@ -30,26 +30,26 @@
 <template name="editcourse">
   <div class="row">
     <div class="input-field col s3">
-      <input required name="codigo" type="text" class="validate" value="{{edit.codigo}}">
+      <input required id="codigo" type="text" class="validate" value="{{edit.codigo}}">
       <label class="active" for="codigo">Código <small>(Ex.: 90000267)</small>
       </label>
     </div>
     <div class="input-field col s9">
-      <input required name="nome" type="text" class="validate" value="{{edit.nome}}">
+      <input required id="nome" type="text" class="validate" value="{{edit.nome}}">
       <label class="active" for="nome">Nome <small>(Ex.: COMPUTAÇÃO GRÁFICA)</small></label>
     </div>
   </div>
   <div class="row">
     <div class="input-field col s2">
-      <input required name="creditos" type="text" class="validate" value="{{edit.creditos}}">
+      <input required id="creditos" type="text" class="validate" value="{{edit.creditos}}">
       <label class="active" for="creditos">Créditos <small>(Ex.: 4)</small></label>
     </div>
     <div class="input-field col s2">
-      <input required name="semestre" type="text" class="validate" value="{{edit.semestre}}">
+      <input required id="semestre" type="text" class="validate" value="{{edit.semestre}}">
       <label class="active" for="semestre">Semestre <small>(Ex.: 5)</small></label>
     </div>
     <div class="input-field col s8">
-      <input name="prereq" type="text" class="validate" value="{{edit.prereq}}">
+      <input id="prereq" type="text" class="validate" value="{{edit.prereq}}">
       <label class="active" for="prereq">Pré-requisitos <small>(Ex.: 90000009;90000017)</small></label>
     </div>
   </div>

@@ -1,3 +1,6 @@
+import Courses from "../../imports/api/collections/courses";
+import Records from "../../imports/api/collections/records";
+
 import { Session } from 'meteor/session';
 
 Template.modaledit.onRendered(function() {
@@ -38,7 +41,7 @@ Template.editrecord.helpers({
 });
 
 Template.edit.events({
-  'submit form': function(event) {
+  /*'submit form': function(event) {
     event.preventDefault();
     if (!(this.rga)) {
       console.log(event.target.codigo.value);
@@ -84,10 +87,97 @@ Template.edit.events({
       $(modal_id).closeModal();
       Bert.alert("Só atualizar! by Records", 'danger', 'growl-top-right');
     }
-  },
+  },*/
 
   'click .edit': function(event) {
     event.preventDefault();
     Session.set('editing', this);
-  }
+  },
+
+  'keyup #codigo': function(event) {
+    if (event.which == 13 || event.which == 27) {
+      Courses.update({ _id: this._id }, { $set: { codigo: parseInt(event.target.value) }});
+      $(event.target).blur();
+      if ($(event.target).hasClass('valid'))
+        $(event.target).removeClass('valid');
+    }
+  },
+
+  'keyup #nome': function(event) {
+    if (event.which == 13 || event.which == 27) {
+      if (!this.rga)
+        Courses.update({ _id: this._id }, { $set: { nome: event.target.value }});
+      else
+        Records.update({ _id: this._id }, { $set: { nome: event.target.value }});
+      $(event.target).blur();
+      if ($(event.target).hasClass('valid'))
+        $(event.target).removeClass('valid');
+    }
+  },
+
+  'keyup #creditos': function(event){
+    if (event.which == 13 || event.which == 27) {
+      Courses.update({ _id: this._id }, { $set: { creditos: parseInt(event.target.value) }});
+      $(event.target).blur();
+      if ($(event.target).hasClass('valid'))
+        $(event.target).removeClass('valid');
+    }
+  },
+
+  'keyup #semestre': function(event){
+    if (event.which == 13 || event.which == 27) {
+      if (!this.rga)
+        Courses.update({ _id: this._id }, { $set: { semestre: parseInt(event.target.value) }});
+      else
+        Records.update({ _id: this._id }, { $set: { semestre: parseInt(event.target.value) }});
+      $(event.target).blur();
+      if ($(event.target).hasClass('valid'))
+        $(event.target).removeClass('valid');
+    }
+  },
+
+  'keyup #prereq': function(event){
+    if (event.which == 13 || event.which == 27) {
+      Courses.update({ _id: this._id }, { $set: { prereq: event.target.value }});
+      $(event.target).blur();
+      if ($(event.target).hasClass('valid'))
+        $(event.target).removeClass('valid');
+    }
+  },
+
+  'keyup #rga': function(event){
+    if (event.which == 13 || event.which == 27) {
+      Records.update({ _id: this._id }, { $set: { rga: parseInt(event.target.value) }});
+      $(event.target).blur();
+      if ($(event.target).hasClass('valid'))
+        $(event.target).removeClass('valid');
+    }
+  },
+
+  'keyup #disciplina': function(event){
+    if (event.which == 13 || event.which == 27) {
+      Records.update({ _id: this._id }, { $set: { disciplina: event.target.value }});
+      $(event.target).blur();
+      if ($(event.target).hasClass('valid'))
+        $(event.target).removeClass('valid');
+    }
+  },
+
+  'keyup #situacao': function(event){
+    if (event.which == 13 || event.which == 27 || !($('#modaledit').hasClass('open'))) {
+      Records.update({ _id: this._id }, { $set: { situacao: event.target.value }});
+      $(event.target).blur();
+      if ($(event.target).hasClass('valid'))
+        $(event.target).removeClass('valid');
+    }
+  },
+
+  'keyup #ano': function(event){
+    if (event.which == 13 || event.which == 27 || !($('#modaledit').hasClass('open'))) {
+      Records.update({ _id: this._id }, { $set: { ano: parseInt(event.target.value) }});
+      $(event.target).blur();
+      if ($(event.target).hasClass('valid'))
+        $(event.target).removeClass('valid');
+    }
+  },
 });
