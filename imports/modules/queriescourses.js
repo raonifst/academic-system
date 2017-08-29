@@ -8,7 +8,7 @@ studentsWhoMustEnrollInACourse =  function studentsWhoMustEnrollInACourse() {
 
     let courseName = Session.get('courseName');
 
-    if(courseName == '') {
+    if(!Courses.findOne({ nome: courseName })) {
       Template.instance().countStudentsWhoMustEnrollInACourse.set(0);
       return [{}];
     }
@@ -20,7 +20,7 @@ studentsWhoMustEnrollInACourse =  function studentsWhoMustEnrollInACourse() {
 
 studentsWhoHavePrerequisitesForACourse = function studentsWhoHavePrerequisitesForACourse() {
   let courseName = Session.get('courseName');
-  if(courseName != '') {
+  if(Courses.findOne({ nome: courseName })) {
     let candidates = auxStudentsWhoMustEnrollInACourse(courseName);
     let prereq = Courses.findOne({nome: courseName}, {fields: {prereq: 1}});
     prereq = prereq == null?[]:prereq.prereq;
@@ -56,7 +56,7 @@ studentsAtCourseSemester = function studentsAtCourseSemester() {
     let semesterCourse;
     let courseId;
     Template.instance().countStudentsAtCourseSemester.set(0);
-    if(courseName == '')
+    if(!Courses.findOne({ nome: courseName }))
       return [{}];
       semesterCourse=Courses.findOne({nome: courseName},{fields:{semestre:1}});
       let res;

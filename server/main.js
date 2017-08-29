@@ -15,9 +15,7 @@ Meteor.startup(() => {
     Meteor.users.update({ _id: userId }, {
       $set:
       { name:             Default.rootUser.name,
-        gradProgram:      Default.rootUser.gradProgram,
-        currentYear:      Default.rootUser.currentYear,
-        currentSemester:  Default.rootUser.currentSemester,
+        gradProgram:      Default.rootUser.gradProgram
       }
     });
   }
