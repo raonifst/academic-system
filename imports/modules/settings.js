@@ -3,10 +3,19 @@ import {Meteor} from "meteor/meteor";
 const Settings = Object.freeze({
   changePassword(event, isFirstLogin) {
     event.preventDefault();
+    const currentUser = Meteor.user();
     const oldpassword = event.target.oldpassword.value;
     const newpassword = event.target.password.value;
     const newpasswordconfirm = event.target.password2.value;
-    if (newpassword != newpasswordconfirm) {
+    // Condição de verificação de senha
+    const passcondition =/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&]{6,}/;
+    const time = currentUser.durationAlerts;
+    if(!passcondition.test(newpassword)){
+      Bert.defaults.hideDelay = 6000;
+      Bert.alert("A nova senha deve ter mais que 6 caracteres, pelo menos uma letra maiúscula, uma minúscula, um número e um caracter especial", 'danger', 'growl-top-right');
+      Bert.defaults.hideDelay = time;
+    }
+    else if (newpassword != newpasswordconfirm) {
       Bert.alert("As senhas digitadas não coincidem.", 'danger', 'growl-top-right');
     } else if (oldpassword == newpassword) {
       Bert.alert("Nova senha digitada é igual à senha antiga.", 'danger', 'growl-top-right');
