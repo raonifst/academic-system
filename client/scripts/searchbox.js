@@ -6,6 +6,7 @@ import { Session } from 'meteor/session';
 
 import "../../imports/modules/queries";
 import {CoursesDAG} from "../../lib/classes/coursesdag";
+import {incrementYearSemester} from "../../imports/modules/auxiliar";
 
 Session.set('showRegister', true);
 Session.set('courseName', '');
@@ -57,9 +58,18 @@ Template.searchbox.events({
       console.log("Grafo das disciplinas não cursadas:");
       var studentCoursesGraph = new CoursesDAG(coursesNotDone, false);
       console.log(studentCoursesGraph);
-      var suggestions = studentCoursesGraph.groupBy();
+      var suggestions = studentCoursesGraph.groupBy(20);
       console.log("Sugestões:");
-      console.log(suggestions);
+      const cY = Meteor.user().currentYear;
+      const cS = Meteor.user().currentSemester;
+      for (var key of suggestions.keys()) {
+        const tmp = incrementYearSemester(cY, cS, key);
+        console.log(tmp.year + "/" + tmp.semester);
+        suggestions.get(key).forEach(e => {
+          console.log(e);
+        })
+      }
+      //console.log(suggestions);
 
       // ****** Fim de bloco de teste ******
 

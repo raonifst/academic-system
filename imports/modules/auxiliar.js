@@ -12,9 +12,14 @@ function reinc(item) {
 }
 
 export function incrementYearSemester(year, semester, inc) {
-  const b = 2;
-  year += parseInt(inc/b);
-  semester += parseInt(inc%b);
+  for (var i = 1; i <= inc; i++) {
+    if (semester % 2 == 0) { // Semestre é 2
+      semester = 1;
+      year++
+    } else { // Semestre não é 2
+      semester++;
+    }
+  }
   return { year: year, semester: semester };
 }
 
