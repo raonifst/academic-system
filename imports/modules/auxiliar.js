@@ -11,6 +11,13 @@ function reinc(item) {
   }).count();
 }
 
+export function incrementYearSemester(year, semester, inc) {
+  const b = 2;
+  year += parseInt(inc/b);
+  semester += parseInt(inc%b);
+  return { year: year, semester: semester };
+}
+
 export function updateCoursesRemoveRecords(currentUserId) {
   Courses.update({ createdBy: currentUserId }, { $set:
   { perc_ap:      0,

@@ -3,7 +3,7 @@ import {uploadDataStatus} from "../imports/modules/status"
 import Courses from '../imports/api/collections/courses'
 import Records from '../imports/api/collections/records'
 import '../imports/modules/auxiliar'
-import {approvedAndRecidivists} from "../imports/modules/auxiliar";
+import {approvedAndRecidivists, incrementYearSemester} from "../imports/modules/auxiliar";
 
 Meteor.methods({
   uploadCoursesData(data) {
@@ -81,8 +81,8 @@ Meteor.methods({
   changeCurrentSemester(resetFlag) {
     var cSemester = "-";
     var cYear = "-";
+    var tmp;
     const currentUser = Meteor.user();
-    const semesterParser = function (n) { return ((n + 1) % 2) + 1; };
     const serverLog = function (id, year, semester) {
       return "Semestre atual (usuário " + id + ") alterado para " + year + "/" + semester;
     };
@@ -93,8 +93,9 @@ Meteor.methods({
         if (!record)
           throw new Meteor.Error("records-empty", "Operação não permitida. " +
                                                   "Não há registros no histórico acadêmico.");
-        cSemester = semesterParser(record.semestre + 1);
-        cYear = (cSemester == 1) ? record.ano + 1 : record.ano;
+        tmp = incrementYearSemester(record.ano, record.semestre, 1);
+        cYear = tmp.year;
+        cSemester = tmp.semester;
       }
       Meteor.users.update({ _id: currentUser._id },
         {
