@@ -8,8 +8,12 @@
         {{> uploadbutton}}
         {{> addbutton collection="Disciplina"}}
         {{> exportbutton type="courses"}}
-        {{> removebutton method="toCleanCourses"
-          changeflagmethod="changeUploadCoursesFlag"}}
+       {{#if wasAcademicRecordsDeleted}}
+            {{> removebutton method="toCleanCourses"
+              changeflagmethod="changeUploadCoursesFlag"}}
+      {{else}}
+          {{>dataremoveinvalid}}
+      {{/if}}
       </div></span>
     </div>
   {{/if}}

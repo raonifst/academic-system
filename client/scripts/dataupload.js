@@ -18,6 +18,10 @@ Template.uploadcurricularstructure.onCreated(() => {
 Template.uploadcurricularstructure.helpers({
   uploading() {
     return Template.instance().uploading.get();
+  },
+  wasAcademicRecordsDeleted(){
+      let  count =Records.find({createdBy:Meteor.userId()}).count();
+    return !count;
   }
 });
 

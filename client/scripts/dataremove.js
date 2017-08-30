@@ -34,3 +34,12 @@ Template.editing.events({
       Meteor.call('removeItem', this);
   },
 });
+
+Template.dataremoveinvalid.events({
+  'mouseenter .btn':function(event){
+      event.preventDefault();
+      Bert.alert('Você deve excluir o histórico Acadêmico antes.' , 'info', 'growl-top-right');
+
+  },
+
+});
