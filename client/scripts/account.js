@@ -7,7 +7,14 @@ Template.login.events({
     event.preventDefault();
     var email = event.target.email.value;
     var password = event.target.password.value;
-    Meteor.loginWithPassword(email, password);
+    Meteor.loginWithPassword(email, password, function(error){
+    if (error) {
+      if(error.reason === "Incorrect password")
+      Bert.alert('Senha incorreta', 'danger', 'growl-top-right');
+      if (error.reason === "User not found")
+      Bert.alert('Usuário não cadastrado', 'danger', 'growl-top-right');
+    }
+    });
   }
 });
 
