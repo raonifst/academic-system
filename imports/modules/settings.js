@@ -15,6 +15,7 @@ const Settings = Object.freeze({
       Bert.alert("A nova senha deve ter mais que 6 caracteres, pelo menos uma letra maiúscula, uma minúscula, um número e um caracter especial", 'danger', 'growl-top-right');
       Bert.defaults.hideDelay = time;
     }
+    
     else if (newpassword != newpasswordconfirm) {
       Bert.alert("As senhas digitadas não coincidem.", 'danger', 'growl-top-right');
     } else if (oldpassword == newpassword) {
