@@ -16,7 +16,7 @@ Template.dataremove.events({
 
     Meteor.call(this.method, (error, results) => {
       if (results) {
-        Bert.alert(this.method + ': Troca a msg', 'success', 'growl-top-right');
+        Bert.alert(this.method + 'ERRO: É necessario um histórico acadêmico inserido para funcionamento correto do sistema. Insira novamente um arquivo válido.', 'success', 'growl-top-right');
         Meteor.call(this.changeflagmethod);
         Meteor.call('changeCurrentSemester', 1);
       } else {
