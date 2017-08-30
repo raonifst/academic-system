@@ -38,7 +38,7 @@ Template.editing.events({
 Template.dataremoveinvalid.events({
   'mouseenter .btn':function(event){
       event.preventDefault();
-      Bert.alert('Você deve excluir o histórico Acadêmico antes.' , 'info', 'growl-top-right');
+      Bert.alert('Antes de realizar essa tarefa o Histórico Acadêmico deve ser excluído.' , 'info', 'growl-top-right');
 
   },
 
