@@ -62,12 +62,14 @@ Template.searchbox.events({
       console.log("Sugestões:");
       const cY = Meteor.user().currentYear;
       const cS = Meteor.user().currentSemester;
+      console.log("------------------------------");
       for (var key of suggestions.keys()) {
-        const tmp = incrementYearSemester(cY, cS, key);
+        const tmp = incrementYearSemester(cY, cS, key - 1);
         console.log(tmp.year + "/" + tmp.semester);
         suggestions.get(key).forEach(e => {
           console.log(e);
-        })
+        });
+        console.log("------------------------------");
       }
       //console.log(suggestions);
 
