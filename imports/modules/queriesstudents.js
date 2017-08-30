@@ -12,8 +12,8 @@ export function getStudentBy(key) {
 
 export function getSuggestionsToStudent() {
   // TODO realizar testes com esta função no card de disciplinas na homepage
+  var recordsList, recordsDoneList, coursesNotDone, studentCoursesGraph, suggestions, ys;
   const currentUser = Meteor.user();
-  var recordsList, recordsDoneList, coursesNotDone, studentCoursesGraph, suggestions;
   const student = getStudentBy(Session.get('courseName'));
 
   if (!currentUser || !student)
@@ -30,7 +30,7 @@ export function getSuggestionsToStudent() {
   }
   suggestions = studentCoursesGraph.groupBy();
   for (var i = 0; i < suggestions.length; i++) {
-    const ys = incrementYearSemester(currentUser.currentYear, currentUser.currentSemester, key - 1);
+    ys = incrementYearSemester(currentUser.currentYear, currentUser.currentSemester, key - 1);
     suggestions[i] = { period: ys.year + "/" + ys.semester, list: suggestions[i] };
   }
   return suggestions; // Array de grupos de disciplinas e respectivos ano/semestre

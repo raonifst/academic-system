@@ -58,17 +58,15 @@ Template.searchbox.events({
       console.log("Grafo das disciplinas não cursadas:");
       var studentCoursesGraph = new CoursesDAG(coursesNotDone, false);
       console.log(studentCoursesGraph);
-      var suggestions = studentCoursesGraph.groupBy(20);
+      var suggestions = studentCoursesGraph.groupBy();
       console.log("Sugestões:");
       const cY = Meteor.user().currentYear;
       const cS = Meteor.user().currentSemester;
       console.log("------------------------------");
-      for (var key of suggestions.keys()) {
-        const tmp = incrementYearSemester(cY, cS, key - 1);
+      for (var i = 0; i < suggestions.length; i++) {
+        const tmp = incrementYearSemester(cY, cS, i);
         console.log(tmp.year + "/" + tmp.semester);
-        suggestions.get(key).forEach(e => {
-          console.log(e);
-        });
+        suggestions[i].forEach(e => console.log(e));
         console.log("------------------------------");
       }
       //console.log(suggestions);
