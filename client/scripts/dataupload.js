@@ -34,27 +34,30 @@ Template.uploadcurricularstructure.events({
       header: true,
       skipEmptyLines: true,
       step(row, parser) {
-        const codigo    = row.data[0].codigo;
-        const nome      = row.data[0].nome;
-        const creditos  = row.data[0].creditos;
-        const semestre  = row.data[0].semestre;
-        const prereq    = row.data[0].prereq;
-        const courseRegistry = new Course(codigo, nome, creditos, semestre, prereq);
         try {
-          Courses.schema.validate(courseRegistry);
+          Courses.validateRegistry(row.data[0]);
+          const codigo    = row.data[0].codigo;
+          const nome      = row.data[0].nome;
+          const creditos  = row.data[0].creditos;
+          const semestre  = row.data[0].semestre;
+          const prereq    = row.data[0].prereq;
+          const courseRegistry = new Course(codigo, nome, creditos, semestre, prereq);
+          courseRegistry.convertPrereqToArray();
+          data.push(courseRegistry);
         } catch (err) {
           Bert.alert(msgUploadCourses.errorInvalidCsv, 'danger', 'growl-top-right' );
           globalError = true;
           template.uploading.set(false);
           parser.abort();
         }
-        courseRegistry.convertPrereqToArray();
-        data.push(courseRegistry);
       },
       complete() {
         if (globalError)
           return;
-        //console.log(data); // Debug (descomente esta linha)
+        if (!data || data.length == 0) {
+          Bert.alert(msgUploadCourses.emptyCourses, 'danger', 'growl-top-right');
+          return;
+        }
         try {
           var g = new CoursesDAG(data);
           console.log(g); // Debug (descomente esta linha)
@@ -64,7 +67,7 @@ Template.uploadcurricularstructure.events({
         }
         Meteor.call('uploadCoursesData', data, (error, results) => {
           if (error)
-            Bert.alert('Unknown internal error.', 'danger', 'growl-top-right');
+            Bert.alert(error.reason, 'danger', 'growl-top-right');
           else {
             switch (results) {
               case uploadDataStatus.SUCCESS:
@@ -107,27 +110,30 @@ Template.uploadacademicrecord.events({
       header: true,
       skipEmptyLines: true,
       step(row, parser) {
-        const rga         = row.data[0].rga;
-        const nome        = row.data[0].nome;
-        const disciplina  = row.data[0].disciplina;
-        const situacao    = row.data[0].situacao;
-        const ano         = row.data[0].ano;
-        const semestre    = row.data[0].semestre;
-        const recordRegistry = new AcademicRecord(rga, nome, disciplina, situacao, ano, semestre);
         try {
-          Records.schema.validate(recordRegistry);
+          Records.validateRegistry(row.data[0]);
+          const rga         = row.data[0].rga;
+          const nome        = row.data[0].nome;
+          const disciplina  = row.data[0].disciplina;
+          const situacao    = row.data[0].situacao;
+          const ano         = row.data[0].ano;
+          const semestre    = row.data[0].semestre;
+          const recordRegistry = new AcademicRecord(rga, nome, disciplina, situacao, ano, semestre);
+          data.push(recordRegistry);
         } catch (err) {
           Bert.alert(msgUploadRecords.errorInvalidCsv, 'danger', 'growl-top-right' );
           globalError = true;
           template.uploading.set(false);
           parser.abort();
         }
-        data.push(recordRegistry);
       },
       complete() {
         if (globalError)
           return;
-        //console.log(data); // Debug (descomente esta linha)
+        if (!data || data.length == 0) {
+          Bert.alert(msgUploadRecords.emptyRecords, 'danger', 'growl-top-right');
+          return;
+        }
         Meteor.call('updateRecordsData', data, (error, results) => {
           if (error)
             Bert.alert(error.reason, 'danger', 'growl-top-right');

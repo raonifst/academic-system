@@ -14,7 +14,9 @@ export const msgUploadCourses = Object.freeze({
   warningUpload: commomMsgUpload.warningUpload,
 
   errorsUpload: "Upload parcialmente completado. Itens com erros no campo de " +
-                    "pré-requisitos não foram adicionados. Corrija-os e tente novamente"
+                    "pré-requisitos não foram adicionados. Corrija-os e tente novamente",
+
+  emptyCourses: "Estrutura curricular adicionada não contém nenhuma disciplina."
 });
 
 export const msgUploadRecords = Object.freeze({
@@ -25,7 +27,9 @@ export const msgUploadRecords = Object.freeze({
   warningUpload: commomMsgUpload.warningUpload,
 
   errorsUpload: "Upload completado com sucesso! Alguns disciplinas que não estão na " +
-                    "estrutura foram ignoaradas."
+                    "estrutura foram ignoaradas.",
+
+  emptyRecords: "Histórico acadêmico adicionado não contém nenhum registro."
 });
 
 export const msgRoutes = Object.freeze({
