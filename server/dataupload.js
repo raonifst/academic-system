@@ -4,6 +4,7 @@ import Courses from '../imports/api/collections/courses'
 import Records from '../imports/api/collections/records'
 import '../imports/modules/auxiliar'
 import {approvedAndRecidivists, incrementYearSemester} from "../imports/modules/auxiliar";
+import BertMsg from "../imports/modules/bertmessages";
 
 Meteor.methods({
   uploadCoursesData(data) {
@@ -36,10 +37,13 @@ Meteor.methods({
       }
       // Pré-condição: Verifica se os items já estão no banco de dados
       if (existDisc == 0) {
-        console.log("não inseriu dados");
+        console.log("Não há no banco o seguinte registro:");
+        console.log(item);
         resultCode = uploadDataStatus.ERROR;
         return;
       } else if (existHist !== 0) {
+        console.log("Já existe no banco o seguinte registro:");
+        console.log(item);
         resultCode = uploadDataStatus.WARNINGS;
         return; // Equivalente ao "continue" em um laço "for" explícito
       }
@@ -91,8 +95,7 @@ Meteor.methods({
         const record = Records.findOne({ createdBy: currentUser._id },
           { sort: { ano: -1, semestre: -1} }); // Devolve o registro mais recente
         if (!record)
-          throw new Meteor.Error("records-empty", "Operação não permitida. " +
-                                                  "Não há registros no histórico acadêmico.");
+          throw new Meteor.Error("records-empty", BertMsg.records.errorEmptyDataOnChangeUserStatus);
         tmp = incrementYearSemester(record.ano, record.semestre, 1);
         cYear = tmp.year;
         cSemester = tmp.semester;

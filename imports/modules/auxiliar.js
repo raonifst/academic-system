@@ -13,10 +13,10 @@ function reinc(item) {
 
 export function incrementYearSemester(year, semester, inc) {
   for (var i = 1; i <= inc; i++) {
-    if (semester % 2 == 0) { // Semestre é 2
+    if (semester == 2 || semester == 3) { // Semestre é 2 ou 3 (para cursos de verão)
       semester = 1;
       year++
-    } else { // Semestre não é 2
+    } else { // Semestre é 1
       semester++;
     }
   }

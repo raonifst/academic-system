@@ -6,9 +6,9 @@ import {ReactiveVar} from "meteor/reactive-var";
 
 import {uploadDataStatus} from "../../imports/modules/status";
 import {CoursesDAG} from "../../lib/classes/coursesdag";
-import {msgUploadCourses, msgUploadRecords} from "../../imports/modules/bertmessages";
 import {AcademicRecord} from "../../lib/classes/academicrecord";
 import {Course} from "../../lib/classes/course";
+import BertMsg from "../../imports/modules/bertmessages";
 
 /*-------------------- UPLOAD CURRICULAR STRUCTURE --------------------*/
 Template.uploadcurricularstructure.onCreated(() => {
@@ -45,7 +45,7 @@ Template.uploadcurricularstructure.events({
           courseRegistry.convertPrereqToArray();
           data.push(courseRegistry);
         } catch (err) {
-          Bert.alert(msgUploadCourses.errorInvalidCsv, 'danger', 'growl-top-right' );
+          Bert.alert(BertMsg.courses.errorInvalidCsv, 'danger', 'growl-top-right' );
           globalError = true;
           template.uploading.set(false);
           parser.abort();
@@ -55,12 +55,12 @@ Template.uploadcurricularstructure.events({
         if (globalError)
           return;
         if (!data || data.length == 0) {
-          Bert.alert(msgUploadCourses.emptyCourses, 'danger', 'growl-top-right');
+          Bert.alert(BertMsg.courses.errorEmptyCourses, 'danger', 'growl-top-right');
           return;
         }
         try {
           var g = new CoursesDAG(data);
-          console.log(g); // Debug (descomente esta linha)
+          //console.log(g); // Debug (descomente esta linha)
         } catch (e) {
           Bert.alert(e.reason, 'danger', 'growl-top-right');
           return;
@@ -71,13 +71,13 @@ Template.uploadcurricularstructure.events({
           else {
             switch (results) {
               case uploadDataStatus.SUCCESS:
-                Bert.alert(msgUploadCourses.successUpload, 'success', 'growl-top-right');
+                Bert.alert(BertMsg.courses.successUpload, 'success', 'growl-top-right');
                 break;
               case uploadDataStatus.WARNINGS:
-                Bert.alert(msgUploadCourses.warningUpload, 'warning', 'growl-top-right');
+                Bert.alert(BertMsg.courses.warningUpload, 'warning', 'growl-top-right');
                 break;
               case uploadDataStatus.ERROR:
-                Bert.alert(msgUploadCourses.errorsUpload, 'warning', 'growl-top-right');
+                Bert.alert(BertMsg.courses.errorUpload, 'warning', 'growl-top-right');
                 break;
             }
             Meteor.call('changeUploadCoursesFlag');
@@ -121,7 +121,7 @@ Template.uploadacademicrecord.events({
           const recordRegistry = new AcademicRecord(rga, nome, disciplina, situacao, ano, semestre);
           data.push(recordRegistry);
         } catch (err) {
-          Bert.alert(msgUploadRecords.errorInvalidCsv, 'danger', 'growl-top-right' );
+          Bert.alert(BertMsg.records.errorInvalidCsv, 'danger', 'growl-top-right' );
           globalError = true;
           template.uploading.set(false);
           parser.abort();
@@ -131,7 +131,7 @@ Template.uploadacademicrecord.events({
         if (globalError)
           return;
         if (!data || data.length == 0) {
-          Bert.alert(msgUploadRecords.emptyRecords, 'danger', 'growl-top-right');
+          Bert.alert(BertMsg.records.errorEmptyRecords, 'danger', 'growl-top-right');
           return;
         }
         Meteor.call('updateRecordsData', data, (error, results) => {
@@ -140,17 +140,21 @@ Template.uploadacademicrecord.events({
           else {
             switch (results) {
               case uploadDataStatus.SUCCESS:
-                Bert.alert(msgUploadRecords.successUpload, 'success', 'growl-top-right');
+                Bert.alert(BertMsg.records.successUpload, 'success', 'growl-top-right');
                 break;
               case uploadDataStatus.WARNINGS:
-                Bert.alert(msgUploadRecords.warningUpload, 'warning', 'growl-top-right');
+                Bert.alert(BertMsg.records.warningUpload, 'warning', 'growl-top-right');
                 break;
               case uploadDataStatus.ERROR:
-                Bert.alert(msgUploadRecords.errorsUpload, 'warning', 'growl-top-right');
+                Bert.alert(BertMsg.records.errorUpload, 'warning', 'growl-top-right');
                 break;
             }
-            Meteor.call('changeCurrentSemester', 0);
-            Meteor.call('changeUploadRecordsFlag');
+            Meteor.call('changeCurrentSemester', 0, (error, results) => {
+              if (error)
+                Bert.alert(error.reason, 'danger', 'growl-top-right');
+              else
+                Meteor.call('changeUploadRecordsFlag');
+            });
           }
           template.uploading.set(false);
         });

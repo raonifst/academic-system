@@ -1,4 +1,5 @@
 import {Meteor} from "meteor/meteor";
+import BertMsg from "./bertmessages";
 
 const Settings = Object.freeze({
   changePassword(event, isFirstLogin) {
@@ -10,27 +11,25 @@ const Settings = Object.freeze({
     // Condição de verificação de senha
     const passcondition =/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&]{6,}/;
     const time = currentUser.durationAlerts;
-    if(!passcondition.test(newpassword)){
+    if (!passcondition.test(newpassword)){
       Bert.defaults.hideDelay = 6000;
-      Bert.alert("A nova senha deve ter mais que 6 caracteres, pelo menos uma letra maiúscula, uma minúscula, um número e um caracter especial", 'danger', 'growl-top-right');
+      Bert.alert(BertMsg.password.validationError, 'danger', 'growl-top-right');
       Bert.defaults.hideDelay = time;
-    }
-    
-    else if (newpassword != newpasswordconfirm) {
-      Bert.alert("As senhas digitadas não coincidem.", 'danger', 'growl-top-right');
+    } else if (newpassword != newpasswordconfirm) {
+      Bert.alert(BertMsg.password.matchError, 'danger', 'growl-top-right');
     } else if (oldpassword == newpassword) {
-      Bert.alert("Nova senha digitada é igual à senha antiga.", 'danger', 'growl-top-right');
+      Bert.alert(BertMsg.password.invarianceError, 'danger', 'growl-top-right');
     } else {
       Accounts.changePassword(oldpassword, newpassword, function (error) {
         if (error) {
           if (error.reason === "User not found")
-            Bert.alert("Usuário não cadastrado.", 'danger');
+            Bert.alert(BertMsg.login.userNotFoundError, 'danger');
           else if (error.reason === "Incorrect password")
-            Bert.alert("Senha incorreta.", 'danger', 'growl-top-right');
+            Bert.alert(BertMsg.password.incorrectPasswordError, 'danger', 'growl-top-right');
         } else {
           if (isFirstLogin)
             Meteor.call('changeFirstLogin');
-          Bert.alert("Senha alterada com sucesso.", 'success', 'growl-top-right');
+          Bert.alert(BertMsg.password.success, 'success', 'growl-top-right');
         }
       });
     }

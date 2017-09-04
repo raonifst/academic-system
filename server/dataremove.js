@@ -1,12 +1,13 @@
 import {Meteor} from 'meteor/meteor';
-import { check } from 'meteor/check'
+import {check} from 'meteor/check';
 import Courses from '../imports/api/collections/courses';
 import Records from '../imports/api/collections/records';
-import '../imports/modules/auxiliar'
+import '../imports/modules/auxiliar';
 import {updateCoursesRemoveRecords} from "../imports/modules/auxiliar";
+import BertMsg from "../imports/modules/bertmessages";
 
 Meteor.methods({
-  toCleanCourses() {
+  clearCourses() {
     const currentUserId = Meteor.userId();
     if (!currentUserId)
       throw new Meteor.Error("not-logged-in", "You're not logged-in.");
@@ -17,7 +18,7 @@ Meteor.methods({
     return 1;
   },
 
-  toCleanRecords() {
+  clearRecords() {
     const currentUserId = Meteor.userId();
     if (!currentUserId)
       throw new Meteor.Error("not-logged-in", "You're not logged-in.");
@@ -36,9 +37,12 @@ Meteor.methods({
     const id = item._id;
     if (!currentUserId)
       throw new Meteor.Error("not-logged-in", "You're not logged-in.");
-    if (item.rga)
+    if (item.rga) // Item de histórico acadêmico
       Records.remove({ _id: id, createdBy: currentUserId });
-    else
+    else { // Item de estrutura curricular
+      if (Records.find({ createdBy: currentUserId }).count())
+        throw new Meteor.Error("records-not-empty", BertMsg.courses.errorNotEmptyRecordsOnRemove);
       Courses.remove({ _id: id, createdBy: currentUserId });
+    }
   }
 });

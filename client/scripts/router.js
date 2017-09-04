@@ -1,4 +1,4 @@
-import {msgRoutes} from "../../imports/modules/bertmessages";
+import BertMsg from "../../imports/modules/bertmessages";
 
 Router.configure({
   layoutTemplate: 'layout',
@@ -9,7 +9,7 @@ Router.configure({
   onBeforeAction() {
     const currentUser = Meteor.user();
     if (currentUser && !currentUser.passwordFlag) {
-      Bert.alert(msgRoutes.firstLogin, 'warning', 'growl-top-right');
+      Bert.alert(BertMsg.routes.firstLogin, 'warning', 'growl-top-right');
       this.render('changepass');
     } else
       this.next();
@@ -26,10 +26,10 @@ Router.route('/', {
     const currentUser = Meteor.user();
     if (currentUser) {
       if (!currentUser.uploadCoursesFlag) {
-        Bert.alert(msgRoutes.uploadCourses, 'warning', 'growl-top-right');
+        Bert.alert(BertMsg.routes.courses, 'warning', 'growl-top-right');
         this.render("estruturacurricular");
       } else if (!currentUser.uploadRecordsFlag) {
-        Bert.alert(msgRoutes.uploadRecords, 'warning', 'growl-top-right');
+        Bert.alert(BertMsg.routes.records, 'warning', 'growl-top-right');
         this.render("historicoacademico");
       } else
         this.next();
@@ -64,7 +64,7 @@ Router.route('/historico-academico', {
     const currentUser = Meteor.user();
     if (currentUser) {
       if (!currentUser.uploadCoursesFlag) {
-        Bert.alert(msgRoutes.uploadCourses, 'warning', 'growl-top-right');
+        Bert.alert(BertMsg.routes.courses, 'warning', 'growl-top-right');
         this.render("estruturacurricular");
       } else
         this.next();
