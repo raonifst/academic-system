@@ -53,8 +53,8 @@ Template.searchbox.events({
 
       // ***** Início de bloco de teste *****
 
-      const optValue = event.target.group2.value;
-      const maxCredits = event.target.maxcreditspergroup.value;
+      const optValue = parseInt(event.target.group2.value);
+      const maxCredits = parseInt(event.target.maxcreditspergroup.value);
       /*
       console.log("Aluno selecionado: " + query);
       console.log("Disciplinas do aluno:");
