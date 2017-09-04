@@ -3,7 +3,7 @@
   {{#if currentUser}}
     <div class="card card50">
       <h4>Consultas</h4>
-      <form >
+      <form>
         <div class="row center">
           <div class="input-field col s10">
             <input type="text" id="autocomplete-input" class="autocomplete" name="search"/>
@@ -21,12 +21,50 @@
           <input class="with-gap d" name="group1" type="radio" id="test2" value="d" />
           <label for="test2">Disciplinas</label>
         </div>
+        {{#if showStudents}}
+          <br>
+          <div class="row">
+            <div class="input-field col s12">
+              <div class="row center">
+                Ordenar disciplinas em sugestões por:
+              </div>
+              <div class="row center">
+                <div class="input-field col s4 center">
+                  <input class="with-gap o1" name="group2" type="radio" id="opt1" value=1 checked/>
+                  <label for="opt1">Aprovação</label>
+                </div>
+                <div class="input-field col s4 center">
+                  <input class="with-gap o2" name="group2" type="radio" id="opt2" value=2/>
+                  <label for="opt2">Semestre</label>
+                </div>
+                <div class="input-field col s4 center">
+                  <input class="with-gap o3" name="group2" type="radio" id="opt3" value=3/>
+                  <label for="opt3">Créditos</label>
+                </div>
+              </div>
+            </div>
+            <div class="row center">
+              <br><br><br><br>
+            </div>
+            <div class="row center">
+              Max. créditos por agrupamento:
+            </div>
+            <div class="row center">
+              <div class="input-field col s12">
+                <p class="range-field">
+                  <input type="range" id="maxcredits" name="maxcreditspergroup" min="16" max="28"/>
+                </p>
+              </div>
+            </div>
+          </div>
+        {{/if}}
       </form>
+      <br>
     </div>
   {{/if}}
 </template>
 
-<!--########## coNSULTA PARA ESTUDANTES ##########-->
+<!--########## CONSULTA PARA ESTUDANTES ##########-->
 <template name="studentsSearchs">
   <div class="card card50">
     <h4>Resultados</h4>

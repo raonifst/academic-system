@@ -10,11 +10,11 @@ export function getStudentBy(key) {
   return Records.findOne({ $or: [{ rga: parseInt(key, 10) }, { nome: key }] });
 }
 
-export function getSuggestionsToStudent() {
+export function getSuggestionsToStudent(maxCredits, option) {
   // TODO realizar testes com esta função no card de disciplinas na homepage
   var recordsList, recordsDoneList, coursesNotDone, studentCoursesGraph, suggestions, ys;
   const currentUser = Meteor.user();
-  const student = getStudentBy(Session.get('courseName'));
+  const student = getStudentBy(Session.get('query'));
 
   if (!currentUser || !student)
     return [{}];
@@ -28,16 +28,19 @@ export function getSuggestionsToStudent() {
   } catch (e) {
     return [{}];
   }
-  suggestions = studentCoursesGraph.groupBy();
+  suggestions = studentCoursesGraph.groupBy(maxCredits, option);
   for (var i = 0; i < suggestions.length; i++) {
-    ys = incrementYearSemester(currentUser.currentYear, currentUser.currentSemester, key - 1);
-    suggestions[i] = { period: ys.year + "/" + ys.semester, list: suggestions[i] };
+    ys = incrementYearSemester(currentUser.currentYear, currentUser.currentSemester, i);
+    suggestions[i] = Object.freeze({
+      period: ys.year + "/" + ys.semester,
+      list: suggestions[i]
+    });
   }
   return suggestions; // Array de grupos de disciplinas e respectivos ano/semestre
 }
 
 coursesAtStudentSemester =  function coursesAtStudentSemester() {
-    let student = getStudentBy(Session.get('courseName'));
+    let student = getStudentBy(Session.get('query'));
     if (!student)
       return [{}];
 

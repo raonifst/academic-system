@@ -6,7 +6,7 @@ import { Session } from 'meteor/session'
 
 studentsWhoMustEnrollInACourse =  function studentsWhoMustEnrollInACourse() {
 
-    let courseName = Session.get('courseName');
+    let courseName = Session.get('query');
 
     if(!Courses.findOne({ nome: courseName })) {
       Template.instance().countStudentsWhoMustEnrollInACourse.set(0);
@@ -19,7 +19,7 @@ studentsWhoMustEnrollInACourse =  function studentsWhoMustEnrollInACourse() {
 }
 
 studentsWhoHavePrerequisitesForACourse = function studentsWhoHavePrerequisitesForACourse() {
-  let courseName = Session.get('courseName');
+  let courseName = Session.get('query');
   if(Courses.findOne({ nome: courseName })) {
     let candidates = auxStudentsWhoMustEnrollInACourse(courseName);
     let prereq = Courses.findOne({nome: courseName}, {fields: {prereq: 1}});
@@ -51,7 +51,7 @@ studentsWhoHavePrerequisitesForACourse = function studentsWhoHavePrerequisitesFo
 }
 
 studentsAtCourseSemester = function studentsAtCourseSemester() {
-    let courseName = Session.get('courseName');
+    let courseName = Session.get('query');
     //console.log(courseName);
     let semesterCourse;
     let courseId;
@@ -68,7 +68,7 @@ studentsAtCourseSemester = function studentsAtCourseSemester() {
 }
 
 coursesAtStudentSemester = function coursesAtStudentSemester() {
-    let studentKey = Session.get('courseName');//devera ser alterado
+    let studentKey = Session.get('query'); // Deverá ser alterado
     let cod = parseInt(studentKey,10);
     let student=Records.findOne({rga:cod});
     if(student==null)

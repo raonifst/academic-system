@@ -7,10 +7,19 @@ import { Session } from 'meteor/session';
 import "../../imports/modules/queries";
 import {CoursesDAG} from "../../lib/classes/coursesdag";
 import {incrementYearSemester} from "../../imports/modules/auxiliar";
+import {getSuggestionsToStudent} from "../../imports/modules/queriesstudents";
 
 Session.set('showRegister', true);
-Session.set('courseName', '');
+Session.set('query', '');
 
+/*-------------------- HOME --------------------*/
+Template.home.helpers({
+  showStudents() {
+    return Session.get('showRegister');
+  }
+});
+
+/*-------------------- SEARCHBOX --------------------*/
 Template.searchbox.onRendered(function(){
   Session.set('showRegister', true);
   loadingAutoComplete();
@@ -20,30 +29,36 @@ Template.searchbox.onCreated(() => {
   //Template.instance().courseName = new ReactiveVar('');
   Template.instance().isStudent  = new ReactiveVar(true);
   Template.instance().semesterdisciplinesuggested = new ReactiveVar(0);
+  Template.instance().suggestionsSortOption = new ReactiveVar(1);
 });
 
-Template.home.helpers({
-  showStudents :function(){
-      return Session.get('showRegister');
+Template.searchbox.helpers({
+  showStudents() {
+    return Session.get('showRegister');
   }
 });
 
 Template.searchbox.events({
   'submit form': function (event) {
     event.preventDefault();
-    const name = event.target.search.value;
+    const query = event.target.search.value;
     const radioValue = event.target.group1.value;
 
-    //Template.instance().courseName.set(name);
-    Session.set('courseName', name);
+    //Template.instance().courseName.set(query);
+    Session.set('query', query);
+    if (!query || query == "")
+      return;
     if (radioValue == 'a') {
       // TODO ao final da implementação de sugestão de disciplinas, REMOVER este bloco de testes
 
       // ***** Início de bloco de teste *****
 
-      console.log("Aluno selecionado: " + name);
+      const optValue = event.target.group2.value;
+      const maxCredits = event.target.maxcreditspergroup.value;
+      /*
+      console.log("Aluno selecionado: " + query);
       console.log("Disciplinas do aluno:");
-      var recordsList = Records.find({ nome: name, situacao: "AP" }).fetch();
+      var recordsList = Records.find({ nome: query, situacao: "AP" }).fetch();
       console.log(recordsList);
       var recordsDoneList = recordsList.map(function (o) { return o.disciplina });
       console.log(recordsDoneList);
@@ -59,7 +74,7 @@ Template.searchbox.events({
       var studentCoursesGraph = new CoursesDAG(coursesNotDone, false);
       console.log(studentCoursesGraph);
       var suggestions = studentCoursesGraph.groupBy();
-      console.log("Sugestões:");
+      console.log("Sugestões (ordenação = " + optValue + "):");
       const cY = Meteor.user().currentYear;
       const cS = Meteor.user().currentSemester;
       console.log("------------------------------");
@@ -69,7 +84,16 @@ Template.searchbox.events({
         suggestions[i].forEach(e => console.log(e));
         console.log("------------------------------");
       }
-      //console.log(suggestions);
+      */
+      console.log("SUGESTÕES NO HELPER "
+                  + "(ordenação = " + optValue + ", max. créditos = " + maxCredits + "):");
+      console.log("------------------------------");
+      var anotherSuggestions = getSuggestionsToStudent(maxCredits, optValue);
+      for (var j = 0; j < anotherSuggestions.length; j++) {
+        console.log(anotherSuggestions[j].period);
+        anotherSuggestions[j].list.forEach(e => console.log(e.nome));
+        console.log("------------------------------");
+      }
 
       // ****** Fim de bloco de teste ******
 
@@ -79,18 +103,18 @@ Template.searchbox.events({
     }
   },
 
-  'click .a': function(event){
+  'click .a': function(event) {
       Template.instance().isStudent.set(true);
-      Session.set('courseName', '');
+      Session.set('query', '');
       Session.set('showRegister', true);
       $('#autocomplete-input').val('');
       $('#autocomplete-label').removeClass('active');
       loadingAutoComplete();
   },
 
-  'click .d': function(){
+  'click .d': function(event) {
       Template.instance().isStudent.set(false);
-      Session.set('courseName', '');
+      Session.set('query', '');
       Session.set('showRegister', false);
       $('#autocomplete-input').val('');
       $('#autocomplete-label').removeClass('active');
