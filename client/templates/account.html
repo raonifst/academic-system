@@ -66,3 +66,24 @@
     <a href="/" class="grey-text text-darken-1" style="text-align: left;">← Voltar</a>
   </div>
 </template>
+
+<template name="resetpass">
+  <div class="card cardlogin z-depth-3">
+      <h5>Recuperando a senha</h5><br>
+      <form class="login" id="resetpassform">
+        <div class="row magin">
+          <div class="input-field col s12">
+            <i class="material-icons prefix">lock</i>
+            <input type="password" required name="password" id="password">
+            <label for="password">Nova senha</label>
+          </div><br>
+          <div class="input-field col s12">
+            <i class="material-icons prefix">lock</i>
+            <input type="password" required name="passwordconfirm" id="password2">
+            <label for="password">Confirme a senha</label>
+          </div>
+        </div><br>
+        <button class="btn waves-effect waves-light " type="submit"><i class="material-icons">send</i>Alterar</button>
+    </form>
+  </div>
+</template>

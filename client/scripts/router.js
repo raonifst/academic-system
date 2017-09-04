@@ -145,3 +145,21 @@ Router.route('/registrar', {
     }
   }
 });
+
+Router.route('/reset/:token', {
+  template: 'resetpass',
+  name: 'resetPassword',
+  waitOn() {
+    return Meteor.subscribe('user');
+  },
+  onBeforeAction() {
+    if (!Meteor.userId()) {
+    Accounts._resetPasswordToken = this.params.token;
+    this.next();
+    }else{
+      Accounts._resetPasswordToken = null;
+      Router.go("home");
+    }
+  }
+
+});
