@@ -156,9 +156,9 @@ Router.route('/reset/:token', {
     if (!Meteor.userId()) {
     Accounts._resetPasswordToken = this.params.token;
     this.next();
-    }else{
+    } else {
       Accounts._resetPasswordToken = null;
-      Router.go("home");
+      //Router.go("home");
     }
   }
 

@@ -20,6 +20,9 @@ const commomMsgUpload = Object.freeze({
 });
 
 const BertMsg = Object.freeze({
+
+  errorUnknown: "Houve algum erro interno.",
+
   courses: Object.freeze({
     errorInvalidCsv: commomMsgUpload.errorInvalidCsv,
 
@@ -75,24 +78,28 @@ const BertMsg = Object.freeze({
   }),
 
   password: Object.freeze({
-    validationError: "A nova senha deve ter, ao menos: "
+    errorValidation: "A nova senha deve ter, ao menos: "
     + "6 (seis) caracteres, "
     + "uma letra maiúscula e uma minúscula, "
     + "um número "
     + "e um caracter especial. "
     + "Por favor, tente uma nova senha.",
 
-    matchError: "As senhas digitadas não coincidem.",
+    errorMatchPasswords: "As senhas digitadas não coincidem.",
 
-    invarianceError: "Nova senha digitada é igual à senha antiga.",
+    errorIdenticalPasswords: "Nova senha digitada é igual à senha antiga.",
 
-    incorrectPasswordError: "Senha incorreta.",
+    errorIncorrectPassword: "Senha incorreta.",
 
     success: "Senha alterada com sucesso."
   }),
 
   login: Object.freeze({
-    userNotFoundError: "Usuário não cadastrado."
+    errorUserNotFound: "Usuário não cadastrado.",
+
+    errorEmailNotFound: "Email não cadastrado.",
+
+    successRecover: "Link de recuperação de senha enviado com sucesso."
   })
 });
 

@@ -13,19 +13,19 @@ const Settings = Object.freeze({
     const time = currentUser.durationAlerts;
     if (!passcondition.test(newpassword)){
       Bert.defaults.hideDelay = 6000;
-      Bert.alert(BertMsg.password.validationError, 'danger', 'growl-top-right');
+      Bert.alert(BertMsg.password.errorValidation, 'danger', 'growl-top-right');
       Bert.defaults.hideDelay = time;
     } else if (newpassword != newpasswordconfirm) {
-      Bert.alert(BertMsg.password.matchError, 'danger', 'growl-top-right');
+      Bert.alert(BertMsg.password.errorMatchPasswords, 'danger', 'growl-top-right');
     } else if (oldpassword == newpassword) {
-      Bert.alert(BertMsg.password.invarianceError, 'danger', 'growl-top-right');
+      Bert.alert(BertMsg.password.errorIdenticalPasswords, 'danger', 'growl-top-right');
     } else {
       Accounts.changePassword(oldpassword, newpassword, function (error) {
         if (error) {
           if (error.reason === "User not found")
-            Bert.alert(BertMsg.login.userNotFoundError, 'danger');
+            Bert.alert(BertMsg.login.errorUserNotFound, 'danger');
           else if (error.reason === "Incorrect password")
-            Bert.alert(BertMsg.password.incorrectPasswordError, 'danger', 'growl-top-right');
+            Bert.alert(BertMsg.password.errorIncorrectPassword, 'danger', 'growl-top-right');
         } else {
           if (isFirstLogin)
             Meteor.call('changeFirstLogin');
