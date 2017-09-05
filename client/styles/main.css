@@ -649,6 +649,12 @@ textarea.materialize-textarea:focus:not([readonly]) + label {
   color: var(--cor-seg);
 }
 
+
+input[type="range"] + .thumb,
+input[type=range]::-webkit-slider-thumb {
+  background-color: var(--cor-seg);
+}
+
 [type="radio"]:checked + label:after,
 [type="radio"].with-gap:checked + label:before,
 [type="radio"].with-gap:checked + label:after {

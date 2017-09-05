@@ -20,8 +20,6 @@ Template.tablecurricularstructure.helpers({
       showFilter: true,
       /*noDataTmpl: Template.error404,*/
       fields: [
-        { sortable: false, label: Template.tableexport },
-
         { key: 'codigo',    label: 'Codigo',                    headerClass: 'titleheader',
           cellClass(value, object) { if (!(object.semestre%2)) return 'cinza'; }},
 
@@ -74,8 +72,6 @@ Template.tableacademicrecords.helpers({
       showFilter: true,
       /*noDataTmpl: Template.error404,*/
       fields: [
-        { sortable: false, label: Template.tableexport },
-
         { key: 'rga',         label: 'RGA',         headerClass: 'titleheader',
           cellClass(value, object) { if (Session.get('hover') == object._id) return 'hover'; },
           sortOrder: 1, sortDirection: -1},
