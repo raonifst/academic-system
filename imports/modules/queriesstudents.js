@@ -6,34 +6,65 @@ import {Session} from "meteor/session";
 import {CoursesDAG} from "../../lib/classes/coursesdag";
 import {incrementYearSemester} from "./auxiliar";
 
+function deepCopy(obj) {
+  return JSON.parse(JSON.stringify(obj));
+}
+
 export function getStudentBy(key) {
   return Records.findOne({ $or: [{ rga: parseInt(key, 10) }, { nome: key }] });
 }
 
+function getSuggestionsToStudentRec(maxCredits, option, coursesDone,
+                                    suggestions, index) {
+  var coursesDoneInSemester;
+  var coursesNotDone;
+  var studentCoursesGraph;
+
+  if (index >= 0) {
+    // Retorna um array de objetos das disciplinas feitas no agrupamento anterior
+    coursesDoneInSemester = deepCopy(suggestions[index]);
+    // Concatena-o ao array de disciplinas já feitas
+    coursesDoneInSemester.forEach(c => {
+      coursesDone.push(c);
+    });
+  }
+  coursesNotDone = Courses.find({ codigo: { $nin: coursesDone }}).fetch();
+  if (coursesNotDone.length > 0) {
+    try {
+      studentCoursesGraph = new CoursesDAG(coursesNotDone, false);
+      suggestions[++index] = studentCoursesGraph.groupTopCourses(maxCredits, option).map(function (o) {
+        return o.codigo;
+      });
+      getSuggestionsToStudentRec(maxCredits, option, coursesDone, suggestions, index);
+    } catch (e) {
+      // Não faz nada
+    }
+  }
+}
+
 export function getSuggestionsToStudent(maxCredits, option) {
-  // TODO realizar testes com esta função no card de disciplinas na homepage
-  var recordsList, recordsDoneList, coursesNotDone, studentCoursesGraph, suggestions, ys;
+  var recordsList, coursesDone;
+  var suggestions = [[]];
   const currentUser = Meteor.user();
   const student = getStudentBy(Session.get('query'));
 
   if (!currentUser || !student)
     return [{}];
 
-  recordsList = Records.find({ nome: student.nome, situacao: "AP" }).fetch();
-  recordsDoneList = recordsList.map(function (o) { return o.disciplina });
-  coursesNotDone = Courses.find({ nome: { $nin: recordsDoneList } }).fetch();
+  // Retorna o nome das disciplinas não realizadas pelo aluno
+  recordsList = deepCopy(Records.find({ nome: student.nome, situacao: "AP" }).fetch());
+  coursesDone = recordsList.map(function (o) { return o.disciplina });
+  // Retorna o código das disciplinas realizadas pelo aluno
+  coursesDone = Courses.find({ nome: { $in: coursesDone } }).fetch();
+  coursesDone = coursesDone.map(function (o) { return o.codigo });
 
-  try {
-    studentCoursesGraph = new CoursesDAG(coursesNotDone, false);
-  } catch (e) {
-    return [{}];
-  }
-  suggestions = studentCoursesGraph.groupBy(maxCredits, option);
+  getSuggestionsToStudentRec(maxCredits, option, coursesDone, suggestions, -1);
+
   for (var i = 0; i < suggestions.length; i++) {
-    ys = incrementYearSemester(currentUser.currentYear, currentUser.currentSemester, i);
+    const ys = incrementYearSemester(currentUser.currentYear, currentUser.currentSemester, i);
     suggestions[i] = Object.freeze({
       period: ys.year + "/" + ys.semester,
-      list: suggestions[i]
+      list: Courses.find({ codigo: { $in: suggestions[i] } }).fetch()
     });
   }
   return suggestions; // Array de grupos de disciplinas e respectivos ano/semestre
@@ -69,4 +100,4 @@ coursesAtStudentSemester =  function coursesAtStudentSemester() {
 Template.instance().countCoursesAtStudentSemester.set(v.length);
 return v;
 
-}
+};
