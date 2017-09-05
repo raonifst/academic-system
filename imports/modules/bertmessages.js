@@ -55,7 +55,7 @@ const BertMsg = Object.freeze({
     warningUpload: commomMsgUpload.warningUpload,
 
     errorUpload: commomMsgUpload.successUpload
-                + " Alguns disciplinas que não estão na estrutura foram ignoaradas.",
+                + " Algumas disciplinas que não estão na estrutura foram ignoaradas.",
 
     errorEmptyRecords: "Histórico acadêmico adicionado não contém nenhum registro.",
 

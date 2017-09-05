@@ -7,7 +7,7 @@ import { Session } from 'meteor/session';
 import "../../imports/modules/queries";
 import {CoursesDAG} from "../../lib/classes/coursesdag";
 import {incrementYearSemester} from "../../imports/modules/auxiliar";
-import {getSuggestionsToStudent} from "../../imports/modules/queriesstudents";
+import {getStudentBy, getSuggestionsToStudent} from "../../imports/modules/queriesstudents";
 
 Session.set('showRegister', true);
 Session.set('query', '');
@@ -43,12 +43,18 @@ Template.searchbox.events({
     event.preventDefault();
     const query = event.target.search.value;
     const radioValue = event.target.group1.value;
+    const currentUser = Meteor.user();
 
     //Template.instance().courseName.set(query);
     Session.set('query', query);
     if (!query || query == "")
       return;
     if (radioValue == 'a') {
+      const student = getStudentBy(Session.get('query'));
+      if (!currentUser || !student) {
+        event.target.search.value = '';
+        return;
+      }
       // TODO ao final da implementação de sugestão de disciplinas, REMOVER este bloco de testes
 
       // ***** Início de bloco de teste *****
