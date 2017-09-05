@@ -154,12 +154,18 @@ Router.route('/reset/:token', {
   },
   onBeforeAction() {
     if (!Meteor.userId()) {
-    Accounts._resetPasswordToken = this.params.token;
-    this.next();
+    Meteor.call('checkResetToken',this.params.token,(err)=>{
+      if(err){
+        console.log(err.message);
+        Bert.alert('Link de recuperação expirado.', 'danger', 'growl-top-right');
+        Router.go("recpsw");
+      }
+    });
+      Accounts._resetPasswordToken = this.params.token;
+      this.next();
     } else {
       Accounts._resetPasswordToken = null;
-      //Router.go("home");
+      Router.go("home");
     }
   }
-
 });

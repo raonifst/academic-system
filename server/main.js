@@ -41,12 +41,8 @@ let templateEmailrecovery ={
         return 'Recuperação de Senha';
     },
     text:function(user, url){
-              var token = url.substring(url.lastIndexOf('/')+1, url.length);
-              var newUrl = Meteor.absoluteUrl('reset/' + token);
-              var str = 'Olá,\n';
-                  str+= 'Para recuperar sua senha, clique no link...\n';
-                  str+= newUrl;
-              return str;
+              var newUrl = url.replace('#/reset-password','reset');
+               return 'Olá,\nPara recuperar sua senha, clique no link...\n'+newUrl;;
         }
 }
 Accounts.emailTemplates.resetPassword = templateEmailrecovery;
@@ -71,4 +67,24 @@ Accounts.onCreateUser((options, user) => {
     customUser.profile = options.profile;
   }
   return customUser;
+});
+Meteor.methods({
+  checkResetToken(token) {
+      const user = Meteor.users.findOne({
+        "services.password.reset.token": token});
+      if (!user) {
+        throw new Meteor.Error(403, "Token expired");
+      }
+
+      const when = user.services.password.reset.when;
+      const reason = user.services.password.reset.reason;
+      let tokenLifetimeMs = Accounts._getPasswordResetTokenLifetimeMs();
+      if (reason === "enroll") {
+        tokenLifetimeMs = Accounts._getPasswordEnrollTokenLifetimeMs();
+      }
+      const currentTimeMs = Date.now();
+      if ((currentTimeMs - when) > tokenLifetimeMs) { // timeout
+        throw new Meteor.Error(403, "Token expired");
+      }
+    }
 });
