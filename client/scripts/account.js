@@ -81,6 +81,7 @@ Template.formpassword.events({
           Bert.alert(BertMsg.errorUnknown, 'danger', 'growl-top-right');
       } else {
         Bert.alert(BertMsg.login.successRecover, 'success', 'growl-top-right');
+        Router.go("home");
       }
     });
   }
@@ -103,9 +104,7 @@ Template.resetpass.events({
           Bert.alert(BertMsg.errorUnknown, 'danger', 'growl-top-right');
         } else {
           Bert.alert(BertMsg.password.success, 'success', 'growl-top-right');
-          Accounts._resetPasswordToken = null;
           Meteor.call('changeFirstLogin');
-          Router.go("home");
         }
       });
     }
