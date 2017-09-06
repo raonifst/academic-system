@@ -3,10 +3,21 @@
 </template>
 
 <template name="edit">
-  <a href="#modaledit" class="modal-trigger">
-    <i class="material-icons edit">edit</i>
-  </a>
-  {{> modaledit}}
+  {{#if isCourses}}
+    {{#if empty}}
+      <a href="#modaledit" class="modal-trigger">
+        <i class="material-icons edit">edit</i>
+      </a>
+      {{> modaledit}}
+    {{else}}
+      <i class="material-icons edit">edit</i>
+    {{/if}}
+  {{else}}
+    <a href="#modaledit" class="modal-trigger">
+      <i class="material-icons edit">edit</i>
+    </a>
+    {{> modaledit}}
+  {{/if}}
 </template>
 
 <template name="modaledit">

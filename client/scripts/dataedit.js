@@ -1,5 +1,6 @@
 import Courses from "../../imports/api/collections/courses";
 import Records from "../../imports/api/collections/records";
+import BertMsg from "/imports/modules/bertmessages";
 
 import { Session } from 'meteor/session';
 
@@ -39,6 +40,20 @@ Template.editrecord.helpers({
     return Session.get('editing');
   }
 });
+
+Template.edit.helpers({
+  empty(){
+    var empty = (Records.find().count() == 0) ? 1 : 0;
+    console.log('empty', empty);
+    return empty;
+  },
+
+  isCourses(){
+    var isCourses = (this.rga > 0) ? 0 : 1;
+    console.log(isCourses);
+    return isCourses;
+  }
+})
 
 Template.edit.events({
   /*'submit form': function(event) {
@@ -91,6 +106,9 @@ Template.edit.events({
 
   'click .edit': function(event) {
     event.preventDefault();
+    var empty = (Records.find().count() == 0) ? 1 : 0;
+    if (!this.rga && !empty)
+      Bert.alert(BertMsg.courses.errorNotEmptyRecordsOnRemove, 'danger', 'growl-top-right');
     Session.set('editing', this);
   },
 
