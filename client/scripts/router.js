@@ -74,7 +74,7 @@ Router.route('/historico-academico', {
   }
 });
 
-Router.route('/error', {
+/*Router.route('/error', {
   template: 'testes',
   name: 'testes',
   waitOn() {
@@ -87,7 +87,7 @@ Router.route('/error', {
       this.render("login");
     }
   }
-});
+});*/
 
 Router.route('/settings', {
   template: 'settings',
