@@ -80,8 +80,8 @@ Template.uploadcurricularstructure.events({
                 Bert.alert(BertMsg.courses.errorUpload, 'warning', 'growl-top-right');
                 break;
             }
-            Meteor.call('changeUploadCoursesFlag');
           }
+          Meteor.call('changeUploadCoursesFlag');
           template.uploading.set(false);
         });
       }
@@ -149,13 +149,9 @@ Template.uploadacademicrecord.events({
                 Bert.alert(BertMsg.records.errorUpload, 'warning', 'growl-top-right');
                 break;
             }
-            Meteor.call('changeCurrentSemester', 0, (error, results) => {
-              if (error)
-                Bert.alert(error.reason, 'danger', 'growl-top-right');
-              else
-                Meteor.call('changeUploadRecordsFlag');
-            });
           }
+          Meteor.call('changeCurrentSemester', 0);
+          Meteor.call('changeUploadRecordsFlag');
           template.uploading.set(false);
         });
       }
