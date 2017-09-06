@@ -21,6 +21,7 @@ Template.home.helpers({
 
 /*-------------------- SEARCHBOX --------------------*/
 Template.searchbox.onRendered(function(){
+  Session.set('query', '');
   Session.set('showRegister', true);
   loadingAutoComplete();
 });
@@ -30,6 +31,14 @@ Template.searchbox.onCreated(() => {
   Template.instance().isStudent  = new ReactiveVar(true);
   Template.instance().semesterdisciplinesuggested = new ReactiveVar(0);
   Template.instance().suggestionsSortOption = new ReactiveVar(1);
+});
+
+Template.searchbox.onDestroyed(() => {
+  Session.set('query', '');
+  Session.set('showRegister', true);
+  Template.instance().isStudent.set(true);
+  Template.instance().semesterdisciplinesuggested.set(0);
+  Template.instance().suggestionsSortOption.set(1);
 });
 
 Template.searchbox.helpers({
@@ -131,6 +140,12 @@ Template.searchbox.events({
 });
 
 /*-------------------- SUGESTÕES --------------------*/
+Template.sugestao.onRendered(() => {
+  $(document).ready(function(){
+    $('.collapsible').collapsible();
+  });
+});
+
 Template.sugestao.helpers({
   anotherSuggestions(){
     const maxCredits = Session.get('maxCredits');

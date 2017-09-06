@@ -17,6 +17,18 @@ Template.disciplinesSearchs.onCreated(() => {
   Template.instance().countStudentsAtCourseSemester               = new ReactiveVar(0);
 });
 
+Template.disciplinesSearchs.onRendered(() => {
+  Template.instance().countStudentsWhoMustEnrollInACourse.set(0);
+  Template.instance().countStudentsWhoHavePrerequisitesForACourse.set(0);
+  Template.instance().countStudentsAtCourseSemester.set(0);
+});
+
+Template.disciplinesSearchs.onDestroyed(() => {
+  Template.instance().countStudentsWhoMustEnrollInACourse.set(0);
+  Template.instance().countStudentsWhoHavePrerequisitesForACourse.set(0);
+  Template.instance().countStudentsAtCourseSemester.set(0);
+});
+
 Template.disciplinesSearchs.helpers({
   /*isStudent: function() {
     return Template.instance().isStudent.get();
@@ -106,7 +118,13 @@ Template.disciplinesSearchs.events({
 /*-------------------- CONSULTAS DE ESTUDANTES --------------------*/
 
 Template.studentsSearchs.onCreated(() => {
-  Template.instance().countCoursesAtStudentSemester= new ReactiveVar(0);
+  Template.instance().countCoursesAtStudentSemester = new ReactiveVar(0);
+  Session.set('abrir', 0);
+});
+
+Template.studentsSearchs.onDestroyed(() => {
+  Template.instance().countCoursesAtStudentSemester.set(0);
+  Session.set('abrir', 0);
 });
 
 Template.studentsSearchs.helpers({

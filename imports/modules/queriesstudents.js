@@ -69,6 +69,8 @@ export function getSuggestionsToStudent(maxCredits, option) {
       list: Courses.find({ codigo: { $in: suggestions[i] } }).fetch()
     });
   }
+  console.log("SUGESTÕES (FINAL)");
+  console.log(suggestions);
   return suggestions; // Array de grupos de disciplinas e respectivos ano/semestre
 }
 
