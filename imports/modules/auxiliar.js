@@ -30,6 +30,8 @@ export function updateCoursesRemoveRecords(currentUserId) {
     perc_aprov2:  0,
     reprovacoes:  0,
     aprovacoes:   0,
+    reincidencia: 0,
+    aprov2:       0,
     alunos:       0}}, {multi: true});
 }
 
@@ -92,4 +94,31 @@ export function approvedAndRecidivists(item) {
     perc_reic:    percentp,
     perc_aprov2:  percentl }
   });
+}
+
+export function updateCoursesRemoveItem(item){
+  const currentUserId = Meteor.userId();
+  var countStudent = Records.find({rga: item.rga, disciplina:item.disciplina, createdBy: currentUserId }).count();
+  var discipline  = Courses.findOne({nome: item.disciplina, createdBy: currentUserId });
+  var alunos = discipline.alunos;
+  if(Records.find({rga: item.rga, disciplina:item.disciplina, createdBy: currentUserId  }).count()==1) {
+    alunos = alunos-1;
+    Courses.update({nome: item.disciplina, createdBy: currentUserId }, {$set:{alunos: alunos}});
+  }
+  if(item.situacao == 'AP') {
+      var aprov = discipline.aprovacoes-1;
+      var percent = (aprov/(discipline.reprovacoes+aprov))*100;
+      Courses.update({nome: item.disciplina, createdBy: currentUserId },{$set:{aprovacoes:aprov, perc_ap:percent.toFixed(2)}} );
+    }
+  else {
+    var reinc = discipline.reincidencia;
+    var percent = discipline.perc_reic;
+    var countReinc = Records.find({rga: item.rga, disciplina:item.disciplina, situacao:item.situacao , createdBy: currentUserId }).count();
+    if(countReinc==2) {
+      reinc--;
+      percent = (reinc/alunos)*100;
+      percent = percent.toFixed(2);
+    }
+    Courses.update({nome: item.disciplina},{$set:{reprovacoes:aprov, perc_reic:percent}} );
+  }
 }

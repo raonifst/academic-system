@@ -4,6 +4,7 @@ import Courses from '../imports/api/collections/courses';
 import Records from '../imports/api/collections/records';
 import '../imports/modules/auxiliar';
 import {updateCoursesRemoveRecords} from "../imports/modules/auxiliar";
+import {updateCoursesRemoveItem} from "../imports/modules/auxiliar";
 import BertMsg from "../imports/modules/bertmessages";
 
 Meteor.methods({
@@ -37,8 +38,10 @@ Meteor.methods({
     const id = item._id;
     if (!currentUserId)
       throw new Meteor.Error("not-logged-in", "You're not logged-in.");
-    if (item.rga) // Item de histórico acadêmico
+    if (item.rga) { // Item de histórico acadêmico
+      updateCoursesRemoveItem(item);
       Records.remove({ _id: id, createdBy: currentUserId });
+      }
     else { // Item de estrutura curricular
       if (Records.find({ createdBy: currentUserId }).count())
         throw new Meteor.Error("records-not-empty", BertMsg.courses.errorNotEmptyRecordsOnRemove);
