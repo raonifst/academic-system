@@ -148,9 +148,14 @@ Template.sugestao.onRendered(() => {
 
 Template.sugestao.helpers({
   anotherSuggestions(){
-    const maxCredits = Session.get('maxCredits');
-    const optValue = Session.get('optValue');
-    return getSuggestionsToStudent(maxCredits, optValue);
+    if (Session.get('query')) {
+      $(document).ready(function(){
+        $('.collapsible').collapsible();
+      });
+      const maxCredits = Session.get('maxCredits');
+      const optValue = Session.get('optValue');
+      return getSuggestionsToStudent(maxCredits, optValue);
+    }
   },
 
   settings() {
