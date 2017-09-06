@@ -95,20 +95,21 @@ Template.edit.events({
   },
 
   'keyup #codigo': function(event) {
-    if (event.which == 13 || event.which == 27) {
       Courses.update({ _id: this._id }, { $set: { codigo: parseInt(event.target.value) }});
+    if (event.which == 13 || event.which == 27) {
       $(event.target).blur();
       if ($(event.target).hasClass('valid'))
         $(event.target).removeClass('valid');
     }
+
   },
 
   'keyup #nome': function(event) {
+    if (!this.rga)
+      Courses.update({ _id: this._id }, { $set: { nome: event.target.value }});
+    else
+      Records.update({ _id: this._id }, { $set: { nome: event.target.value }});
     if (event.which == 13 || event.which == 27) {
-      if (!this.rga)
-        Courses.update({ _id: this._id }, { $set: { nome: event.target.value }});
-      else
-        Records.update({ _id: this._id }, { $set: { nome: event.target.value }});
       $(event.target).blur();
       if ($(event.target).hasClass('valid'))
         $(event.target).removeClass('valid');
@@ -116,8 +117,8 @@ Template.edit.events({
   },
 
   'keyup #creditos': function(event){
+    Courses.update({ _id: this._id }, { $set: { creditos: parseInt(event.target.value) }});
     if (event.which == 13 || event.which == 27) {
-      Courses.update({ _id: this._id }, { $set: { creditos: parseInt(event.target.value) }});
       $(event.target).blur();
       if ($(event.target).hasClass('valid'))
         $(event.target).removeClass('valid');
@@ -125,11 +126,11 @@ Template.edit.events({
   },
 
   'keyup #semestre': function(event){
+    if (!this.rga)
+      Courses.update({ _id: this._id }, { $set: { semestre: parseInt(event.target.value) }});
+    else
+      Records.update({ _id: this._id }, { $set: { semestre: parseInt(event.target.value) }});
     if (event.which == 13 || event.which == 27) {
-      if (!this.rga)
-        Courses.update({ _id: this._id }, { $set: { semestre: parseInt(event.target.value) }});
-      else
-        Records.update({ _id: this._id }, { $set: { semestre: parseInt(event.target.value) }});
       $(event.target).blur();
       if ($(event.target).hasClass('valid'))
         $(event.target).removeClass('valid');
@@ -137,8 +138,8 @@ Template.edit.events({
   },
 
   'keyup #prereq': function(event){
+    Courses.update({ _id: this._id }, { $set: { prereq: event.target.value }});
     if (event.which == 13 || event.which == 27) {
-      Courses.update({ _id: this._id }, { $set: { prereq: event.target.value }});
       $(event.target).blur();
       if ($(event.target).hasClass('valid'))
         $(event.target).removeClass('valid');
@@ -146,8 +147,8 @@ Template.edit.events({
   },
 
   'keyup #rga': function(event){
+    Records.update({ _id: this._id }, { $set: { rga: parseInt(event.target.value) }});
     if (event.which == 13 || event.which == 27) {
-      Records.update({ _id: this._id }, { $set: { rga: parseInt(event.target.value) }});
       $(event.target).blur();
       if ($(event.target).hasClass('valid'))
         $(event.target).removeClass('valid');
@@ -155,8 +156,8 @@ Template.edit.events({
   },
 
   'keyup #disciplina': function(event){
+    Records.update({ _id: this._id }, { $set: { disciplina: event.target.value }});
     if (event.which == 13 || event.which == 27) {
-      Records.update({ _id: this._id }, { $set: { disciplina: event.target.value }});
       $(event.target).blur();
       if ($(event.target).hasClass('valid'))
         $(event.target).removeClass('valid');
@@ -164,8 +165,8 @@ Template.edit.events({
   },
 
   'keyup #situacao': function(event){
-    if (event.which == 13 || event.which == 27 || !($('#modaledit').hasClass('open'))) {
-      Records.update({ _id: this._id }, { $set: { situacao: event.target.value }});
+    Records.update({ _id: this._id }, { $set: { situacao: event.target.value }});
+    if (event.which == 13 || event.which == 27) {
       $(event.target).blur();
       if ($(event.target).hasClass('valid'))
         $(event.target).removeClass('valid');
@@ -173,8 +174,8 @@ Template.edit.events({
   },
 
   'keyup #ano': function(event){
-    if (event.which == 13 || event.which == 27 || !($('#modaledit').hasClass('open'))) {
-      Records.update({ _id: this._id }, { $set: { ano: parseInt(event.target.value) }});
+    Records.update({ _id: this._id }, { $set: { ano: parseInt(event.target.value) }});
+    if (event.which == 13 || event.which == 27) {
       $(event.target).blur();
       if ($(event.target).hasClass('valid'))
         $(event.target).removeClass('valid');
