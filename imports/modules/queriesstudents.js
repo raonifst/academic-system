@@ -49,12 +49,12 @@ export function getSuggestionsToStudent(maxCredits, option) {
   const student = getStudentBy(Session.get('query'));
 
   if (!currentUser || !student)
-    return [{}];
+    return [];
 
   // Retorna o nome das disciplinas não realizadas pelo aluno
   recordsList = deepCopy(Records.find({ nome: student.nome, situacao: "AP" }).fetch());
-  if (!recordsList || recordsList.length == 0)
-    return;
+  if (!recordsList)
+    return [];
   coursesDone = recordsList.map(function (o) { return o.disciplina });
   // Retorna o código das disciplinas realizadas pelo aluno
   coursesDone = Courses.find({ nome: { $in: coursesDone } }).fetch();
