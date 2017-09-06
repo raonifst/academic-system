@@ -58,10 +58,10 @@ Template.searchbox.events({
       // TODO ao final da implementação de sugestão de disciplinas, REMOVER este bloco de testes
 
       // ***** Início de bloco de teste *****
-      const maxCredits = parseInt(event.target.group2.value);
-      const optValue = parseInt(event.target.maxcreditspergroup.value);
-      Session.set('optValue', maxCredits);
-      Session.set('maxCredits', optValue);
+      const maxCredits = parseInt(event.target.maxcreditspergroup.value);
+      const optValue = parseInt(event.target.group2.value);
+      Session.set('optValue', optValue);
+      Session.set('maxCredits', maxCredits);
 
       /*
       console.log("Aluno selecionado: " + query);
