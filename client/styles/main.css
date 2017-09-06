@@ -516,6 +516,9 @@ i.fa.fa-filter{
   font-size: 16px;
 }
 
+.collapsible-header.linha {
+  border-bottom: 1px solid #ddd;
+}
 @media only screen and (max-width: 413px) {
   .collapsible-header {
     padding-left: 5px;

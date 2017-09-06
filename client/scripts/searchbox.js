@@ -58,9 +58,11 @@ Template.searchbox.events({
       // TODO ao final da implementação de sugestão de disciplinas, REMOVER este bloco de testes
 
       // ***** Início de bloco de teste *****
+      const maxCredits = parseInt(event.target.group2.value);
+      const optValue = parseInt(event.target.maxcreditspergroup.value);
+      Session.set('optValue', maxCredits);
+      Session.set('maxCredits', optValue);
 
-      const optValue = parseInt(event.target.group2.value);
-      const maxCredits = parseInt(event.target.maxcreditspergroup.value);
       /*
       console.log("Aluno selecionado: " + query);
       console.log("Disciplinas do aluno:");
@@ -91,7 +93,7 @@ Template.searchbox.events({
         console.log("------------------------------");
       }
       */
-      console.log("SUGESTÕES NO HELPER "
+      /*console.log("SUGESTÕES NO HELPER "
                   + "(ordenação = " + optValue + ", max. créditos = " + maxCredits + "):");
       console.log("------------------------------");
       var anotherSuggestions = getSuggestionsToStudent(maxCredits, optValue);
@@ -99,7 +101,7 @@ Template.searchbox.events({
         console.log(anotherSuggestions[j].period);
         anotherSuggestions[j].list.forEach(e => console.log(e.nome));
         console.log("------------------------------");
-      }
+      }*/
 
       // ****** Fim de bloco de teste ******
 
@@ -126,4 +128,29 @@ Template.searchbox.events({
       $('#autocomplete-label').removeClass('active');
       loadingAutoComplete();
   }
+});
+
+/*-------------------- SUGESTÕES --------------------*/
+Template.sugestao.helpers({
+  anotherSuggestions(){
+    const maxCredits = Session.get('maxCredits');
+    const optValue = Session.get('optValue');
+    return getSuggestionsToStudent(maxCredits, optValue);
+  },
+
+  settings() {
+      return {
+          showFilter: false,
+          showNavigation: 'never',
+          fields: [
+            { key: 'nome',      label: 'Nome',         headerClass: 'titleheader2' },
+
+            { key: 'perc_ap',   label: 'AP',   headerClass: 'titleheader2', tmpl: Template.percap,
+              cellClass: 'num', fn(value, object, key) { return 100*object.perc_ap; }},
+
+            { key: 'perc_reic', label: 'Reinc.', headerClass: 'titleheader2', tmpl: Template.percreic,
+              cellClass: 'num', fn(value, object, key) { return 100*object.perc_ap; }}
+          ]
+      };
+  },
 });

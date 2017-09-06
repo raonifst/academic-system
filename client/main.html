@@ -10,6 +10,9 @@
   {{> searchbox}}
   {{#if showStudents}}
     {{> studentsSearchs}}
+    {{#if abrir}}
+      {{> sugestao}}
+    {{/if}}
   {{else}}
     {{> disciplinesSearchs}}
   {{/if}}

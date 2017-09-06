@@ -127,8 +127,9 @@ Template.studentsSearchs.helpers({
   },
 
   countCoursesAtStudentSemester() {
-      Template.studentsSearchs.__helpers.get('coursesAtStudentSemester').call();
-      return Template.instance().countCoursesAtStudentSemester.get();
+    Template.studentsSearchs.__helpers.get('coursesAtStudentSemester').call();
+    Session.set('abrir', Template.instance().countCoursesAtStudentSemester.get());
+    return Template.instance().countCoursesAtStudentSemester.get();
   }
 });
 
@@ -136,5 +137,11 @@ Template.studentsSearchs.events({
   'click .export': function() {
     let collection = coursesAtStudentSemester();
     Exporter.Qstudents ((collection), 'Consulta_Alunos');
+  }
+});
+
+Template.home.helpers({
+  abrir() {
+    return Session.get('abrir');
   }
 });

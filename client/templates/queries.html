@@ -21,47 +21,55 @@
           <input class="with-gap d" name="group1" type="radio" id="test2" value="d" />
           <label for="test2">Disciplinas</label>
         </div>
-        {{#if showStudents}}
-          <br>
-          <div class="row">
-            <div class="input-field col s12">
-              <div class="row center">
-                Ordenar disciplinas em sugestões por:
-              </div>
-              <div class="row center">
-                <div class="input-field col s4 center">
-                  <input class="with-gap o1" name="group2" type="radio" id="opt1" value=1 checked/>
-                  <label for="opt1">Aprovação</label>
+        {{#if showStudents}}<br><br>
+          <ul class="collapsible" data-collapsible="accordion" style="margin-bottom: 0px;">
+            <li>
+              <div class="collapsible-header linha center" style="font-size: 18px;">Sugestões</div>
+              <div class="collapsible-body"><br>
+                <div class="row">
+                  <div class="input-field col s12">
+                    <div class="row center">
+                      Ordenar disciplinas em sugestões por:
+                    </div>
+                    <div class="row center">
+                      <div class="input-field col s4 center">
+                        <input class="with-gap o1" name="group2" type="radio" id="opt1" value=1 checked/>
+                        <label for="opt1">Aprovação</label>
+                      </div>
+                      <div class="input-field col s4 center">
+                        <input class="with-gap o2" name="group2" type="radio" id="opt2" value=2/>
+                        <label for="opt2">Semestre</label>
+                      </div>
+                      <div class="input-field col s4 center">
+                        <input class="with-gap o3" name="group2" type="radio" id="opt3" value=3/>
+                        <label for="opt3">Créditos</label>
+                      </div>
+                    </div>
+                  </div><br><br><br><br><br>
+                  <div class="row center">
+                    Max. créditos por agrupamento:
+                  </div>
+                  <div class="row center">
+                    <div class="input-field col s12">
+                      <p class="range-field" style="margin-bottom: -30px; margin-top: -15px;">
+                        <input type="range" id="maxcredits" name="maxcreditspergroup" min="12" max="40"/>
+                      </p>
+                    </div>
+                  </div>
                 </div>
-                <div class="input-field col s4 center">
-                  <input class="with-gap o2" name="group2" type="radio" id="opt2" value=2/>
-                  <label for="opt2">Semestre</label>
-                </div>
-                <div class="input-field col s4 center">
-                  <input class="with-gap o3" name="group2" type="radio" id="opt3" value=3/>
-                  <label for="opt3">Créditos</label>
-                </div>
               </div>
-            </div>
-            <div class="row center">
-              <br><br><br><br>
-            </div>
-            <div class="row center">
-              Max. créditos por agrupamento:
-            </div>
-            <div class="row center">
-              <div class="input-field col s12">
-                <p class="range-field">
-                  <input type="range" id="maxcredits" name="maxcreditspergroup" min="12" max="40"/>
-                </p>
-              </div>
-            </div>
-          </div>
+            </li>
+          </ul>
         {{/if}}
       </form>
       <br>
     </div>
   {{/if}}
+  <script type="text/javascript">
+    $(document).ready(function(){
+     $('.collapsible').collapsible();
+    });
+  </script>
 </template>
 
 <!--########## CONSULTA PARA ESTUDANTES ##########-->
@@ -70,7 +78,7 @@
     <h4>Resultados</h4>
     <ul class="collapsible" data-collapsible="accordion">
       <li>
-        <div class="collapsible-header">Disciplinas deste aluno no semestre: {{countCoursesAtStudentSemester}} <!--{{countCoursesAtStudentSemester}}--></div>
+        <div class="collapsible-header">Disciplinas deste aluno no semestre: {{countCoursesAtStudentSemester}}</div>
         <div class="collapsible-body">
           {{> reactiveTable collection=coursesAtStudentSemester settings=settings}}
         </div>
@@ -114,6 +122,28 @@
     </ul>
   </div>
 
+  <script type="text/javascript">
+    $(document).ready(function(){
+     $('.collapsible').collapsible();
+    });
+  </script>
+</template>
+
+
+<!--########## SUGESTÕES PARA ESTUDANTE ##########-->
+<template name="sugestao">
+  {{#each anotherSuggestions}}
+    <div class="card card50">
+      <ul class="collapsible" data-collapsible="accordion">
+        <li>
+          <div class="collapsible-header slinha center" style="font-size: 18px;">Sugestão para {{period}}</div>
+          <div class="collapsible-body">
+            {{> reactiveTable collection=list settings=settings}}
+          </div>
+        </li>
+      </ul>
+    </div>
+  {{/each}}
   <script type="text/javascript">
     $(document).ready(function(){
      $('.collapsible').collapsible();
